@@ -213,6 +213,14 @@ except ImportError:
     OptimizationResult = None
 
 try:
+    from .polish_piston import PolishPiston, PolishConfig, PolishResult, PolishLevel
+except ImportError:
+    PolishPiston = None
+    PolishConfig = None
+    PolishResult = None
+    PolishLevel = None
+
+try:
     from .circuit_ai import CircuitAI, CircuitAIResult
 except ImportError:
     CircuitAI = None
@@ -830,6 +838,7 @@ class PCBEngine:
         self._escape_piston: EscapePiston = None
         self._routing_piston: RoutingPiston = None
         self._optimization_piston: OptimizationPiston = None
+        self._polish_piston: PolishPiston = None
         self._silkscreen_piston: SilkscreenPiston = None
         self._drc_piston: DRCPiston = None
         self._output_piston: OutputPiston = None
@@ -1187,6 +1196,7 @@ class PCBEngine:
             'escape': self._execute_escape,
             'routing': self._execute_routing,
             'optimize': self._execute_optimization,
+            'polish': self._execute_polish,
             'silkscreen': self._execute_silkscreen,
             'drc': self._execute_final_drc,
             'output': self._execute_output,
@@ -1307,6 +1317,13 @@ class PCBEngine:
                 piston_result = self._run_piston_with_drc('topological_routing', self._execute_topological_routing)
                 if not self._handle_piston_result('topological_routing', piston_result):
                     self.state.warnings.append("Topological routing had issues, using standard routing")
+
+            # === STAGE 5.6: POLISH (via reduction, trace cleanup, board shrink) ===
+            # Polish runs after routing to clean up and optimize before DRC
+            if self._should_run_polish():
+                piston_result = self._run_piston_with_drc('polish', self._execute_polish)
+                if not self._handle_piston_result('polish', piston_result):
+                    self.state.warnings.append("Polish had issues, continuing with unpolished design")
 
             # === STAGE 6: OPTIMIZATION ===
             piston_result = self._run_piston_with_drc('optimize', self._execute_optimization)
@@ -3126,6 +3143,104 @@ class PCBEngine:
 
         # Would run optimization here
         return PistonReport(piston='optimize', success=True)
+
+    def _should_run_polish(self) -> bool:
+        """Determine if Polish Piston should run."""
+        # Always run polish if routes exist and PolishPiston is available
+        if not PolishPiston:
+            return False
+        if not self.state.routes:
+            return False
+        # Skip if explicitly disabled
+        if hasattr(self.config, 'skip_polish') and self.config.skip_polish:
+            return False
+        return True
+
+    def _execute_polish(self, effort: PistonEffort) -> PistonReport:
+        """
+        Execute Polish Piston - Post-routing optimization.
+
+        Performs:
+        - Via reduction (remove unnecessary layer changes)
+        - Trace simplification (merge collinear segments)
+        - Board shrink (reduce to minimum size)
+        - Grid alignment (snap to manufacturing grid)
+        - Arc smoothing (TODO: replace 90deg corners with arcs)
+        """
+        self._log("\n--- POLISH (Post-routing optimization) ---")
+        stage_start = time.time()
+
+        if not PolishPiston:
+            return PistonReport(piston='polish', success=True, notes=['Polish piston not available'])
+
+        if not self.state.routes:
+            return PistonReport(piston='polish', success=True, notes=['No routes to polish'])
+
+        # Configure polish level based on effort
+        level = PolishLevel.STANDARD
+        if effort == PistonEffort.MINIMAL:
+            level = PolishLevel.MINIMAL
+        elif effort == PistonEffort.MAXIMUM:
+            level = PolishLevel.PROFESSIONAL
+
+        if not self._polish_piston:
+            self._polish_piston = PolishPiston(PolishConfig(
+                level=level,
+                reduce_vias=True,
+                simplify_traces=True,
+                shrink_board=True,  # Will be validated by DRC after
+                align_to_grid=True,
+                verbose=self.config.verbose
+            ))
+
+        try:
+            # Run polish optimization
+            result = self._polish_piston.polish(
+                routes=self.state.routes,
+                parts_db=self.state.parts_db,
+                placement=self.state.placement,
+                board_width=self.config.board_width,
+                board_height=self.config.board_height
+            )
+
+            if result.success:
+                # Update state with polished routes
+                self.state.routes = result.routes
+
+                # Update board dimensions if shrunk
+                if result.new_board != result.original_board:
+                    self.config.board_width = result.new_board[0]
+                    self.config.board_height = result.new_board[1]
+                    self._log(f"  Board shrunk: {result.original_board[0]:.1f}x{result.original_board[1]:.1f} -> {result.new_board[0]:.1f}x{result.new_board[1]:.1f}")
+
+                self._log(f"  Vias: {result.original_via_count} -> {result.new_via_count} ({result.vias_removed} removed)")
+                self._log(f"  Segments: {result.original_segment_count} -> {result.new_segment_count} ({result.segments_merged} merged)")
+
+            self.state.stage_times['polish'] = time.time() - stage_start
+
+            return PistonReport(
+                piston='polish',
+                success=result.success,
+                result=result,
+                notes=result.messages,
+                metrics={
+                    'vias_removed': result.vias_removed,
+                    'segments_merged': result.segments_merged,
+                    'board_reduction_percent': result.board_reduction_percent,
+                    'original_length': result.original_total_length,
+                    'new_length': result.new_total_length
+                }
+            )
+
+        except Exception as e:
+            self._log(f"  Polish error: {e}")
+            self.state.stage_times['polish'] = time.time() - stage_start
+            return PistonReport(
+                piston='polish',
+                success=False,
+                errors=[str(e)],
+                notes=['Polish failed, continuing with unpolished design']
+            )
 
     def _execute_silkscreen(self, effort: PistonEffort) -> PistonReport:
         """Execute Silkscreen Piston"""

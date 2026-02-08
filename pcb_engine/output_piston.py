@@ -1291,6 +1291,37 @@ class OutputPiston:
             lines.append(f'    (net {net_id})')
             lines.append(f'  )')
 
+        # Generate arcs (if present)
+        arcs = []
+        if hasattr(route, 'arcs'):
+            arcs = route.arcs
+        elif isinstance(route, dict):
+            arcs = route.get('arcs', [])
+
+        for arc in arcs:
+            if hasattr(arc, 'start'):
+                start = arc.start
+                mid = arc.mid
+                end = arc.end
+                width = arc.width
+                layer = arc.layer
+            else:
+                start = arc.get('start', (0, 0))
+                mid = arc.get('mid', (0, 0))
+                end = arc.get('end', (0, 0))
+                width = arc.get('width', 0.25)
+                layer = arc.get('layer', 'F.Cu')
+
+            # KiCad arc format uses start, mid, end points
+            lines.append(f'  (arc')
+            lines.append(f'    (start {start[0]:.4f} {start[1]:.4f})')
+            lines.append(f'    (mid {mid[0]:.4f} {mid[1]:.4f})')
+            lines.append(f'    (end {end[0]:.4f} {end[1]:.4f})')
+            lines.append(f'    (width {width:.4f})')
+            lines.append(f'    (layer "{layer}")')
+            lines.append(f'    (net {net_id})')
+            lines.append(f'  )')
+
         return '\n'.join(lines)
 
     def _generate_via(self, via, net_ids: Dict = None) -> str:

@@ -457,12 +457,217 @@ class PolishPiston:
         """
         Replace sharp corners with arcs for professional appearance.
 
-        Note: This is experimental. KiCad supports arcs but many fabs
-        convert them to segments anyway.
+        This identifies 90-degree corners (L-bends) and replaces them with
+        smooth arcs. The arc radius is configurable.
+
+        Note: KiCad supports arcs natively. Some fabs may convert them to
+        segments during CAM processing.
         """
-        # TODO: Implement arc smoothing
-        # For now, just return routes unchanged
+        try:
+            from .routing_types import ArcSegment
+        except ImportError:
+            from routing_types import ArcSegment
+
+        min_radius = self.config.min_arc_radius
+        max_radius = self.config.max_arc_radius
+        arcs_added = 0
+
+        for net_name, route in routes.items():
+            if len(route.segments) < 2:
+                continue
+
+            new_segments = []
+            new_arcs = []
+
+            i = 0
+            while i < len(route.segments):
+                seg = route.segments[i]
+
+                # Check if this segment and the next form a corner
+                if i + 1 < len(route.segments):
+                    next_seg = route.segments[i + 1]
+
+                    # Check if they share an endpoint and are perpendicular
+                    corner = self._find_corner(seg, next_seg)
+                    if corner and self._is_perpendicular(seg, next_seg):
+                        # Calculate arc parameters
+                        arc_result = self._create_corner_arc(
+                            seg, next_seg, corner, min_radius, max_radius
+                        )
+
+                        if arc_result:
+                            new_seg1, arc, new_seg2 = arc_result
+
+                            # Add shortened first segment (if it still has length)
+                            if self._calc_segment_length(new_seg1.start, new_seg1.end) > 0.01:
+                                new_segments.append(new_seg1)
+
+                            # Add the arc
+                            new_arcs.append(arc)
+                            arcs_added += 1
+
+                            # Replace second segment with shortened version
+                            route.segments[i + 1] = new_seg2
+                            i += 1
+                            continue
+
+                new_segments.append(seg)
+                i += 1
+
+            route.segments = new_segments
+            route.arcs = new_arcs
+
+        if arcs_added > 0 and self.config.verbose:
+            self.messages.append(f"  Added {arcs_added} arcs for smooth corners")
+
         return routes
+
+    def _find_corner(self, seg1: TrackSegment, seg2: TrackSegment) -> Optional[Tuple[float, float]]:
+        """Find the corner point where two segments meet."""
+        if self._points_equal(seg1.end, seg2.start):
+            return seg1.end
+        elif self._points_equal(seg1.end, seg2.end):
+            return seg1.end
+        elif self._points_equal(seg1.start, seg2.start):
+            return seg1.start
+        elif self._points_equal(seg1.start, seg2.end):
+            return seg1.start
+        return None
+
+    def _is_perpendicular(self, seg1: TrackSegment, seg2: TrackSegment) -> bool:
+        """Check if two segments are perpendicular (90-degree corner)."""
+        # Get direction vectors
+        dx1 = seg1.end[0] - seg1.start[0]
+        dy1 = seg1.end[1] - seg1.start[1]
+        dx2 = seg2.end[0] - seg2.start[0]
+        dy2 = seg2.end[1] - seg2.start[1]
+
+        # Normalize
+        len1 = math.sqrt(dx1*dx1 + dy1*dy1)
+        len2 = math.sqrt(dx2*dx2 + dy2*dy2)
+
+        if len1 < 0.01 or len2 < 0.01:
+            return False
+
+        dx1, dy1 = dx1/len1, dy1/len1
+        dx2, dy2 = dx2/len2, dy2/len2
+
+        # Dot product should be close to 0 for perpendicular
+        dot = abs(dx1*dx2 + dy1*dy2)
+        return dot < 0.1  # Allow some tolerance
+
+    def _create_corner_arc(
+        self,
+        seg1: TrackSegment,
+        seg2: TrackSegment,
+        corner: Tuple[float, float],
+        min_radius: float,
+        max_radius: float
+    ) -> Optional[Tuple[TrackSegment, 'ArcSegment', TrackSegment]]:
+        """
+        Create an arc to replace a 90-degree corner.
+
+        Returns (shortened_seg1, arc, shortened_seg2) or None if arc can't be created.
+        """
+        try:
+            from .routing_types import ArcSegment
+        except ImportError:
+            from routing_types import ArcSegment
+
+        # Calculate available length on each segment
+        len1 = self._calc_segment_length(seg1.start, corner)
+        len2 = self._calc_segment_length(corner, seg2.end)
+
+        # Radius is limited by shorter segment length
+        max_available = min(len1, len2) * 0.4  # Use 40% of shorter segment
+        radius = min(max_radius, max(min_radius, max_available))
+
+        if radius < min_radius:
+            return None  # Segments too short for arc
+
+        # Calculate arc start point (on seg1, radius distance from corner)
+        dx1 = corner[0] - seg1.start[0]
+        dy1 = corner[1] - seg1.start[1]
+        len1_full = math.sqrt(dx1*dx1 + dy1*dy1)
+        if len1_full < 0.01:
+            return None
+
+        # Normalize direction
+        ux1, uy1 = dx1/len1_full, dy1/len1_full
+
+        arc_start = (
+            corner[0] - ux1 * radius,
+            corner[1] - uy1 * radius
+        )
+
+        # Calculate arc end point (on seg2, radius distance from corner)
+        dx2 = seg2.end[0] - corner[0]
+        dy2 = seg2.end[1] - corner[1]
+        len2_full = math.sqrt(dx2*dx2 + dy2*dy2)
+        if len2_full < 0.01:
+            return None
+
+        ux2, uy2 = dx2/len2_full, dy2/len2_full
+
+        arc_end = (
+            corner[0] + ux2 * radius,
+            corner[1] + uy2 * radius
+        )
+
+        # Calculate arc midpoint (45 degrees from corner)
+        # The midpoint is on the arc, at the bisector direction
+        bisector_x = (ux1 + ux2) / 2
+        bisector_y = (uy1 + uy2) / 2
+        bisector_len = math.sqrt(bisector_x*bisector_x + bisector_y*bisector_y)
+
+        if bisector_len < 0.01:
+            return None
+
+        bisector_x /= bisector_len
+        bisector_y /= bisector_len
+
+        # Arc midpoint is offset from corner in bisector direction
+        # For a 90-degree arc, the offset is radius * (sqrt(2) - 1) ≈ 0.414
+        arc_offset = radius * 0.414
+        arc_mid = (
+            corner[0] - bisector_x * arc_offset,
+            corner[1] - bisector_y * arc_offset
+        )
+
+        # Create shortened segments
+        new_seg1 = TrackSegment(
+            start=seg1.start,
+            end=arc_start,
+            layer=seg1.layer,
+            width=seg1.width,
+            net=seg1.net
+        )
+
+        new_seg2 = TrackSegment(
+            start=arc_end,
+            end=seg2.end,
+            layer=seg2.layer,
+            width=seg2.width,
+            net=seg2.net
+        )
+
+        # Create arc
+        arc = ArcSegment(
+            start=arc_start,
+            mid=arc_mid,
+            end=arc_end,
+            layer=seg1.layer,
+            width=seg1.width,
+            net=seg1.net
+        )
+
+        return (new_seg1, arc, new_seg2)
+
+    def _calc_segment_length(self, p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+        """Calculate distance between two points."""
+        dx = p2[0] - p1[0]
+        dy = p2[1] - p1[1]
+        return math.sqrt(dx*dx + dy*dy)
 
     # =========================================================================
     # PHASE 4: BOARD SHRINK

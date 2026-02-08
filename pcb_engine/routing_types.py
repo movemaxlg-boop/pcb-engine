@@ -47,6 +47,75 @@ class TrackSegment:
 
 
 @dataclass
+class ArcSegment:
+    """
+    An arc track segment on the PCB.
+
+    KiCad uses three-point arc definition:
+    - start: Starting point of the arc
+    - mid: A point on the arc (defines curvature)
+    - end: Ending point of the arc
+    """
+    start: Tuple[float, float]
+    mid: Tuple[float, float]  # Point on arc that defines curvature
+    end: Tuple[float, float]
+    layer: str
+    width: float
+    net: str
+
+    @property
+    def length(self) -> float:
+        """Approximate arc length using the three points."""
+        # Use the arc length formula: L = r * theta
+        # First, calculate radius and angle from three points
+        center, radius = self._calculate_center_radius()
+        if radius == 0:
+            return 0.0
+
+        # Calculate angle subtended
+        dx1, dy1 = self.start[0] - center[0], self.start[1] - center[1]
+        dx2, dy2 = self.end[0] - center[0], self.end[1] - center[1]
+
+        angle1 = math.atan2(dy1, dx1)
+        angle2 = math.atan2(dy2, dx2)
+
+        angle_diff = abs(angle2 - angle1)
+        if angle_diff > math.pi:
+            angle_diff = 2 * math.pi - angle_diff
+
+        return radius * angle_diff
+
+    def _calculate_center_radius(self) -> Tuple[Tuple[float, float], float]:
+        """Calculate arc center and radius from three points."""
+        x1, y1 = self.start
+        x2, y2 = self.mid
+        x3, y3 = self.end
+
+        # Use perpendicular bisectors method
+        d = 2 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
+        if abs(d) < 1e-10:
+            return (0, 0), 0.0
+
+        ux = ((x1*x1 + y1*y1) * (y2 - y3) + (x2*x2 + y2*y2) * (y3 - y1) + (x3*x3 + y3*y3) * (y1 - y2)) / d
+        uy = ((x1*x1 + y1*y1) * (x3 - x2) + (x2*x2 + y2*y2) * (x1 - x3) + (x3*x3 + y3*y3) * (x2 - x1)) / d
+
+        radius = math.sqrt((x1 - ux)**2 + (y1 - uy)**2)
+        return (ux, uy), radius
+
+    @property
+    def center(self) -> Tuple[float, float]:
+        """Get the arc center point."""
+        center, _ = self._calculate_center_radius()
+        return center
+
+    @property
+    def radius(self) -> float:
+        """Get the arc radius."""
+        _, radius = self._calculate_center_radius()
+        return radius
+
+
+@dataclass
 class Via:
     """A via connecting layers on the PCB."""
     position: Tuple[float, float]
@@ -59,9 +128,10 @@ class Via:
 
 @dataclass
 class Route:
-    """Complete route for a net, including all segments and vias."""
+    """Complete route for a net, including all segments, arcs, and vias."""
     net: str
     segments: List[TrackSegment] = field(default_factory=list)
+    arcs: List[ArcSegment] = field(default_factory=list)  # Arc segments for smooth corners
     vias: List[Via] = field(default_factory=list)
     success: bool = False
     error: str = ''
@@ -69,8 +139,10 @@ class Route:
 
     @property
     def total_length(self) -> float:
-        """Calculate total wirelength of all segments."""
-        return sum(seg.length for seg in self.segments)
+        """Calculate total wirelength of all segments and arcs."""
+        seg_length = sum(seg.length for seg in self.segments)
+        arc_length = sum(arc.length for arc in self.arcs)
+        return seg_length + arc_length
 
     @property
     def bend_count(self) -> int:

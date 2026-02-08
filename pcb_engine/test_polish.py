@@ -105,7 +105,8 @@ pp = PolishPiston(PolishConfig(
     level=PolishLevel.AGGRESSIVE,
     reduce_vias=True,
     simplify_traces=True,
-    shrink_board=True,
+    shrink_board=False,  # Disabled - would need component repositioning
+    use_arcs=True,  # Enable arc smoothing for professional look
     verbose=True
 ))
 
