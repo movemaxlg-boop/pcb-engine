@@ -869,6 +869,10 @@ class DRCPiston:
         # It was only in check_enhanced(), but track crossings are fundamental DRC
         self._check_track_crossings(tracks)
 
+        # Courtyard overlap check - prevents assembly issues
+        if self.config.check_courtyards:
+            self._check_courtyard_overlap(parts_db, placement)
+
         # Summarize results
         error_count = sum(1 for v in self.violations if v.severity == DRCSeverity.ERROR)
         warning_count = sum(1 for v in self.violations if v.severity == DRCSeverity.WARNING)
@@ -2463,6 +2467,63 @@ class DRCPiston:
                         layer='F.Silkscreen',
                         object1=f"'{item1['text']}'" if item1['text'] else "Silkscreen item",
                         object2=f"'{item2['text']}'" if item2['text'] else "Silkscreen item"
+                    ))
+
+    def _check_courtyard_overlap(self, parts_db: Dict, placement: Dict):
+        """
+        Check for overlapping component courtyards.
+
+        KiCad: courtyards_overlap - "Courtyards overlap"
+
+        Uses calculate_courtyard() from common_types for accurate bounds
+        based on actual pad positions (not just body estimates).
+        """
+        if not placement or len(placement) < 2:
+            return
+
+        # Import courtyard utility
+        try:
+            from .common_types import calculate_courtyard, get_xy
+        except ImportError:
+            from common_types import calculate_courtyard, get_xy
+
+        parts = parts_db.get('parts', {})
+        min_gap = self.config.rules.min_courtyard_gap
+
+        # Build list of components with courtyards
+        components = []
+        for ref, pos in placement.items():
+            part = parts.get(ref, {})
+            footprint = part.get('footprint', part.get('package', ''))
+            courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+            comp_x, comp_y = get_xy(pos)
+            components.append({
+                'ref': ref,
+                'x': comp_x,
+                'y': comp_y,
+                'courtyard': courtyard
+            })
+
+        # Check all pairs for overlap
+        for i, comp1 in enumerate(components):
+            for j, comp2 in enumerate(components):
+                if i >= j:
+                    continue
+
+                c1 = comp1['courtyard']
+                c2 = comp2['courtyard']
+                pos1 = (comp1['x'], comp1['y'])
+                pos2 = (comp2['x'], comp2['y'])
+
+                if c1.overlaps(c2, pos1, pos2, gap=min_gap):
+                    self.violations.append(DRCViolation(
+                        violation_type=DRCViolationType.COURTYARD_OVERLAP,
+                        severity=DRCSeverity.ERROR,
+                        message=f"Courtyards overlap (min gap: {min_gap}mm)",
+                        location=pos1,
+                        layer='F.CrtYd',
+                        object1=f"{comp1['ref']} ({c1.width:.1f}x{c1.height:.1f}mm)",
+                        object2=f"{comp2['ref']} ({c2.width:.1f}x{c2.height:.1f}mm)"
                     ))
 
     def _via_at_point(self, via, point: Tuple[float, float], tolerance: float = 0.1) -> bool:

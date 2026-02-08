@@ -441,9 +441,16 @@ class EscapePiston:
                     else:
                         continue
 
-                    # Estimate courtyard (conservative)
-                    courtyard_half_w = 2.0  # mm
-                    courtyard_half_h = 1.5  # mm
+                    # Get accurate courtyard from pad positions
+                    try:
+                        from .common_types import calculate_courtyard
+                    except ImportError:
+                        from common_types import calculate_courtyard
+                    other_part = parts.get(other_ref, {})
+                    other_fp = other_part.get('footprint', '')
+                    other_courtyard = calculate_courtyard(other_part, margin=0.0, footprint_name=other_fp)
+                    courtyard_half_w = other_courtyard.width / 2
+                    courtyard_half_h = other_courtyard.height / 2
 
                     # Check if escape path segment crosses this component's courtyard
                     # Path is from (pin_x, pin_y) to (escape_x, escape_y)
@@ -474,8 +481,12 @@ class EscapePiston:
                             else:
                                 continue
 
-                            courtyard_half_w = 2.0
-                            courtyard_half_h = 1.5
+                            # Get accurate courtyard from pad positions
+                            other_part = parts.get(other_ref, {})
+                            other_fp = other_part.get('footprint', '')
+                            other_courtyard = calculate_courtyard(other_part, margin=0.0, footprint_name=other_fp)
+                            courtyard_half_w = other_courtyard.width / 2
+                            courtyard_half_h = other_courtyard.height / 2
                             min_x = min(pin_x, fb_x)
                             max_x = max(pin_x, fb_x)
                             min_y = min(pin_y, fb_y)

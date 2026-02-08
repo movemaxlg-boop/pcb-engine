@@ -537,3 +537,228 @@ def is_smd_footprint(footprint_name: str) -> bool:
 
     # Default to SMD (most modern components are SMD)
     return True
+
+
+# =============================================================================
+# COURTYARD CALCULATION UTILITY
+# =============================================================================
+# Single source of truth for component courtyard calculations.
+# All pistons should use this instead of their own estimates.
+#
+# Per IPC-7351B, courtyard = pad extent + margin for pick-and-place clearance.
+# Default margin is 0.25mm for nominal density (Level B).
+
+@dataclass
+class CourtyardBounds:
+    """
+    Component courtyard bounds (rectangle centered at component origin).
+
+    Courtyards define the physical boundary around a component including:
+    - The component body
+    - All pads/leads extending beyond the body
+    - Pick-and-place clearance margin
+
+    Pistons should use courtyards for:
+    - Placement: Prevent overlapping components
+    - Routing: Route tracks around component areas
+    - DRC: Check for courtyard violations
+    - Silkscreen: Keep silkscreen outside courtyard
+    - Escape: Route escapes from courtyard boundary
+    - Pour: Maintain clearance from pour to components
+    """
+    width: float   # Total courtyard width (mm)
+    height: float  # Total courtyard height (mm)
+    min_x: float   # Left edge relative to component center
+    max_x: float   # Right edge relative to component center
+    min_y: float   # Bottom edge relative to component center
+    max_y: float   # Top edge relative to component center
+    margin: float  # IPC margin used (mm)
+
+    @property
+    def half_width(self) -> float:
+        """Half-width for collision detection."""
+        return self.width / 2
+
+    @property
+    def half_height(self) -> float:
+        """Half-height for collision detection."""
+        return self.height / 2
+
+    def contains_point(self, x: float, y: float, comp_x: float = 0, comp_y: float = 0) -> bool:
+        """Check if a point is inside the courtyard (given component position)."""
+        rel_x = x - comp_x
+        rel_y = y - comp_y
+        return self.min_x <= rel_x <= self.max_x and self.min_y <= rel_y <= self.max_y
+
+    def overlaps(self, other: 'CourtyardBounds',
+                 self_pos: Tuple[float, float],
+                 other_pos: Tuple[float, float],
+                 gap: float = 0.0) -> bool:
+        """
+        Check if two courtyards overlap (given component positions).
+
+        Args:
+            other: Other courtyard bounds
+            self_pos: (x, y) position of this component
+            other_pos: (x, y) position of other component
+            gap: Additional gap required between courtyards
+        """
+        # Calculate absolute bounds
+        self_left = self_pos[0] + self.min_x - gap
+        self_right = self_pos[0] + self.max_x + gap
+        self_bottom = self_pos[1] + self.min_y - gap
+        self_top = self_pos[1] + self.max_y + gap
+
+        other_left = other_pos[0] + other.min_x
+        other_right = other_pos[0] + other.max_x
+        other_bottom = other_pos[1] + other.min_y
+        other_top = other_pos[1] + other.max_y
+
+        # Check for no overlap (any separating axis)
+        if self_right < other_left or self_left > other_right:
+            return False
+        if self_top < other_bottom or self_bottom > other_top:
+            return False
+
+        return True
+
+
+# IPC-7351B courtyard margin levels
+COURTYARD_MARGIN_DENSE = 0.10    # Level A - Least (high-density boards)
+COURTYARD_MARGIN_NOMINAL = 0.25  # Level B - Nominal (standard)
+COURTYARD_MARGIN_LOOSE = 0.50   # Level C - Most (prototype/hand solder)
+
+
+def calculate_courtyard(
+    part: Dict,
+    margin: float = COURTYARD_MARGIN_NOMINAL,
+    footprint_name: str = None
+) -> CourtyardBounds:
+    """
+    Calculate component courtyard from pad positions.
+
+    This is the SINGLE SOURCE OF TRUTH for courtyard calculations.
+    All pistons should use this function instead of their own estimates.
+
+    The courtyard is calculated as:
+    1. Find the bounding box of all pad extents (position + size)
+    2. Add IPC-7351B margin for pick-and-place clearance
+
+    Args:
+        part: Part dictionary with 'pins' containing pad offsets and sizes
+        margin: IPC courtyard margin (default 0.25mm for nominal density)
+        footprint_name: Optional footprint name for library lookup
+
+    Returns:
+        CourtyardBounds with width, height, and edge positions
+
+    Example:
+        >>> part = {'footprint': 'SOT-223', 'pins': [...]}
+        >>> bounds = calculate_courtyard(part)
+        >>> print(f"Courtyard: {bounds.width:.2f} x {bounds.height:.2f} mm")
+        Courtyard: 5.40 x 6.10 mm
+    """
+    # Start with minimum bounds at origin
+    min_x, max_x = 0.0, 0.0
+    min_y, max_y = 0.0, 0.0
+
+    # Get pins from part
+    pins = get_pins(part)
+
+    # If no pins in part, try footprint library
+    if not pins and footprint_name:
+        fp_def = get_footprint_definition(footprint_name)
+        if fp_def and fp_def.pad_positions:
+            for pin_num, ox, oy, pw, ph in fp_def.pad_positions:
+                half_w = pw / 2
+                half_h = ph / 2
+                min_x = min(min_x, ox - half_w)
+                max_x = max(max_x, ox + half_w)
+                min_y = min(min_y, oy - half_h)
+                max_y = max(max_y, oy + half_h)
+
+    # Calculate bounds from pins
+    for pin in pins:
+        # Get pad offset
+        offset = pin.get('offset', (0, 0))
+        if isinstance(offset, (list, tuple)) and len(offset) >= 2:
+            ox, oy = float(offset[0]), float(offset[1])
+        elif isinstance(offset, dict):
+            ox = float(offset.get('x', 0))
+            oy = float(offset.get('y', 0))
+        else:
+            ox, oy = 0.0, 0.0
+
+        # Get pad size
+        pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+        if isinstance(pad_size, (list, tuple)) and len(pad_size) >= 2:
+            pw, ph = float(pad_size[0]), float(pad_size[1])
+        elif isinstance(pad_size, (int, float)):
+            pw = ph = float(pad_size)
+        else:
+            pw, ph = 1.0, 0.6
+
+        # Expand bounds to include this pad
+        half_w = pw / 2
+        half_h = ph / 2
+        min_x = min(min_x, ox - half_w)
+        max_x = max(max_x, ox + half_w)
+        min_y = min(min_y, oy - half_h)
+        max_y = max(max_y, oy + half_h)
+
+    # If still no bounds, use body size from footprint
+    if min_x == 0 and max_x == 0 and min_y == 0 and max_y == 0:
+        fp_name = footprint_name or part.get('footprint', '')
+        fp_def = get_footprint_definition(fp_name)
+        if fp_def:
+            min_x = -fp_def.body_width / 2
+            max_x = fp_def.body_width / 2
+            min_y = -fp_def.body_height / 2
+            max_y = fp_def.body_height / 2
+        else:
+            # Absolute fallback - 2mm x 2mm
+            min_x, max_x = -1.0, 1.0
+            min_y, max_y = -1.0, 1.0
+
+    # Add IPC margin
+    min_x -= margin
+    max_x += margin
+    min_y -= margin
+    max_y += margin
+
+    width = max_x - min_x
+    height = max_y - min_y
+
+    return CourtyardBounds(
+        width=width,
+        height=height,
+        min_x=min_x,
+        max_x=max_x,
+        min_y=min_y,
+        max_y=max_y,
+        margin=margin
+    )
+
+
+def get_component_courtyard(
+    ref: str,
+    parts_db: Dict,
+    margin: float = COURTYARD_MARGIN_NOMINAL
+) -> CourtyardBounds:
+    """
+    Get courtyard bounds for a component by reference designator.
+
+    Convenience function that extracts the part from parts_db.
+
+    Args:
+        ref: Component reference designator (e.g., 'U1', 'C1')
+        parts_db: Parts database with 'parts' dict
+        margin: IPC courtyard margin
+
+    Returns:
+        CourtyardBounds for the component
+    """
+    parts = parts_db.get('parts', {})
+    part = parts.get(ref, {})
+    footprint = part.get('footprint', '')
+    return calculate_courtyard(part, margin, footprint)

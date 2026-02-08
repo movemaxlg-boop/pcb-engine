@@ -3067,12 +3067,21 @@ class RoutingPiston:
         """Register component pads and bodies as obstacles.
 
         This marks both:
-        1. Component body area - blocked with '__COMPONENT__' marker
+        1. Component courtyard area - blocked with '__COMPONENT__' marker
         2. Pad areas - marked with net name or '__PAD_NC__' for unconnected
 
-        Tracks cannot pass through component bodies or unconnected pads.
+        Tracks cannot pass through component courtyards or unconnected pads.
+
+        IMPORTANT: Uses calculate_courtyard() for accurate bounds based on
+        actual pad positions, not just body size estimates.
         """
         parts = parts_db.get('parts', {})
+
+        # Import courtyard calculation utility
+        try:
+            from .common_types import get_pins, is_smd_footprint, calculate_courtyard
+        except ImportError:
+            from common_types import get_pins, is_smd_footprint, calculate_courtyard
 
         for ref, pos in placement.items():
             part = parts.get(ref, {})
@@ -3081,22 +3090,17 @@ class RoutingPiston:
             pos_x = pos.x if hasattr(pos, 'x') else pos[0] if isinstance(pos, (list, tuple)) else 0
             pos_y = pos.y if hasattr(pos, 'y') else pos[1] if isinstance(pos, (list, tuple)) else 0
 
-            # FIRST: Register component body as obstacle
+            # FIRST: Register component courtyard as obstacle
+            # Use calculate_courtyard() for accurate bounds from pad positions
             footprint = part.get('footprint', part.get('package', ''))
-            body_w, body_h = self._get_component_body_size(footprint)
+            courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+            # Note: margin=0.0 because clearance is handled by routing algorithm
 
-            # BUG FIX: Don't add clearance margin to component body!
-            # Clearance checking happens during routing via _is_cell_clear_for_net.
-            # Adding margin here was making bodies 2x larger than needed, blocking
-            # all routing paths.
-            half_w = body_w / 2
-            half_h = body_h / 2
-
-            # Calculate grid cells for component body - FIX: use round() via helper methods
-            body_left = pos_x - half_w
-            body_right = pos_x + half_w
-            body_top = pos_y - half_h
-            body_bottom = pos_y + half_h
+            # Calculate grid cells for component courtyard
+            body_left = pos_x + courtyard.min_x
+            body_right = pos_x + courtyard.max_x
+            body_top = pos_y + courtyard.min_y
+            body_bottom = pos_y + courtyard.max_y
 
             col_min = self._real_to_grid_col(body_left)
             col_max = self._real_to_grid_col(body_right)
@@ -3127,12 +3131,7 @@ class RoutingPiston:
                             self.bcu_grid[r][c] = '__COMPONENT__'
 
             # SECOND: Get pin net mapping and register pads
-            # BUG FIX: Use get_pins() for consistent pin access across all formats
-            try:
-                from .common_types import get_pins, is_smd_footprint
-            except ImportError:
-                from common_types import get_pins, is_smd_footprint
-
+            # Note: get_pins and is_smd_footprint already imported above
             all_pads = get_pins(part)
 
             pin_nets = {}
