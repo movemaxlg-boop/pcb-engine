@@ -124,28 +124,50 @@ class RoutingPiston:
         }
 
     # =========================================================================
-    # VIA DEDUPLICATION HELPER
+    # VIA DEDUPLICATION AND SPACING HELPER
     # =========================================================================
-    # BUGFIX: Prevents "holes_co_located" DRC error when multiple route legs
-    # transition at the same location, creating duplicate vias.
+    # BUGFIX: Prevents "holes_co_located" and "hole_to_hole" DRC errors when:
+    # 1. Multiple route legs transition at the same location (duplicate vias)
+    # 2. Vias are placed too close together (KiCad min hole spacing ~0.25mm)
+
+    # Minimum via-to-via spacing (mm) - KiCad default is typically 0.25mm
+    MIN_VIA_SPACING = 0.3  # Use 0.3mm to be safe (via drill + clearance)
 
     def _extend_vias_deduplicated(self, route: Route, new_vias: List[Via]):
         """
-        Add vias to route, skipping duplicates at the same position.
+        Add vias to route, enforcing minimum spacing between vias.
 
-        This prevents KiCad DRC "holes_co_located" errors that occur when
-        multiple route segments for the same net create vias at the same point.
+        This prevents:
+        1. "holes_co_located" - duplicate vias at same position
+        2. "hole_to_hole" - vias placed too close (violates hole spacing rules)
         """
         for via in new_vias:
-            via_pos = (round(via.position[0], 3), round(via.position[1], 3))
-            is_duplicate = False
+            via_x = round(via.position[0], 3)
+            via_y = round(via.position[1], 3)
+
+            # Check against all existing vias in this route AND global placed_vias
+            too_close = False
+
+            # Check route's vias
             for existing_via in route.vias:
-                existing_pos = (round(existing_via.position[0], 3), round(existing_via.position[1], 3))
-                if via_pos == existing_pos:
-                    is_duplicate = True
+                ex = round(existing_via.position[0], 3)
+                ey = round(existing_via.position[1], 3)
+                dist = ((via_x - ex)**2 + (via_y - ey)**2)**0.5
+                if dist < self.MIN_VIA_SPACING:
+                    too_close = True
                     break
-            if not is_duplicate:
+
+            # Check global placed vias (from other nets)
+            if not too_close:
+                for (px, py) in self.placed_vias:
+                    dist = ((via_x - px)**2 + (via_y - py)**2)**0.5
+                    if dist < self.MIN_VIA_SPACING:
+                        too_close = True
+                        break
+
+            if not too_close:
                 route.vias.append(via)
+                self.placed_vias.add((via_x, via_y))
 
     # =========================================================================
     # COORDINATE CONVERSION HELPERS (FIX: use round() not int())
