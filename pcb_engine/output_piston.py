@@ -840,25 +840,15 @@ class OutputPiston:
                             gnd_pad_positions.append((px, py))
 
         for net_name, route in routes.items():
-            # When GND pour is enabled, only skip B.Cu GND traces (pour handles them).
-            # Keep F.Cu traces to connect pads to vias!
-            # BUG FIX: Previously skipped ALL GND traces, leaving pads disconnected from vias.
-            if self.config.generate_gnd_pour and net_name == 'GND':
-                # Filter to only F.Cu segments for GND
-                from .routing_types import Route
-                fcu_segments = [seg for seg in route.segments if seg.layer == 'F.Cu']
-                if fcu_segments:
-                    # Create a temporary route with only F.Cu segments
-                    fcu_route = Route(
-                        net=net_name,
-                        segments=fcu_segments,
-                        vias=route.vias,
-                        success=route.success
-                    )
-                    net_id = net_ids.get(net_name, 0)
-                    tracks_content = self._generate_tracks(fcu_route, net_id)
-                    lines.append(tracks_content)
-                continue  # Skip the full route (B.Cu handled by pour)
+            # BUG FIX: When GND pour is enabled, we STILL need ALL segments.
+            # The pour fills empty space but does NOT satisfy via_dangling checks.
+            # KiCad requires a track segment to terminate at each via on BOTH layers.
+            #
+            # Previous bug: Filtered to only F.Cu segments, leaving B.Cu vias dangling.
+            # The B.Cu segments connect vias to each other and must be kept.
+            #
+            # The pour provides a solid ground plane for EMI/return paths, but
+            # the routing traces are still needed for electrical connectivity.
 
             net_id = net_ids.get(net_name, 0)
             tracks_content = self._generate_tracks(route, net_id)

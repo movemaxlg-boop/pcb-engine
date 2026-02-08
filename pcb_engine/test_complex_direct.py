@@ -120,7 +120,13 @@ output_result = op.generate(
     placement=placement_result.positions,
     routes=routing_result.routes
 )
-output_file = output_result.pcb_file if output_result.success else None
+# Get PCB file from generated files list
+output_file = None
+if output_result.success and output_result.files_generated:
+    for f in output_result.files_generated:
+        if f.endswith('.kicad_pcb'):
+            output_file = f
+            break
 
 if output_file:
     print(f"   Generated: {output_file}")
