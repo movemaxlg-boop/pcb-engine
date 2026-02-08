@@ -1809,13 +1809,23 @@ class RoutingPiston:
             self._register_escapes(escapes)
 
             # Route all nets in current order
+            # Use Lee for power/ground nets (guaranteed path finding)
+            power_nets = {'GND', 'VCC', 'VDD', 'VSS', 'V+', 'V-', '3V3', '5V', '12V',
+                          'VBAT', 'VBUS', 'AVCC', 'AVDD', 'DVCC', 'DVDD', 'AGND', 'DGND',
+                          'VIN', 'VOUT', 'PWR', 'POWER', 'SUPPLY'}
+
             failed_nets = []
             for net_name in current_order:
                 pins = net_pins.get(net_name, [])
                 if len(pins) < 2:
                     continue
 
-                route = self._route_net_astar(net_name, pins, escapes)
+                # Use Lee for power nets (guaranteed), A* for signal nets (faster)
+                is_power = net_name.upper() in power_nets
+                if is_power or len(pins) > 3:
+                    route = self._route_net_lee(net_name, pins, escapes)
+                else:
+                    route = self._route_net_astar(net_name, pins, escapes)
                 self.routes[net_name] = route
                 routing_attempts[net_name] += 1
 
@@ -2262,25 +2272,43 @@ class RoutingPiston:
         Hybrid routing: combines multiple algorithms for best results.
 
         Strategy:
-        1. Try A* first (fast, good for most cases)
-        2. For multi-terminal nets (>2 pins), use Steiner trees
-        3. If failures occur, use rip-up and reroute
+        1. Route signal nets FIRST (they need clear paths)
+        2. Route power/ground nets LAST (they have many pins, benefit from pour)
+        3. Try A* first (fast, good for most cases)
+        4. For multi-terminal nets (>2 pins), use Steiner trees
+        5. If failures occur, use rip-up and reroute
         """
         print("    [HYBRID] Using hybrid routing (A* + Steiner + Ripup)...")
 
-        # First pass: route simple nets with A*, complex with Steiner
-        for net_name in net_order:
+        # CRITICAL: Route power/ground nets LAST
+        # Power nets have many pins and create congestion if routed first.
+        # Signal nets need clear routing channels.
+        power_nets = {'GND', 'VCC', 'VDD', 'VSS', 'V+', 'V-', '3V3', '5V', '12V',
+                      'VBAT', 'VBUS', 'AVCC', 'AVDD', 'DVCC', 'DVDD', 'AGND', 'DGND',
+                      'VIN', 'VOUT', 'PWR', 'POWER', 'SUPPLY'}
+
+        signal_nets = [n for n in net_order if n.upper() not in power_nets and
+                       not n.upper().startswith('V') and not n.upper().endswith('GND')]
+        pwr_gnd_nets = [n for n in net_order if n not in signal_nets]
+
+        optimized_order = signal_nets + pwr_gnd_nets
+
+        # First pass: route simple nets with A*, complex with Lee (guaranteed)
+        for net_name in optimized_order:
             pins = net_pins.get(net_name, [])
             if len(pins) < 2:
                 continue
 
             endpoints = self._get_escape_endpoints(pins, escapes)
+            is_power_net = net_name.upper() in power_nets or net_name in pwr_gnd_nets
 
-            if len(endpoints) > 3:
-                # Multi-terminal: use Steiner
-                route = self._route_net_steiner(net_name, pins, escapes)
+            if len(endpoints) > 3 or is_power_net:
+                # Multi-terminal or power net: use Lee (guaranteed shortest path)
+                # Lee handles multi-pin and power nets better than A* because
+                # it's guaranteed to find a path if one exists
+                route = self._route_net_lee(net_name, pins, escapes)
             else:
-                # Simple: use A*
+                # Simple 2-3 pin signal net: use A* (faster)
                 route = self._route_net_astar(net_name, pins, escapes)
 
             self.routes[net_name] = route

@@ -216,6 +216,12 @@ class PlacementEngine:
         # Pin positions (relative to component center)
         self.pin_offsets: Dict[str, Dict[str, Tuple[float, float]]] = {}
 
+        # Pin sizes for pad conflict detection
+        self.pin_sizes: Dict[str, Dict[str, Tuple[float, float]]] = {}
+
+        # Pin nets for conflict detection
+        self.pin_nets: Dict[str, Dict[str, str]] = {}
+
         # Net weights for prioritization
         self.net_weights: Dict[str, float] = {}
 
@@ -342,12 +348,23 @@ class PlacementEngine:
                 is_power_component=is_power
             )
 
-            # Store pin offsets
+            # Store pin offsets, sizes, and nets
             self.pin_offsets[ref] = {}
+            self.pin_sizes[ref] = {}
+            self.pin_nets[ref] = {}
             for pin in used_pins:
+                pin_num = pin.get('number', '')
                 offset = pin.get('offset', (0, 0))
                 if isinstance(offset, (list, tuple)) and len(offset) >= 2:
-                    self.pin_offsets[ref][pin.get('number', '')] = (offset[0], offset[1])
+                    self.pin_offsets[ref][pin_num] = (offset[0], offset[1])
+                # Store pad size (default to 1.0 x 0.6 if not specified)
+                size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+                if isinstance(size, (list, tuple)) and len(size) >= 2:
+                    self.pin_sizes[ref][pin_num] = (size[0], size[1])
+                else:
+                    self.pin_sizes[ref][pin_num] = (1.0, 0.6)
+                # Store net for conflict detection
+                self.pin_nets[ref][pin_num] = pin.get('net', '')
 
     def _process_nets(self, raw_nets: Dict):
         """Process nets and assign weights based on type"""
@@ -1660,6 +1677,8 @@ class PlacementEngine:
         self.adjacency = copy.deepcopy(other.adjacency)
         self.hub = other.hub
         self.pin_offsets = copy.deepcopy(other.pin_offsets)
+        self.pin_sizes = copy.deepcopy(other.pin_sizes)
+        self.pin_nets = copy.deepcopy(other.pin_nets)
         self.net_weights = copy.deepcopy(other.net_weights)
         self._optimal_dist = other._optimal_dist
 
@@ -1675,13 +1694,18 @@ class PlacementEngine:
         """
         Calculate placement cost (lower is better).
 
-        Cost = Wire Length + Overlap Penalty + OOB Penalty
+        Cost = Wire Length + Overlap Penalty + Pad Conflict Penalty + OOB Penalty
+
+        Pad Conflict Penalty is CRITICAL - it prevents placing components such that
+        pads from different nets overlap, which causes DRC failures and unroutable nets.
         """
         wirelength = self._calculate_wirelength()
         overlap = self._calculate_overlap_area()
+        pad_conflict = self._calculate_pad_conflict_penalty()
         oob = self._calculate_oob_penalty()
 
-        return wirelength + overlap * 1000 + oob * 500
+        # Pad conflict has VERY HIGH weight because overlapping pads = guaranteed DRC fail
+        return wirelength + overlap * 1000 + pad_conflict * 5000 + oob * 500
 
     def _calculate_wirelength(self) -> float:
         """Calculate total estimated wire length using HPWL"""
@@ -1739,6 +1763,77 @@ class PlacementEngine:
                 overlap_y = max(0, (half_h_a + half_h_b) - abs(ca.y - cb.y))
 
                 total += overlap_x * overlap_y
+
+        return total
+
+    def _calculate_pad_conflict_penalty(self) -> float:
+        """
+        Calculate penalty for pads of DIFFERENT nets that are too close together.
+
+        This is critical to prevent DRC failures where pads overlap (pad clearance violation).
+        Components can be placed close together, but their pads from different nets must
+        maintain minimum clearance.
+
+        Returns penalty value (higher = worse placement).
+        """
+        total = 0.0
+        min_clearance = 0.15  # Minimum clearance between pads of different nets (mm)
+
+        refs = list(self.components.keys())
+
+        for i, ref_a in enumerate(refs):
+            comp_a = self.components[ref_a]
+            pins_a = self.pin_offsets.get(ref_a, {})
+            sizes_a = self.pin_sizes.get(ref_a, {})
+            nets_a = self.pin_nets.get(ref_a, {})
+
+            for ref_b in refs[i + 1:]:
+                comp_b = self.components[ref_b]
+                pins_b = self.pin_offsets.get(ref_b, {})
+                sizes_b = self.pin_sizes.get(ref_b, {})
+                nets_b = self.pin_nets.get(ref_b, {})
+
+                # Check all pin pairs between these two components
+                for pin_num_a, offset_a in pins_a.items():
+                    net_a = nets_a.get(pin_num_a, '')
+                    size_a = sizes_a.get(pin_num_a, (1.0, 0.6))
+
+                    # Pin A absolute position
+                    px_a = comp_a.x + offset_a[0]
+                    py_a = comp_a.y + offset_a[1]
+                    half_w_a = size_a[0] / 2
+                    half_h_a = size_a[1] / 2
+
+                    for pin_num_b, offset_b in pins_b.items():
+                        net_b = nets_b.get(pin_num_b, '')
+
+                        # Skip if same net (same net pads can overlap)
+                        if net_a == net_b and net_a != '':
+                            continue
+
+                        size_b = sizes_b.get(pin_num_b, (1.0, 0.6))
+
+                        # Pin B absolute position
+                        px_b = comp_b.x + offset_b[0]
+                        py_b = comp_b.y + offset_b[1]
+                        half_w_b = size_b[0] / 2
+                        half_h_b = size_b[1] / 2
+
+                        # Check if pad bounding boxes overlap (with clearance)
+                        req_gap_x = half_w_a + half_w_b + min_clearance
+                        req_gap_y = half_h_a + half_h_b + min_clearance
+
+                        gap_x = abs(px_a - px_b)
+                        gap_y = abs(py_a - py_b)
+
+                        # Both X and Y must have enough gap
+                        overlap_x = max(0, req_gap_x - gap_x)
+                        overlap_y = max(0, req_gap_y - gap_y)
+
+                        if overlap_x > 0 and overlap_y > 0:
+                            # Pads are too close - calculate penalty
+                            conflict = overlap_x * overlap_y
+                            total += conflict
 
         return total
 
