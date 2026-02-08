@@ -12,7 +12,7 @@ The engine coordinates 18 specialized pistons (workers) through a feedback loop:
 - BBL manages the complete work cycle with 6 improvements
 
 CORE PISTONS:
-    Parts → Order → Placement → Escape → Routing → Optimize → Silkscreen → DRC → Output
+    Feasibility → Parts → Order → Placement → Escape → Routing → Optimize → Silkscreen → DRC → Output
 
 ANALYSIS PISTONS:
     Stackup, Thermal, PDN, Signal Integrity, Netlist
@@ -98,6 +98,12 @@ from .kicad_drc_teacher import KiCadDRCTeacher, TeacherResult, LearningRecord
 # Pour Piston - Ground/Power planes
 from .pour_piston import PourPiston, PourConfig, PourResult, PourZone
 
+# Feasibility Piston - Pre-flight check (runs FIRST)
+from .feasibility_piston import (
+    FeasibilityPiston, FeasibilityConfig, FeasibilityResult,
+    FeasibilityStatus, FeasibilityIssue, Severity, check_feasibility
+)
+
 # Orchestration
 from .piston_orchestrator import PistonOrchestrator, PistonSelection
 from .workflow_reporter import WorkflowReporter, WorkflowReport
@@ -175,6 +181,10 @@ __all__ = [
 
     # Pour Piston
     'PourPiston', 'PourConfig', 'PourResult', 'PourZone',
+
+    # Feasibility Piston - Pre-flight check
+    'FeasibilityPiston', 'FeasibilityConfig', 'FeasibilityResult',
+    'FeasibilityStatus', 'FeasibilityIssue', 'Severity', 'check_feasibility',
 
     # Orchestration
     'PistonOrchestrator', 'PistonSelection',
