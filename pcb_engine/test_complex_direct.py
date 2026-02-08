@@ -108,23 +108,24 @@ for net_name, route in routing_result.routes.items():
 
 # Step 3: Generate output
 print("\n3. OUTPUT GENERATION")
-from pcb_engine.output_piston import OutputPiston
+from pcb_engine.output_piston import OutputPiston, OutputConfig
 
-op = OutputPiston()
-output_file = op.generate(
-    parts_db=complex_parts_db,
-    placement=placement_result.positions,
-    routes=routing_result.routes,
+op = OutputPiston(OutputConfig(
     board_width=40.0,
     board_height=30.0,
     board_name='ldo_led_circuit'
-    # output_dir defaults to D:\Anas\tmp\output (see paths.py)
+))
+output_result = op.generate(
+    parts_db=complex_parts_db,
+    placement=placement_result.positions,
+    routes=routing_result.routes
 )
+output_file = output_result.pcb_file if output_result.success else None
 
 if output_file:
     print(f"   Generated: {output_file}")
 else:
-    print("   ERROR: No output generated")
+    print(f"   ERROR: {output_result.errors if hasattr(output_result, 'errors') else 'No output generated'}")
 
 # Step 4: Run KiCad DRC
 print("\n4. KICAD DRC VALIDATION")

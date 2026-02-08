@@ -331,7 +331,7 @@ class OutputPiston:
                     f.write(content)
 
     def _update_last_pcb_marker(self):
-        """
+        r"""
         NEW FOLDER STRATEGY - Maximum 3 folders in output root:
 
         Root (D:\Anas\tmp\output\):
