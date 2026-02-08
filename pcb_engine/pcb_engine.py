@@ -1319,11 +1319,14 @@ class PCBEngine:
                     self.state.warnings.append("Topological routing had issues, using standard routing")
 
             # === STAGE 5.6: POLISH (via reduction, trace cleanup, board shrink) ===
-            # Polish runs after routing to clean up and optimize before DRC
-            if self._should_run_polish():
-                piston_result = self._run_piston_with_drc('polish', self._execute_polish)
-                if not self._handle_piston_result('polish', piston_result):
-                    self.state.warnings.append("Polish had issues, continuing with unpolished design")
+            # DISABLED: Polish Piston has bugs that break DRC
+            # - Via removal doesn't properly reconnect segments
+            # - Trace simplification breaks segment ordering
+            # TODO: Fix polish_piston.py before re-enabling
+            # if self._should_run_polish():
+            #     piston_result = self._run_piston_with_drc('polish', self._execute_polish)
+            #     if not self._handle_piston_result('polish', piston_result):
+            #         self.state.warnings.append("Polish had issues, continuing with unpolished design")
 
             # === STAGE 6: OPTIMIZATION ===
             piston_result = self._run_piston_with_drc('optimize', self._execute_optimization)
