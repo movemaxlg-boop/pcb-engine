@@ -71,6 +71,7 @@ from .routing_piston import RoutingPiston, route_with_cascade, ROUTING_ALGORITHM
 from .routing_engine import RoutingEngine
 from .escape_piston import EscapePiston, EscapeConfig, EscapeResult
 from .optimization_piston import OptimizationPiston, OptimizationConfig, OptimizationResult
+from .polish_piston import PolishPiston, PolishConfig, PolishResult, PolishLevel, DynamicViaCostConfig, get_dynamic_via_cost
 from .silkscreen_piston import SilkscreenPiston, SilkscreenConfig, SilkscreenResult
 from .drc_piston import DRCPiston, DRCConfig, DRCResult, DRCRules
 from .output_piston import OutputPiston, OutputConfig, OutputResult
@@ -163,6 +164,8 @@ __all__ = [
     'RoutingPiston', 'RoutingEngine', 'route_with_cascade', 'ROUTING_ALGORITHMS',
     'EscapePiston', 'EscapeConfig', 'EscapeResult',
     'OptimizationPiston', 'OptimizationConfig', 'OptimizationResult',
+    'PolishPiston', 'PolishConfig', 'PolishResult', 'PolishLevel',
+    'DynamicViaCostConfig', 'get_dynamic_via_cost',
     'SilkscreenPiston', 'SilkscreenConfig', 'SilkscreenResult',
     'DRCPiston', 'DRCConfig', 'DRCResult', 'DRCRules',
     'OutputPiston', 'OutputConfig', 'OutputResult',
