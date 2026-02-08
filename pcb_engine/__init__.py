@@ -129,6 +129,14 @@ from .bbl_monitor import (
     AlgorithmMetrics, PerformanceRanking
 )
 
+# Algorithm Engine - Universal Testing, Analysis, Enhancement, Classification
+from .algorithm_engine import (
+    AlgorithmEngine, AlgorithmType, AlgorithmCategory,
+    DesignScenario, StabilityLevel, TestCase, TestResult,
+    StabilityReport, EffectivenessReport, SuitabilityReport,
+    AlgorithmProfile, ALGORITHM_DATABASE, TestCaseGenerator
+)
+
 # Utilities
 from .grid_calculator import (
     calculate_optimal_grid_size, calculate_min_pad_pitch,
@@ -199,6 +207,12 @@ __all__ = [
     'BBLEngine', 'BBLState', 'BBLResult', 'BBLPhase', 'BBLProgress',
     'BBLCheckpoint', 'BBLEscalation', 'BBLHistoryEntry', 'BBLPhaseConfig',
     'BBLCheckpointDecision', 'BBLEscalationLevel', 'BBLPriority',
+
+    # Algorithm Engine - Universal Algorithm Lab
+    'AlgorithmEngine', 'AlgorithmType', 'AlgorithmCategory',
+    'DesignScenario', 'StabilityLevel', 'TestCase', 'TestResult',
+    'StabilityReport', 'EffectivenessReport', 'SuitabilityReport',
+    'AlgorithmProfile', 'ALGORITHM_DATABASE', 'TestCaseGenerator',
 
     # Utilities
     'calculate_optimal_grid_size', 'calculate_min_pad_pitch',
