@@ -130,8 +130,11 @@ class RoutingPiston:
     # 1. Multiple route legs transition at the same location (duplicate vias)
     # 2. Vias are placed too close together (KiCad min hole spacing ~0.25mm)
 
-    # Minimum via-to-via spacing (mm) - KiCad default is typically 0.25mm
-    MIN_VIA_SPACING = 0.3  # Use 0.3mm to be safe (via drill + clearance)
+    # Minimum via-to-via spacing (mm) - CENTER-TO-CENTER distance
+    # KiCad checks edge-to-edge (actual hole spacing), not center-to-center
+    # With via_diameter=0.8mm and min edge spacing=0.25mm:
+    # min_center_to_center = via_diameter + edge_spacing = 0.8 + 0.25 = 1.05mm
+    MIN_VIA_SPACING = 1.1  # Use 1.1mm to be safe (via_dia + edge clearance)
 
     def _extend_vias_deduplicated(self, route: Route, new_vias: List[Via]):
         """

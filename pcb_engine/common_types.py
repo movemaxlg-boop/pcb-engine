@@ -459,6 +459,21 @@ FOOTPRINT_LIBRARY: Dict[str, FootprintDefinition] = {
         ],
         is_smd=True
     ),
+    # SOT-223 (LDO regulators like LM1117, AMS1117)
+    # Simplified layout: 3 pins in horizontal line + tab above
+    # MUST match parts_db offsets for routing/output consistency
+    'SOT-223': FootprintDefinition(
+        name='SOT-223',
+        body_width=6.5,
+        body_height=5.0,
+        pad_positions=[
+            ('1', -2.3, 0.0, 1.0, 1.8),    # Left pad (VIN)
+            ('2', 0.0, 0.0, 1.0, 1.8),     # Center pad (GND)
+            ('3', 2.3, 0.0, 1.0, 1.8),     # Right pad (VOUT)
+            ('4', 0.0, 3.25, 3.0, 1.5),    # Large tab pad (VOUT/thermal)
+        ],
+        is_smd=True
+    ),
 }
 
 

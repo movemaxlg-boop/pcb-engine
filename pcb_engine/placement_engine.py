@@ -483,6 +483,19 @@ class PlacementEngine:
             for comp in self.components.values():
                 comp.x, comp.y = self._clamp_to_board(comp)
 
+            # HARD CONSTRAINT: Check for pad conflicts and add repulsive force
+            # This helps FD naturally spread components that have conflicting pads
+            pad_conflict = self._calculate_pad_conflict_penalty()
+            if pad_conflict > 0.01:
+                # Add extra repulsion between components with conflicting pads
+                for i, ref_a in enumerate(refs):
+                    for ref_b in refs[i + 1:]:
+                        # Check if this pair has pad conflict
+                        pair_conflict = self._check_pad_pair_conflict(ref_a, ref_b)
+                        if pair_conflict > 0:
+                            # Apply strong repulsion
+                            self._apply_repulsive_force(ref_a, ref_b, k * 3)
+
             # Cool down temperature (adaptive based on movement)
             if max_displacement < temp * 0.1:
                 # Little movement, cool faster
@@ -645,6 +658,15 @@ class PlacementEngine:
                 # Calculate new cost
                 new_cost = self._calculate_cost()
                 delta = new_cost - current_cost
+
+                # HARD CONSTRAINT: Never accept positions with pad conflicts
+                # Pad conflicts = guaranteed DRC failure, no trade-off allowed
+                pad_conflict = self._calculate_pad_conflict_penalty()
+                if pad_conflict > 0.01:  # Any significant pad conflict
+                    # Reject: restore old state
+                    self._restore_state(old_state)
+                    rejections += 1
+                    continue
 
                 # Metropolis criterion: accept if better or with probability
                 if delta < 0 or random.random() < math.exp(-delta / temp):
@@ -1836,6 +1858,56 @@ class PlacementEngine:
                             total += conflict
 
         return total
+
+    def _check_pad_pair_conflict(self, ref_a: str, ref_b: str) -> float:
+        """Check if two specific components have any pad conflict."""
+        min_clearance = 0.15
+
+        comp_a = self.components.get(ref_a)
+        comp_b = self.components.get(ref_b)
+        if not comp_a or not comp_b:
+            return 0.0
+
+        pins_a = self.pin_offsets.get(ref_a, {})
+        sizes_a = self.pin_sizes.get(ref_a, {})
+        nets_a = self.pin_nets.get(ref_a, {})
+
+        pins_b = self.pin_offsets.get(ref_b, {})
+        sizes_b = self.pin_sizes.get(ref_b, {})
+        nets_b = self.pin_nets.get(ref_b, {})
+
+        conflict = 0.0
+        for pin_num_a, offset_a in pins_a.items():
+            net_a = nets_a.get(pin_num_a, '')
+            size_a = sizes_a.get(pin_num_a, (1.0, 0.6))
+            px_a = comp_a.x + offset_a[0]
+            py_a = comp_a.y + offset_a[1]
+            half_w_a = size_a[0] / 2
+            half_h_a = size_a[1] / 2
+
+            for pin_num_b, offset_b in pins_b.items():
+                net_b = nets_b.get(pin_num_b, '')
+                if net_a == net_b and net_a != '':
+                    continue
+
+                size_b = sizes_b.get(pin_num_b, (1.0, 0.6))
+                px_b = comp_b.x + offset_b[0]
+                py_b = comp_b.y + offset_b[1]
+                half_w_b = size_b[0] / 2
+                half_h_b = size_b[1] / 2
+
+                req_gap_x = half_w_a + half_w_b + min_clearance
+                req_gap_y = half_h_a + half_h_b + min_clearance
+                gap_x = abs(px_a - px_b)
+                gap_y = abs(py_a - py_b)
+
+                overlap_x = max(0, req_gap_x - gap_x)
+                overlap_y = max(0, req_gap_y - gap_y)
+
+                if overlap_x > 0 and overlap_y > 0:
+                    conflict += overlap_x * overlap_y
+
+        return conflict
 
     def _calculate_oob_penalty(self) -> float:
         """Calculate out-of-bounds penalty"""

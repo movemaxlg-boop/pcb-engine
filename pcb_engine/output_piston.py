@@ -1044,6 +1044,15 @@ class OutputPiston:
                 net_id = net_ids.get(net, 0)
                 pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
 
+        # SOT-223 (LDO regulators like LM1117, AMS1117)
+        # FIX: Use unified footprint library - pad positions must match routing!
+        elif 'SOT-223' in footprint_name or 'sot-223' in footprint_name.lower():
+            sot223_def = get_footprint_definition('SOT-223')
+            for pin_num, pad_x, pad_y, pad_w, pad_h in sot223_def.pad_positions:
+                net = get_pin_net(part, pin_num)
+                net_id = net_ids.get(net, 0)
+                pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
         # USB-C receptacle
         elif 'USB_C' in footprint_name:
             # Simplified USB-C with key pins
