@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Engine - Custom Footprint Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card h2 {
+            color: #00d4ff;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.2em;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        /* Pin Table */
+        .pin-table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .pin-input {
+            width: 100%;
+            min-width: 60px;
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+
+        .pin-select {
+            width: 100%;
+            min-width: 100px;
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+
+        .delete-btn {
+            background: rgba(255, 50, 50, 0.3);
+            border: none;
+            color: #ff6b6b;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 50, 50, 0.5);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Preview */
+        .preview-container {
+            position: relative;
+            background: #0a0a15;
+            border-radius: 8px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        #footprintCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .preview-legend {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .preview-legend span {
+            margin-right: 15px;
+        }
+
+        .legend-pad { color: #ff6b6b; }
+        .legend-silk { color: #ffff00; }
+        .legend-ref { color: #00ff00; }
+
+        /* Output */
+        .output-container {
+            background: #0a0a15;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            color: #00ff88;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Quick Templates */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .template-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-btn:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+        }
+
+        .template-btn .icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .template-btn .name {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* Coordinate Helper */
+        .coord-helper {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .coord-diagram {
+            font-family: monospace;
+            font-size: 12px;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .coord-diagram .axis { color: #00d4ff; }
+        .coord-diagram .center { color: #ff6b6b; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            color: #00d4ff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00d4ff;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PCB Engine - Custom Footprint Generator</h1>
+        <p class="subtitle">Design custom footprints for the Human-Like PCB Engine</p>
+
+        <!-- Quick Templates -->
+        <div class="card" style="margin-bottom: 20px;">
+            <h2>Quick Start Templates</h2>
+            <div class="template-grid">
+                <div class="template-btn" onclick="loadTemplate('sot23-3')">
+                    <div class="icon">📦</div>
+                    <div class="name">SOT-23-3</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('sot23-5')">
+                    <div class="icon">📦</div>
+                    <div class="name">SOT-23-5</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('qfn16')">
+                    <div class="icon">🔲</div>
+                    <div class="name">QFN-16</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('soic8')">
+                    <div class="icon">🔲</div>
+                    <div class="name">SOIC-8</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('usb-c')">
+                    <div class="icon">🔌</div>
+                    <div class="name">USB-C</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('0805')">
+                    <div class="icon">▬</div>
+                    <div class="name">0805 SMD</div>
+                </div>
+                <div class="template-btn" onclick="loadTemplate('crystal')">
+                    <div class="icon">💎</div>
+                    <div class="name">Crystal</div>
+                </div>
+                <div class="template-btn" onclick="clearForm()">
+                    <div class="icon">🆕</div>
+                    <div class="name">Blank</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left Column: Form -->
+            <div>
+                <!-- Component Info -->
+                <div class="card">
+                    <h2>Component Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Reference Designator *</label>
+                            <input type="text" id="ref" placeholder="U1, IC2, J1..." value="U1">
+                        </div>
+                        <div class="form-group">
+                            <label>Component Type</label>
+                            <select id="compType" onchange="updateRefPrefix()">
+                                <option value="IC">IC / Microcontroller</option>
+                                <option value="U">Voltage Regulator</option>
+                                <option value="R">Resistor</option>
+                                <option value="C">Capacitor</option>
+                                <option value="L">Inductor</option>
+                                <option value="D">Diode / LED</option>
+                                <option value="Q">Transistor / MOSFET</option>
+                                <option value="J">Connector</option>
+                                <option value="SW">Switch / Button</option>
+                                <option value="Y">Crystal / Oscillator</option>
+                                <option value="FB">Ferrite Bead</option>
+                                <option value="F">Fuse</option>
+                                <option value="TP">Test Point</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name / Part Number</label>
+                            <input type="text" id="name" placeholder="ESP32-S3, AMS1117...">
+                        </div>
+                        <div class="form-group">
+                            <label>Value</label>
+                            <input type="text" id="value" placeholder="3.3V, 10uF, 4.7K...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Package / Footprint Name</label>
+                            <select id="package">
+                                <option value="Custom">Custom (define below)</option>
+                                <optgroup label="Chip Resistors/Capacitors">
+                                    <option value="0201">0201 (0.6 x 0.3mm)</option>
+                                    <option value="0402">0402 (1.0 x 0.5mm)</option>
+                                    <option value="0603">0603 (1.6 x 0.8mm)</option>
+                                    <option value="0805">0805 (2.0 x 1.25mm)</option>
+                                    <option value="1206">1206 (3.2 x 1.6mm)</option>
+                                </optgroup>
+                                <optgroup label="SOT Packages">
+                                    <option value="SOT-23">SOT-23 (3 pins)</option>
+                                    <option value="SOT-23-5">SOT-23-5 (5 pins)</option>
+                                    <option value="SOT-23-6">SOT-23-6 (6 pins)</option>
+                                    <option value="SOT-223">SOT-223</option>
+                                </optgroup>
+                                <optgroup label="QFN/DFN Packages">
+                                    <option value="QFN-16">QFN-16 (3x3mm)</option>
+                                    <option value="QFN-20">QFN-20 (4x4mm)</option>
+                                    <option value="QFN-24">QFN-24 (4x4mm)</option>
+                                    <option value="QFN-32">QFN-32 (5x5mm)</option>
+                                </optgroup>
+                                <optgroup label="SOIC Packages">
+                                    <option value="SOIC-8">SOIC-8</option>
+                                    <option value="SOIC-14">SOIC-14</option>
+                                    <option value="SOIC-16">SOIC-16</option>
+                                </optgroup>
+                                <optgroup label="Connectors">
+                                    <option value="USB-C">USB Type-C</option>
+                                    <option value="USB-Micro">USB Micro-B</option>
+                                    <option value="Header-1x4">Pin Header 1x4</option>
+                                    <option value="Header-2x5">Pin Header 2x5</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Body Dimensions -->
+                <div class="card" style="margin-top: 20px;">
+                    <h2>Body & Courtyard Dimensions</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Body Width (mm)</label>
+                            <input type="number" id="bodyWidth" step="0.1" min="0" placeholder="4.0" value="4.0">
+                        </div>
+                        <div class="form-group">
+                            <label>Body Height (mm)</label>
+                            <input type="number" id="bodyHeight" step="0.1" min="0" placeholder="4.0" value="4.0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Courtyard Clearance (mm)</label>
+                            <input type="number" id="courtyardClearance" step="0.1" min="0" placeholder="0.5" value="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label style="color: #888; font-size: 0.8em; margin-top: 25px;">
+                                Courtyard = body + clearance for routing
+                            </label>
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="drawSilk" checked>
+                        <label for="drawSilk">Draw silkscreen outline</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="drawCourtyard" checked>
+                        <label for="drawCourtyard">Draw courtyard outline</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="addPin1Marker" checked>
+                        <label for="addPin1Marker">Add Pin 1 marker</label>
+                    </div>
+                </div>
+
+                <!-- Pin Definitions -->
+                <div class="card" style="margin-top: 20px;">
+                    <h2>Pin Definitions</h2>
+
+                    <div class="coord-helper">
+                        <div class="coord-diagram">
+<span class="axis">         -Y (top)</span>
+<span class="axis">            ↑</span>
+<span class="axis">            |</span>
+<span class="axis">  -X ←——</span> <span class="center">CENTER</span> <span class="axis">———→ +X</span>
+<span class="axis"> (left)     |      (right)</span>
+<span class="axis">            ↓</span>
+<span class="axis">         +Y (bottom)</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group" style="margin-bottom: 15px;">
+                        <button class="btn btn-secondary" onclick="addPin()">+ Add Pin</button>
+                        <button class="btn btn-secondary" onclick="addMultiplePins()">+ Add Multiple Pins</button>
+                        <button class="btn btn-secondary" onclick="autoGeneratePins()">Auto-Generate</button>
+                    </div>
+
+                    <div class="pin-table-container">
+                        <table id="pinTable">
+                            <thead>
+                                <tr>
+                                    <th>Pin #</th>
+                                    <th>Name</th>
+                                    <th>X (mm)</th>
+                                    <th>Y (mm)</th>
+                                    <th>Pad W</th>
+                                    <th>Pad H</th>
+                                    <th>Net</th>
+                                    <th>Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="pinTableBody">
+                                <!-- Pins added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Preview & Output -->
+            <div>
+                <!-- Live Preview -->
+                <div class="card">
+                    <h2>Live Preview</h2>
+                    <div class="preview-container">
+                        <canvas id="footprintCanvas"></canvas>
+                        <div class="preview-legend">
+                            <span class="legend-pad">■ Pads</span>
+                            <span class="legend-silk">□ Silkscreen</span>
+                            <span style="color: #ff00ff;">┄ Courtyard</span>
+                            <span class="legend-ref">● Pin 1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="card" style="margin-top: 20px;">
+                    <h2>Generated Output</h2>
+
+                    <div class="tabs">
+                        <div class="tab active" onclick="switchTab('python')">Python Dict</div>
+                        <div class="tab" onclick="switchTab('json')">JSON</div>
+                        <div class="tab" onclick="switchTab('csv')">CSV</div>
+                    </div>
+
+                    <div id="tab-python" class="tab-content active">
+                        <div class="output-container">
+                            <pre id="outputPython"></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-json" class="tab-content">
+                        <div class="output-container">
+                            <pre id="outputJson"></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-csv" class="tab-content">
+                        <div class="output-container">
+                            <pre id="outputCsv"></pre>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-success" onclick="copyOutput()">📋 Copy to Clipboard</button>
+                        <button class="btn btn-primary" onclick="downloadOutput()">💾 Download</button>
+                        <button class="btn btn-secondary" onclick="validateDesign()">✓ Validate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- Add Multiple Pins Modal -->
+    <div id="multiPinModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:100; justify-content:center; align-items:center;">
+        <div class="card" style="width:400px;">
+            <h2>Add Multiple Pins</h2>
+            <div class="form-group" style="margin-bottom:15px;">
+                <label>Number of Pins</label>
+                <input type="number" id="multiPinCount" min="1" max="100" value="4">
+            </div>
+            <div class="form-group" style="margin-bottom:15px;">
+                <label>Arrangement</label>
+                <select id="multiPinArrangement">
+                    <option value="left">Left Side (vertical)</option>
+                    <option value="right">Right Side (vertical)</option>
+                    <option value="top">Top Side (horizontal)</option>
+                    <option value="bottom">Bottom Side (horizontal)</option>
+                    <option value="dual-row">Dual Row (SOIC style)</option>
+                    <option value="quad">Quad (QFN style)</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom:15px;">
+                <label>Pitch (mm)</label>
+                <input type="number" id="multiPinPitch" step="0.1" min="0.1" value="0.5">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="confirmMultiplePins()">Add Pins</button>
+                <button class="btn btn-secondary" onclick="closeMultiPinModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pinCount = 0;
+        let currentTab = 'python';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTemplate('sot23-3');
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Auto-update preview on any input change
+            document.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('input', updatePreview);
+                el.addEventListener('change', updatePreview);
+            });
+        }
+
+        function updateRefPrefix() {
+            const type = document.getElementById('compType').value;
+            const refInput = document.getElementById('ref');
+            const currentRef = refInput.value;
+            const num = currentRef.replace(/\D/g, '') || '1';
+
+            const prefixMap = {
+                'IC': 'U', 'U': 'U', 'R': 'R', 'C': 'C', 'L': 'L',
+                'D': 'D', 'Q': 'Q', 'J': 'J', 'SW': 'SW', 'Y': 'Y',
+                'FB': 'FB', 'F': 'F', 'TP': 'TP', 'OTHER': 'X'
+            };
+
+            refInput.value = prefixMap[type] + num;
+            updatePreview();
+        }
+
+        function addPin(data = {}) {
+            pinCount++;
+            const tbody = document.getElementById('pinTableBody');
+            const row = document.createElement('tr');
+            row.id = `pin-row-${pinCount}`;
+
+            row.innerHTML = `
+                <td><input type="text" class="pin-input" value="${data.number || pinCount}" data-field="number"></td>
+                <td><input type="text" class="pin-input" value="${data.name || ''}" placeholder="VCC, GND..." data-field="name"></td>
+                <td><input type="number" class="pin-input" step="0.05" value="${data.x || 0}" data-field="x"></td>
+                <td><input type="number" class="pin-input" step="0.05" value="${data.y || 0}" data-field="y"></td>
+                <td><input type="number" class="pin-input" step="0.1" min="0.1" value="${data.padW || 0.6}" data-field="padW"></td>
+                <td><input type="number" class="pin-input" step="0.1" min="0.1" value="${data.padH || 0.6}" data-field="padH"></td>
+                <td><input type="text" class="pin-input" value="${data.net || ''}" placeholder="Net name" data-field="net"></td>
+                <td>
+                    <select class="pin-select" data-field="type">
+                        <option value="passive" ${data.type === 'passive' ? 'selected' : ''}>Passive</option>
+                        <option value="power_in" ${data.type === 'power_in' ? 'selected' : ''}>Power In</option>
+                        <option value="power_out" ${data.type === 'power_out' ? 'selected' : ''}>Power Out</option>
+                        <option value="input" ${data.type === 'input' ? 'selected' : ''}>Input</option>
+                        <option value="output" ${data.type === 'output' ? 'selected' : ''}>Output</option>
+                        <option value="bidirectional" ${data.type === 'bidirectional' ? 'selected' : ''}>Bidirectional</option>
+                        <option value="nc" ${data.type === 'nc' ? 'selected' : ''}>No Connect</option>
+                    </select>
+                </td>
+                <td><button class="delete-btn" onclick="deletePin(${pinCount})">✕</button></td>
+            `;
+
+            tbody.appendChild(row);
+
+            // Add event listeners to new inputs
+            row.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('input', updatePreview);
+                el.addEventListener('change', updatePreview);
+            });
+
+            updatePreview();
+        }
+
+        function deletePin(id) {
+            const row = document.getElementById(`pin-row-${id}`);
+            if (row) {
+                row.remove();
+                updatePreview();
+            }
+        }
+
+        function clearPins() {
+            document.getElementById('pinTableBody').innerHTML = '';
+            pinCount = 0;
+        }
+
+        function addMultiplePins() {
+            document.getElementById('multiPinModal').style.display = 'flex';
+        }
+
+        function closeMultiPinModal() {
+            document.getElementById('multiPinModal').style.display = 'none';
+        }
+
+        function confirmMultiplePins() {
+            const count = parseInt(document.getElementById('multiPinCount').value);
+            const arrangement = document.getElementById('multiPinArrangement').value;
+            const pitch = parseFloat(document.getElementById('multiPinPitch').value);
+            const bodyW = parseFloat(document.getElementById('bodyWidth').value) || 4;
+            const bodyH = parseFloat(document.getElementById('bodyHeight').value) || 4;
+
+            const startNum = pinCount + 1;
+
+            if (arrangement === 'left') {
+                const startY = -((count - 1) * pitch) / 2;
+                for (let i = 0; i < count; i++) {
+                    addPin({ number: startNum + i, x: -bodyW/2, y: startY + i * pitch, padW: 0.8, padH: 0.3 });
+                }
+            } else if (arrangement === 'right') {
+                const startY = -((count - 1) * pitch) / 2;
+                for (let i = 0; i < count; i++) {
+                    addPin({ number: startNum + i, x: bodyW/2, y: startY + i * pitch, padW: 0.8, padH: 0.3 });
+                }
+            } else if (arrangement === 'top') {
+                const startX = -((count - 1) * pitch) / 2;
+                for (let i = 0; i < count; i++) {
+                    addPin({ number: startNum + i, x: startX + i * pitch, y: -bodyH/2, padW: 0.3, padH: 0.8 });
+                }
+            } else if (arrangement === 'bottom') {
+                const startX = -((count - 1) * pitch) / 2;
+                for (let i = 0; i < count; i++) {
+                    addPin({ number: startNum + i, x: startX + i * pitch, y: bodyH/2, padW: 0.3, padH: 0.8 });
+                }
+            } else if (arrangement === 'dual-row') {
+                const pinsPerSide = Math.ceil(count / 2);
+                const startY = -((pinsPerSide - 1) * pitch) / 2;
+                // Left side
+                for (let i = 0; i < pinsPerSide; i++) {
+                    addPin({ number: startNum + i, x: -bodyW/2, y: startY + i * pitch, padW: 0.8, padH: 0.4 });
+                }
+                // Right side (reversed)
+                for (let i = 0; i < Math.min(pinsPerSide, count - pinsPerSide); i++) {
+                    addPin({ number: startNum + pinsPerSide + i, x: bodyW/2, y: startY + (pinsPerSide - 1 - i) * pitch, padW: 0.8, padH: 0.4 });
+                }
+            } else if (arrangement === 'quad') {
+                const pinsPerSide = Math.floor(count / 4);
+                const startPos = -((pinsPerSide - 1) * pitch) / 2;
+                let num = startNum;
+                // Bottom
+                for (let i = 0; i < pinsPerSide; i++) {
+                    addPin({ number: num++, x: startPos + i * pitch, y: bodyH/2, padW: 0.3, padH: 0.8 });
+                }
+                // Right
+                for (let i = 0; i < pinsPerSide; i++) {
+                    addPin({ number: num++, x: bodyW/2, y: startPos + (pinsPerSide - 1 - i) * pitch, padW: 0.8, padH: 0.3 });
+                }
+                // Top
+                for (let i = 0; i < pinsPerSide; i++) {
+                    addPin({ number: num++, x: startPos + (pinsPerSide - 1 - i) * pitch, y: -bodyH/2, padW: 0.3, padH: 0.8 });
+                }
+                // Left
+                for (let i = 0; i < pinsPerSide; i++) {
+                    addPin({ number: num++, x: -bodyW/2, y: startPos + i * pitch, padW: 0.8, padH: 0.3 });
+                }
+            }
+
+            closeMultiPinModal();
+        }
+
+        function autoGeneratePins() {
+            const pkg = document.getElementById('package').value;
+            if (pkg === 'Custom') {
+                showToast('Select a package type first, or use Add Multiple Pins');
+                return;
+            }
+            clearPins();
+            loadTemplate(pkg.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        }
+
+        function getPins() {
+            const pins = [];
+            const rows = document.getElementById('pinTableBody').querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input, select');
+                const pin = {};
+                inputs.forEach(input => {
+                    const field = input.dataset.field;
+                    if (field) {
+                        if (field === 'x' || field === 'y' || field === 'padW' || field === 'padH') {
+                            pin[field] = parseFloat(input.value) || 0;
+                        } else {
+                            pin[field] = input.value;
+                        }
+                    }
+                });
+                if (pin.number) pins.push(pin);
+            });
+
+            return pins;
+        }
+
+        function updatePreview() {
+            const canvas = document.getElementById('footprintCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // Scale: pixels per mm
+            const bodyW = parseFloat(document.getElementById('bodyWidth').value) || 4;
+            const bodyH = parseFloat(document.getElementById('bodyHeight').value) || 4;
+            const maxDim = Math.max(bodyW, bodyH) * 1.5;
+            const scale = Math.min(width, height) / maxDim * 0.7;
+
+            // Clear
+            ctx.fillStyle = '#0a0a15';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw grid
+            ctx.strokeStyle = '#1a1a2e';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < width; x += 20) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+
+            // Draw axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.stroke();
+
+            // Draw courtyard outline
+            const courtyardClearance = parseFloat(document.getElementById('courtyardClearance').value) || 0.5;
+            const courtyardW = bodyW + 2 * courtyardClearance;
+            const courtyardH = bodyH + 2 * courtyardClearance;
+
+            if (document.getElementById('drawCourtyard').checked) {
+                ctx.strokeStyle = '#ff00ff';  // Magenta for courtyard
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 5]);
+                ctx.strokeRect(
+                    centerX - (courtyardW / 2) * scale,
+                    centerY - (courtyardH / 2) * scale,
+                    courtyardW * scale,
+                    courtyardH * scale
+                );
+                ctx.setLineDash([]);
+            }
+
+            // Draw body outline (silkscreen)
+            if (document.getElementById('drawSilk').checked) {
+                ctx.strokeStyle = '#ffff00';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(
+                    centerX - (bodyW / 2) * scale,
+                    centerY - (bodyH / 2) * scale,
+                    bodyW * scale,
+                    bodyH * scale
+                );
+            }
+
+            // Draw pads
+            const pins = getPins();
+            pins.forEach((pin, index) => {
+                const px = centerX + pin.x * scale;
+                const py = centerY + pin.y * scale;
+                const pw = pin.padW * scale;
+                const ph = pin.padH * scale;
+
+                // Pad
+                ctx.fillStyle = index === 0 ? '#00ff88' : '#ff6b6b';
+                ctx.fillRect(px - pw/2, py - ph/2, pw, ph);
+
+                // Pin 1 marker
+                if (index === 0 && document.getElementById('addPin1Marker').checked) {
+                    ctx.beginPath();
+                    ctx.arc(px, py - ph/2 - 8, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = '#00ff88';
+                    ctx.fill();
+                }
+
+                // Pin number
+                ctx.fillStyle = '#fff';
+                ctx.font = '10px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(pin.number, px, py + 3);
+            });
+
+            // Draw center crosshair
+            ctx.strokeStyle = '#00d4ff';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(centerX - 5, centerY);
+            ctx.lineTo(centerX + 5, centerY);
+            ctx.moveTo(centerX, centerY - 5);
+            ctx.lineTo(centerX, centerY + 5);
+            ctx.stroke();
+
+            // Update output
+            updateOutput();
+        }
+
+        function updateOutput() {
+            const ref = document.getElementById('ref').value || 'U1';
+            const name = document.getElementById('name').value || '';
+            const value = document.getElementById('value').value || '';
+            const pkg = document.getElementById('package').value || 'Custom';
+            const bodyW = parseFloat(document.getElementById('bodyWidth').value) || 0;
+            const bodyH = parseFloat(document.getElementById('bodyHeight').value) || 0;
+            const courtyardClearance = parseFloat(document.getElementById('courtyardClearance').value) || 0.5;
+            const courtyardW = bodyW + 2 * courtyardClearance;
+            const courtyardH = bodyH + 2 * courtyardClearance;
+            const pins = getPins();
+
+            // Python Dict format
+            let pythonOutput = `'${ref}': {\n`;
+            pythonOutput += `    'name': '${name}',\n`;
+            pythonOutput += `    'footprint': '${pkg}',\n`;
+            pythonOutput += `    'value': '${value}',\n`;
+            pythonOutput += `    'description': '${name}',\n`;
+            if (bodyW > 0 && bodyH > 0) {
+                pythonOutput += `    'size': (${bodyW}, ${bodyH}),\n`;
+                pythonOutput += `    # Courtyard = body + clearance for DRC-aware routing\n`;
+                pythonOutput += `    'physical': {\n`;
+                pythonOutput += `        'body': (${bodyW}, ${bodyH}),\n`;
+                pythonOutput += `        'courtyard': (${courtyardW.toFixed(1)}, ${courtyardH.toFixed(1)}),\n`;
+                pythonOutput += `    },\n`;
+            }
+            pythonOutput += `    'pins': [\n`;
+
+            pins.forEach(pin => {
+                pythonOutput += `        {'number': '${pin.number}', 'name': '${pin.name}', 'type': '${pin.type}', 'net': '${pin.net}',\n`;
+                pythonOutput += `         'physical': {'offset_x': ${pin.x}, 'offset_y': ${pin.y}, 'pad_size': (${pin.padW}, ${pin.padH})}},\n`;
+            });
+
+            pythonOutput += `    ],\n`;
+            pythonOutput += `},`;
+
+            document.getElementById('outputPython').textContent = pythonOutput;
+
+            // JSON format
+            const jsonData = {
+                reference: ref,
+                name: name,
+                footprint: pkg,
+                value: value,
+                body_size: [bodyW, bodyH],
+                pins: pins.map(p => ({
+                    number: p.number,
+                    name: p.name,
+                    type: p.type,
+                    net: p.net,
+                    offset_x: p.x,
+                    offset_y: p.y,
+                    pad_width: p.padW,
+                    pad_height: p.padH
+                }))
+            };
+            document.getElementById('outputJson').textContent = JSON.stringify(jsonData, null, 2);
+
+            // CSV format
+            let csvOutput = 'Pin #,Pin Name,X Offset (mm),Y Offset (mm),Pad Width (mm),Pad Height (mm),Net,Type\n';
+            pins.forEach(pin => {
+                csvOutput += `${pin.number},${pin.name},${pin.x},${pin.y},${pin.padW},${pin.padH},${pin.net},${pin.type}\n`;
+            });
+            document.getElementById('outputCsv').textContent = csvOutput;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab:nth-child(${tab === 'python' ? 1 : tab === 'json' ? 2 : 3})`).classList.add('active');
+            document.getElementById(`tab-${tab}`).classList.add('active');
+        }
+
+        function copyOutput() {
+            const outputId = `output${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
+            const text = document.getElementById(outputId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!');
+            });
+        }
+
+        function downloadOutput() {
+            const outputId = `output${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}`;
+            const text = document.getElementById(outputId).textContent;
+            const ref = document.getElementById('ref').value || 'footprint';
+            const ext = currentTab === 'python' ? 'py' : currentTab === 'json' ? 'json' : 'csv';
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${ref}_footprint.${ext}`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('Downloaded!');
+        }
+
+        function validateDesign() {
+            const pins = getPins();
+            const errors = [];
+
+            if (pins.length === 0) {
+                errors.push('No pins defined');
+            }
+
+            // Check for duplicate pin numbers
+            const pinNums = pins.map(p => p.number);
+            const duplicates = pinNums.filter((v, i) => pinNums.indexOf(v) !== i);
+            if (duplicates.length > 0) {
+                errors.push(`Duplicate pin numbers: ${[...new Set(duplicates)].join(', ')}`);
+            }
+
+            // Check for overlapping pads
+            for (let i = 0; i < pins.length; i++) {
+                for (let j = i + 1; j < pins.length; j++) {
+                    const dist = Math.sqrt(Math.pow(pins[i].x - pins[j].x, 2) + Math.pow(pins[i].y - pins[j].y, 2));
+                    const minDist = (Math.max(pins[i].padW, pins[i].padH) + Math.max(pins[j].padW, pins[j].padH)) / 2;
+                    if (dist < minDist * 0.8) {
+                        errors.push(`Pads ${pins[i].number} and ${pins[j].number} may overlap`);
+                    }
+                }
+            }
+
+            if (errors.length === 0) {
+                showToast('Design is valid!');
+            } else {
+                showToast('Issues: ' + errors.join('; '));
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function clearForm() {
+            document.getElementById('ref').value = 'U1';
+            document.getElementById('name').value = '';
+            document.getElementById('value').value = '';
+            document.getElementById('package').value = 'Custom';
+            document.getElementById('bodyWidth').value = '4.0';
+            document.getElementById('bodyHeight').value = '4.0';
+            clearPins();
+            updatePreview();
+        }
+
+        // Templates
+        const templates = {
+            'sot23-3': {
+                name: 'SOT-23-3', pkg: 'SOT-23', bodyW: 2.9, bodyH: 1.3,
+                pins: [
+                    { number: '1', x: -0.95, y: 1.1, padW: 0.6, padH: 0.7, name: 'BASE' },
+                    { number: '2', x: 0.95, y: 1.1, padW: 0.6, padH: 0.7, name: 'EMITTER' },
+                    { number: '3', x: 0, y: -1.1, padW: 0.6, padH: 0.7, name: 'COLLECTOR' },
+                ]
+            },
+            'sot23-5': {
+                name: 'SOT-23-5', pkg: 'SOT-23-5', bodyW: 2.9, bodyH: 1.6,
+                pins: [
+                    { number: '1', x: -0.95, y: 1.1, padW: 0.6, padH: 0.7 },
+                    { number: '2', x: 0, y: 1.1, padW: 0.6, padH: 0.7 },
+                    { number: '3', x: 0.95, y: 1.1, padW: 0.6, padH: 0.7 },
+                    { number: '4', x: 0.95, y: -1.1, padW: 0.6, padH: 0.7 },
+                    { number: '5', x: -0.95, y: -1.1, padW: 0.6, padH: 0.7 },
+                ]
+            },
+            'qfn16': {
+                name: 'QFN-16', pkg: 'QFN-16', bodyW: 3.0, bodyH: 3.0,
+                pins: [
+                    // Bottom (1-4)
+                    { number: '1', x: -0.75, y: 1.5, padW: 0.25, padH: 0.8 },
+                    { number: '2', x: -0.25, y: 1.5, padW: 0.25, padH: 0.8 },
+                    { number: '3', x: 0.25, y: 1.5, padW: 0.25, padH: 0.8 },
+                    { number: '4', x: 0.75, y: 1.5, padW: 0.25, padH: 0.8 },
+                    // Right (5-8)
+                    { number: '5', x: 1.5, y: 0.75, padW: 0.8, padH: 0.25 },
+                    { number: '6', x: 1.5, y: 0.25, padW: 0.8, padH: 0.25 },
+                    { number: '7', x: 1.5, y: -0.25, padW: 0.8, padH: 0.25 },
+                    { number: '8', x: 1.5, y: -0.75, padW: 0.8, padH: 0.25 },
+                    // Top (9-12)
+                    { number: '9', x: 0.75, y: -1.5, padW: 0.25, padH: 0.8 },
+                    { number: '10', x: 0.25, y: -1.5, padW: 0.25, padH: 0.8 },
+                    { number: '11', x: -0.25, y: -1.5, padW: 0.25, padH: 0.8 },
+                    { number: '12', x: -0.75, y: -1.5, padW: 0.25, padH: 0.8 },
+                    // Left (13-16)
+                    { number: '13', x: -1.5, y: -0.75, padW: 0.8, padH: 0.25 },
+                    { number: '14', x: -1.5, y: -0.25, padW: 0.8, padH: 0.25 },
+                    { number: '15', x: -1.5, y: 0.25, padW: 0.8, padH: 0.25 },
+                    { number: '16', x: -1.5, y: 0.75, padW: 0.8, padH: 0.25 },
+                ]
+            },
+            'soic8': {
+                name: 'SOIC-8', pkg: 'SOIC-8', bodyW: 3.9, bodyH: 4.9,
+                pins: [
+                    // Left side (1-4)
+                    { number: '1', x: -2.7, y: -1.905, padW: 1.5, padH: 0.6 },
+                    { number: '2', x: -2.7, y: -0.635, padW: 1.5, padH: 0.6 },
+                    { number: '3', x: -2.7, y: 0.635, padW: 1.5, padH: 0.6 },
+                    { number: '4', x: -2.7, y: 1.905, padW: 1.5, padH: 0.6 },
+                    // Right side (5-8)
+                    { number: '5', x: 2.7, y: 1.905, padW: 1.5, padH: 0.6 },
+                    { number: '6', x: 2.7, y: 0.635, padW: 1.5, padH: 0.6 },
+                    { number: '7', x: 2.7, y: -0.635, padW: 1.5, padH: 0.6 },
+                    { number: '8', x: 2.7, y: -1.905, padW: 1.5, padH: 0.6 },
+                ]
+            },
+            'usb-c': {
+                name: 'USB Type-C', pkg: 'USB-C', bodyW: 8.94, bodyH: 7.3,
+                pins: [
+                    // Top row
+                    { number: 'A1', name: 'GND', x: -2.75, y: -3.2, padW: 0.3, padH: 1.0, net: 'GND', type: 'power_in' },
+                    { number: 'A4', name: 'VBUS', x: -2.25, y: -3.2, padW: 0.3, padH: 1.0, net: 'VBUS', type: 'power_in' },
+                    { number: 'A5', name: 'CC1', x: -1.75, y: -3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'A6', name: 'D+', x: -1.25, y: -3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'A7', name: 'D-', x: -0.75, y: -3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'A8', name: 'SBU1', x: -0.25, y: -3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'A9', name: 'VBUS', x: 0.25, y: -3.2, padW: 0.3, padH: 1.0, net: 'VBUS', type: 'power_in' },
+                    { number: 'A12', name: 'GND', x: 2.75, y: -3.2, padW: 0.3, padH: 1.0, net: 'GND', type: 'power_in' },
+                    // Bottom row
+                    { number: 'B1', name: 'GND', x: -2.75, y: 3.2, padW: 0.3, padH: 1.0, net: 'GND', type: 'power_in' },
+                    { number: 'B4', name: 'VBUS', x: -2.25, y: 3.2, padW: 0.3, padH: 1.0, net: 'VBUS', type: 'power_in' },
+                    { number: 'B5', name: 'CC2', x: -1.75, y: 3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'B6', name: 'D+', x: -1.25, y: 3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'B7', name: 'D-', x: -0.75, y: 3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'B8', name: 'SBU2', x: -0.25, y: 3.2, padW: 0.3, padH: 1.0, type: 'bidirectional' },
+                    { number: 'B9', name: 'VBUS', x: 0.25, y: 3.2, padW: 0.3, padH: 1.0, net: 'VBUS', type: 'power_in' },
+                    { number: 'B12', name: 'GND', x: 2.75, y: 3.2, padW: 0.3, padH: 1.0, net: 'GND', type: 'power_in' },
+                    // Shield
+                    { number: 'S1', name: 'SHIELD', x: -4.32, y: -2.5, padW: 1.0, padH: 1.5, net: 'GND', type: 'passive' },
+                    { number: 'S2', name: 'SHIELD', x: 4.32, y: -2.5, padW: 1.0, padH: 1.5, net: 'GND', type: 'passive' },
+                    { number: 'S3', name: 'SHIELD', x: -4.32, y: 2.5, padW: 1.0, padH: 1.5, net: 'GND', type: 'passive' },
+                    { number: 'S4', name: 'SHIELD', x: 4.32, y: 2.5, padW: 1.0, padH: 1.5, net: 'GND', type: 'passive' },
+                ]
+            },
+            '0805': {
+                name: '0805 SMD', pkg: '0805', bodyW: 2.0, bodyH: 1.25,
+                pins: [
+                    { number: '1', x: -0.95, y: 0, padW: 1.0, padH: 1.0 },
+                    { number: '2', x: 0.95, y: 0, padW: 1.0, padH: 1.0 },
+                ]
+            },
+            'crystal': {
+                name: 'Crystal 3.2x2.5', pkg: 'Crystal_3215', bodyW: 3.2, bodyH: 2.5,
+                pins: [
+                    { number: '1', name: 'IN', x: -1.1, y: -0.85, padW: 1.0, padH: 0.9, type: 'passive' },
+                    { number: '2', name: 'GND', x: 1.1, y: -0.85, padW: 1.0, padH: 0.9, net: 'GND', type: 'power_in' },
+                    { number: '3', name: 'OUT', x: 1.1, y: 0.85, padW: 1.0, padH: 0.9, type: 'passive' },
+                    { number: '4', name: 'GND', x: -1.1, y: 0.85, padW: 1.0, padH: 0.9, net: 'GND', type: 'power_in' },
+                ]
+            },
+        };
+
+        function loadTemplate(templateName) {
+            const t = templates[templateName];
+            if (!t) {
+                showToast('Template not found');
+                return;
+            }
+
+            document.getElementById('name').value = t.name;
+            document.getElementById('package').value = t.pkg || 'Custom';
+            document.getElementById('bodyWidth').value = t.bodyW;
+            document.getElementById('bodyHeight').value = t.bodyH;
+
+            clearPins();
+            t.pins.forEach(pin => addPin(pin));
+
+            updatePreview();
+            showToast(`Loaded ${t.name} template`);
+        }
+    </script>
+</body>
+</html>

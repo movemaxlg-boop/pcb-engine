@@ -1,0 +1,69 @@
+# PCB Engine Requirements
+# =======================
+# Core dependencies for the PCB Design Engine
+
+# =============================================================================
+# REQUIRED LIBRARIES (Built-in Python - No installation needed)
+# =============================================================================
+# These are part of Python standard library:
+# - json: Configuration and data serialization
+# - math: Mathematical operations (geometry, trigonometry)
+# - os: File system operations
+# - re: Regular expressions for parsing
+# - heapq: Priority queue for A* pathfinding
+# - dataclasses: Data structures
+# - enum: Enumerations
+# - typing: Type hints
+# - datetime: Timestamps
+# - collections: defaultdict, namedtuple
+
+# =============================================================================
+# OPTIONAL LIBRARIES (Install for enhanced functionality)
+# =============================================================================
+
+# Visualization (for debug output and design preview)
+matplotlib>=3.5.0
+
+# NumPy (for optimized numerical operations - highly recommended)
+numpy>=1.21.0
+
+# NetworkX (for advanced graph algorithms - placement optimization)
+networkx>=2.6.0
+
+# Shapely (for advanced geometry operations - polygon/zone handling)
+shapely>=1.8.0
+
+# SciPy (for optimization algorithms - simulated annealing, etc.)
+scipy>=1.7.0
+
+# =============================================================================
+# KICAD INTEGRATION (Install for direct KiCad interaction)
+# =============================================================================
+
+# KiCad Python bindings (optional - for direct board manipulation)
+# Note: Usually installed with KiCad, not via pip
+# pcbnew is part of KiCad installation
+
+# =============================================================================
+# DEVELOPMENT DEPENDENCIES (For testing and development)
+# =============================================================================
+
+# Testing
+pytest>=7.0.0
+
+# Code quality
+pylint>=2.12.0
+black>=22.0.0
+mypy>=0.950
+
+# =============================================================================
+# QUICK INSTALL COMMANDS
+# =============================================================================
+# Minimal (just visualization):
+#   pip install matplotlib numpy
+#
+# Recommended (full optimization):
+#   pip install matplotlib numpy networkx shapely scipy
+#
+# Development:
+#   pip install -r requirements.txt
