@@ -102,11 +102,11 @@ print("\n3. POLISH (Post-routing optimization)")
 from pcb_engine.polish_piston import PolishPiston, PolishConfig, PolishLevel
 
 pp = PolishPiston(PolishConfig(
-    level=PolishLevel.AGGRESSIVE,
-    reduce_vias=True,
-    simplify_traces=True,
+    level=PolishLevel.STANDARD,
+    reduce_vias=False,  # Disabled - creates crossing traces without collision detection
+    simplify_traces=True,  # Safe - just merges collinear segments
     shrink_board=False,  # Disabled - would need component repositioning
-    use_arcs=True,  # Enable arc smoothing for professional look
+    use_arcs=False,  # Disabled for now
     verbose=True
 ))
 

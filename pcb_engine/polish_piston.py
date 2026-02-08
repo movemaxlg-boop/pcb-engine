@@ -44,13 +44,13 @@ class PolishConfig:
     # General
     level: PolishLevel = PolishLevel.STANDARD
 
-    # Via reduction
-    reduce_vias: bool = True
+    # Via reduction - DISABLED by default (can create crossing traces)
+    reduce_vias: bool = False  # Disabled - needs collision detection to work safely
     via_keep_margin: float = 0.5  # Keep vias if removal increases length by more than this (mm)
 
     # Trace simplification
-    simplify_traces: bool = True
-    min_segment_length: float = 0.2  # Merge segments shorter than this
+    simplify_traces: bool = True  # Merge collinear segments
+    min_segment_length: float = 0.0  # Don't remove tiny segments (breaks connectivity!)
     collinear_tolerance: float = 0.05  # Segments within this angle (rad) are considered collinear
 
     # Arc smoothing
@@ -58,14 +58,14 @@ class PolishConfig:
     min_arc_radius: float = 0.5  # Minimum arc radius (mm)
     max_arc_radius: float = 2.0  # Maximum arc radius (mm)
 
-    # Board shrink
-    shrink_board: bool = True
+    # Board shrink - DISABLED by default (needs component repositioning)
+    shrink_board: bool = False  # Disabled - would need to re-route after shrink
     board_margin: float = 2.0  # Margin from components to board edge (mm)
     min_board_width: float = 10.0  # Don't shrink below this
     min_board_height: float = 10.0
 
     # Alignment
-    align_to_grid: bool = True
+    align_to_grid: bool = False  # Disabled by default - grid snapping can break routes
     alignment_grid: float = 0.1  # Snap to this grid (mm)
 
     # Reporting
@@ -208,92 +208,119 @@ class PolishPiston:
 
     def _reduce_vias(self, routes: Dict[str, Route]) -> Dict[str, Route]:
         """
-        Remove unnecessary vias by checking if same-layer routing is possible.
+        Remove unnecessary vias by merging connected segments onto one layer.
 
         Strategy:
-        1. For each via, check if segments on both sides could be on same layer
-        2. If yes, reroute those segments on one layer and remove the via
-        3. Only remove if the length increase is acceptable
+        1. Find vias that connect exactly 2 segments (one on each layer)
+        2. Check if we can merge them into a single segment on F.Cu
+        3. Only remove if the segments form a continuous path through the via
         """
         for net_name, route in routes.items():
             if not route.vias:
                 continue
 
-            # Try to remove each via
-            vias_to_remove = []
-            for i, via in enumerate(route.vias):
-                if self._can_remove_via(route, via, i):
-                    vias_to_remove.append(i)
+            # Process vias one at a time (indices change after each removal)
+            removed_count = 0
+            i = 0
+            while i < len(route.vias):
+                via = route.vias[i]
+                if self._try_remove_via(route, i):
+                    removed_count += 1
+                    # Don't increment i - the list shifted
+                else:
+                    i += 1
 
-            # Remove vias in reverse order to preserve indices
-            for i in reversed(vias_to_remove):
-                self._remove_via(route, i)
-
-            if vias_to_remove and self.config.verbose:
-                self.messages.append(f"  {net_name}: removed {len(vias_to_remove)} vias")
+            if removed_count > 0 and self.config.verbose:
+                self.messages.append(f"  {net_name}: removed {removed_count} vias")
 
         return routes
 
-    def _can_remove_via(self, route: Route, via: Via, via_index: int) -> bool:
-        """Check if a via can be removed without breaking connectivity."""
-        via_pos = via.position if hasattr(via, 'position') else (0, 0)
+    def _try_remove_via(self, route: Route, via_index: int) -> bool:
+        """
+        Try to remove a via by merging connected segments.
+        Returns True if via was removed, False otherwise.
 
-        # Find segments connected to this via on each layer
-        fcu_segs = []
-        bcu_segs = []
-
-        for seg in route.segments:
-            if self._segment_touches_point(seg, via_pos):
-                if seg.layer == 'F.Cu':
-                    fcu_segs.append(seg)
-                else:
-                    bcu_segs.append(seg)
-
-        # Can remove if:
-        # 1. Via only connects two segments (one on each layer)
-        # 2. Those segments could be merged into one
-        if len(fcu_segs) == 1 and len(bcu_segs) == 1:
-            # Check if they form a continuous path
-            return True
-
-        return False
-
-    def _remove_via(self, route: Route, via_index: int):
-        """Remove a via and merge the connected segments."""
+        IMPORTANT: We can only remove a via if:
+        1. Exactly one segment on each layer connects to it
+        2. The merged segment would have non-zero length
+        3. The merged segment wouldn't cross other obstacles (checked later by DRC)
+        """
         if via_index >= len(route.vias):
-            return
+            return False
 
         via = route.vias[via_index]
         via_pos = via.position if hasattr(via, 'position') else (0, 0)
 
-        # Find connected segments
-        fcu_segs = []
-        bcu_segs = []
+        # Find segments connected to this via on each layer
+        fcu_info = []  # [(index, seg, which_end)]
+        bcu_info = []
 
-        for i, seg in enumerate(route.segments):
-            if self._segment_touches_point(seg, via_pos):
+        for idx, seg in enumerate(route.segments):
+            touch_start = self._point_distance(seg.start, via_pos) < 0.1
+            touch_end = self._point_distance(seg.end, via_pos) < 0.1
+
+            if touch_start or touch_end:
+                info = (idx, seg, 'start' if touch_start else 'end')
                 if seg.layer == 'F.Cu':
-                    fcu_segs.append((i, seg))
+                    fcu_info.append(info)
                 else:
-                    bcu_segs.append((i, seg))
+                    bcu_info.append(info)
 
-        if len(fcu_segs) == 1 and len(bcu_segs) == 1:
-            # Merge: move B.Cu segment to F.Cu
-            bcu_idx, bcu_seg = bcu_segs[0]
-            bcu_seg.layer = 'F.Cu'
+        # Can only remove if exactly one segment on each layer connects to via
+        if len(fcu_info) != 1 or len(bcu_info) != 1:
+            return False
 
-            # Remove the via
-            route.vias.pop(via_index)
+        fcu_idx, fcu_seg, fcu_end = fcu_info[0]
+        bcu_idx, bcu_seg, bcu_end = bcu_info[0]
+
+        # Get the "other" end of each segment (the end NOT touching the via)
+        if fcu_end == 'start':
+            fcu_other = fcu_seg.end
+        else:
+            fcu_other = fcu_seg.start
+
+        if bcu_end == 'start':
+            bcu_other = bcu_seg.end
+        else:
+            bcu_other = bcu_seg.start
+
+        # Check if merged segment would have non-zero length
+        merged_length = self._point_distance(fcu_other, bcu_other)
+        if merged_length < 0.1:
+            # Would create zero-length segment, don't remove
+            return False
+
+        # Create merged segment on F.Cu
+        merged_seg = TrackSegment(
+            start=fcu_other,
+            end=bcu_other,
+            layer='F.Cu',
+            width=fcu_seg.width,
+            net=fcu_seg.net
+        )
+
+        # Remove old segments (remove higher index first to preserve indices)
+        indices_to_remove = sorted([fcu_idx, bcu_idx], reverse=True)
+        for idx in indices_to_remove:
+            route.segments.pop(idx)
+
+        # Add merged segment
+        route.segments.append(merged_seg)
+
+        # Remove the via
+        route.vias.pop(via_index)
+
+        return True
+
+    def _point_distance(self, p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+        """Calculate distance between two points."""
+        return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
     def _segment_touches_point(self, seg: TrackSegment, point: Tuple[float, float],
                                 tolerance: float = 0.1) -> bool:
         """Check if segment endpoint touches a point."""
-        start = seg.start
-        end = seg.end
-
-        d_start = math.sqrt((start[0] - point[0])**2 + (start[1] - point[1])**2)
-        d_end = math.sqrt((end[0] - point[0])**2 + (end[1] - point[1])**2)
-
+        d_start = self._point_distance(seg.start, point)
+        d_end = self._point_distance(seg.end, point)
         return d_start < tolerance or d_end < tolerance
 
     # =========================================================================
@@ -302,19 +329,20 @@ class PolishPiston:
 
     def _simplify_traces(self, routes: Dict[str, Route]) -> Dict[str, Route]:
         """
-        Merge collinear and tiny segments into cleaner traces.
+        Merge consecutive collinear segments into cleaner traces.
 
-        Strategy:
-        1. Find consecutive segments on same layer
-        2. If they're collinear (same direction), merge them
-        3. Remove segments shorter than minimum length
+        IMPORTANT: Process segments in order to preserve connectivity!
+        We only merge consecutive segments that:
+        1. Are on the same layer
+        2. Share an endpoint
+        3. Are collinear (same direction)
         """
         for net_name, route in routes.items():
             if len(route.segments) < 2:
                 continue
 
             original_count = len(route.segments)
-            route.segments = self._merge_collinear_segments(route.segments)
+            route.segments = self._merge_consecutive_collinear(route.segments)
             route.segments = self._remove_tiny_segments(route.segments)
 
             merged = original_count - len(route.segments)
@@ -323,27 +351,14 @@ class PolishPiston:
 
         return routes
 
-    def _merge_collinear_segments(self, segments: List[TrackSegment]) -> List[TrackSegment]:
-        """Merge consecutive collinear segments."""
-        if len(segments) < 2:
-            return segments
+    def _merge_consecutive_collinear(self, segments: List[TrackSegment]) -> List[TrackSegment]:
+        """
+        Merge consecutive collinear segments while preserving order.
 
-        # Group segments by layer
-        by_layer = {}
-        for seg in segments:
-            layer = seg.layer
-            if layer not in by_layer:
-                by_layer[layer] = []
-            by_layer[layer].append(seg)
-
-        merged = []
-        for layer, layer_segs in by_layer.items():
-            merged.extend(self._merge_layer_segments(layer_segs))
-
-        return merged
-
-    def _merge_layer_segments(self, segments: List[TrackSegment]) -> List[TrackSegment]:
-        """Merge collinear segments on the same layer."""
+        This is the CORRECT implementation that doesn't group by layer.
+        It processes segments in their original order and only merges
+        consecutive segments that are on the same layer and collinear.
+        """
         if len(segments) < 2:
             return segments
 
@@ -353,22 +368,26 @@ class PolishPiston:
         while i < len(segments):
             current = segments[i]
 
-            # Try to extend current segment by merging with following collinear segments
+            # Try to merge with following segments (only if same layer and collinear)
             while i + 1 < len(segments):
                 next_seg = segments[i + 1]
 
-                # Check if they share an endpoint and are collinear
+                # Must be same layer AND collinear AND connected
                 if self._are_collinear_and_connected(current, next_seg):
-                    # Merge: extend current to include next
                     current = self._merge_two_segments(current, next_seg)
                     i += 1
                 else:
+                    # Stop merging - segments are on different layers or not collinear
                     break
 
             result.append(current)
             i += 1
 
         return result
+
+    def _merge_collinear_segments(self, segments: List[TrackSegment]) -> List[TrackSegment]:
+        """DEPRECATED: Use _merge_consecutive_collinear instead."""
+        return self._merge_consecutive_collinear(segments)
 
     def _are_collinear_and_connected(self, seg1: TrackSegment, seg2: TrackSegment) -> bool:
         """Check if two segments are collinear and share an endpoint."""

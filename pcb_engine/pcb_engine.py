@@ -1318,15 +1318,13 @@ class PCBEngine:
                 if not self._handle_piston_result('topological_routing', piston_result):
                     self.state.warnings.append("Topological routing had issues, using standard routing")
 
-            # === STAGE 5.6: POLISH (via reduction, trace cleanup, board shrink) ===
-            # DISABLED: Polish Piston has bugs that break DRC
-            # - Via removal doesn't properly reconnect segments
-            # - Trace simplification breaks segment ordering
-            # TODO: Fix polish_piston.py before re-enabling
-            # if self._should_run_polish():
-            #     piston_result = self._run_piston_with_drc('polish', self._execute_polish)
-            #     if not self._handle_piston_result('polish', piston_result):
-            #         self.state.warnings.append("Polish had issues, continuing with unpolished design")
+            # === STAGE 5.6: POLISH (trace simplification, segment merging) ===
+            # Safe defaults: reduce_vias=False, simplify_traces=True
+            # Via removal disabled until collision detection is implemented
+            if self._should_run_polish():
+                piston_result = self._run_piston_with_drc('polish', self._execute_polish)
+                if not self._handle_piston_result('polish', piston_result):
+                    self.state.warnings.append("Polish had issues, continuing with unpolished design")
 
             # === STAGE 6: OPTIMIZATION ===
             piston_result = self._run_piston_with_drc('optimize', self._execute_optimization)
@@ -3181,18 +3179,16 @@ class PCBEngine:
 
         # Configure polish level based on effort
         level = PolishLevel.STANDARD
-        if effort == PistonEffort.MINIMAL:
-            level = PolishLevel.MINIMAL
-        elif effort == PistonEffort.MAXIMUM:
+        if effort == PistonEffort.MAXIMUM:
             level = PolishLevel.PROFESSIONAL
 
         if not self._polish_piston:
             self._polish_piston = PolishPiston(PolishConfig(
                 level=level,
-                reduce_vias=True,
-                simplify_traces=True,
-                shrink_board=True,  # Will be validated by DRC after
-                align_to_grid=True,
+                reduce_vias=False,  # Disabled - creates crossing traces without collision detection
+                simplify_traces=True,  # Safe - merges collinear segments
+                shrink_board=False,  # Disabled - needs component repositioning
+                align_to_grid=False,  # Disabled - can break routes
                 verbose=self.config.verbose
             ))
 
