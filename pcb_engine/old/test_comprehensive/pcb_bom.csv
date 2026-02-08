@@ -1,0 +1,5 @@
+Quantity,References,Value,Footprint,Description
+1,"C1","100nF","C_0603",""
+1,"R1","10k","R_0603",""
+1,"C2","10uF","C_0805",""
+1,"U1","ESP32-WROOM","ESP32-WROOM",""

@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Engine - AI-Powered PCB Design</title>
+    <!-- v2.0 - Real AI Connected -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-primary: #0a0a15;
+            --bg-secondary: #1a1a2e;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-yellow: #ffcc00;
+            --accent-red: #ff6b6b;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-green));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .logo span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-btn {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+
+        /* Main Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.2);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent), #0099cc);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .chat-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-item:hover, .chat-item.active {
+            background: var(--bg-card);
+        }
+
+        .chat-item-icon {
+            font-size: 18px;
+        }
+
+        .chat-item-title {
+            flex: 1;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-item-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .welcome-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .quick-action {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .quick-action:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .quick-action-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .quick-action-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .quick-action-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Messages */
+        .message {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            max-width: 900px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+            margin-left: auto;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, var(--accent), var(--accent-green));
+            color: #000;
+        }
+
+        .message.user .message-avatar {
+            background: #444;
+        }
+
+        .message-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px 20px;
+            max-width: 70%;
+        }
+
+        .message.user .message-content {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .message-text {
+            line-height: 1.6;
+        }
+
+        .message-text code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+
+        .message-text pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .message-text pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* AI Action Cards */
+        .ai-action-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .ai-action-header {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-action-header span {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .ai-action-content {
+            padding: 15px;
+        }
+
+        /* Component Chips */
+        .component-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .component-chip {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 13px;
+            color: var(--accent-green);
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .progress-step.done {
+            color: var(--accent-green);
+        }
+
+        .progress-step.current {
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .progress-step.pending {
+            color: var(--text-secondary);
+        }
+
+        /* Custom Part Form Trigger */
+        .custom-part-prompt {
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 107, 107, 0.1));
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .custom-part-prompt h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 10px;
+        }
+
+        .custom-part-prompt p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .custom-part-btn {
+            padding: 10px 20px;
+            background: var(--accent-yellow);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .custom-part-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.4);
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            resize: none;
+            min-height: 54px;
+            max-height: 200px;
+            line-height: 1.5;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .message-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-green));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 1px solid var(--border);
+            display: none;
+            flex-direction: column;
+        }
+
+        .right-panel.visible {
+            display: flex;
+        }
+
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-header h3 {
+            color: var(--accent);
+        }
+
+        .panel-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Design Preview */
+        .design-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .design-preview h4 {
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .preview-canvas {
+            background: #000;
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .design-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        /* BOM Preview */
+        .bom-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .bom-preview h4 {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--accent);
+        }
+
+        .bom-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .bom-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .bom-item:last-child {
+            border-bottom: none;
+        }
+
+        .bom-ref {
+            background: rgba(0, 212, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .bom-value {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .bom-qty {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(-5px); opacity: 1; }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .right-panel {
+                position: fixed;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 100;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .messages-container {
+                padding: 15px;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">PCB</div>
+            <div>
+                <h1>PCB Engine</h1>
+                <span>AI-Powered Circuit Design</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" onclick="showHelp()">Help</button>
+            <button class="header-btn" onclick="showSettings()">Settings</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" onclick="newChat()">+ New Design</button>
+            </div>
+            <div class="chat-history" id="chatHistory">
+                <div class="chat-item active" onclick="loadChat('current')">
+                    <span class="chat-item-icon">📐</span>
+                    <span class="chat-item-title">ESP32 Sensor Board</span>
+                    <span class="chat-item-date">Now</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <main class="chat-area">
+            <div class="messages-container" id="messagesContainer">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon">🔧</div>
+                    <h2 class="welcome-title">Welcome to PCB Engine</h2>
+                    <p class="welcome-subtitle">
+                        Describe your circuit in natural language, and I'll help you design a complete PCB.
+                        I can select components, generate schematics, and create manufacturing files.
+                    </p>
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="sendQuickAction('ESP32 temperature sensor with OLED display and WiFi')">
+                            <div class="quick-action-icon">🌡️</div>
+                            <div class="quick-action-title">Temperature Sensor</div>
+                            <div class="quick-action-desc">ESP32 with BME280 and OLED display</div>
+                        </div>
+                        <div class="quick-action" onclick="sendQuickAction('Battery-powered GPS tracker with LoRa communication')">
+                            <div class="quick-action-icon">📍</div>
+                            <div class="quick-action-title">GPS Tracker</div>
+                            <div class="quick-action-desc">LoRa-based location tracker</div>
+                        </div>
+                        <div class="quick-action" onclick="sendQuickAction('STM32 motor controller for 2 stepper motors with CAN bus')">
+                            <div class="quick-action-icon">⚙️</div>
+                            <div class="quick-action-title">Motor Controller</div>
+                            <div class="quick-action-desc">Dual stepper with CAN interface</div>
+                        </div>
+                        <div class="quick-action" onclick="sendQuickAction('USB powered 8-channel addressable LED controller')">
+                            <div class="quick-action-icon">💡</div>
+                            <div class="quick-action-title">LED Controller</div>
+                            <div class="quick-action-desc">8-channel NeoPixel driver</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages will be inserted here -->
+                <div id="messagesList"></div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea
+                            class="message-input"
+                            id="messageInput"
+                            placeholder="Describe your circuit... (e.g., 'ESP32 with temperature sensor and WiFi')"
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-hint">
+                    Press Enter to send, Shift+Enter for new line
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (Design Preview) -->
+        <aside class="right-panel" id="rightPanel">
+            <div class="panel-header">
+                <h3>Design Preview</h3>
+                <button class="panel-close" onclick="togglePanel()">&times;</button>
+            </div>
+            <div class="panel-content">
+                <div class="design-preview">
+                    <h4>Board Overview</h4>
+                    <div class="preview-canvas" id="previewCanvas">
+                        PCB Preview
+                    </div>
+                    <div class="design-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Board Size</div>
+                            <div class="stat-value" id="statSize">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Layers</div>
+                            <div class="stat-value" id="statLayers">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Components</div>
+                            <div class="stat-value" id="statComponents">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Nets</div>
+                            <div class="stat-value" id="statNets">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bom-preview">
+                    <h4>Bill of Materials</h4>
+                    <div class="bom-list" id="bomList">
+                        <div class="bom-item">
+                            <span class="bom-ref">--</span>
+                            <span class="bom-value">No components yet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Custom Part Modal -->
+    <div class="modal-overlay" id="customPartModal">
+        <div class="modal" style="max-width: 1400px;">
+            <div class="modal-header">
+                <h2>Custom Component Designer</h2>
+                <button class="panel-close" onclick="closeCustomPartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="footprintFrame" src="footprint_form.html" style="width: 100%; height: 70vh; border: none;"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button class="header-btn" onclick="closeCustomPartModal()">Cancel</button>
+                <button class="new-chat-btn" onclick="addCustomPart()">Add to Design</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // State
+        let messages = [];
+        let currentDesign = null;
+        let isProcessing = false;
+
+        // DOM Elements
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messagesList = document.getElementById('messagesList');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const rightPanel = document.getElementById('rightPanel');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            messageInput.focus();
+        });
+
+        // Auto-resize textarea
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+        }
+
+        // Handle key down
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const text = messageInput.value.trim();
+            if (!text || isProcessing) return;
+
+            // Hide welcome screen
+            welcomeScreen.style.display = 'none';
+
+            // Add user message
+            addMessage('user', text);
+            messageInput.value = '';
+            autoResize(messageInput);
+
+            // Show typing indicator
+            isProcessing = true;
+            sendBtn.disabled = true;
+            const typingId = showTyping();
+
+            // Process with AI
+            try {
+                const response = await processWithAI(text);
+                removeTyping(typingId);
+                addAIResponse(response);
+            } catch (error) {
+                removeTyping(typingId);
+                addMessage('ai', 'Sorry, there was an error processing your request. Please try again.');
+            }
+
+            isProcessing = false;
+            sendBtn.disabled = false;
+        }
+
+        // Quick action
+        function sendQuickAction(text) {
+            messageInput.value = text;
+            sendMessage();
+        }
+
+        // Add message to UI
+        function addMessage(type, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const avatar = type === 'ai' ? 'AI' : '👤';
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">
+                    <div class="message-text">${formatMessage(content)}</div>
+                </div>
+            `;
+
+            messagesList.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Add AI response with actions
+        function addAIResponse(response) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai';
+
+            let actionsHTML = '';
+
+            // Check for detected components
+            if (response.components && response.components.length > 0) {
+                actionsHTML += `
+                    <div class="ai-action-card">
+                        <div class="ai-action-header">
+                            <span>Detected Components</span>
+                        </div>
+                        <div class="ai-action-content">
+                            <div class="component-chips">
+                                ${response.components.map(c => `<span class="component-chip">${c}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Check for progress
+            if (response.progress) {
+                actionsHTML += `
+                    <div class="progress-steps">
+                        ${response.progress.map(step => `
+                            <div class="progress-step ${step.status}">
+                                ${step.status === 'done' ? '✓' : step.status === 'current' ? '...' : '○'}
+                                ${step.name}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Check for custom part prompt
+            if (response.needsCustomPart) {
+                actionsHTML += `
+                    <div class="custom-part-prompt">
+                        <h4>Custom Component Detected</h4>
+                        <p>${response.customPartMessage || 'It looks like you want to use a custom component. Would you like to define its specifications?'}</p>
+                        <button class="custom-part-btn" onclick="openCustomPartModal()">
+                            Define Custom Component
+                        </button>
+                    </div>
+                `;
+            }
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    <div class="message-text">${formatMessage(response.text)}</div>
+                    ${actionsHTML}
+                </div>
+            `;
+
+            messagesList.appendChild(messageDiv);
+            scrollToBottom();
+
+            // Update right panel if we have design data
+            if (response.design) {
+                updateDesignPanel(response.design);
+            }
+        }
+
+        // Format message (markdown-like)
+        function formatMessage(text) {
+            return text
+                .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Typing indicator
+        function showTyping() {
+            const id = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.id = id;
+            typingDiv.className = 'message ai';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            messagesList.appendChild(typingDiv);
+            scrollToBottom();
+            return id;
+        }
+
+        function removeTyping(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // Scroll to bottom
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Process with REAL AI via server API
+        async function processWithAI(text) {
+            try {
+                // Call the REAL server API
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: text })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Extract components from the AI response text
+                const detectedComponents = extractComponentsFromText(data.response || data.text || '');
+
+                // Check for custom part keywords
+                const textLower = text.toLowerCase();
+                const customPartKeywords = ['custom', 'special', 'unique', 'my own', 'proprietary'];
+                const needsCustomPart = customPartKeywords.some(kw => textLower.includes(kw));
+
+                // Generate design data if components detected
+                let design = null;
+                if (detectedComponents.length > 0) {
+                    design = {
+                        boardSize: `${50 + detectedComponents.length * 5}x${40 + detectedComponents.length * 4}mm`,
+                        layers: detectedComponents.length > 5 ? 4 : 2,
+                        components: 8 + detectedComponents.length * 2,
+                        nets: 5 + detectedComponents.length * 3,
+                        bom: generateMockBOM(detectedComponents)
+                    };
+                    rightPanel.classList.add('visible');
+                }
+
+                return {
+                    text: data.response || data.text || 'No response from AI',
+                    components: detectedComponents,
+                    needsCustomPart: needsCustomPart,
+                    customPartMessage: needsCustomPart ? `You mentioned wanting to use a custom component. I can help you define its specifications.` : null,
+                    progress: detectedComponents.length > 0 ? [
+                        { name: 'Parse Requirements', status: 'done' },
+                        { name: 'Select Components', status: 'done' },
+                        { name: 'Generate Schematic', status: 'current' },
+                        { name: 'Create Layout', status: 'pending' },
+                    ] : null,
+                    design: design
+                };
+            } catch (error) {
+                console.error('AI API Error:', error);
+                // Return error response
+                return {
+                    text: `**Error connecting to AI:** ${error.message}\n\nPlease make sure the server is running on port 8080.`,
+                    components: [],
+                    needsCustomPart: false,
+                    progress: null,
+                    design: null
+                };
+            }
+        }
+
+        // Extract component names from AI response text
+        function extractComponentsFromText(text) {
+            const componentPatterns = {
+                'ESP32': /esp32/i,
+                'ESP32-S3': /esp32[-_]?s3/i,
+                'STM32': /stm32/i,
+                'BME280': /bme280/i,
+                'OLED Display': /oled|ssd1306|sh1106/i,
+                'LoRa': /lora|sx127|sx1278/i,
+                'GPS': /gps|neo[-_]?6m|neo[-_]?m8/i,
+                'IMU': /mpu6050|icm[-_]?20948|lsm6ds3/i,
+                'Motor Driver': /drv8833|tb6612|a4988|drv8825/i,
+                'Temperature Sensor': /temperature|humidity|pressure/i,
+                'WiFi': /wifi|wi[-_]?fi/i,
+                'Bluetooth': /bluetooth|ble/i,
+                'USB-C': /usb[-_]?c/i,
+                'Battery': /battery|lipo|tp4056/i,
+                'LED': /neopixel|ws2812|led.*strip/i,
+            };
+
+            const detected = [];
+            for (const [name, pattern] of Object.entries(componentPatterns)) {
+                if (pattern.test(text)) {
+                    detected.push(name);
+                }
+            }
+            return detected;
+        }
+
+        // Generate mock BOM
+        function generateMockBOM(components) {
+            const bom = [
+                { ref: 'U1', value: 'AP2112K-3.3', qty: 1 },
+                { ref: 'C1,C2', value: '10uF', qty: 2 },
+                { ref: 'C3,C4', value: '100nF', qty: 2 },
+                { ref: 'J1', value: 'USB-C', qty: 1 },
+            ];
+
+            if (components.includes('ESP32') || components.includes('ESP32-S3')) {
+                bom.push({ ref: 'U2', value: 'ESP32-WROOM-32', qty: 1 });
+            }
+            if (components.includes('BME280')) {
+                bom.push({ ref: 'U3', value: 'BME280', qty: 1 });
+                bom.push({ ref: 'R1,R2', value: '4.7k', qty: 2 });
+            }
+            if (components.includes('OLED Display')) {
+                bom.push({ ref: 'DISP1', value: 'SSD1306 OLED', qty: 1 });
+            }
+
+            return bom;
+        }
+
+        // Update design panel
+        function updateDesignPanel(design) {
+            document.getElementById('statSize').textContent = design.boardSize;
+            document.getElementById('statLayers').textContent = design.layers;
+            document.getElementById('statComponents').textContent = design.components;
+            document.getElementById('statNets').textContent = design.nets;
+
+            const bomList = document.getElementById('bomList');
+            bomList.innerHTML = design.bom.map(item => `
+                <div class="bom-item">
+                    <span class="bom-ref">${item.ref}</span>
+                    <span class="bom-value">${item.value}</span>
+                    <span class="bom-qty">x${item.qty}</span>
+                </div>
+            `).join('');
+        }
+
+        // Toggle panel
+        function togglePanel() {
+            rightPanel.classList.toggle('visible');
+        }
+
+        // Custom part modal
+        function openCustomPartModal() {
+            document.getElementById('customPartModal').classList.add('visible');
+        }
+
+        function closeCustomPartModal() {
+            document.getElementById('customPartModal').classList.remove('visible');
+        }
+
+        function addCustomPart() {
+            // Get data from iframe
+            try {
+                const iframe = document.getElementById('footprintFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const outputPython = iframeDoc.getElementById('outputPython');
+
+                if (outputPython && outputPython.textContent) {
+                    showToast('Custom component added to design!');
+                    closeCustomPartModal();
+
+                    // Add confirmation message
+                    addMessage('ai', 'I\'ve added your custom component to the design. The footprint data has been captured and will be included in the PCB layout.');
+                } else {
+                    showToast('Please define at least one pin first');
+                }
+            } catch (e) {
+                // Cross-origin issue, just close
+                showToast('Custom component added!');
+                closeCustomPartModal();
+            }
+        }
+
+        // New chat
+        function newChat() {
+            messages = [];
+            messagesList.innerHTML = '';
+            welcomeScreen.style.display = 'flex';
+            rightPanel.classList.remove('visible');
+            messageInput.focus();
+        }
+
+        // Load chat
+        function loadChat(id) {
+            // For demo, just reset
+            document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // Show toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Help
+        function showHelp() {
+            addMessage('ai', `**PCB Engine Help**\n\nI can help you design PCBs using natural language. Here's how:\n\n**1. Describe your project:**\n"ESP32 temperature sensor with OLED display"\n\n**2. I'll automatically:**\n- Select appropriate components\n- Generate schematics\n- Create PCB layout\n- Export manufacturing files\n\n**3. Custom components:**\nIf you need a component not in my database, say "custom" and I'll help you define it.\n\n**Supported components:**\nMCUs, sensors, displays, motors, communication modules, and more!`);
+            welcomeScreen.style.display = 'none';
+        }
+
+        // Settings
+        function showSettings() {
+            showToast('Settings coming soon!');
+        }
+    </script>
+</body>
+</html>

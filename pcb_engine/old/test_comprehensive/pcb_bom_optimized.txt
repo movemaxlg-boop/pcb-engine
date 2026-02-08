@@ -1,0 +1,39 @@
+============================================================
+BOM OPTIMIZATION REPORT
+============================================================
+
+Total Parts Cost:     $0.35
+Total Shipping:       $6.99
+Grand Total:          $7.34
+Consolidation Savings: $0.00
+
+Suppliers Used: DigiKey
+Max Lead Time:  2 days
+
+------------------------------------------------------------
+ORDER DETAILS BY SUPPLIER
+------------------------------------------------------------
+
+DigiKey ($0.35):
+----------------------------------------
+  U1                   ESP32-WROOM     Qty:   1  $0.30
+  C1                   100nF           Qty:   1  $0.02
+  C2                   10uF            Qty:   1  $0.02
+  R1                   10k             Qty:   1  $0.01
+
+------------------------------------------------------------
+STATISTICS
+------------------------------------------------------------
+  Total Parts:        4
+  Unique Parts:       4
+  Parts Consolidated: 0
+  DNP Components:     0
+  Critical Parts:     0
+
+  Most Expensive Parts:
+    U1: ESP32-WROOM - $0.30
+    C1: 100nF - $0.02
+    C2: 10uF - $0.02
+    R1: 10k - $0.01
+
+============================================================
