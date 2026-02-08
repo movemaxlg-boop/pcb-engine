@@ -320,7 +320,7 @@ def run_wizard() -> CircuitRequirements:
 # =============================================================================
 
 def design_pcb(description: str,
-               output_dir: str = "./output",
+               output_dir: str = "",  # Empty uses DEFAULT_OUTPUT_BASE
                output_format: str = "both",
                verbose: bool = True) -> Dict:
     """
@@ -328,7 +328,7 @@ def design_pcb(description: str,
 
     Args:
         description: Natural language description of the circuit
-        output_dir: Directory for output files
+        output_dir: Directory for output files (default: D:\\Anas\\tmp\\output)
         output_format: "kicad", "gerber", or "both"
         verbose: Print progress messages
 
@@ -339,6 +339,9 @@ def design_pcb(description: str,
         result = design_pcb("ESP32 temperature logger with WiFi and OLED")
         print(f"Files: {result['files']}")
     """
+    if not output_dir:
+        from .paths import DEFAULT_OUTPUT_BASE
+        output_dir = DEFAULT_OUTPUT_BASE
     if verbose:
         print(f"\n{Colors.CYAN}=== Starting PCB Design ==={Colors.ENDC}")
         print(f"  Description: {description}")
@@ -482,7 +485,7 @@ def quick_parts(description: str, verbose: bool = True) -> CircuitAIResult:
     return result
 
 
-def run_full_design(description: str, output_dir: str = "./output") -> EngineResult:
+def run_full_design(description: str, output_dir: str = "") -> EngineResult:
     """
     Full design - runs complete PCB layout with all pistons.
 
@@ -494,6 +497,9 @@ def run_full_design(description: str, output_dir: str = "./output") -> EngineRes
     - Runs DRC
     - Generates output files
     """
+    if not output_dir:
+        from .paths import DEFAULT_OUTPUT_BASE
+        output_dir = DEFAULT_OUTPUT_BASE
     print(f"\n{Colors.CYAN}=== Full PCB Design ==={Colors.ENDC}")
     print(f"  Description: {description}")
     print(f"  Output: {output_dir}")
@@ -582,7 +588,7 @@ def main():
     parser.add_argument('-f', '--from-file', type=str, help='Load from file')
     parser.add_argument('-q', '--quick', action='store_true', help='Quick design (parts only)')
     parser.add_argument('--full', action='store_true', help='Full PCB design')
-    parser.add_argument('-o', '--output', type=str, default='./output', help='Output directory')
+    parser.add_argument('-o', '--output', type=str, default='', help='Output directory (default: D:\\Anas\\tmp\\output)')
     parser.add_argument('--format', type=str, default='both', help='Output format')
     parser.add_argument('--layers', type=int, help='Force layer count')
     parser.add_argument('--size', type=str, help='Force board size (WxH)')

@@ -86,7 +86,7 @@ class PCBAgent:
         self,
         api_key: str = None,
         provider: str = 'groq',
-        output_dir: str = './output'
+        output_dir: str = ''  # Empty uses DEFAULT_OUTPUT_BASE from paths.py
     ):
         """
         Initialize the PCB Agent.
@@ -94,8 +94,11 @@ class PCBAgent:
         Args:
             api_key: API key for AI provider (or set GROQ_API_KEY env var)
             provider: AI provider ('groq', 'gemini', 'ollama', 'mock')
-            output_dir: Where to save generated files
+            output_dir: Where to save generated files (default: D:\\Anas\\tmp\\output)
         """
+        if not output_dir:
+            from .paths import DEFAULT_OUTPUT_BASE
+            output_dir = DEFAULT_OUTPUT_BASE
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

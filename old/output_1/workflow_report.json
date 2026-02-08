@@ -1,0 +1,390 @@
+{
+  "project_name": "esp32_sensor",
+  "timestamp": "2026-02-08T13:45:24.807404",
+  "success": false,
+  "stage_reached": "error",
+  "total_time": 59.80632257461548,
+  "summary": {
+    "pistons_executed": 6,
+    "pistons_skipped": 0,
+    "algorithms_tried": 0,
+    "algorithms_succeeded": 0,
+    "total_loops": 10,
+    "total_iterations": 10,
+    "drc_runs": 6,
+    "drc_passes": 6,
+    "drc_total_violations": 1,
+    "ai_interactions": 2,
+    "errors": 2,
+    "warnings": 0,
+    "files_generated": 0
+  },
+  "pistons": [
+    {
+      "name": "parts",
+      "success": true,
+      "effort_level": "normal",
+      "duration": 0.00042128562927246094,
+      "retry_count": 0,
+      "algorithms_available": [
+        "lookup",
+        "inference",
+        "ai_enhanced"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "",
+      "loops": [],
+      "drc_passed": true,
+      "drc_violations": [],
+      "metrics": {
+        "component_count": 12,
+        "net_count": 10
+      },
+      "errors": [],
+      "warnings": [],
+      "notes": []
+    },
+    {
+      "name": "order",
+      "success": true,
+      "effort_level": "normal",
+      "duration": 0.0006885528564453125,
+      "retry_count": 0,
+      "algorithms_available": [
+        "criticality",
+        "manhattan",
+        "graph_based",
+        "random"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "criticality",
+      "loops": [],
+      "drc_passed": true,
+      "drc_violations": [],
+      "metrics": {
+        "placement_order_count": 12,
+        "net_order_count": 9
+      },
+      "errors": [],
+      "warnings": [],
+      "notes": []
+    },
+    {
+      "name": "placement",
+      "success": true,
+      "effort_level": "normal",
+      "duration": 1.7652215957641602,
+      "retry_count": 0,
+      "algorithms_available": [
+        "hybrid",
+        "auto",
+        "human",
+        "fd",
+        "sa",
+        "ga",
+        "analytical",
+        "parallel"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "hybrid",
+      "loops": [],
+      "drc_passed": true,
+      "drc_violations": [],
+      "metrics": {
+        "placed_count": 12,
+        "algorithm_used": "force_directed"
+      },
+      "errors": [],
+      "warnings": [],
+      "notes": []
+    },
+    {
+      "name": "routing",
+      "success": false,
+      "effort_level": "normal",
+      "duration": 57.665602684020996,
+      "retry_count": 11,
+      "algorithms_available": [
+        "hadlock",
+        "astar",
+        "channel",
+        "lee",
+        "auto",
+        "steiner",
+        "hybrid",
+        "mikami",
+        "pathfinder",
+        "ripup",
+        "soukup"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "",
+      "loops": [
+        {
+          "type": "retry",
+          "iteration": 1,
+          "max_iterations": 11,
+          "reason": "Algorithm: astar, Effort: normal",
+          "result": "continue",
+          "duration": 0.0
+        },
+        {
+          "type": "retry",
+          "iteration": 2,
+          "max_iterations": 11,
+          "reason": "Algorithm: channel, Effort: normal",
+          "result": "continue",
+          "duration": 0.0
+        },
+        {
+          "type": "retry",
+          "iteration": 3,
+          "max_iterations": 11,
+          "reason": "Algorithm: lee, Effort: normal",
+          "result": "continue",
+          "duration": 0.0
+        },
+        {
+          "type": "retry",
+          "iteration": 4,
+          "max_iterations": 11,
+          "reason": "Algorithm: auto, Effort: normal",
+          "result": "continue",
+          "duration": 2.384185791015625e-07
+        },
+        {
+          "type": "retry",
+          "iteration": 5,
+          "max_iterations": 11,
+          "reason": "Algorithm: steiner, Effort: normal",
+          "result": "continue",
+          "duration": 2.384185791015625e-07
+        },
+        {
+          "type": "retry",
+          "iteration": 6,
+          "max_iterations": 11,
+          "reason": "Algorithm: hybrid, Effort: normal",
+          "result": "continue",
+          "duration": 2.384185791015625e-07
+        },
+        {
+          "type": "retry",
+          "iteration": 7,
+          "max_iterations": 11,
+          "reason": "Algorithm: mikami, Effort: normal",
+          "result": "continue",
+          "duration": 0.0
+        },
+        {
+          "type": "retry",
+          "iteration": 8,
+          "max_iterations": 11,
+          "reason": "Algorithm: pathfinder, Effort: normal",
+          "result": "continue",
+          "duration": 4.76837158203125e-07
+        },
+        {
+          "type": "retry",
+          "iteration": 9,
+          "max_iterations": 11,
+          "reason": "Algorithm: ripup, Effort: normal",
+          "result": "continue",
+          "duration": 2.384185791015625e-07
+        },
+        {
+          "type": "retry",
+          "iteration": 10,
+          "max_iterations": 11,
+          "reason": "Algorithm: soukup, Effort: normal",
+          "result": "continue",
+          "duration": 4.76837158203125e-07
+        }
+      ],
+      "drc_passed": true,
+      "drc_violations": [
+        {
+          "type": "unrouted_net",
+          "message": "{'type': 'unrouted_net', 'net': 'EN', 'message': 'Net EN is not routed', 'severity': 'major'}"
+        }
+      ],
+      "metrics": {
+        "routed_count": 5,
+        "total_count": 9,
+        "algorithm": "pathfinder"
+      },
+      "errors": [
+        "Routed 5/9"
+      ],
+      "warnings": [],
+      "notes": []
+    },
+    {
+      "name": "optimize",
+      "success": true,
+      "effort_level": "normal",
+      "duration": 5.078315734863281e-05,
+      "retry_count": 0,
+      "algorithms_available": [
+        "all",
+        "wirelength",
+        "via_reduction",
+        "layer_balance",
+        "timing",
+        "power"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "all",
+      "loops": [],
+      "drc_passed": true,
+      "drc_violations": [],
+      "metrics": {},
+      "errors": [],
+      "warnings": [],
+      "notes": []
+    },
+    {
+      "name": "silkscreen",
+      "success": true,
+      "effort_level": "normal",
+      "duration": 0.3111433982849121,
+      "retry_count": 0,
+      "algorithms_available": [
+        "greedy",
+        "force_directed",
+        "none"
+      ],
+      "algorithms_tried": [],
+      "algorithm_used": "greedy",
+      "loops": [],
+      "drc_passed": true,
+      "drc_violations": [],
+      "metrics": {
+        "ref_count": 12,
+        "collision_count": 0
+      },
+      "errors": [],
+      "warnings": [],
+      "notes": []
+    }
+  ],
+  "pistons_skipped": [],
+  "algorithms_by_piston": {
+    "parts": {
+      "available": [
+        "lookup",
+        "inference",
+        "ai_enhanced"
+      ],
+      "tried": [],
+      "used": "",
+      "attempts": []
+    },
+    "order": {
+      "available": [
+        "criticality",
+        "manhattan",
+        "graph_based",
+        "random"
+      ],
+      "tried": [],
+      "used": "criticality",
+      "attempts": []
+    },
+    "placement": {
+      "available": [
+        "hybrid",
+        "auto",
+        "human",
+        "fd",
+        "sa",
+        "ga",
+        "analytical",
+        "parallel"
+      ],
+      "tried": [],
+      "used": "hybrid",
+      "attempts": []
+    },
+    "routing": {
+      "available": [
+        "hadlock",
+        "astar",
+        "channel",
+        "lee",
+        "auto",
+        "steiner",
+        "hybrid",
+        "mikami",
+        "pathfinder",
+        "ripup",
+        "soukup"
+      ],
+      "tried": [],
+      "used": "",
+      "attempts": []
+    },
+    "optimize": {
+      "available": [
+        "all",
+        "wirelength",
+        "via_reduction",
+        "layer_balance",
+        "timing",
+        "power"
+      ],
+      "tried": [],
+      "used": "all",
+      "attempts": []
+    },
+    "silkscreen": {
+      "available": [
+        "greedy",
+        "force_directed",
+        "none"
+      ],
+      "tried": [],
+      "used": "greedy",
+      "attempts": []
+    }
+  },
+  "loops_by_type": {
+    "retry": 10
+  },
+  "ai_interactions": [
+    {
+      "timestamp": 1770579924.8071506,
+      "stage": "waiting_ai",
+      "request_type": "drc_persistent",
+      "question": "Challenge: DRC violations persist after multiple attempts",
+      "options": [
+        "Accept with warnings",
+        "Abort",
+        "Manual review"
+      ],
+      "decision": "retry_harder",
+      "reasoning": "",
+      "parameters": {}
+    },
+    {
+      "timestamp": 1770579924.8071578,
+      "stage": "output",
+      "request_type": "query",
+      "question": "Design complete. Approve file generation?",
+      "options": [
+        "Deliver files",
+        "Review first",
+        "Abort"
+      ],
+      "decision": "deliver",
+      "reasoning": "",
+      "parameters": {}
+    }
+  ],
+  "all_errors": [
+    "Routed 5/9",
+    "Engine error: [Errno 2] No such file or directory: './output\\\\_info.txt'"
+  ],
+  "all_warnings": [],
+  "files_generated": []
+}

@@ -258,8 +258,8 @@ def run_full_bbl_test():
         clearance=0.15,
         via_diameter=0.6,
         via_drill=0.3,
-        verbose=True,
-        output_dir='./output'
+        verbose=True
+        # output_dir defaults to D:\Anas\tmp\output (see paths.py)
     )
 
     print("-" * 80)

@@ -65,3 +65,4 @@ generated_scripts/
 drc_learning_db.json
 bbl_history.json
 cascade_history.json
+pcb_engine/.env

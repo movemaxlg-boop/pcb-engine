@@ -1,0 +1,7 @@
+=====================================
+KiCad DRC: FAIL (26 errors) (THE AUTHORITY)
+PCB Design: esp32_sensor
+Generated: 2026-02-08 13:45:24
+Board Size: 50.0mm x 40.0mm
+DRC Status: FAIL (55 errors)
+=====================================

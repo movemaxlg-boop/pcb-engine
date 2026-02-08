@@ -52,7 +52,7 @@ import threading
 @dataclass
 class BridgeConfig:
     """Configuration for MonitorOptimizerBridge."""
-    output_dir: str = './output'
+    output_dir: str = ''  # Empty uses DEFAULT_OUTPUT_BASE from paths.py
     auto_sync: bool = True  # Automatically sync optimizer after session
     sync_threshold: int = 5  # Minimum algorithm executions before sync
     verbose: bool = True
@@ -544,17 +544,20 @@ class MonitorOptimizerBridge:
 # CONVENIENCE FUNCTIONS
 # =============================================================================
 
-def create_bridge(output_dir: str = './output', verbose: bool = True) -> MonitorOptimizerBridge:
+def create_bridge(output_dir: str = '', verbose: bool = True) -> MonitorOptimizerBridge:
     """
     Create a MonitorOptimizerBridge with default configuration.
 
     Args:
-        output_dir: Directory for reports and history
+        output_dir: Directory for reports and history (default: D:\\Anas\\tmp\\output)
         verbose: Enable verbose output
 
     Returns:
         Configured MonitorOptimizerBridge instance
     """
+    if not output_dir:
+        from .paths import DEFAULT_OUTPUT_BASE
+        output_dir = DEFAULT_OUTPUT_BASE
     config = BridgeConfig(output_dir=output_dir, verbose=verbose)
     return MonitorOptimizerBridge(config)
 

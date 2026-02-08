@@ -369,9 +369,29 @@ class OutputPiston:
         # Set icon for old folder (folder icon)
         self._set_folder_icon(old_dir, 'shell32', 4)  # Standard folder icon
 
+        # First, move any loose files to old/loose_files/
+        loose_files_dir = os.path.join(old_dir, 'loose_files')
+        if os.path.exists(base_dir):
+            for item in os.listdir(base_dir):
+                item_path = os.path.join(base_dir, item)
+                # Skip directories and the current output
+                if os.path.isdir(item_path) or item_path == self.config.output_dir:
+                    continue
+                # Move loose files to old/loose_files/
+                os.makedirs(loose_files_dir, exist_ok=True)
+                try:
+                    dest = os.path.join(loose_files_dir, item)
+                    if os.path.exists(dest):
+                        os.remove(dest)
+                    shutil.move(item_path, dest)
+                except Exception:
+                    pass  # Ignore locked files
+
         # Find current LAST_WORKING and previous LAST_DESIGN folders
+        # Also collect ALL unmarked folders to move to old/
         previous_last_design = None
         previous_last_working = None
+        unmarked_folders = []
 
         if os.path.exists(base_dir):
             for folder in os.listdir(base_dir):
@@ -382,6 +402,7 @@ class OutputPiston:
                     continue
 
                 info_file = os.path.join(folder_path, '_info.txt')
+                has_marker = False
                 if os.path.exists(info_file):
                     with open(info_file, 'r') as f:
                         content = f.read()
@@ -389,10 +410,20 @@ class OutputPiston:
                     # Check for LAST_DESIGN marker (previously LAST_PCB)
                     if '<!-- LAST_DESIGN -->' in content or '<!-- LAST_PCB -->' in content:
                         previous_last_design = folder_path
+                        has_marker = True
 
                     # Check for LAST_WORKING marker (previously LAST_PASS when separate)
                     if '<!-- LAST_WORKING -->' in content:
                         previous_last_working = folder_path
+                        has_marker = True
+
+                # Collect unmarked folders to move to old/
+                if not has_marker:
+                    unmarked_folders.append(folder_path)
+
+        # Move all unmarked folders to old/ (enforce 3-folder max)
+        for folder_path in unmarked_folders:
+            self._move_to_old(folder_path, old_dir)
 
         # Move folders according to new strategy
         if previous_last_design and previous_last_design != self.config.output_dir:

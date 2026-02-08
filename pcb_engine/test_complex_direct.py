@@ -117,8 +117,8 @@ output_file = op.generate(
     routes=routing_result.routes,
     board_width=40.0,
     board_height=30.0,
-    board_name='ldo_led_circuit',
-    output_dir='./output'
+    board_name='ldo_led_circuit'
+    # output_dir defaults to D:\Anas\tmp\output (see paths.py)
 )
 
 if output_file:
