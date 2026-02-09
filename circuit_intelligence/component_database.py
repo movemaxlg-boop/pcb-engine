@@ -148,9 +148,12 @@ COMPONENT_DATABASE: Dict[str, ComponentData] = {
         package=PackageType.TO263,
         thermal=ThermalProperties(
             # Source: TI LM2596 datasheet (SNVS124C), Table 7.5
-            # θJA depends on copper area - value for 0.5 in² copper
-            theta_ja=50.0,  # Typ with 0.5 in² copper (TO-263)
-            theta_jc=2.0,   # Junction-to-case
+            # θJA = 70°C/W (TO-263-5 with 0.5 in² 1oz copper)
+            # θJC = 5°C/W (junction to case)
+            # With 2.5 in² copper: θJA ≈ 45°C/W
+            # With 3 in² double-sided: θJA ≈ 35°C/W
+            theta_ja=70.0,  # TO-263 with 0.5 in² copper (per datasheet)
+            theta_jc=5.0,   # Junction-to-case
             max_junction_temp=125.0,
             recommended_copper_area=323.0,  # 0.5 in² = 323 mm²
             needs_thermal_vias=True,
@@ -179,10 +182,13 @@ COMPONENT_DATABASE: Dict[str, ComponentData] = {
         package=PackageType.SOT223,
         thermal=ThermalProperties(
             # Source: AMS1117 datasheet (ds1117.pdf)
-            theta_ja=15.0,  # SOT-223 θJA = 15°C/W (per datasheet)
-            theta_jc=5.0,   # Estimated
+            # NOTE: 15°C/W is θJC (junction to tab), NOT θJA
+            # θJA (junction to ambient) = 90°C/W with minimal copper
+            # θJA can be reduced to ~45°C/W with good thermal design
+            theta_ja=90.0,  # SOT-223 θJA = 90°C/W (minimal copper)
+            theta_jc=15.0,  # Junction to tab = 15°C/W
             max_junction_temp=125.0,
-            recommended_copper_area=100.0,
+            recommended_copper_area=100.0,  # mm² to improve θJA
         ),
         electrical=ElectricalProperties(
             # Source: AMS1117 datasheet electrical characteristics

@@ -385,8 +385,8 @@ class PartsLibrary:
                 category='REGULATOR',
                 subcategory='BUCK',
                 thermal=ThermalSpec(
-                    theta_ja=50.0,   # With 0.5 in² copper (TO-263)
-                    theta_jc=2.0,    # Junction to case
+                    theta_ja=70.0,   # TO-263 with 0.5 in² copper (per SNVS124C Table 7.5)
+                    theta_jc=5.0,    # Junction to case
                     max_temp=125.0,
                     power_max=2.0,   # Based on thermal limits
                 ),
@@ -420,7 +420,9 @@ class PartsLibrary:
                 category='REGULATOR',
                 subcategory='LDO',
                 thermal=ThermalSpec(
-                    theta_ja=15.0,   # SOT-223 θJA per datasheet
+                    # NOTE: 15°C/W is θJC (junction-to-tab), NOT θJA!
+                    theta_ja=90.0,   # SOT-223 θJA = 90°C/W (minimal copper)
+                    theta_jc=15.0,   # Junction to tab
                     max_temp=125.0,
                 ),
                 electrical=ElectricalSpec(
