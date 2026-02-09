@@ -12,6 +12,9 @@ The pipeline answers:
 - WHAT constraints apply to each element?
 
 This module uses ONLY verified rules from verified_design_rules.py.
+
+NEW in v2.0: Integrated with RulesAPI for AI-reviewable validation.
+Every design decision now produces RuleReports for external AI review.
 """
 
 from dataclasses import dataclass, field
@@ -26,6 +29,16 @@ from .verified_design_rules import (
     ConductorSpacing,
 )
 from .parts_library import PartsLibrary
+
+# NEW: Import Rules API for AI-reviewable validation
+from .rules_api import RulesAPI
+from .rule_types import (
+    RuleReport,
+    RuleStatus,
+    RuleCategory,
+    DesignReviewReport,
+)
+from .feedback import AIFeedbackProcessor
 
 
 # =============================================================================
@@ -145,6 +158,10 @@ class DesignPlan:
     warnings: List[str]             # Design warnings
     recommendations: List[str]      # Improvement suggestions
 
+    # NEW: AI-reviewable validation reports
+    design_review: Optional['DesignReviewReport'] = None
+    rule_reports: List['RuleReport'] = field(default_factory=list)
+
 
 # =============================================================================
 # DESIGN PIPELINE - The decision-making engine
@@ -156,11 +173,27 @@ class DesignPipeline:
 
     This takes a DesignContext and produces a DesignPlan using
     verified engineering rules.
+
+    NEW in v2.0: Integrated with RulesAPI for AI-reviewable validation.
+    Use generate_ai_review() to get reports for external AI agents.
     """
 
-    def __init__(self):
+    def __init__(self, enable_ai_review: bool = True):
+        """
+        Initialize the design pipeline.
+
+        Args:
+            enable_ai_review: If True, generate AI-reviewable reports
+        """
         self.rules = get_verified_rules()
         self.parts_lib = PartsLibrary()
+        self.enable_ai_review = enable_ai_review
+
+        # NEW: RulesAPI for AI-reviewable validation
+        self.rules_api = RulesAPI()
+        self.feedback_processor = AIFeedbackProcessor()
+        self.current_review: Optional[DesignReviewReport] = None
+
         try:
             self.parts_lib.load_defaults()
         except:
@@ -192,12 +225,27 @@ class DesignPipeline:
         warnings = self._generate_warnings(context, analysis)
         recommendations = self._generate_recommendations(context, analysis)
 
+        # Step 6: NEW - Generate AI-reviewable design review
+        design_review = None
+        rule_reports = []
+        if self.enable_ai_review:
+            design_review, rule_reports = self._generate_ai_review(
+                context, analysis, placement_decisions, routing_decisions
+            )
+            self.current_review = design_review
+
+            # Add reports to feedback processor for AI review
+            for report in rule_reports:
+                self.feedback_processor.add_report(report)
+
         return DesignPlan(
             placement_decisions=placement_decisions,
             routing_decisions=routing_decisions,
             design_rules=drc_rules,
             warnings=warnings,
             recommendations=recommendations,
+            design_review=design_review,
+            rule_reports=rule_reports,
         )
 
     # -------------------------------------------------------------------------
@@ -685,6 +733,165 @@ class DesignPipeline:
         )
 
         return recs
+
+    # -------------------------------------------------------------------------
+    # NEW: AI-REVIEWABLE VALIDATION
+    # -------------------------------------------------------------------------
+
+    def _generate_ai_review(
+        self,
+        context: DesignContext,
+        analysis: Dict,
+        placement_decisions: List[PlacementDecision],
+        routing_decisions: List[RoutingDecision]
+    ) -> Tuple[DesignReviewReport, List[RuleReport]]:
+        """
+        Generate AI-reviewable design review report.
+
+        This creates a DesignReviewReport with RuleReports for each
+        validation performed, allowing external AI agents to review,
+        validate, correct, or reject outcomes.
+        """
+        report = DesignReviewReport(design_name=context.design_name)
+        all_reports = []
+
+        # Validate thermal design for high-power components
+        for comp in context.components:
+            if comp.power_dissipation > 0.5:
+                rule_report = self.rules_api.validate_thermal_design(
+                    comp.ref_des,
+                    comp.power_dissipation,
+                    comp.theta_ja if comp.theta_ja > 0 else 50.0,
+                    via_count=0,  # Unknown at this stage
+                    via_diameter=0.3,
+                )
+                report.add_report(rule_report)
+                all_reports.append(rule_report)
+
+        # Validate fabrication specs
+        fab_specs = {
+            'trace_width_mm': self.rules.fabrication.MIN_TRACE_WIDTH_MM,
+            'spacing_mm': self.rules.fabrication.MIN_SPACING_MM,
+            'via_drill_mm': self.rules.fabrication.MIN_VIA_DRILL_MM,
+            'annular_ring_mm': self.rules.fabrication.MIN_ANNULAR_RING_MM,
+        }
+        fab_report = self.rules_api.validate_fabrication(fab_specs)
+        report.add_report(fab_report)
+        all_reports.append(fab_report)
+
+        # Validate layer count for design requirements
+        freq_mhz = max([n.frequency / 1e6 for n in context.nets if n.frequency > 0], default=10)
+        signal_count = len([n for n in context.nets if n.net_type.upper() == "SIGNAL"])
+        has_usb = analysis.get("has_usb", False)
+        has_ddr = any("DDR" in n.name.upper() for n in context.nets)
+
+        stackup_rec = self.rules_api.recommend_layer_count(
+            freq_mhz, signal_count, has_usb, has_ddr
+        )
+        min_layers = stackup_rec.get('min_layers', 2)
+
+        from .rule_types import create_pass_report, create_fail_report
+        if context.board.layer_count >= min_layers:
+            layer_report = create_pass_report(
+                rule_id="STACKUP_LAYER_COUNT",
+                rule_category=RuleCategory.STACKUP,
+                inputs={'layers': context.board.layer_count, 'min_required': min_layers},
+                rule_applied=f"Layer count >= {min_layers}",
+                threshold=min_layers,
+                actual_value=context.board.layer_count,
+            )
+        else:
+            layer_report = create_fail_report(
+                rule_id="STACKUP_LAYER_COUNT",
+                rule_category=RuleCategory.STACKUP,
+                inputs={'layers': context.board.layer_count, 'min_required': min_layers},
+                rule_applied=f"Layer count >= {min_layers}",
+                threshold=min_layers,
+                actual_value=context.board.layer_count,
+                violations=[f"Design has {context.board.layer_count} layers but requires {min_layers}"],
+            )
+        report.add_report(layer_report)
+        all_reports.append(layer_report)
+
+        # Validate routing decisions for high-speed signals
+        for rd in routing_decisions:
+            net = next((n for n in context.nets if n.name == rd.net_name), None)
+            if net and "USB" in net.name.upper():
+                # USB validation
+                if rd.constraints.get("impedance_ohm"):
+                    target_z = self.rules.usb2.DIFFERENTIAL_IMPEDANCE_OHM
+                    actual_z = rd.constraints.get("impedance_ohm", 90)
+                    tolerance = self.rules.usb2.DIFFERENTIAL_TOLERANCE_PERCENT
+
+                    if abs(actual_z - target_z) / target_z * 100 <= tolerance:
+                        usb_report = create_pass_report(
+                            rule_id=f"USB_IMPEDANCE_{net.name}",
+                            rule_category=RuleCategory.HIGH_SPEED,
+                            inputs={'net': net.name, 'impedance': actual_z},
+                            rule_applied=f"Impedance within {target_z}ohm +/-{tolerance}%",
+                            threshold=target_z,
+                            actual_value=actual_z,
+                        )
+                    else:
+                        usb_report = create_fail_report(
+                            rule_id=f"USB_IMPEDANCE_{net.name}",
+                            rule_category=RuleCategory.HIGH_SPEED,
+                            inputs={'net': net.name, 'impedance': actual_z},
+                            rule_applied=f"Impedance within {target_z}ohm +/-{tolerance}%",
+                            threshold=target_z,
+                            actual_value=actual_z,
+                            violations=[f"Impedance {actual_z}ohm outside tolerance"],
+                        )
+                    report.add_report(usb_report)
+                    all_reports.append(usb_report)
+
+        # Finalize the report
+        report.finalize()
+
+        return report, all_reports
+
+    def get_ai_review_prompt(self) -> str:
+        """
+        Generate a prompt for external AI to review the design.
+
+        Returns:
+            String prompt with all rules needing review
+        """
+        return self.feedback_processor.generate_ai_review_prompt()
+
+    def process_ai_feedback(self, command: str) -> 'FeedbackResult':
+        """
+        Process feedback from an external AI agent.
+
+        Args:
+            command: Feedback command (ACCEPT, REJECT, CORRECT, OVERRIDE, etc.)
+
+        Returns:
+            FeedbackResult with action taken
+        """
+        from .feedback import FeedbackResult
+        return self.feedback_processor.process_command(command)
+
+    def get_review_summary(self) -> Dict[str, Any]:
+        """Get a summary of the current design review status."""
+        if self.current_review:
+            return {
+                'design_name': self.current_review.design_name,
+                'total_rules': self.current_review.total_rules_checked,
+                'passed': self.current_review.passed,
+                'failed': self.current_review.failed,
+                'warnings': self.current_review.warnings,
+                'compliance_score': self.current_review.compliance_score,
+                'design_status': self.current_review.design_status,
+                'blocking_violations': self.current_review.blocking_violations,
+            }
+        return {'error': 'No design review available. Run create_design_plan() first.'}
+
+    def export_review_json(self) -> str:
+        """Export the design review as JSON for external consumption."""
+        if self.current_review:
+            return self.current_review.to_json()
+        return '{"error": "No design review available"}'
 
 
 # =============================================================================
