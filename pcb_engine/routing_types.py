@@ -187,7 +187,7 @@ class RoutingConfig:
     board_height: float = 100.0
     origin_x: float = 0.0  # Board origin X (should match placement)
     origin_y: float = 0.0  # Board origin Y (should match placement)
-    grid_size: float = 0.1  # Routing grid resolution in mm
+    grid_size: float = 0.08  # Routing grid resolution in mm (6 cells per 0.5mm pad)
 
     # Design rules
     trace_width: float = 0.25

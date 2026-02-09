@@ -677,11 +677,11 @@ class EngineConfig:
     via_diameter: float = 0.8
     via_drill: float = 0.4
 
-    # Grid settings
+    # Grid settings (6 cells per 0.5mm pad for high accuracy)
     use_dynamic_grid: bool = True
-    grid_size: float = 0.1
-    min_grid_size: float = 0.1
-    max_grid_size: float = 0.25
+    grid_size: float = 0.08
+    min_grid_size: float = 0.08
+    max_grid_size: float = 0.15
 
     # Routing algorithm
     routing_algorithm: str = 'hybrid'

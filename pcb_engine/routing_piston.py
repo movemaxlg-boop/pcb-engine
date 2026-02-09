@@ -459,7 +459,7 @@ class RoutingPiston:
         config = RoutingConfig(
             board_width=50.0,
             board_height=40.0,
-            grid_size=0.1,
+            grid_size=0.08,  # 6 cells per 0.5mm pad
             algorithm='hybrid'
         )
         piston = RoutingPiston(config)
