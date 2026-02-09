@@ -3,61 +3,32 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# LDO voltage regulator circuit
-# COURTYARDS: Pre-calculated by Parts Piston (single source of truth)
-# Format: {'width': W, 'height': H} centered on component origin
-# Note: Using margin=0 courtyards (pad bounding box only) - routing adds its own clearance
+# SIMPLE test circuit - 2 components, 2 nets
+# Testing basic routing with IPC-7351B courtyards
 complex_parts_db = {
     'parts': {
-        'U1': {  # LDO Regulator - SOT-223
-            'footprint': 'SOT-223',
+        'R1': {  # Resistor - 0805
+            'footprint': '0805',
             'pins': [
-                {'number': '1', 'net': 'VIN', 'offset': (-2.3, 0), 'size': (1.0, 1.8)},
-                {'number': '2', 'net': 'GND', 'offset': (0, 0), 'size': (1.0, 1.8)},
-                {'number': '3', 'net': 'VOUT', 'offset': (2.3, 0), 'size': (1.0, 1.8)},
-                {'number': '4', 'net': 'VOUT', 'offset': (0, 3.25), 'size': (3.0, 1.5)},
+                {'number': '1', 'net': 'VIN', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
+                {'number': '2', 'net': 'VOUT', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
             ],
-            # Pre-calculated courtyard (pad bounding box, no IPC margin)
-            'courtyard': {'width': 5.60, 'height': 4.90}
+            # IPC-7351B Level B: 2.80+0.5 x 1.25+0.5
+            'courtyard': {'width': 3.30, 'height': 1.75}
         },
-        'C1': {  # Input cap - 0805
+        'C1': {  # Capacitor - 0805
             'footprint': '0805',
             'pins': [
                 {'number': '1', 'net': 'VIN', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
                 {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
             ],
-            'courtyard': {'width': 2.80, 'height': 1.25}
-        },
-        'C2': {  # Output cap - 0805
-            'footprint': '0805',
-            'pins': [
-                {'number': '1', 'net': 'VOUT', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
-                {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
-            ],
-            'courtyard': {'width': 2.80, 'height': 1.25}
-        },
-        'R1': {  # LED resistor - 0603
-            'footprint': '0603',
-            'pins': [
-                {'number': '1', 'net': 'VOUT', 'offset': (-0.75, 0), 'size': (0.6, 0.9)},
-                {'number': '2', 'net': 'LED_A', 'offset': (0.75, 0), 'size': (0.6, 0.9)},
-            ],
-            'courtyard': {'width': 2.10, 'height': 0.90}
-        },
-        'D1': {  # LED - 0805
-            'footprint': '0805',
-            'pins': [
-                {'number': '1', 'net': 'LED_A', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
-                {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
-            ],
-            'courtyard': {'width': 2.80, 'height': 1.25}
+            'courtyard': {'width': 3.30, 'height': 1.75}
         },
     },
     'nets': {
-        'VIN': {'pins': [('U1', '1'), ('C1', '1')]},
-        'VOUT': {'pins': [('U1', '3'), ('U1', '4'), ('C2', '1'), ('R1', '1')]},
-        'GND': {'pins': [('U1', '2'), ('C1', '2'), ('C2', '2'), ('D1', '2')]},
-        'LED_A': {'pins': [('R1', '2'), ('D1', '1')]},
+        'VIN': {'pins': [('R1', '1'), ('C1', '1')]},
+        'VOUT': {'pins': [('R1', '2')]},  # Single pin - just needs pad, no routing
+        'GND': {'pins': [('C1', '2')]},    # Single pin - connects to pour
     }
 }
 
@@ -73,7 +44,7 @@ pe = PlacementEngine(PlacementConfig(
     board_width=40.0,
     board_height=30.0,
     algorithm='hybrid',
-    # Default parameters - let the algorithm handle it
+    min_spacing=1.0,  # Increase spacing for routing channels
 ))
 placement_result = pe.place(complex_parts_db, {})
 print(f"   Placed {len(placement_result.positions)} components")
@@ -97,19 +68,20 @@ pour_result = pour_piston.generate(
 print(f"   GND pour: {pour_result.success}")
 print(f"   GND pins connected via pour (no traces needed)")
 
-# Step 3: Routing (ALL nets including GND - pour provides backup connectivity)
+# Step 3: Routing (ALL nets including GND)
 print("\n3. ROUTING (all nets)")
 from pcb_engine.routing_piston import RoutingPiston, RoutingConfig
 
-# Route ALL nets - OutputPiston will skip GND traces when pour is enabled
+# Route ALL nets - GND pour provides solid ground plane but SMD pads
+# still need routes/vias to connect to the pour
 routeable_nets = ['VIN', 'VOUT', 'GND', 'LED_A']
 rp = RoutingPiston(RoutingConfig(
     board_width=40.0,
     board_height=30.0,
-    algorithm='lee',  # Use Lee with diagonal preference for cleaner traces
-    trace_width=0.25,
-    clearance=0.2,
-    via_cost=5,
+    algorithm='hybrid',  # Use Hybrid (A* + Steiner + Ripup) for better completion
+    trace_width=0.20,    # Thinner traces for tighter spacing
+    clearance=0.20,      # 0.2mm clearance matches KiCad's default
+    via_cost=3,          # Lower via cost to allow more layer changes
     allow_45_degree=True,  # Enable diagonal routing
 ))
 

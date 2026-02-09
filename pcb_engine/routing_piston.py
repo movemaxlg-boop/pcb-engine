@@ -3138,8 +3138,16 @@ class RoutingPiston:
         center = grid[row][col]
         if center in self.BLOCKED_MARKERS:
             return False
-        if center is not None and center != net_name:
-            return False
+        # Handle pad clearance markers: __PAD_CLEAR_<netname>__
+        # These block routing for OTHER nets, but allow same net
+        if center is not None:
+            if center.startswith('__PAD_CLEAR_'):
+                # Extract net name from marker
+                marker_net = center[12:-2]  # Remove '__PAD_CLEAR_' prefix and '__' suffix
+                if marker_net != net_name:
+                    return False  # Clearance zone of different net
+            elif center != net_name:
+                return False
 
         # OPTIMIZED: Use pre-computed circular offset pattern
         # This is like a database index - we pre-computed valid offsets once,
@@ -3150,8 +3158,14 @@ class RoutingPiston:
                 occ = grid[r][c]
                 if occ in self.BLOCKED_MARKERS:
                     return False
-                if occ is not None and occ != net_name:
-                    return False
+                # Handle pad clearance markers in neighbors too
+                if occ is not None:
+                    if occ.startswith('__PAD_CLEAR_'):
+                        marker_net = occ[12:-2]
+                        if marker_net != net_name:
+                            return False
+                    elif occ != net_name:
+                        return False
 
         return True
 
@@ -3916,34 +3930,49 @@ class RoutingPiston:
                 pad_col = self._real_to_grid_col(pad_x)
                 pad_row = self._real_to_grid_row(pad_y)
 
-                # Calculate cells for actual pad dimensions (not pad + clearance)
+                # Calculate cells for pad dimensions WITH CLEARANCE for proper DRC
+                # Pad itself is marked with net name (routing target)
+                # Clearance zone around pad is blocked for other nets
                 pad_cells_w = max(1, int(math.ceil(pad_half_w / self.config.grid_size)))
                 pad_cells_h = max(1, int(math.ceil(pad_half_h / self.config.grid_size)))
+                clearance_extra = self.clearance_cells  # Add clearance zone
 
-                for dr in range(-pad_cells_h, pad_cells_h + 1):
-                    for dc in range(-pad_cells_w, pad_cells_w + 1):
+                # First mark the clearance zone around the pad (for OTHER nets)
+                for dr in range(-(pad_cells_h + clearance_extra), pad_cells_h + clearance_extra + 1):
+                    for dc in range(-(pad_cells_w + clearance_extra), pad_cells_w + clearance_extra + 1):
                         r, c = pad_row + dr, pad_col + dc
                         if self._in_bounds(r, c):
-                            if net == '' or net is None:
-                                # FIX: SMD NC pads only block F.Cu, TH blocks both
-                                self.fcu_grid[r][c] = '__PAD_NC__'
-                                if not is_smd:
-                                    self.bcu_grid[r][c] = '__PAD_NC__'
+                            # Check if this is within pad area or clearance zone
+                            in_pad = abs(dr) <= pad_cells_h and abs(dc) <= pad_cells_w
+
+                            if in_pad:
+                                # Actual pad area - mark with net name
+                                if net == '' or net is None:
+                                    self.fcu_grid[r][c] = '__PAD_NC__'
+                                    if not is_smd:
+                                        self.bcu_grid[r][c] = '__PAD_NC__'
+                                else:
+                                    current = self.fcu_grid[r][c]
+                                    if current is None or current in self.BLOCKED_MARKERS:
+                                        self.fcu_grid[r][c] = net
+                                    elif current != net and current not in self.BLOCKED_MARKERS:
+                                        self.fcu_grid[r][c] = '__PAD_CONFLICT__'
+                                    if not is_smd:
+                                        bcu_current = self.bcu_grid[r][c]
+                                        if bcu_current is None or bcu_current in self.BLOCKED_MARKERS:
+                                            self.bcu_grid[r][c] = net
+                                        elif bcu_current != net and bcu_current not in self.BLOCKED_MARKERS:
+                                            self.bcu_grid[r][c] = '__PAD_CONFLICT__'
                             else:
-                                current = self.fcu_grid[r][c]
-                                if current is None or current in self.BLOCKED_MARKERS:
-                                    # Net overrides component body marker
-                                    self.fcu_grid[r][c] = net
-                                elif current != net and current not in self.BLOCKED_MARKERS:
-                                    self.fcu_grid[r][c] = '__PAD_CONFLICT__'
-                                # FIX: SMD connected pads only go on F.Cu
-                                # TH pads go on both layers (for via connections)
-                                if not is_smd:
-                                    bcu_current = self.bcu_grid[r][c]
-                                    if bcu_current is None or bcu_current in self.BLOCKED_MARKERS:
-                                        self.bcu_grid[r][c] = net
-                                    elif bcu_current != net and bcu_current not in self.BLOCKED_MARKERS:
-                                        self.bcu_grid[r][c] = '__PAD_CONFLICT__'
+                                # Clearance zone - mark to prevent other nets from routing here
+                                # Use special marker that blocks other nets but not same net
+                                if net and net != '':
+                                    clearance_marker = f'__PAD_CLEAR_{net}__'
+                                    # Only mark if cell is empty (don't overwrite existing routing)
+                                    if self.fcu_grid[r][c] is None:
+                                        self.fcu_grid[r][c] = clearance_marker
+                                    if not is_smd and self.bcu_grid[r][c] is None:
+                                        self.bcu_grid[r][c] = clearance_marker
 
     def _register_escapes(self, escapes: Dict):
         """Register escape routes in the grid"""

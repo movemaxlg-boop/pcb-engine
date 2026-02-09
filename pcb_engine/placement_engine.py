@@ -304,36 +304,51 @@ class PlacementEngine:
         cy = self.config.origin_y + self.config.board_height / 2
 
         for ref, part in sorted(parts.items()):  # Sorted for determinism
-            # FIX: Calculate courtyard from pad positions, not just body size
-            # This ensures placement accounts for pads that extend beyond body
-            # (e.g., SOT-223 tab pad extends 3.25mm above center)
-            size = part.get('size', (2.0, 2.0))
-            base_width = size[0] if isinstance(size, (list, tuple)) else 2.0
-            base_height = size[1] if isinstance(size, (list, tuple)) else 2.0
+            # SINGLE SOURCE OF TRUTH: Read courtyard from Parts Piston (parts_db)
+            # Parts Piston pre-calculates IPC-7351B courtyards, we just use them
+            courtyard_data = part.get('courtyard', None)
 
-            # Calculate actual courtyard bounds from pad positions
-            used_pins = get_pins(part)
-            min_x, max_x, min_y, max_y = 0, 0, 0, 0
-            courtyard_margin = 0.25  # IPC standard courtyard margin
+            if courtyard_data:
+                # Use pre-calculated courtyard from Parts Piston
+                if isinstance(courtyard_data, dict):
+                    width = courtyard_data.get('width', 2.0)
+                    height = courtyard_data.get('height', 2.0)
+                elif hasattr(courtyard_data, 'width'):
+                    width = courtyard_data.width
+                    height = courtyard_data.height
+                else:
+                    width, height = 2.0, 2.0
+            else:
+                # Fallback: Calculate courtyard from pad positions
+                # This ensures placement accounts for pads that extend beyond body
+                # (e.g., SOT-223 tab pad extends 3.25mm above center)
+                size = part.get('size', (2.0, 2.0))
+                base_width = size[0] if isinstance(size, (list, tuple)) else 2.0
+                base_height = size[1] if isinstance(size, (list, tuple)) else 2.0
 
-            for pin in used_pins:
-                offset = pin.get('offset', (0, 0))
-                pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
-                if isinstance(offset, (list, tuple)) and len(offset) >= 2:
-                    ox, oy = offset[0], offset[1]
-                    pw = pad_size[0] / 2 if isinstance(pad_size, (list, tuple)) else 0.5
-                    ph = pad_size[1] / 2 if isinstance(pad_size, (list, tuple)) and len(pad_size) > 1 else 0.3
-                    # Track pad extents
-                    min_x = min(min_x, ox - pw - courtyard_margin)
-                    max_x = max(max_x, ox + pw + courtyard_margin)
-                    min_y = min(min_y, oy - ph - courtyard_margin)
-                    max_y = max(max_y, oy + ph + courtyard_margin)
+                # Calculate actual courtyard bounds from pad positions
+                used_pins = get_pins(part)
+                min_x, max_x, min_y, max_y = 0, 0, 0, 0
+                courtyard_margin = 0.25  # IPC standard courtyard margin
 
-            # Use the larger of body size or pad-based courtyard
-            courtyard_width = max(base_width, max_x - min_x)
-            courtyard_height = max(base_height, max_y - min_y)
-            width = courtyard_width
-            height = courtyard_height
+                for pin in used_pins:
+                    offset = pin.get('offset', (0, 0))
+                    pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+                    if isinstance(offset, (list, tuple)) and len(offset) >= 2:
+                        ox, oy = offset[0], offset[1]
+                        pw = pad_size[0] / 2 if isinstance(pad_size, (list, tuple)) else 0.5
+                        ph = pad_size[1] / 2 if isinstance(pad_size, (list, tuple)) and len(pad_size) > 1 else 0.3
+                        # Track pad extents
+                        min_x = min(min_x, ox - pw - courtyard_margin)
+                        max_x = max(max_x, ox + pw + courtyard_margin)
+                        min_y = min(min_y, oy - ph - courtyard_margin)
+                        max_y = max(max_y, oy + ph + courtyard_margin)
+
+                # Use the larger of body size or pad-based courtyard
+                courtyard_width = max(base_width, max_x - min_x)
+                courtyard_height = max(base_height, max_y - min_y)
+                width = courtyard_width
+                height = courtyard_height
 
             # Initial position: spread around center using golden angle
             idx = len(self.components)
@@ -348,7 +363,7 @@ class PlacementEngine:
                 y = cy + r * math.sin(angle)
 
             # Determine component properties
-            # Note: used_pins already computed above for courtyard calculation
+            used_pins = get_pins(part)
             pin_count = len(used_pins)
 
             # Check if decoupling cap

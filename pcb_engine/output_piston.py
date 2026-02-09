@@ -884,13 +884,13 @@ class OutputPiston:
             if via_content:  # Only append valid vias
                 lines.append(via_content)
 
-        # Generate vias for GND pads to connect to bottom layer pour
-        # For 2-layer boards with GND pour on B.Cu, the GND pads connect to the pour
-        # through thermal relief automatically. No extra vias needed at pad locations.
-        # The GND pour covers the entire bottom layer, so any GND pad touching the pour
-        # is already connected. Adding vias near pads risks shorting to nearby non-GND pads.
-        # SKIP GND pad vias - the pour handles GND connectivity via thermal relief.
-        # Note: Routing vias for layer transitions are handled by the routing piston.
+        # GND SMD pads connectivity to B.Cu ground pour:
+        # SMD pads on F.Cu need ROUTING to connect to the B.Cu GND pour.
+        # The correct approach is:
+        # 1. Routing piston routes GND net like any other net (includes layer-change vias)
+        # 2. OR: Use via-in-pad for direct connection (advanced feature)
+        # For now, GND must be in routeable_nets for proper connectivity.
+        # The GND pour provides solid ground plane, but SMD pads still need routed connections.
 
         # Board outline
         outline = self._generate_board_outline()

@@ -582,12 +582,16 @@ class PourPiston:
         pts = "\n      ".join([f"(xy {x:.4f} {y:.4f})" for x, y in zone.outline[:-1]])
 
         # Thermal relief settings
+        # Note: For SMD pads to connect to pour, we MUST use "yes" not "thru_hole_only"
+        # KiCad applies thermal relief via thermal_gap and thermal_bridge_width settings
         if zone.thermal_relief == ThermalReliefStyle.SOLID:
-            connect_pads = "(connect_pads yes)"
+            connect_pads = "(connect_pads yes)"  # All pads, direct connection
         elif zone.thermal_relief == ThermalReliefStyle.NONE:
-            connect_pads = "(connect_pads no)"
+            connect_pads = "(connect_pads no)"   # No pads connect
         else:
-            connect_pads = f"(connect_pads thru_hole_only (clearance {zone.thermal_gap:.4f}))"
+            # THERMAL mode: Connect ALL pads (including SMD) with thermal relief
+            # The thermal_gap and thermal_bridge_width settings define the relief
+            connect_pads = "(connect_pads yes)"  # Was thru_hole_only - didn't connect SMD!
 
         # Hatch mode
         if zone.hatch_edge > 0:
