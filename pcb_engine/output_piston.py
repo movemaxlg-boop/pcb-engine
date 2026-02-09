@@ -1011,101 +1011,118 @@ class OutputPiston:
             pin_ref = f"{ref}.{pin_num}"
             return pin_to_net.get(pin_ref, '')
 
-        # FIX: Try to use unified footprint library first
-        # This ensures routing and output use THE SAME pad positions
-        fp_def = get_footprint_definition(footprint_name)
+        # PRIORITY: Use parts_db['pins'] as single source of truth for pad positions
+        # Fall back to common_types.py FootprintDefinition ONLY if not in parts_db
+        part_pins = part.get('pins', [])
 
-        # Common SMD 2-pin footprints (capacitors, resistors, LEDs)
-        # Use unified footprint library for standard packages
-        if any(x in footprint_name.lower() for x in ['0402', '0603', '0805', '1206']) or \
-           footprint_name in ['0402', '0603', '0805', '1206']:
-            # Use pad positions from unified library
-            for pin_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+        # If parts_db has pin definitions with offsets, use them (single source of truth)
+        if part_pins and any('offset' in p for p in part_pins):
+            for pin_data in part_pins:
+                pin_num = str(pin_data.get('number', ''))
+                offset = pin_data.get('offset', (0, 0))
+                size = pin_data.get('size', (0.5, 0.5))
+                pad_x = float(offset[0]) if isinstance(offset, (list, tuple)) else 0
+                pad_y = float(offset[1]) if isinstance(offset, (list, tuple)) else 0
+                pad_w = float(size[0]) if isinstance(size, (list, tuple)) else 0.5
+                pad_h = float(size[1]) if isinstance(size, (list, tuple)) else 0.5
                 net = get_pin_net(part, pin_num)
                 net_id = net_ids.get(net, 0)
                 pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
 
-        # SOT-23-5 (voltage regulators like AP2112K)
-        # FIX: Use unified footprint library
-        elif 'SOT-23-5' in footprint_name or 'sot-23-5' in footprint_name.lower():
-            sot_def = get_footprint_definition('SOT-23-5')
-            for pin_num, pad_x, pad_y, pad_w, pad_h in sot_def.pad_positions:
-                net = get_pin_net(part, pin_num)
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-
-        # SOT-223 (LDO regulators like LM1117, AMS1117)
-        # FIX: Use unified footprint library - pad positions must match routing!
-        elif 'SOT-223' in footprint_name or 'sot-223' in footprint_name.lower():
-            sot223_def = get_footprint_definition('SOT-223')
-            for pin_num, pad_x, pad_y, pad_w, pad_h in sot223_def.pad_positions:
-                net = get_pin_net(part, pin_num)
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-
-        # USB-C receptacle
-        elif 'USB_C' in footprint_name:
-            # Simplified USB-C with key pins
-            usb_pins = [
-                ('A1', -2.75, -3.0), ('A4', -1.75, -3.0), ('A5', -1.0, -3.0), ('A6', -0.25, -3.0),
-                ('A7', 0.25, -3.0), ('A8', 1.0, -3.0), ('A9', 1.75, -3.0), ('A12', 2.75, -3.0),
-                ('B1', -2.75, 3.0), ('B4', -1.75, 3.0), ('B5', -1.0, 3.0), ('B6', -0.25, 3.0),
-                ('B7', 0.25, 3.0), ('B8', 1.0, 3.0), ('B9', 1.75, 3.0), ('B12', 2.75, 3.0),
-            ]
-            for pin_num, px, py in usb_pins:
-                net = get_pin_net(part, pin_num)  # Pass part, not pins
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{pin_num}" smd roundrect (at {px:.4f} {py:.4f}) (size 0.3 1.0) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-            # Shield pins (THT)
-            for i, (px, py) in enumerate([(-4.32, -1.5), (-4.32, 1.5), (4.32, -1.5), (4.32, 1.5)], 1):
-                pads.append(f'    (pad "S{i}" thru_hole oval (at {px:.4f} {py:.4f}) (size 1.0 1.8) (drill 0.6) (layers "*.Cu" "*.Mask") (uuid "{uuid_module.uuid4()}"))')
-
-        # ESP32-WROOM-32 module (simplified)
-        elif 'ESP32-WROOM' in footprint_name:
-            # Bottom row pads (1-19)
-            for i in range(1, 20):
-                px = -8.89 + (i-1) * 1.27
-                net = get_pin_net(part, str(i))  # Pass part, not pins
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{i}" smd rect (at {px:.4f} 8.5) (size 0.9 2.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-            # Top row pads (20-38)
-            for i in range(20, 39):
-                px = -8.89 + (i-20) * 1.27
-                net = get_pin_net(part, str(i))  # Pass part, not pins
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{i}" smd rect (at {px:.4f} -8.5) (size 0.9 2.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-            # Center GND pad
-            net = get_pin_net(part, '39') or 'GND'  # Pass part, not pins
-            net_id = net_ids.get(net, 0)
-            pads.append(f'    (pad "39" smd rect (at 0 0) (size 6.0 6.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-
-        # Pin Headers (through-hole)
-        elif 'PinHeader' in footprint_name or 'HEADER' in footprint_name.upper():
-            # Parse pin count from footprint name (e.g., PinHeader_1x03, PinHeader_1x04)
-            import re
-            match = re.search(r'1x0?(\d+)', footprint_name)
-            pin_count = int(match.group(1)) if match else 3  # Default to 3 pins
-
-            # Standard 2.54mm pitch (0.1 inch)
-            pitch = 2.54
-            start_y = -(pin_count - 1) * pitch / 2
-
-            for i in range(1, pin_count + 1):
-                py = start_y + (i - 1) * pitch
-                net = get_pin_net(part, str(i))
-                net_id = net_ids.get(net, 0)
-                pads.append(f'    (pad "{i}" thru_hole circle (at 0 {py:.4f}) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
-
-        # Generic fallback - 2 pads
+        # FALLBACK: Use unified footprint library if no pins with offsets in parts_db
         else:
-            # Use common_get_pin_net which handles all pin formats (list, dict, etc.)
-            # Pass the full part dict, not just pins
-            net1 = get_pin_net(part, '1')
-            net2 = get_pin_net(part, '2')
-            net1_id = net_ids.get(net1, 0)
-            net2_id = net_ids.get(net2, 0)
-            pads.append(f'    (pad "1" smd roundrect (at -1.0 0) (size 1.0 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net1_id} "{net1}") (uuid "{uuid_module.uuid4()}"))')
-            pads.append(f'    (pad "2" smd roundrect (at 1.0 0) (size 1.0 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net2_id} "{net2}") (uuid "{uuid_module.uuid4()}"))')
+            fp_def = get_footprint_definition(footprint_name)
+
+            # Common SMD 2-pin footprints - ONLY if parts_db has no pin offsets
+            if any(x in footprint_name.lower() for x in ['0402', '0603', '0805', '1206']) or \
+               footprint_name in ['0402', '0603', '0805', '1206']:
+                # Use pad positions from unified library
+                for pin_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+                    net = get_pin_net(part, pin_num)
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
+            # SOT-23-5 (voltage regulators like AP2112K)
+            # FIX: Use unified footprint library
+            elif 'SOT-23-5' in footprint_name or 'sot-23-5' in footprint_name.lower():
+                sot_def = get_footprint_definition('SOT-23-5')
+                for pin_num, pad_x, pad_y, pad_w, pad_h in sot_def.pad_positions:
+                    net = get_pin_net(part, pin_num)
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
+            # SOT-223 (LDO regulators like LM1117, AMS1117)
+            # FIX: Use unified footprint library - pad positions must match routing!
+            elif 'SOT-223' in footprint_name or 'sot-223' in footprint_name.lower():
+                sot223_def = get_footprint_definition('SOT-223')
+                for pin_num, pad_x, pad_y, pad_w, pad_h in sot223_def.pad_positions:
+                    net = get_pin_net(part, pin_num)
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{pin_num}" smd roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
+            # USB-C receptacle
+            elif 'USB_C' in footprint_name:
+                # Simplified USB-C with key pins
+                usb_pins = [
+                    ('A1', -2.75, -3.0), ('A4', -1.75, -3.0), ('A5', -1.0, -3.0), ('A6', -0.25, -3.0),
+                    ('A7', 0.25, -3.0), ('A8', 1.0, -3.0), ('A9', 1.75, -3.0), ('A12', 2.75, -3.0),
+                    ('B1', -2.75, 3.0), ('B4', -1.75, 3.0), ('B5', -1.0, 3.0), ('B6', -0.25, 3.0),
+                    ('B7', 0.25, 3.0), ('B8', 1.0, 3.0), ('B9', 1.75, 3.0), ('B12', 2.75, 3.0),
+                ]
+                for pin_num, px, py in usb_pins:
+                    net = get_pin_net(part, pin_num)  # Pass part, not pins
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{pin_num}" smd roundrect (at {px:.4f} {py:.4f}) (size 0.3 1.0) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+                # Shield pins (THT)
+                for i, (px, py) in enumerate([(-4.32, -1.5), (-4.32, 1.5), (4.32, -1.5), (4.32, 1.5)], 1):
+                    pads.append(f'    (pad "S{i}" thru_hole oval (at {px:.4f} {py:.4f}) (size 1.0 1.8) (drill 0.6) (layers "*.Cu" "*.Mask") (uuid "{uuid_module.uuid4()}"))')
+
+            # ESP32-WROOM-32 module (simplified)
+            elif 'ESP32-WROOM' in footprint_name:
+                # Bottom row pads (1-19)
+                for i in range(1, 20):
+                    px = -8.89 + (i-1) * 1.27
+                    net = get_pin_net(part, str(i))  # Pass part, not pins
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{i}" smd rect (at {px:.4f} 8.5) (size 0.9 2.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+                # Top row pads (20-38)
+                for i in range(20, 39):
+                    px = -8.89 + (i-20) * 1.27
+                    net = get_pin_net(part, str(i))  # Pass part, not pins
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{i}" smd rect (at {px:.4f} -8.5) (size 0.9 2.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+                # Center GND pad
+                net = get_pin_net(part, '39') or 'GND'  # Pass part, not pins
+                net_id = net_ids.get(net, 0)
+                pads.append(f'    (pad "39" smd rect (at 0 0) (size 6.0 6.0) (layers "F.Cu" "F.Paste" "F.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
+            # Pin Headers (through-hole)
+            elif 'PinHeader' in footprint_name or 'HEADER' in footprint_name.upper():
+                # Parse pin count from footprint name (e.g., PinHeader_1x03, PinHeader_1x04)
+                import re
+                match = re.search(r'1x0?(\d+)', footprint_name)
+                pin_count = int(match.group(1)) if match else 3  # Default to 3 pins
+
+                # Standard 2.54mm pitch (0.1 inch)
+                pitch = 2.54
+                start_y = -(pin_count - 1) * pitch / 2
+
+                for i in range(1, pin_count + 1):
+                    py = start_y + (i - 1) * pitch
+                    net = get_pin_net(part, str(i))
+                    net_id = net_ids.get(net, 0)
+                    pads.append(f'    (pad "{i}" thru_hole circle (at 0 {py:.4f}) (size 1.7 1.7) (drill 1.0) (layers "*.Cu" "*.Mask") (net {net_id} "{net}") (uuid "{uuid_module.uuid4()}"))')
+
+            # Generic fallback - 2 pads
+            else:
+                # Use common_get_pin_net which handles all pin formats (list, dict, etc.)
+                # Pass the full part dict, not just pins
+                net1 = get_pin_net(part, '1')
+                net2 = get_pin_net(part, '2')
+                net1_id = net_ids.get(net1, 0)
+                net2_id = net_ids.get(net2, 0)
+                pads.append(f'    (pad "1" smd roundrect (at -1.0 0) (size 1.0 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net1_id} "{net1}") (uuid "{uuid_module.uuid4()}"))')
+                pads.append(f'    (pad "2" smd roundrect (at 1.0 0) (size 1.0 1.5) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25) (net {net2_id} "{net2}") (uuid "{uuid_module.uuid4()}"))')
 
         return pads
 

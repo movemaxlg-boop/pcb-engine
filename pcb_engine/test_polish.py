@@ -3,20 +3,24 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# SIMPLE test circuit - 2 components, 2 nets
-# Testing basic routing with IPC-7351B courtyards
+# LDO voltage regulator circuit with LED indicator
+# COURTYARDS: Pre-calculated by Parts Piston using IPC-7351B standard
+# Format: {'width': W, 'height': H} centered on component origin
+# IPC-7351B Level B (Nominal) = 0.25mm courtyard excess on all sides
 complex_parts_db = {
     'parts': {
-        'R1': {  # Resistor - 0805
-            'footprint': '0805',
+        'U1': {  # LDO Regulator - SOT-223
+            'footprint': 'SOT-223',
             'pins': [
-                {'number': '1', 'net': 'VIN', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
-                {'number': '2', 'net': 'VOUT', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
+                {'number': '1', 'net': 'VIN', 'offset': (-2.3, 0), 'size': (1.0, 1.8)},
+                {'number': '2', 'net': 'GND', 'offset': (0, 0), 'size': (1.0, 1.8)},
+                {'number': '3', 'net': 'VOUT', 'offset': (2.3, 0), 'size': (1.0, 1.8)},
+                {'number': '4', 'net': 'VOUT', 'offset': (0, 3.25), 'size': (3.0, 1.5)},
             ],
-            # IPC-7351B Level B: 2.80+0.5 x 1.25+0.5
-            'courtyard': {'width': 3.30, 'height': 1.75}
+            # IPC-7351B courtyard: pad_bbox + 0.25mm margin
+            'courtyard': {'width': 6.10, 'height': 5.40}
         },
-        'C1': {  # Capacitor - 0805
+        'C1': {  # Input cap - 0805
             'footprint': '0805',
             'pins': [
                 {'number': '1', 'net': 'VIN', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
@@ -24,11 +28,37 @@ complex_parts_db = {
             ],
             'courtyard': {'width': 3.30, 'height': 1.75}
         },
+        'C2': {  # Output cap - 0805
+            'footprint': '0805',
+            'pins': [
+                {'number': '1', 'net': 'VOUT', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
+                {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
+            ],
+            'courtyard': {'width': 3.30, 'height': 1.75}
+        },
+        'R1': {  # LED resistor - 0603
+            'footprint': '0603',
+            'pins': [
+                # Use correct 0603 pad offset from common_types.py FootprintDefinition
+                {'number': '1', 'net': 'VOUT', 'offset': (-0.775, 0), 'size': (0.75, 0.9)},
+                {'number': '2', 'net': 'LED_A', 'offset': (0.775, 0), 'size': (0.75, 0.9)},
+            ],
+            'courtyard': {'width': 2.60, 'height': 1.40}
+        },
+        'D1': {  # LED - 0805
+            'footprint': '0805',
+            'pins': [
+                {'number': '1', 'net': 'LED_A', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
+                {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
+            ],
+            'courtyard': {'width': 3.30, 'height': 1.75}
+        },
     },
     'nets': {
-        'VIN': {'pins': [('R1', '1'), ('C1', '1')]},
-        'VOUT': {'pins': [('R1', '2')]},  # Single pin - just needs pad, no routing
-        'GND': {'pins': [('C1', '2')]},    # Single pin - connects to pour
+        'VIN': {'pins': [('U1', '1'), ('C1', '1')]},
+        'VOUT': {'pins': [('U1', '3'), ('U1', '4'), ('C2', '1'), ('R1', '1')]},
+        'GND': {'pins': [('U1', '2'), ('C1', '2'), ('C2', '2'), ('D1', '2')]},
+        'LED_A': {'pins': [('R1', '2'), ('D1', '1')]},
     }
 }
 
@@ -48,6 +78,9 @@ pe = PlacementEngine(PlacementConfig(
 ))
 placement_result = pe.place(complex_parts_db, {})
 print(f"   Placed {len(placement_result.positions)} components")
+print(f"   Overlap area: {placement_result.overlap_area:.2f} mm²")
+for ref, pos in placement_result.positions.items():
+    print(f"   {ref}: ({pos[0]:.2f}, {pos[1]:.2f})")
 
 # Step 2: GND POUR (eliminates GND traces - they connect via ground plane)
 print("\n2. GND POUR")
@@ -83,6 +116,7 @@ rp = RoutingPiston(RoutingConfig(
     clearance=0.20,      # 0.2mm clearance matches KiCad's default
     via_cost=3,          # Lower via cost to allow more layer changes
     allow_45_degree=True,  # Enable diagonal routing
+    grid_size=0.05,      # Finer grid reduces pad-to-grid snap gaps
 ))
 
 routing_result = rp.route(

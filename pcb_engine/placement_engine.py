@@ -783,10 +783,14 @@ class PlacementEngine:
         ref = random.choice(refs)
         comp = self.components[ref]
 
+        old_rotation = comp.rotation
         comp.rotation = (comp.rotation + 90) % 360
 
-        # Swap width and height for 90/270 rotation
-        if comp.rotation in [90, 270]:
+        # Swap width and height when TRANSITIONING to/from 90/270 rotation
+        # (i.e., when the parity of being rotated 90 degrees changes)
+        was_swapped = old_rotation in [90, 270]
+        is_swapped = comp.rotation in [90, 270]
+        if was_swapped != is_swapped:
             comp.width, comp.height = comp.height, comp.width
 
         # Re-clamp to board
