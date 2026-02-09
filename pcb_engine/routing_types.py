@@ -209,6 +209,9 @@ class RoutingConfig:
     top_layer_name: str = 'F.Cu'
     bottom_layer_name: str = 'B.Cu'
 
+    # Diagonal routing (45-degree angles)
+    allow_45_degree: bool = True  # Enable 8-directional routing for cleaner traces
+
     # Via cost (for algorithms that use cost)
     via_cost: float = 5.0
 

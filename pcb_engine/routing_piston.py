@@ -432,8 +432,29 @@ class RoutingPiston:
         # BFS queue: (distance, layer, row, col)
         queue = deque([(0, start_layer, start_row, start_col)])
 
-        # Direction vectors: Right, Left, Down, Up
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        # Direction vectors
+        # 4-directional: Right, Left, Down, Up
+        # 8-directional: adds diagonals for cleaner 45° routing
+        if self.config.allow_45_degree:
+            # 8 directions: cardinal + diagonal (diagonal cost is sqrt(2) ≈ 1.414)
+            directions = [
+                (0, 1, 1.0),    # Right
+                (0, -1, 1.0),   # Left
+                (1, 0, 1.0),    # Down
+                (-1, 0, 1.0),   # Up
+                (1, 1, 1.414),  # Down-Right (45°)
+                (1, -1, 1.414), # Down-Left (45°)
+                (-1, 1, 1.414), # Up-Right (45°)
+                (-1, -1, 1.414) # Up-Left (45°)
+            ]
+        else:
+            # 4 directions only (Manhattan routing)
+            directions = [
+                (0, 1, 1.0),   # Right
+                (0, -1, 1.0),  # Left
+                (1, 0, 1.0),   # Down
+                (-1, 0, 1.0)   # Up
+            ]
 
         found = False
         found_layer = -1
@@ -487,8 +508,8 @@ class RoutingPiston:
             if dist > dist_grid[layer][row][col] and dist_grid[layer][row][col] != -1:
                 continue
 
-            # Expand to 4 neighbors on same layer
-            for dr, dc in directions:
+            # Expand to neighbors on same layer (4 or 8 directions)
+            for dr, dc, move_cost in directions:
                 nr, nc = row + dr, col + dc
 
                 if not self._in_bounds(nr, nc):
@@ -534,7 +555,7 @@ class RoutingPiston:
                     if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                         continue
 
-                new_dist = dist + 1
+                new_dist = dist + move_cost  # Use actual move cost (1.0 for cardinal, 1.414 for diagonal)
                 dist_grid[layer][nr][nc] = new_dist
                 parent[(layer, nr, nc)] = (layer, row, col)
                 queue.append((new_dist, layer, nr, nc))
@@ -719,7 +740,15 @@ class RoutingPiston:
         # heapq gives min-heap, so lower detour = higher priority
         pq = [(0, start_layer, start_row, start_col)]
 
-        directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]  # R, U, L, D
+        # 8-directional or 4-directional based on config
+        if self.config.allow_45_degree:
+            directions = [
+                (0, 1), (-1, 0), (0, -1), (1, 0),  # Cardinal
+                (1, 1), (1, -1), (-1, 1), (-1, -1)  # Diagonal
+            ]
+        else:
+            directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]  # R, U, L, D
+
         max_iterations = self.config.lee_max_expansion
 
         for _ in range(max_iterations):
@@ -1415,7 +1444,15 @@ class RoutingPiston:
         came_from = {}
         g_score = {(start_layer, start_row, start_col): 0}
 
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        # 8-directional or 4-directional based on config
+        if self.config.allow_45_degree:
+            directions = [
+                (0, 1, 1.0), (0, -1, 1.0), (1, 0, 1.0), (-1, 0, 1.0),  # Cardinal
+                (1, 1, 1.414), (1, -1, 1.414), (-1, 1, 1.414), (-1, -1, 1.414)  # Diagonal
+            ]
+        else:
+            directions = [(0, 1, 1.0), (0, -1, 1.0), (1, 0, 1.0), (-1, 0, 1.0)]
+
         max_iterations = self.grid_rows * self.grid_cols * 4
 
         for _ in range(max_iterations):
@@ -1438,7 +1475,7 @@ class RoutingPiston:
 
             grid = self.fcu_grid if layer == 0 else self.bcu_grid
 
-            for dr, dc in directions:
+            for dr, dc, move_cost in directions:
                 nr, nc = row + dr, col + dc
 
                 if not self._in_bounds(nr, nc):
@@ -1446,7 +1483,7 @@ class RoutingPiston:
                 if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                     continue
 
-                tentative_g = g + 1
+                tentative_g = g + move_cost  # Use actual move cost
 
                 if tentative_g < g_score.get((layer, nr, nc), float('inf')):
                     came_from[(layer, nr, nc)] = (layer, row, col)
