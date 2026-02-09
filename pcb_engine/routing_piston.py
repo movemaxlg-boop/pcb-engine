@@ -517,16 +517,13 @@ class RoutingPiston:
                 if dist_grid[layer][nr][nc] != -1:
                     continue  # Already visited
 
-                # DIAGONAL MOVE CHECK: For diagonal moves, verify the two corner cells
-                # are also clear. A diagonal trace from (row,col) to (nr,nc) clips through
-                # the corners at (row,nc) and (nr,col). Both must be passable.
+                # DIAGONAL MOVE CHECK: For diagonal moves, verify the entire path is clear.
+                # A diagonal trace from (row,col) to (nr,nc) must not clip through any obstacles.
                 is_diagonal = (dr != 0 and dc != 0)
                 if is_diagonal:
-                    # Check both corner cells that the diagonal would clip through
-                    corner1_clear = self._is_cell_passable_for_diagonal(grid, row, nc, net_name)
-                    corner2_clear = self._is_cell_passable_for_diagonal(grid, nr, col, net_name)
-                    if not (corner1_clear and corner2_clear):
-                        continue  # Can't take diagonal - would clip through obstacle
+                    # Check the entire diagonal path for obstacles
+                    if not self._is_diagonal_path_clear(grid, row, col, nr, nc, net_name):
+                        continue  # Can't take diagonal - path blocked
 
                 # Check if this neighbor is part of our target net's pad area
                 neighbor_cell = grid[nr][nc] if self._in_bounds(nr, nc) else None
@@ -1496,13 +1493,11 @@ class RoutingPiston:
                 if not self._in_bounds(nr, nc):
                     continue
 
-                # DIAGONAL MOVE CHECK: For diagonal moves, verify corner cells are clear
+                # DIAGONAL MOVE CHECK: For diagonal moves, verify the entire path is clear
                 is_diagonal = (dr != 0 and dc != 0)
                 if is_diagonal:
-                    corner1_clear = self._is_cell_passable_for_diagonal(grid, row, nc, net_name)
-                    corner2_clear = self._is_cell_passable_for_diagonal(grid, nr, col, net_name)
-                    if not (corner1_clear and corner2_clear):
-                        continue  # Can't take diagonal
+                    if not self._is_diagonal_path_clear(grid, row, col, nr, nc, net_name):
+                        continue  # Can't take diagonal - path blocked
 
                 if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                     continue
@@ -2576,6 +2571,45 @@ class RoutingPiston:
         # Other net's pads are impassable (can't clip through them)
         if cell is not None and cell != net_name:
             return False
+
+        return True
+
+    def _is_diagonal_path_clear(self, grid: List[List], r1: int, c1: int,
+                                 r2: int, c2: int, net_name: str) -> bool:
+        """Check if the diagonal path from (r1,c1) to (r2,c2) is clear.
+
+        Uses Bresenham's line algorithm to check all cells along the path.
+        This is more thorough than just checking corner cells.
+
+        For single-cell diagonal moves (dr=1, dc=1), this is equivalent to
+        checking the corner cells, but this works for longer diagonals too.
+        """
+        # For same cell, always clear
+        if r1 == r2 and c1 == c2:
+            return True
+
+        # Bresenham's line algorithm
+        dr = abs(r2 - r1)
+        dc = abs(c2 - c1)
+        r, c = r1, c1
+        r_step = 1 if r2 > r1 else -1
+        c_step = 1 if c2 > c1 else -1
+
+        # For truly diagonal moves, check both the integer cells and "corners"
+        if dr == dc:  # 45-degree diagonal
+            # Check both corner cells for each step
+            for _ in range(dr):
+                # Check the two corner cells that the diagonal clips through
+                corner1 = (r, c + c_step)  # Horizontal first
+                corner2 = (r + r_step, c)  # Vertical first
+
+                if not self._is_cell_passable_for_diagonal(grid, corner1[0], corner1[1], net_name):
+                    return False
+                if not self._is_cell_passable_for_diagonal(grid, corner2[0], corner2[1], net_name):
+                    return False
+
+                r += r_step
+                c += c_step
 
         return True
 
