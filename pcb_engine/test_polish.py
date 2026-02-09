@@ -56,30 +56,52 @@ print("=" * 70)
 print("POLISH PISTON TEST: LDO + LED Circuit")
 print("=" * 70)
 
-# Step 1: Placement
+# Step 1: Placement (with stronger net attraction for aligned traces)
 print("\n1. PLACEMENT")
 from pcb_engine.placement_engine import PlacementEngine, PlacementConfig
 
 pe = PlacementEngine(PlacementConfig(
     board_width=40.0,
     board_height=30.0,
-    algorithm='hybrid'
+    algorithm='hybrid',
+    # Default parameters - let the algorithm handle it
 ))
 placement_result = pe.place(complex_parts_db, {})
 print(f"   Placed {len(placement_result.positions)} components")
 
-# Step 2: Routing
-print("\n2. ROUTING")
+# Step 2: GND POUR (eliminates GND traces - they connect via ground plane)
+print("\n2. GND POUR")
+from pcb_engine.pour_piston import PourPiston, PourConfig
+
+pour_piston = PourPiston(PourConfig(
+    net="GND",
+    layer="B.Cu",
+    clearance=0.3,
+    add_stitching_vias=True,
+))
+pour_result = pour_piston.generate(
+    parts_db=complex_parts_db,
+    placement=placement_result.positions,
+    board_width=40.0,
+    board_height=30.0
+)
+print(f"   GND pour: {pour_result.success}")
+print(f"   GND pins connected via pour (no traces needed)")
+
+# Step 3: Routing (ALL nets including GND - pour provides backup connectivity)
+print("\n3. ROUTING (all nets)")
 from pcb_engine.routing_piston import RoutingPiston, RoutingConfig
 
+# Route ALL nets - OutputPiston will skip GND traces when pour is enabled
 routeable_nets = ['VIN', 'VOUT', 'GND', 'LED_A']
 rp = RoutingPiston(RoutingConfig(
     board_width=40.0,
     board_height=30.0,
-    algorithm='hybrid',
+    algorithm='lee',  # Use Lee with diagonal preference for cleaner traces
     trace_width=0.25,
     clearance=0.2,
-    via_cost=5  # Low cost for routability
+    via_cost=5,
+    allow_45_degree=True,  # Enable diagonal routing
 ))
 
 routing_result = rp.route(
@@ -97,14 +119,15 @@ print(f"   Total length: {routing_result.total_wirelength:.1f}mm")
 total_segments = sum(len(r.segments) for r in routing_result.routes.values())
 print(f"   Total segments: {total_segments}")
 
-# Step 3: POLISH
-print("\n3. POLISH (Post-routing optimization)")
+# Step 4: POLISH
+print("\n4. POLISH (Post-routing optimization)")
 from pcb_engine.polish_piston import PolishPiston, PolishConfig, PolishLevel
 
 pp = PolishPiston(PolishConfig(
     level=PolishLevel.STANDARD,
     reduce_vias=False,  # Disabled - creates crossing traces without collision detection
     simplify_traces=True,  # Safe - just merges collinear segments
+    eliminate_staircases=False,  # DISABLED - breaks via connectivity, needs more work
     shrink_board=False,  # Disabled - would need component repositioning
     use_arcs=False,  # Disabled for now
     verbose=True
@@ -124,19 +147,20 @@ print(f"   - Segments: {polish_result.original_segment_count} -> {polish_result.
 print(f"   - Board: {polish_result.original_board[0]:.1f}x{polish_result.original_board[1]:.1f} -> {polish_result.new_board[0]:.1f}x{polish_result.new_board[1]:.1f}")
 print(f"   - Board reduction: {polish_result.board_reduction_percent:.1f}%")
 
-# Step 4: Generate output with polished routes
-print("\n4. OUTPUT GENERATION (with polished routes)")
+# Step 5: Generate output with polished routes + GND pour
+print("\n5. OUTPUT GENERATION (with polished routes + GND pour)")
 from pcb_engine.output_piston import OutputPiston, OutputConfig
 
 op = OutputPiston(OutputConfig(
     board_width=polish_result.new_board[0],
     board_height=polish_result.new_board[1],
-    board_name='ldo_led_polished'
+    board_name='ldo_led_polished',
+    generate_gnd_pour=True,  # OutputPiston generates GND pour automatically
 ))
 output_result = op.generate(
     parts_db=complex_parts_db,
     placement=placement_result.positions,
-    routes=polish_result.routes
+    routes=polish_result.routes,
 )
 
 # Get PCB file

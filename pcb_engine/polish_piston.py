@@ -68,6 +68,10 @@ class PolishConfig:
     align_to_grid: bool = False  # Disabled by default - grid snapping can break routes
     alignment_grid: float = 0.1  # Snap to this grid (mm)
 
+    # Staircase elimination - replace H-V-H patterns with single diagonal
+    eliminate_staircases: bool = True  # Detect and replace staircase patterns
+    min_staircase_steps: int = 2  # Minimum H-V alternations to be considered a staircase
+
     # Reporting
     verbose: bool = True
 
@@ -156,6 +160,10 @@ class PolishPiston:
         # Phase 2: Trace simplification
         if self.config.simplify_traces:
             polished_routes = self._simplify_traces(polished_routes)
+
+        # Phase 2.5: Staircase elimination (replace H-V-H with diagonal)
+        if self.config.eliminate_staircases:
+            polished_routes = self._eliminate_staircases(polished_routes)
 
         # Phase 3: Arc smoothing (optional)
         if self.config.use_arcs:
@@ -467,6 +475,217 @@ class PolishPiston:
         dx = seg.end[0] - seg.start[0]
         dy = seg.end[1] - seg.start[1]
         return math.sqrt(dx*dx + dy*dy)
+
+    # =========================================================================
+    # PHASE 2.5: STAIRCASE ELIMINATION
+    # =========================================================================
+
+    def _eliminate_staircases(self, routes: Dict[str, Route]) -> Dict[str, Route]:
+        """
+        Detect and replace staircase patterns (H-V-H-V) with single diagonals.
+
+        A staircase is a sequence of alternating horizontal and vertical segments
+        that could be replaced by a single diagonal line. This creates cleaner
+        looking traces with fewer segments.
+
+        SAFE APPROACH: Only replace if:
+        1. All segments are on the same layer
+        2. Segments form a connected chain
+        3. The diagonal has the same start and end points
+        """
+        total_replaced = 0
+
+        for net_name, route in routes.items():
+            if len(route.segments) < 2:
+                continue
+
+            original_count = len(route.segments)
+            route.segments = self._replace_staircases_in_segments(route.segments)
+            replaced = original_count - len(route.segments)
+
+            if replaced > 0:
+                total_replaced += replaced
+                if self.config.verbose:
+                    self.messages.append(f"  {net_name}: replaced {replaced} staircase segments with diagonals")
+
+        if total_replaced > 0 and self.config.verbose:
+            print(f"  Staircase elimination: {total_replaced} segments replaced with diagonals")
+
+        return routes
+
+    def _replace_staircases_in_segments(self, segments: List[TrackSegment]) -> List[TrackSegment]:
+        """
+        Find and replace staircase patterns in a list of segments.
+
+        IMPORTANT: Only replaces staircases where segments form a CONNECTED chain.
+        Segments that branch or are not adjacent are left unchanged.
+
+        Returns a new list with staircases replaced by diagonals.
+        """
+        if len(segments) < 2:
+            return segments
+
+        # First, build connectivity graph to find true chains
+        # Group segments by layer first
+        by_layer = {}
+        for seg in segments:
+            layer = seg.layer
+            if layer not in by_layer:
+                by_layer[layer] = []
+            by_layer[layer].append(seg)
+
+        result = []
+
+        for layer, layer_segs in by_layer.items():
+            # Find chains within this layer
+            processed = set()
+
+            for seg in layer_segs:
+                if id(seg) in processed:
+                    continue
+
+                # Try to build a chain starting from this segment
+                chain = self._build_connected_chain(seg, layer_segs, processed)
+
+                if len(chain) >= self.config.min_staircase_steps:
+                    # Check if this chain is a staircase (alternating H-V)
+                    if self._is_staircase_chain(chain):
+                        # Replace with diagonal
+                        diagonal = TrackSegment(
+                            start=chain[0].start,
+                            end=chain[-1].end,
+                            layer=layer,
+                            width=chain[0].width,
+                            net=chain[0].net
+                        )
+                        result.append(diagonal)
+                    else:
+                        # Not a staircase, keep all segments
+                        result.extend(chain)
+                else:
+                    # Chain too short, keep as-is
+                    result.extend(chain)
+
+        return result
+
+    def _build_connected_chain(self, start_seg: TrackSegment, all_segs: List[TrackSegment],
+                                processed: set) -> List[TrackSegment]:
+        """
+        Build a chain of connected segments starting from start_seg.
+        Marks processed segments in the 'processed' set.
+        """
+        chain = [start_seg]
+        processed.add(id(start_seg))
+
+        # Find segments connected to the end
+        current_end = start_seg.end
+        changed = True
+
+        while changed:
+            changed = False
+            for seg in all_segs:
+                if id(seg) in processed:
+                    continue
+                # Check if this segment connects to current end
+                if self._points_equal(seg.start, current_end):
+                    chain.append(seg)
+                    processed.add(id(seg))
+                    current_end = seg.end
+                    changed = True
+                    break
+
+        return chain
+
+    def _is_staircase_chain(self, chain: List[TrackSegment]) -> bool:
+        """
+        Check if a chain of segments is a staircase (alternating H-V-H-V).
+        """
+        if len(chain) < 2:
+            return False
+
+        prev_dir = self._get_segment_direction(chain[0])
+        if prev_dir not in ('H', 'V'):
+            return False
+
+        for seg in chain[1:]:
+            curr_dir = self._get_segment_direction(seg)
+            if curr_dir not in ('H', 'V'):
+                return False
+            if curr_dir == prev_dir:  # Must alternate
+                return False
+            prev_dir = curr_dir
+
+        return True
+
+    def _find_staircase(self, segments: List[TrackSegment], start_idx: int) -> Tuple[int, List[TrackSegment]]:
+        """
+        Find a staircase pattern starting at start_idx.
+
+        Returns (end_idx, list_of_staircase_segments).
+        If no staircase found, returns (start_idx + 1, [segments[start_idx]]).
+        """
+        if start_idx >= len(segments):
+            return (start_idx, [])
+
+        staircase = [segments[start_idx]]
+        first_seg = segments[start_idx]
+        first_dir = self._get_segment_direction(first_seg)
+
+        # Must start with H or V
+        if first_dir not in ('H', 'V'):
+            return (start_idx + 1, staircase)
+
+        prev_dir = first_dir
+        current_end = first_seg.end
+
+        i = start_idx + 1
+        while i < len(segments):
+            seg = segments[i]
+
+            # Must be on same layer
+            if seg.layer != first_seg.layer:
+                break
+
+            # Must connect to previous segment
+            if not self._points_equal(seg.start, current_end):
+                break
+
+            # Get direction
+            seg_dir = self._get_segment_direction(seg)
+
+            # Must be H or V
+            if seg_dir not in ('H', 'V'):
+                break
+
+            # Must alternate direction
+            if seg_dir == prev_dir:
+                break
+
+            # This segment is part of the staircase
+            staircase.append(seg)
+            prev_dir = seg_dir
+            current_end = seg.end
+            i += 1
+
+        # Need at least min_staircase_steps alternations to be a staircase
+        if len(staircase) >= self.config.min_staircase_steps:
+            return (i, staircase)
+        else:
+            return (start_idx + 1, [segments[start_idx]])
+
+    def _get_segment_direction(self, seg: TrackSegment) -> str:
+        """
+        Get the direction of a segment: 'H' (horizontal), 'V' (vertical), or 'D' (diagonal).
+        """
+        dx = seg.end[0] - seg.start[0]
+        dy = seg.end[1] - seg.start[1]
+
+        if abs(dx) < 0.01 and abs(dy) >= 0.01:
+            return 'V'
+        elif abs(dy) < 0.01 and abs(dx) >= 0.01:
+            return 'H'
+        else:
+            return 'D'  # Diagonal or zero-length
 
     # =========================================================================
     # PHASE 3: ARC SMOOTHING (Optional)

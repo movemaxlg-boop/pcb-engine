@@ -517,6 +517,17 @@ class RoutingPiston:
                 if dist_grid[layer][nr][nc] != -1:
                     continue  # Already visited
 
+                # DIAGONAL MOVE CHECK: For diagonal moves, verify the two corner cells
+                # are also clear. A diagonal trace from (row,col) to (nr,nc) clips through
+                # the corners at (row,nc) and (nr,col). Both must be passable.
+                is_diagonal = (dr != 0 and dc != 0)
+                if is_diagonal:
+                    # Check both corner cells that the diagonal would clip through
+                    corner1_clear = self._is_cell_passable_for_diagonal(grid, row, nc, net_name)
+                    corner2_clear = self._is_cell_passable_for_diagonal(grid, nr, col, net_name)
+                    if not (corner1_clear and corner2_clear):
+                        continue  # Can't take diagonal - would clip through obstacle
+
                 # Check if this neighbor is part of our target net's pad area
                 neighbor_cell = grid[nr][nc] if self._in_bounds(nr, nc) else None
 
@@ -1434,8 +1445,12 @@ class RoutingPiston:
             return [], [], False
 
         def heuristic(r, c, layer):
-            # Manhattan distance (admissible heuristic)
-            return abs(r - end_row) + abs(c - end_col)
+            # Euclidean distance - better for 8-directional routing
+            # This encourages diagonals when they lead more directly to the goal
+            dr = abs(r - end_row)
+            dc = abs(c - end_col)
+            # Octile distance: combines diagonal and straight moves optimally
+            return max(dr, dc) + 0.414 * min(dr, dc)  # sqrt(2)-1 ≈ 0.414
 
         start_layer = 0 if self.config.prefer_top_layer else 1
 
@@ -1480,6 +1495,15 @@ class RoutingPiston:
 
                 if not self._in_bounds(nr, nc):
                     continue
+
+                # DIAGONAL MOVE CHECK: For diagonal moves, verify corner cells are clear
+                is_diagonal = (dr != 0 and dc != 0)
+                if is_diagonal:
+                    corner1_clear = self._is_cell_passable_for_diagonal(grid, row, nc, net_name)
+                    corner2_clear = self._is_cell_passable_for_diagonal(grid, nr, col, net_name)
+                    if not (corner1_clear and corner2_clear):
+                        continue  # Can't take diagonal
+
                 if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                     continue
 
@@ -2523,6 +2547,35 @@ class RoutingPiston:
                         return False
                     if occ is not None and occ != net_name:
                         return False
+
+        return True
+
+    def _is_cell_passable_for_diagonal(self, grid: List[List], row: int, col: int,
+                                        net_name: str) -> bool:
+        """Check if a cell is passable for a diagonal move clipping through it.
+
+        This is a LIGHTER check than _is_cell_clear_for_net because we're not
+        routing through this cell - we're just checking that a diagonal trace
+        won't clip through an obstacle corner.
+
+        For diagonal passability, we only need to ensure:
+        1. The cell isn't blocked (__BLOCKED__, __COMPONENT__)
+        2. The cell isn't occupied by a DIFFERENT net's pad
+
+        We DON'T need full clearance because the trace center isn't here.
+        """
+        if not self._in_bounds(row, col):
+            return False
+
+        cell = grid[row][col]
+
+        # Blocked markers are always impassable
+        if cell in self.BLOCKED_MARKERS:
+            return False
+
+        # Other net's pads are impassable (can't clip through them)
+        if cell is not None and cell != net_name:
+            return False
 
         return True
 
