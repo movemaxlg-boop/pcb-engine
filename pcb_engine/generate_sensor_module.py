@@ -146,6 +146,9 @@ def generate_sensor_module():
 
     # 5V: C1.1 -> U1.1 (top), U1.1 -> U1.3 (EN)
     # Route goes UP from C1, then RIGHT to U1
+    # FIXED: Route VIN-EN on F.Cu going ABOVE (north of) the GND pad at y=11.1
+    # VIN is at (11.55, 11.1), GND at (12.5, 11.1), EN at (13.45, 11.1)
+    # Route: VIN -> up to y=12.0 -> right to EN x -> down to EN
     routes['5V'] = Route(
         net='5V',
         segments=[
@@ -153,10 +156,15 @@ def generate_sensor_module():
             TrackSegment(start=c1_5v, end=(c1_5v[0], 13.0), layer='F.Cu', width=0.4, net='5V'),
             TrackSegment(start=(c1_5v[0], 13.0), end=(u1_vin[0], 13.0), layer='F.Cu', width=0.4, net='5V'),
             TrackSegment(start=(u1_vin[0], 13.0), end=u1_vin, layer='F.Cu', width=0.4, net='5V'),
-            # U1.1 to U1.3 (connect VIN to EN) - straight across top of chip
-            TrackSegment(start=u1_vin, end=u1_en, layer='F.Cu', width=0.3, net='5V'),
+            # U1.1 to U1.3 (connect VIN to EN) - route ABOVE on F.Cu to avoid GND pad
+            # Go up from VIN (11.55, 11.1) to (11.55, 12.0)
+            TrackSegment(start=u1_vin, end=(u1_vin[0], 12.0), layer='F.Cu', width=0.3, net='5V'),
+            # Go right from (11.55, 12.0) to (13.45, 12.0)
+            TrackSegment(start=(u1_vin[0], 12.0), end=(u1_en[0], 12.0), layer='F.Cu', width=0.3, net='5V'),
+            # Go down from (13.45, 12.0) to EN (13.45, 11.1)
+            TrackSegment(start=(u1_en[0], 12.0), end=u1_en, layer='F.Cu', width=0.3, net='5V'),
         ],
-        success=True
+        success=True  # No vias needed - all on F.Cu
     )
 
     # 3V3: U1.5 -> C2.1, then separate branch to R1.1
@@ -185,21 +193,28 @@ def generate_sensor_module():
         success=True
     )
 
-    # GND: All ground pads connect to a bus at y=5.0 (bottom of board)
+    # GND: All ground pads connect to a bus on BACK layer at y=5.0 (bottom of board)
+    # FIXED: Use B.Cu to avoid crossing 5V and 3V3 tracks on F.Cu
     gnd_y = 5.0
     routes['GND'] = Route(
         net='GND',
         segments=[
-            # GND bus across bottom
-            TrackSegment(start=(c1_gnd[0], gnd_y), end=(d1_gnd[0], gnd_y), layer='F.Cu', width=0.5, net='GND'),
-            # C1.2 down to bus
-            TrackSegment(start=c1_gnd, end=(c1_gnd[0], gnd_y), layer='F.Cu', width=0.4, net='GND'),
-            # U1.2 down to bus (go down from pin)
-            TrackSegment(start=u1_gnd, end=(u1_gnd[0], gnd_y), layer='F.Cu', width=0.4, net='GND'),
-            # C2.2 down to bus
-            TrackSegment(start=c2_gnd, end=(c2_gnd[0], gnd_y), layer='F.Cu', width=0.4, net='GND'),
-            # D1.2 down to bus
-            TrackSegment(start=d1_gnd, end=(d1_gnd[0], gnd_y), layer='F.Cu', width=0.3, net='GND'),
+            # GND bus across bottom on BACK layer
+            TrackSegment(start=(c1_gnd[0], gnd_y), end=(d1_gnd[0], gnd_y), layer='B.Cu', width=0.5, net='GND'),
+            # C1.2 down to bus (via to back)
+            TrackSegment(start=c1_gnd, end=(c1_gnd[0], gnd_y), layer='B.Cu', width=0.4, net='GND'),
+            # U1.2 down to bus (via to back)
+            TrackSegment(start=u1_gnd, end=(u1_gnd[0], gnd_y), layer='B.Cu', width=0.4, net='GND'),
+            # C2.2 down to bus (via to back)
+            TrackSegment(start=c2_gnd, end=(c2_gnd[0], gnd_y), layer='B.Cu', width=0.4, net='GND'),
+            # D1.2 down to bus (via to back)
+            TrackSegment(start=d1_gnd, end=(d1_gnd[0], gnd_y), layer='B.Cu', width=0.3, net='GND'),
+        ],
+        vias=[
+            Via(position=c1_gnd, net='GND'),
+            Via(position=u1_gnd, net='GND'),
+            Via(position=c2_gnd, net='GND'),
+            Via(position=d1_gnd, net='GND'),
         ],
         success=True
     )
