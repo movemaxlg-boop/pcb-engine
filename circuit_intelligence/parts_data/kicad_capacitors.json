@@ -1,0 +1,1376 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:04:39",
+  "parts": [
+    {
+      "part_number": "CAT3200",
+      "manufacturer": "",
+      "description": "Low Noise Regulated Charge Pump DC-DC Converter, 100 mA, MSOP-8",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.onsemi.com/pdf/datasheet/cat3200-d.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CAT3200-5",
+      "manufacturer": "",
+      "description": "Low Noise Regulated Charge Pump DC-DC Converter, 5 V, 100 mA, SOT-23-6",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.onsemi.com/pdf/datasheet/cat3200-d.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM2665M6",
+      "manufacturer": "",
+      "description": "Switched Capacitor Voltage Converter, Doubles or Splits Input Supply Voltage (2.5 V to 5.5 V or 1.8 V to 11 V), 40 mA, SOT-23-6",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm2665.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM2775DSG",
+      "manufacturer": "",
+      "description": "5V charge pump, 200mA, WSON-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias",
+      "datasheet_url": "https://www.ti.com/lit/gpn/lm2775",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM2776",
+      "manufacturer": "",
+      "description": "Switched capacitor inverter, inverts positive voltage +2.7 to +5.5V to negative, 200mA, SOT-23-6",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm2776.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM27761",
+      "manufacturer": "",
+      "description": "low-noise regulated switched-capacitor voltage inverter with 2.7V-5.5V input to -1.5 to -5V Output Voltage, WSON-8",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm27761.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM27762",
+      "manufacturer": "",
+      "description": "Low-noise inverting charge pump with both positive and negative LDO's, with 2.7V-5.5V input to +1.5 to +5V and -1.5 to -5V Output Voltage, WSON-12",
+      "category": "IC",
+      "subcategory": "LDO",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 13,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:WSON-12-1EP_3x2mm_P0.5mm_EP1x2.65_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm27762.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM7705",
+      "manufacturer": "",
+      "description": "Negative bias generator, low-noise, 3-5.25V input, -0.232V fixed output, VSSOP-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm7705.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMC7660",
+      "manufacturer": "",
+      "description": "Voltage converter from +1.5V to +10V to +1.5V to +10V, SO-8/DIP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmc7660.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1054",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Converter with Regulator, output current 100mA, operating range 3.5V to 15V, low loss 1.1V at 100mA, DIP-8/SO-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1054lfh.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1054xSW",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Converter with Regulator, output current 100mA, operating range 3.5V to 15V, low loss 1.1V at 100mA, SO-16",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1054lfh.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1044",
+      "manufacturer": "",
+      "description": "Switched Capacitor Voltage Converter, 1.5V to 9V supply operation, 200uA Max No Load Supply Current at 5V, DIP-8/TO-99",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/lt1044.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1502xS8-3.3",
+      "manufacturer": "",
+      "description": "Single Alkaline / NiCd Cell to 3.3V Regulated Charge Pump DC/DC Converter, 0.9..1.8V input, 10mA output, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/15023f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1503CMS8-2",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Step-Down Converter, 2V output, max output current 100mA, operating range 2.4V to 6V, MSOP-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1503f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1751",
+      "manufacturer": "",
+      "description": "100mA charge-pump, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1751f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1754",
+      "manufacturer": "",
+      "description": "40mA charge-pump, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/175435f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC3221EDC",
+      "manufacturer": "",
+      "description": "Micropower, Regulated Charge Pump, 1.8..5.5V input supply, adjustable Vout (FB pin), output current up to 60mA, DFN-6 (WSON-6)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.5mm_EP0.61x1.42mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/3221f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC3260xDE",
+      "manufacturer": "",
+      "description": "Low Noise Dual Supply Inverting Charge Pump with both positive and negative LDO regulators, V_{IN} range 4.5V to 32V, 50 mA LDO output current, DFN-14-1EP",
+      "category": "IC",
+      "subcategory": "LDO",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 15,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-14-1EP_3x4mm_P0.5mm_EP1.7x3.3mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ltc3260.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC3260xMSE",
+      "manufacturer": "",
+      "description": "Low Noise Dual Supply Inverting Charge Pump with both positive and negative LDO regulators, V_{IN} range 4.5V to 32V, 50 mA LDO output current, MSOP-16",
+      "category": "IC",
+      "subcategory": "LDO",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ltc3260.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC660",
+      "manufacturer": "",
+      "description": "Monolithic CMOS switched-capacitor from 1.5V to 5.5V up to 100mA, SO-8/DIP-8",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/660fa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX1044",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Converter, 1.5V to 10.0V operating supply voltage, 10mA with a 0.5V output drop, SO-8/DIP-8/\u00b5MAX-8/TO-99",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://datasheets.maximintegrated.com/en/ds/ICL7660-MAX1044.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "RT9361AxE",
+      "manufacturer": "",
+      "description": "Switched capacitor boost, Fixed 5V output, 110mA, SOT-23-6",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.richtek.com/assets/product_file/RT9361A=RT9361B/DS9361AB-14.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60151DRV",
+      "manufacturer": "",
+      "description": "5V, 140mA charge-pump, WSON-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps60151.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60400DBV",
+      "manufacturer": "",
+      "description": "Unregulated 60-mA Charge Pump Voltage Inverter with Variable Switching Frequency 50 kHz - 250 kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps60400.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60500DGS",
+      "manufacturer": "",
+      "description": "250mA High-Efficiency Step-Down Charge Pump Regulator, Adjustable Output Voltage, MSOP-10",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tps60503.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ICL7660",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Converter, 1.5V to 10.0V operating supply voltage, 10mA with a 0.5V output drop, SO-8/DIP-8/\u00b5MAX-8/TO-99",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://datasheets.maximintegrated.com/en/ds/ICL7660-MAX1044.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1054L",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Converter with Regulator, output current 125mA, operating range 3.5V to 15V, low loss 1.1V at 100mA, DIP-8/SO-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1054lfh.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1502xMS8-3.3",
+      "manufacturer": "",
+      "description": "Single Alkaline / NiCd Cell to 3.3V Regulated Charge Pump DC/DC Converter, 0.9..1.8V input, 10mA output, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/15023f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1503CMS8-1.8",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Step-Down Converter, 1.8V output, max output current 100mA, operating range 2.4V to 6V, MSOP-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1503f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1503xS8-1.8",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Step-Down Converter, 1.8V output, max output current 100mA, operating range 2.4V to 6V, SOIC-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1503f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC1503xS8-2",
+      "manufacturer": "",
+      "description": "Switched-Capacitor Voltage Step-Down Converter, 2V output, max output current 100mA, operating range 2.4V to 6V, SOIC-8",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1503f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "RT9361BxE",
+      "manufacturer": "",
+      "description": "Switched capacitor boost, Fixed 4.5V output, 150mA, SOT-23-6",
+      "category": "CAPACITOR",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.richtek.com/assets/product_file/RT9361A=RT9361B/DS9361AB-14.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60401DBV",
+      "manufacturer": "",
+      "description": "Unregulated 60-mA Charge Pump Voltage Inverter with Fixed Switching Frequency 20 kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps60401.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60402DBV",
+      "manufacturer": "",
+      "description": "Unregulated 60-mA Charge Pump Voltage Inverter with Fixed Switching Frequency 50 kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps60401.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60403DBV",
+      "manufacturer": "",
+      "description": "Unregulated 60-mA Charge Pump Voltage Inverter with Fixed Switching Frequency 250 kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps60401.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60501DGS",
+      "manufacturer": "",
+      "description": "250mA High-Efficiency Step-Down Charge Pump Regulator, 3.3V Output Voltage, MSOP-10",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tps60503.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60502DGS",
+      "manufacturer": "",
+      "description": "250mA High-Efficiency Step-Down Charge Pump Regulator, 1.8V Output Voltage, MSOP-10",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tps60503.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS60503DGS",
+      "manufacturer": "",
+      "description": "250mA High-Efficiency Step-Down Charge Pump Regulator, 1.5V Output Voltage, MSOP-10",
+      "category": "IC",
+      "subcategory": "REGULATOR",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-10_3x3mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tps60503.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}
