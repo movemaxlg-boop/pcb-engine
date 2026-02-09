@@ -2048,6 +2048,29 @@ class VerifiedDesignRulesEngine:
         self.orientation_rules = ComponentOrientationRules()
         self.decoupling_sequence = DecouplingPlacementSequence()
         self.pdn_sequence = PowerDistributionSequence()
+        # High-Speed Interface databases
+        self.ddr_memory = DDRMemoryRules()
+        self.pcie = PCIeLayoutRules()
+        self.hdmi = HDMILayoutRules()
+        self.ethernet = EthernetLayoutRules()
+        # Via Design databases
+        self.via_design = ViaDesignRules()
+        self.differential_pairs = DifferentialPairRules()
+        # Ground and Power Integrity databases
+        self.ground_plane = GroundPlaneRules()
+        self.power_integrity = PowerIntegrityRules()
+        # Signal Integrity databases
+        self.crosstalk = CrosstalkRules()
+        self.signal_integrity = SignalIntegrityRules()
+        # BGA and HDI databases
+        self.bga_escape = BGAEscapeRules()
+        self.hdi_design = HDIDesignRules()
+        # Assembly and Manufacturing databases
+        self.component_spacing = ComponentSpacingRules()
+        self.thermal_relief = ThermalReliefRules()
+        self.silkscreen = SilkscreenRules()
+        self.test_points = TestPointRules()
+        self.connectors = ConnectorRules()
 
     def get_trace_width(self, current_a: float, is_power: bool = True) -> float:
         """Get recommended trace width for current."""
@@ -2166,6 +2189,1060 @@ class VerifiedDesignRulesEngine:
         print(f"  Best for: {', '.join(self.stackup_4layer.BEST_FOR[:3])}")
 
 
+# =============================================================================
+# HIGH-SPEED DIGITAL INTERFACE RULES
+# Source: JEDEC, Intel, USB-IF, HDMI Spec, PCIe Spec
+# =============================================================================
+
+@dataclass
+class DDRMemoryRules:
+    """
+    DDR3/DDR4 Memory Layout Rules.
+
+    Sources:
+    - JEDEC JESD79-3F: DDR3 SDRAM Standard
+    - JEDEC JESD79-4B: DDR4 SDRAM Standard
+    - Intel DDR3 Design Guide
+    - Micron TN-41-01: DDR3 Layout Guidelines
+    """
+
+    # DDR3 Specifications
+    DDR3: Dict[str, any] = field(default_factory=lambda: {
+        # Impedance requirements
+        "data_impedance_ohm": 40,           # DQ, DQS, DM
+        "address_impedance_ohm": 40,        # Address/Command
+        "clock_impedance_ohm": 40,          # CK/CK#
+        "impedance_tolerance_pct": 10,      # +/-10%
+
+        # Length matching (mm) - Source: Micron TN-41-01
+        "clk_to_addr_max_mm": 200,          # CK to Address/Command
+        "dqs_to_dq_max_mm": 12.7,           # DQS to DQ within byte lane (0.5")
+        "dq_to_dq_max_mm": 25.4,            # DQ to DQ within byte (1")
+        "addr_to_addr_max_mm": 50.8,        # Address line matching (2")
+
+        # Trace spacing
+        "min_spacing_mm": 0.15,             # Minimum spacing
+        "diff_pair_spacing_mm": 0.2,        # CK, DQS differential pairs
+
+        # Topology
+        "topology": "fly-by",               # Address/Command
+        "data_topology": "point-to-point",  # Data/Strobe
+    })
+
+    # DDR4 Specifications (tighter than DDR3)
+    DDR4: Dict[str, any] = field(default_factory=lambda: {
+        "data_impedance_ohm": 40,
+        "address_impedance_ohm": 40,
+        "clock_impedance_ohm": 40,
+        "impedance_tolerance_pct": 7,       # Tighter than DDR3
+
+        "clk_to_addr_max_mm": 150,          # Tighter than DDR3
+        "dqs_to_dq_max_mm": 6.35,           # 0.25" - tighter
+        "dq_to_dq_max_mm": 12.7,            # 0.5" - tighter
+        "addr_to_addr_max_mm": 25.4,        # 1" - tighter
+
+        "vref_decoupling_nf": 100,          # VREF decoupling
+        "vtt_decoupling_uf": 10,            # VTT termination power
+    })
+
+    # Write Leveling - DDR3/4 require careful DQS timing
+    WRITE_LEVELING_NOTE: str = "DQS must arrive at DRAM within 1 tCK of CK"
+
+    # ODT (On-Die Termination) recommendations
+    ODT_RECOMMENDATIONS: Dict[str, str] = field(default_factory=lambda: {
+        "single_rank": "RTT_NOM=60ohm, RTT_WR=disabled",
+        "dual_rank": "RTT_NOM=60ohm, RTT_WR=120ohm",
+        "driver_strength": "34ohm typical",
+    })
+
+
+@dataclass
+class PCIeLayoutRules:
+    """
+    PCI Express Layout Rules.
+
+    Sources:
+    - PCI Express Base Specification 4.0
+    - Intel PCIe Design Guide
+    - PCI-SIG Layout Guidelines
+    """
+
+    # PCIe Gen specifications
+    PCIE_SPECS: Dict[str, Dict] = field(default_factory=lambda: {
+        "Gen1": {
+            "data_rate_GT_s": 2.5,
+            "encoding": "8b/10b",
+            "diff_impedance_ohm": 85,
+            "tolerance_pct": 15,
+            "max_loss_dB": 8.0,             # At Nyquist frequency
+            "max_length_mm": 500,           # 20 inches typical
+        },
+        "Gen2": {
+            "data_rate_GT_s": 5.0,
+            "encoding": "8b/10b",
+            "diff_impedance_ohm": 85,
+            "tolerance_pct": 15,
+            "max_loss_dB": 8.0,
+            "max_length_mm": 400,
+        },
+        "Gen3": {
+            "data_rate_GT_s": 8.0,
+            "encoding": "128b/130b",
+            "diff_impedance_ohm": 85,
+            "tolerance_pct": 10,            # Tighter for Gen3
+            "max_loss_dB": 8.5,
+            "max_length_mm": 300,
+        },
+        "Gen4": {
+            "data_rate_GT_s": 16.0,
+            "encoding": "128b/130b",
+            "diff_impedance_ohm": 85,
+            "tolerance_pct": 10,
+            "max_loss_dB": 14.0,
+            "max_length_mm": 250,           # Shorter for Gen4
+            "material": "Low-loss required",
+        },
+    })
+
+    # Lane-to-lane skew requirements (ps)
+    LANE_SKEW: Dict[str, float] = field(default_factory=lambda: {
+        "intra_pair_ps": 5,                 # Within differential pair
+        "inter_lane_ps": 1000,              # Between lanes (1ns)
+    })
+
+    # AC coupling capacitor requirements
+    AC_COUPLING: Dict[str, any] = field(default_factory=lambda: {
+        "value_nf": 100,                    # 100nF typical
+        "tolerance_pct": 20,
+        "placement": "TX side, close to connector",
+        "max_distance_mm": 25,
+    })
+
+    # Reference clock requirements
+    REFCLK: Dict[str, any] = field(default_factory=lambda: {
+        "frequency_mhz": 100,
+        "diff_impedance_ohm": 100,
+        "max_length_mm": 150,
+        "matching_mm": 2.5,                 # P/N matching
+    })
+
+
+@dataclass
+class HDMILayoutRules:
+    """
+    HDMI Layout Rules.
+
+    Sources:
+    - HDMI Specification 2.1
+    - HDMI Compliance Test Specification
+    - TI HDMI Layout Guidelines
+    """
+
+    HDMI_SPECS: Dict[str, Dict] = field(default_factory=lambda: {
+        "HDMI_1.4": {
+            "max_data_rate_Gbps": 10.2,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_skew_ps": 100,             # Intra-pair
+            "max_length_mm": 150,
+        },
+        "HDMI_2.0": {
+            "max_data_rate_Gbps": 18.0,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_skew_ps": 50,              # Tighter
+            "max_length_mm": 100,
+        },
+        "HDMI_2.1": {
+            "max_data_rate_Gbps": 48.0,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 7,             # Much tighter
+            "max_skew_ps": 20,              # Very tight
+            "max_length_mm": 75,
+            "material": "Low-loss required",
+        },
+    })
+
+    # ESD Protection - Critical for HDMI
+    ESD_REQUIREMENTS: Dict[str, any] = field(default_factory=lambda: {
+        "tvs_capacitance_pf_max": 0.5,      # Low capacitance for high-speed
+        "placement_mm": 5,                   # As close to connector as possible
+        "protection_level_kv": 8,           # Contact discharge
+    })
+
+    # TMDS pairs (3 data + 1 clock)
+    TMDS_MATCHING_MM: float = 2.5           # All 4 pairs matched
+
+
+@dataclass
+class EthernetLayoutRules:
+    """
+    Ethernet Layout Rules.
+
+    Sources:
+    - IEEE 802.3 Standard
+    - Microchip Ethernet Design Guide
+    - TI Ethernet PHY Application Notes
+    """
+
+    ETHERNET_SPECS: Dict[str, Dict] = field(default_factory=lambda: {
+        "10BASE-T": {
+            "data_rate_Mbps": 10,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 15,
+            "max_length_mm": 250,           # PCB only
+        },
+        "100BASE-TX": {
+            "data_rate_Mbps": 100,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 200,
+            "pair_skew_mm": 5,
+        },
+        "1000BASE-T": {
+            "data_rate_Mbps": 1000,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 150,
+            "pair_skew_mm": 2,
+            "inter_pair_skew_mm": 10,
+        },
+        "2.5GBASE-T": {
+            "data_rate_Mbps": 2500,
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 7,
+            "max_length_mm": 100,
+            "pair_skew_mm": 1,
+        },
+    })
+
+    # Magnetics placement
+    MAGNETICS: Dict[str, any] = field(default_factory=lambda: {
+        "max_distance_from_phy_mm": 25,
+        "max_distance_from_rj45_mm": 25,
+        "placement": "Between PHY and RJ45, equal distance preferred",
+        "bob_smith_termination": "Optional, 75ohm to chassis GND via 1nF",
+    })
+
+    # EMI considerations
+    EMI_RULES: Dict[str, str] = field(default_factory=lambda: {
+        "ground_plane": "Solid ground under all differential pairs",
+        "connector_shield": "Connect RJ45 shield to chassis via 1nF + ferrite",
+        "common_mode_choke": "Recommended for EMI compliance",
+    })
+
+
+# =============================================================================
+# VIA DESIGN RULES
+# Source: IPC-2221B, IPC-2222, Signal Integrity Analysis
+# =============================================================================
+
+@dataclass
+class ViaDesignRules:
+    """
+    Comprehensive Via Design Rules.
+
+    Sources:
+    - IPC-2221B: Generic Standard on Printed Board Design
+    - IPC-2222: Sectional Design Standard for Rigid PCBs
+    - Eric Bogatin: "Signal and Power Integrity"
+    - Lee Ritchey: "Right the First Time"
+    """
+
+    # Via aspect ratio (depth:diameter)
+    # Source: IPC-2221B, fabrication capability
+    ASPECT_RATIO: Dict[str, float] = field(default_factory=lambda: {
+        "standard": 8.0,                    # 8:1 - most fabs
+        "advanced": 10.0,                   # 10:1 - advanced fabs
+        "hdi": 12.0,                        # 12:1 - HDI
+        "microvia": 1.0,                    # 1:1 - laser drilled
+    })
+
+    # Via current capacity (Amps per via)
+    # Source: IPC-2152, thermal analysis
+    VIA_CURRENT_CAPACITY: Dict[str, Dict] = field(default_factory=lambda: {
+        "0.3mm_drill_1oz": {"continuous_A": 1.0, "peak_A": 3.0},
+        "0.4mm_drill_1oz": {"continuous_A": 1.5, "peak_A": 4.5},
+        "0.5mm_drill_1oz": {"continuous_A": 2.0, "peak_A": 6.0},
+        "0.3mm_drill_2oz": {"continuous_A": 1.5, "peak_A": 4.5},
+        "0.4mm_drill_2oz": {"continuous_A": 2.2, "peak_A": 6.5},
+    })
+
+    # Via inductance (nH per via)
+    # Source: Eric Bogatin - approximately 1nH per mm of via length
+    VIA_INDUCTANCE_NH_PER_MM: float = 1.0
+    VIA_INDUCTANCE_NOTE: str = "L = 1nH/mm approx, reduce by using via arrays"
+
+    # Via-in-pad rules
+    VIA_IN_PAD: Dict[str, any] = field(default_factory=lambda: {
+        "requires_filling": True,           # Must be filled and capped
+        "fill_material": "Conductive or non-conductive epoxy",
+        "cap_plating_um": 25,               # Minimum cap thickness
+        "use_cases": ["BGA", "QFN thermal pad", "High-density"],
+    })
+
+    # Ground via stitching
+    # Source: EMI best practices
+    GROUND_STITCHING: Dict[str, any] = field(default_factory=lambda: {
+        "spacing_at_100MHz_mm": 30,         # lambda/10 at 100MHz in FR4
+        "spacing_at_1GHz_mm": 7.5,          # lambda/10 at 1GHz in FR4
+        "spacing_at_5GHz_mm": 1.5,          # For RF sections
+        "around_rf_mm": 2.0,                # Dense around RF traces
+        "around_connectors_mm": 3.0,        # Dense around I/O connectors
+    })
+
+    # Via stub length limits (for high-speed)
+    # Source: Signal Integrity analysis
+    VIA_STUB: Dict[str, any] = field(default_factory=lambda: {
+        "max_stub_at_1Gbps_mm": 2.5,
+        "max_stub_at_5Gbps_mm": 0.5,
+        "max_stub_at_10Gbps_mm": 0.25,
+        "solution": "Back-drilling or blind/buried vias",
+    })
+
+    # Annular ring requirements
+    # Source: IPC-2221B, IPC-6012
+    ANNULAR_RING: Dict[str, float] = field(default_factory=lambda: {
+        "class_1_mm": 0.05,                 # Consumer
+        "class_2_mm": 0.125,                # Industrial
+        "class_3_mm": 0.15,                 # High-reliability
+        "recommended_mm": 0.15,             # Safe for most fabs
+    })
+
+
+@dataclass
+class DifferentialPairRules:
+    """
+    Differential Pair Design Rules for All Protocols.
+
+    Sources:
+    - IPC-2221B
+    - USB-IF, HDMI, PCIe, SATA specifications
+    - Eric Bogatin: "Signal and Power Integrity"
+    """
+
+    # Common differential pair protocols
+    PROTOCOLS: Dict[str, Dict] = field(default_factory=lambda: {
+        "USB_2.0_HS": {
+            "diff_impedance_ohm": 90,
+            "tolerance_pct": 15,
+            "coupling": "edge",
+            "spacing_rule": "3W minimum to other signals",
+            "max_length_mm": 100,
+            "max_skew_mm": 1.25,
+            "max_vias": 2,
+        },
+        "USB_3.0": {
+            "diff_impedance_ohm": 90,
+            "tolerance_pct": 10,
+            "coupling": "edge",
+            "spacing_rule": "3W minimum",
+            "max_length_mm": 150,
+            "max_skew_mm": 0.15,            # 0.15mm = ~1ps at 5Gbps
+            "requires_ac_coupling": True,
+        },
+        "USB_4.0": {
+            "diff_impedance_ohm": 85,
+            "tolerance_pct": 7,
+            "coupling": "edge",
+            "max_length_mm": 100,
+            "max_skew_mm": 0.1,
+            "material": "Low-loss required",
+        },
+        "SATA_3": {
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 200,
+            "max_skew_mm": 0.2,
+            "ac_coupling_nf": 10,
+        },
+        "LVDS": {
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 500,           # Can be long at lower speeds
+            "max_skew_mm": 5,
+            "termination_ohm": 100,         # At receiver
+        },
+        "MIPI_DSI": {
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 150,
+            "max_skew_mm": 0.5,
+        },
+        "MIPI_CSI": {
+            "diff_impedance_ohm": 100,
+            "tolerance_pct": 10,
+            "max_length_mm": 100,
+            "max_skew_mm": 0.5,
+        },
+    })
+
+    # Differential pair spacing formulas
+    SPACING_GUIDELINES: Dict[str, str] = field(default_factory=lambda: {
+        "tight_coupling": "S = 1.5W to 2W (good noise immunity)",
+        "loose_coupling": "S = 3W to 5W (easier routing)",
+        "rule": "Keep S consistent along entire length",
+        "reference": "Both traces must reference same ground plane",
+    })
+
+    # Return path rules
+    RETURN_PATH: Dict[str, str] = field(default_factory=lambda: {
+        "rule_1": "Never route over split in reference plane",
+        "rule_2": "If changing layers, add ground vias adjacent to signal vias",
+        "rule_3": "Maintain continuous ground under entire length",
+        "via_stitching": "Add GND via within 1mm of signal via pair",
+    })
+
+
+# =============================================================================
+# GROUND PLANE AND POWER INTEGRITY RULES
+# Source: IPC-2221B, Eric Bogatin, Lee Ritchey
+# =============================================================================
+
+@dataclass
+class GroundPlaneRules:
+    """
+    Ground Plane Design Rules.
+
+    Sources:
+    - Eric Bogatin: "Signal and Power Integrity"
+    - Lee Ritchey: "Right the First Time"
+    - Henry Ott: "EMC Engineering"
+    - ADI MT-031: "Grounding Data Converters"
+    """
+
+    # Split plane rules
+    SPLIT_PLANE_RULES: Dict[str, str] = field(default_factory=lambda: {
+        "NEVER_SPLIT_FOR_DIGITAL": "Digital circuits should have UNIFIED ground",
+        "NEVER_ROUTE_OVER_SPLIT": "No high-speed signal over ground split",
+        "SPLIT_EXCEPTION": "Only split for galvanic isolation (opto/transformer)",
+        "MIXED_SIGNAL_MYTH": "Split ground for analog/digital is WRONG in most cases",
+        "CORRECT_APPROACH": "Use single ground, careful component placement",
+    })
+
+    # Ground plane void rules
+    VOID_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "max_void_width_mm": 3.0,           # Max width before affecting SI
+        "avoid_under_high_speed": True,
+        "avoid_under_diff_pairs": True,
+        "stitch_around_voids": True,        # Via stitch around unavoidable voids
+        "via_stitch_spacing_mm": 2.0,       # Around voids
+    })
+
+    # Star ground point
+    STAR_GROUND: Dict[str, str] = field(default_factory=lambda: {
+        "use_case": "Only for mixed-signal with separate analog supply",
+        "location": "Near ADC AGND pin",
+        "implementation": "Single point connection, not a split",
+        "connection_width_mm": "2-3mm minimum",
+    })
+
+    # Ground pour on signal layers
+    COPPER_POUR_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "min_connection_width_mm": 0.3,     # Via or trace to pour
+        "min_pour_width_mm": 0.5,           # Minimum useful pour
+        "stitch_frequency_mm": 10,          # Via stitch pour to plane
+        "isolation_gap_mm": 0.25,           # Gap to signals
+        "remove_small_islands": True,       # Islands < 1mm^2
+    })
+
+    # Layer transition rules
+    LAYER_TRANSITION: Dict[str, str] = field(default_factory=lambda: {
+        "same_reference": "Signal vias should stay on same reference plane if possible",
+        "reference_change": "If changing reference, add GND via within 0.5mm",
+        "return_via_count": "Add 2 GND vias for diff pairs, 1 for single-ended",
+    })
+
+
+@dataclass
+class PowerIntegrityRules:
+    """
+    Power Delivery Network (PDN) Design Rules.
+
+    Sources:
+    - Intel PDN Guidelines
+    - Larry Smith: "Power Integrity"
+    - Istvan Novak: "Power Distribution Network Design"
+    """
+
+    # Target impedance formula
+    # Z_target = Vdd * ripple% / I_transient
+    TARGET_IMPEDANCE: Dict[str, str] = field(default_factory=lambda: {
+        "formula": "Z_target = Vdd * ripple_pct / I_transient",
+        "example_3v3": "3.3V * 5% / 1A = 165 mohm target",
+        "example_1v8": "1.8V * 3% / 2A = 27 mohm target",
+        "example_1v0": "1.0V * 2% / 3A = 6.7 mohm target (challenging!)",
+    })
+
+    # Decoupling capacitor frequency ranges
+    DECOUPLING_FREQUENCY: Dict[str, Dict] = field(default_factory=lambda: {
+        "bulk_electrolytic": {
+            "range": "DC to 50kHz",
+            "values_uF": [100, 220, 470],
+            "esr_mohm": 100,
+        },
+        "bulk_ceramic": {
+            "range": "10kHz to 10MHz",
+            "values_uF": [10, 22, 47],
+            "esr_mohm": 5,
+        },
+        "bypass_ceramic": {
+            "range": "1MHz to 100MHz",
+            "values_nF": [100, 220, 470],
+            "esr_mohm": 10,
+        },
+        "high_freq_ceramic": {
+            "range": "10MHz to 1GHz",
+            "values_nF": [1, 10, 22],
+            "esr_mohm": 50,
+        },
+    })
+
+    # Power plane capacitance
+    # Source: IPC-2141
+    PLANE_CAPACITANCE: Dict[str, any] = field(default_factory=lambda: {
+        "formula": "C = (Er * E0 * A) / d",
+        "fr4_capacitance_pF_per_cm2_per_mil": 0.45,
+        "example": "10cm x 10cm, 4mil spacing = 4.5nF embedded",
+        "effective_range": "100MHz to 1GHz",
+    })
+
+    # Inductance minimization
+    INDUCTANCE_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "via_inductance_reduction": "Use via arrays (2x2 or 3x3)",
+        "trace_inductance_pH_per_mm": 1000,     # ~1nH/mm for narrow trace
+        "plane_inductance_pH_per_square": 32,   # Much lower
+        "rule": "Power via inductance limits high-frequency decoupling",
+    })
+
+    # Ferrite bead usage
+    FERRITE_BEAD_RULES: Dict[str, str] = field(default_factory=lambda: {
+        "use_case": "Isolate noisy from quiet power domains",
+        "placement": "Between bulk capacitor and local decoupling",
+        "impedance_selection": "High Z at noise frequency, low Z at DC",
+        "warning": "Can cause resonance - check with simulation",
+    })
+
+
+# =============================================================================
+# CROSSTALK AND SIGNAL INTEGRITY RULES
+# Source: IPC-2141, Eric Bogatin, Howard Johnson
+# =============================================================================
+
+@dataclass
+class CrosstalkRules:
+    """
+    Crosstalk Prevention Rules.
+
+    Sources:
+    - Howard Johnson: "High-Speed Digital Design"
+    - Eric Bogatin: "Signal and Power Integrity"
+    - IPC-2141: "Controlled Impedance Design"
+    """
+
+    # Basic crosstalk rules
+    SPACING_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "3W_rule": {
+            "description": "Space traces 3x trace width center-to-center",
+            "crosstalk_reduction": "~70%",
+            "use_case": "General digital signals",
+        },
+        "5W_rule": {
+            "description": "Space traces 5x trace width center-to-center",
+            "crosstalk_reduction": "~90%",
+            "use_case": "Sensitive analog, clocks",
+        },
+        "10W_rule": {
+            "description": "Space traces 10x trace width center-to-center",
+            "crosstalk_reduction": "~99%",
+            "use_case": "Critical analog, high-impedance nodes",
+        },
+    })
+
+    # Coupling length rule
+    # Source: Howard Johnson
+    COUPLING_LENGTH: Dict[str, any] = field(default_factory=lambda: {
+        "rule": "Crosstalk saturates after ~10mm parallel run",
+        "saturation_length_mm": 10,
+        "mitigation": "Keep parallel runs < 10mm for sensitive signals",
+        "formula": "Crosstalk ~ 1 - exp(-L/10mm) where L is parallel length",
+    })
+
+    # Layer-to-layer crosstalk
+    LAYER_CROSSTALK: Dict[str, any] = field(default_factory=lambda: {
+        "broadside_coupling": "Traces directly above each other couple strongly",
+        "mitigation": "Orthogonal routing on adjacent layers (90 degree rule)",
+        "alternative": "Ground plane between signal layers",
+        "stripline_advantage": "Lower crosstalk than microstrip (shielded)",
+    })
+
+    # Guard traces
+    GUARD_TRACE_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "width": "Same as or wider than signal trace",
+        "connection": "Ground both ends, add vias every 10mm",
+        "effectiveness": "Reduces crosstalk by 60-80%",
+        "use_case": "High-impedance analog, precision references",
+    })
+
+    # Crosstalk budget
+    CROSSTALK_BUDGET: Dict[str, float] = field(default_factory=lambda: {
+        "TTL_max_pct": 10.0,                # 10% of signal swing
+        "LVDS_max_pct": 5.0,
+        "analog_12bit_max_pct": 0.02,       # < 0.5 LSB
+        "analog_16bit_max_pct": 0.005,      # < 0.3 LSB
+    })
+
+
+@dataclass
+class SignalIntegrityRules:
+    """
+    Signal Integrity Design Rules.
+
+    Sources:
+    - Eric Bogatin: "Signal and Power Integrity"
+    - Howard Johnson: "High-Speed Digital Design"
+    - IPC-2141: "Controlled Impedance Design"
+    """
+
+    # Critical length for transmission line effects
+    # Rule: L_critical = Tr / (2 * Td) where Td ~ 6ns/m in FR-4
+    CRITICAL_LENGTH: Dict[str, float] = field(default_factory=lambda: {
+        "1ns_rise_time_mm": 25,             # Approx critical length
+        "2ns_rise_time_mm": 50,
+        "5ns_rise_time_mm": 125,
+        "10ns_rise_time_mm": 250,
+    })
+
+    # Termination strategies
+    TERMINATION: Dict[str, Dict] = field(default_factory=lambda: {
+        "series_source": {
+            "resistor_location": "At driver, within 10mm",
+            "value": "Match to Z0 - Zdriver (typically 22-33 ohm)",
+            "advantage": "Low power, reduces overshoot",
+            "disadvantage": "Slows edge rate",
+        },
+        "parallel_end": {
+            "resistor_location": "At receiver",
+            "value": "Match to Z0 (50, 75, 100 ohm typical)",
+            "advantage": "Best signal quality",
+            "disadvantage": "DC power consumption",
+        },
+        "thevenin": {
+            "resistors": "Two resistors to Vcc and GND",
+            "advantage": "Sets DC bias level",
+            "disadvantage": "Higher power than parallel",
+        },
+        "ac_termination": {
+            "components": "R + C in series to ground",
+            "advantage": "Low DC power, AC termination",
+            "disadvantage": "C value is frequency dependent",
+        },
+    })
+
+    # Stub length limits
+    STUB_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "rule": "Max stub = Tr / 6 (in propagation delay)",
+        "1Gbps_max_mm": 10,
+        "5Gbps_max_mm": 2,
+        "10Gbps_max_mm": 1,
+        "solution": "Daisy-chain topology, not star",
+    })
+
+    # Reference plane changes
+    REFERENCE_CHANGE: Dict[str, str] = field(default_factory=lambda: {
+        "problem": "Changing reference plane disrupts return current",
+        "solution_1": "Add ground vias adjacent to signal via",
+        "solution_2": "Avoid layer changes for critical signals",
+        "via_placement": "Within 1mm of signal via, both sides preferred",
+    })
+
+
+# =============================================================================
+# BGA ESCAPE AND HIGH-DENSITY RULES
+# Source: IPC-7093, IPC-7095, Industry Best Practices
+# =============================================================================
+
+@dataclass
+class BGAEscapeRules:
+    """
+    BGA Escape Routing Rules.
+
+    Sources:
+    - IPC-7093: Design and Assembly Process for BGAs
+    - IPC-7095: Design and Assembly Process for Flip Chip
+    - Intel BGA Layout Guidelines
+    """
+
+    # BGA pitch capabilities
+    PITCH_CAPABILITIES: Dict[str, Dict] = field(default_factory=lambda: {
+        "1.27mm": {
+            "escape_routing": "1 trace between pads",
+            "via_type": "Through-hole",
+            "layers_needed": 2,
+            "trace_width_mm": 0.2,
+            "via_drill_mm": 0.3,
+        },
+        "1.0mm": {
+            "escape_routing": "1 trace between pads",
+            "via_type": "Through-hole or blind",
+            "layers_needed": 2,
+            "trace_width_mm": 0.15,
+            "via_drill_mm": 0.25,
+        },
+        "0.8mm": {
+            "escape_routing": "Dog-bone via required",
+            "via_type": "Blind via recommended",
+            "layers_needed": 4,
+            "trace_width_mm": 0.1,
+            "via_drill_mm": 0.2,
+        },
+        "0.65mm": {
+            "escape_routing": "Via-in-pad required",
+            "via_type": "Microvia or blind via",
+            "layers_needed": 6,
+            "trace_width_mm": 0.075,
+            "via_drill_mm": 0.1,
+        },
+        "0.5mm": {
+            "escape_routing": "Via-in-pad required",
+            "via_type": "Microvia only",
+            "layers_needed": 8,
+            "trace_width_mm": 0.05,
+            "via_drill_mm": 0.075,
+        },
+        "0.4mm": {
+            "escape_routing": "Stacked microvia",
+            "via_type": "Stacked microvia",
+            "layers_needed": 10,
+            "trace_width_mm": 0.04,
+            "via_drill_mm": 0.05,
+            "note": "HDI process required",
+        },
+    })
+
+    # Dog-bone via patterns
+    DOG_BONE_RULES: Dict[str, any] = field(default_factory=lambda: {
+        "neck_length_mm": 0.3,              # Trace from pad to via
+        "neck_width": "Same as escape trace",
+        "via_offset": "Diagonal preferred (45 degrees)",
+        "clearance": "Via must not overlap adjacent pads",
+    })
+
+    # Power/Ground ball handling
+    POWER_GND_BALLS: Dict[str, str] = field(default_factory=lambda: {
+        "strategy": "Route power/ground balls to inner planes",
+        "via_sizing": "Use larger vias (0.3mm+) for current capacity",
+        "grouping": "Connect adjacent power balls on surface before via",
+        "current_per_via_A": "1-1.5A per 0.3mm via",
+    })
+
+    # BGA land pattern rules
+    LAND_PATTERN: Dict[str, any] = field(default_factory=lambda: {
+        "pad_type": "NSMD preferred (Non-Solder Mask Defined)",
+        "nsmd_opening": "Pad diameter + 0.1mm",
+        "smd_opening": "Pad diameter - 0.1mm",
+        "pad_to_ball_ratio": "0.8 to 1.0 (typically ball diameter - 0.1mm)",
+    })
+
+
+@dataclass
+class HDIDesignRules:
+    """
+    High-Density Interconnect (HDI) Design Rules.
+
+    Sources:
+    - IPC-2226: HDI Design Standard
+    - IPC-4104: HDI Materials
+    - Industry HDI fabrication guidelines
+    """
+
+    # Microvia specifications
+    MICROVIA_SPECS: Dict[str, any] = field(default_factory=lambda: {
+        "max_drill_mm": 0.15,               # Laser drilled
+        "typical_drill_mm": 0.1,
+        "min_drill_mm": 0.075,
+        "aspect_ratio_max": 1.0,            # 1:1 (drill:depth)
+        "capture_pad_mm": 0.25,             # Minimum land
+        "target_pad_mm": 0.3,               # Recommended land
+    })
+
+    # Stacked vs staggered microvias
+    MICROVIA_STACKING: Dict[str, str] = field(default_factory=lambda: {
+        "stacked": "Vias directly on top of each other - higher cost",
+        "staggered": "Vias offset - lower cost, more reliable",
+        "max_stack": "3 levels typical, 4+ is challenging",
+        "fill_requirement": "Filled and capped for stacking",
+    })
+
+    # HDI layer structure
+    LAYER_STRUCTURE: Dict[str, str] = field(default_factory=lambda: {
+        "1+N+1": "1 HDI layer each side of N-layer core",
+        "2+N+2": "2 HDI layers each side - common for 0.65mm BGA",
+        "3+N+3": "3 HDI layers each side - for 0.4-0.5mm BGA",
+        "ELIC": "Every Layer Interconnect - all layers microvias",
+    })
+
+    # HDI design rules (typical)
+    DESIGN_RULES: Dict[str, float] = field(default_factory=lambda: {
+        "min_trace_width_mm": 0.05,         # 2 mil
+        "min_spacing_mm": 0.05,             # 2 mil
+        "min_via_to_via_mm": 0.15,
+        "min_via_to_trace_mm": 0.1,
+        "min_via_to_pad_mm": 0.1,
+    })
+
+
+# =============================================================================
+# COMPONENT SPACING AND ASSEMBLY RULES
+# Source: IPC-7351B, IPC-A-610, Assembly Guidelines
+# =============================================================================
+
+@dataclass
+class ComponentSpacingRules:
+    """
+    Component Spacing and Assembly Rules.
+
+    Sources:
+    - IPC-7351B: Land Pattern Standard
+    - IPC-A-610: Acceptability of Electronic Assemblies
+    - IPC-J-STD-001: Soldering Requirements
+    """
+
+    # Component-to-component spacing
+    COMPONENT_SPACING: Dict[str, float] = field(default_factory=lambda: {
+        "chip_to_chip_min_mm": 0.25,        # 0402 to 0402
+        "chip_to_sot_min_mm": 0.5,
+        "sot_to_sot_min_mm": 0.5,
+        "soic_to_soic_min_mm": 0.5,
+        "qfp_to_qfp_min_mm": 1.0,
+        "bga_to_anything_min_mm": 2.0,      # For rework access
+        "connector_clearance_mm": 3.0,      # Mate/unmate clearance
+        "heatsink_clearance_mm": 2.0,       # For thermal expansion
+    })
+
+    # Component-to-board-edge spacing
+    EDGE_SPACING: Dict[str, float] = field(default_factory=lambda: {
+        "smt_to_edge_mm": 2.0,              # For handling
+        "smt_to_vcut_mm": 1.0,              # V-score line
+        "smt_to_route_mm": 0.5,             # Routed edge
+        "pth_to_edge_mm": 2.5,              # Through-hole
+        "bga_to_edge_mm": 5.0,              # BGA needs more
+    })
+
+    # Wave solder considerations
+    WAVE_SOLDER: Dict[str, any] = field(default_factory=lambda: {
+        "orientation": "Long axis parallel to wave direction",
+        "shadow_spacing_mm": 5.0,           # Behind tall components
+        "fiducial_clearance_mm": 1.0,
+        "thieves_at_edge": True,            # Solder thieves
+    })
+
+    # Reflow considerations
+    REFLOW: Dict[str, any] = field(default_factory=lambda: {
+        "thermal_gradient": "Group components by thermal mass",
+        "tall_component_shade": "Consider shadow effects",
+        "bga_adjacent": "No tall components that shade BGA",
+        "double_sided": "Heavy components on bottom last",
+    })
+
+    # Pick and place optimization
+    PICK_AND_PLACE: Dict[str, str] = field(default_factory=lambda: {
+        "grid_alignment": "0.5mm or 0.635mm grid",
+        "rotation": "0, 90, 180, 270 preferred (no odd angles)",
+        "fiducials": "3 per board, asymmetric placement",
+        "panel_fiducials": "2-3 per panel",
+    })
+
+
+@dataclass
+class ThermalReliefRules:
+    """
+    Thermal Relief and Soldering Rules.
+
+    Sources:
+    - IPC-7351B: Land Pattern Standard
+    - IPC-2221B: Generic Standard on PCB Design
+    """
+
+    # Thermal relief for plated through holes
+    PTH_THERMAL_RELIEF: Dict[str, any] = field(default_factory=lambda: {
+        "spoke_width_mm": 0.25,             # Minimum
+        "spoke_count": 4,                   # Standard
+        "gap_width_mm": 0.25,               # Air gap
+        "outer_diameter": "Pad + 0.5mm",
+    })
+
+    # When to use thermal relief
+    THERMAL_RELIEF_USAGE: Dict[str, bool] = field(default_factory=lambda: {
+        "hand_solder_pth": True,            # Always
+        "wave_solder_pth": True,            # Usually
+        "smt_to_plane": False,              # Direct connect preferred
+        "power_connections": False,         # Direct for low impedance
+        "high_current": False,              # Direct connect
+        "thermal_pad": False,               # Need heat transfer
+    })
+
+    # Direct connection rules
+    DIRECT_CONNECT: Dict[str, str] = field(default_factory=lambda: {
+        "when": "Power pins, thermal pads, high-current",
+        "trace_width": "Match current requirement",
+        "via_array": "Multiple vias for thermal/current",
+    })
+
+
+# =============================================================================
+# SILK SCREEN AND DOCUMENTATION RULES
+# Source: IPC-7351B, Assembly Guidelines
+# =============================================================================
+
+@dataclass
+class SilkscreenRules:
+    """
+    Silkscreen Design Rules.
+
+    Sources:
+    - IPC-7351B: Land Pattern Standard
+    - IPC-D-325: Documentation Requirements
+    """
+
+    # Minimum dimensions
+    DIMENSIONS: Dict[str, float] = field(default_factory=lambda: {
+        "min_line_width_mm": 0.15,          # 6 mil typical
+        "min_text_height_mm": 0.8,          # 32 mil minimum
+        "recommended_text_height_mm": 1.0,  # 40 mil
+        "min_text_width_mm": 0.15,          # Stroke width
+    })
+
+    # Clearances
+    CLEARANCES: Dict[str, float] = field(default_factory=lambda: {
+        "silk_to_pad_mm": 0.15,             # 6 mil
+        "silk_to_via_mm": 0.15,
+        "silk_to_board_edge_mm": 0.5,
+        "silk_to_solder_mask_opening_mm": 0.1,
+    })
+
+    # Reference designator rules
+    REF_DES_RULES: Dict[str, str] = field(default_factory=lambda: {
+        "placement": "Adjacent to component, not on pads",
+        "orientation": "Readable from right or bottom edge",
+        "consistency": "Same orientation for same component types",
+        "pin_1_indicator": "Dot or line at pin 1",
+    })
+
+    # Polarity markings
+    POLARITY_MARKERS: Dict[str, str] = field(default_factory=lambda: {
+        "diode": "Cathode band",
+        "capacitor": "Plus sign at positive",
+        "ic": "Pin 1 dot or notch",
+        "connector": "Pin 1 indicator",
+        "led": "Cathode (short leg) indicator",
+    })
+
+
+# =============================================================================
+# MANUFACTURING TEST RULES
+# Source: IPC-9252, Industry Best Practices
+# =============================================================================
+
+@dataclass
+class TestPointRules:
+    """
+    Test Point Design Rules for Manufacturing Test.
+
+    Sources:
+    - IPC-9252: Requirements for Electrical Testing
+    - Industry DFT (Design for Test) guidelines
+    """
+
+    # Test point sizing
+    TEST_POINT_SIZE: Dict[str, any] = field(default_factory=lambda: {
+        "min_diameter_mm": 0.9,             # 35 mil - flying probe
+        "preferred_diameter_mm": 1.0,       # 40 mil
+        "bed_of_nails_diameter_mm": 1.3,    # 50 mil
+        "pad_shape": "Round preferred",
+    })
+
+    # Test point spacing
+    SPACING: Dict[str, float] = field(default_factory=lambda: {
+        "min_center_to_center_mm": 2.54,    # 100 mil (for fixture)
+        "flying_probe_min_mm": 1.0,         # Flying probe can be denser
+        "to_component_mm": 1.0,             # Clearance from components
+        "to_board_edge_mm": 3.0,            # Fixture clearance
+    })
+
+    # Grid alignment
+    GRID: Dict[str, any] = field(default_factory=lambda: {
+        "preferred_grid_mm": 2.54,          # 100 mil
+        "alternate_grid_mm": 1.27,          # 50 mil
+        "reason": "Fixture probe alignment",
+    })
+
+    # Coverage requirements
+    COVERAGE: Dict[str, str] = field(default_factory=lambda: {
+        "power_rails": "Test point on each power rail",
+        "ground": "Multiple test points for ground",
+        "critical_signals": "Reset, clock, chip select",
+        "serial_ports": "UART TX/RX for debug",
+        "jtag": "All JTAG signals accessible",
+    })
+
+    # Placement rules
+    PLACEMENT: Dict[str, str] = field(default_factory=lambda: {
+        "surface": "One side preferred for bed-of-nails",
+        "accessibility": "Not under components",
+        "labeling": "Net name on silkscreen recommended",
+    })
+
+
+# =============================================================================
+# CONNECTOR AND MECHANICAL RULES
+# Source: IPC-2221B, Connector Specifications
+# =============================================================================
+
+@dataclass
+class ConnectorRules:
+    """
+    Connector Placement and Design Rules.
+
+    Sources:
+    - IPC-2221B: PCB Design Standard
+    - USB, HDMI, Ethernet connector specifications
+    """
+
+    # Edge connector rules
+    EDGE_CONNECTOR: Dict[str, any] = field(default_factory=lambda: {
+        "gold_finger_thickness_um": 0.75,   # Minimum gold thickness
+        "chamfer_angle_deg": 30,            # 20-45 typical
+        "chamfer_depth_mm": 1.0,
+        "alignment_tolerance_mm": 0.1,
+    })
+
+    # USB connector rules
+    USB_CONNECTOR: Dict[str, any] = field(default_factory=lambda: {
+        "usb_a_mechanical": "Through-hole anchors required",
+        "usb_c_mechanical": "Through-hole or strong SMT anchors",
+        "shield_connection": "Connect to ground via 0ohm or RC",
+        "esd_protection_distance_mm": 5,
+    })
+
+    # High-speed connector rules
+    HIGH_SPEED_CONNECTOR: Dict[str, str] = field(default_factory=lambda: {
+        "impedance_match": "Connector footprint must match trace Z0",
+        "ground_pins": "Use all ground pins, via stitch nearby",
+        "signal_integrity": "Minimize stub from pad to connector",
+        "length_matching": "Match within connector footprint",
+    })
+
+    # Mechanical stress
+    MECHANICAL_STRESS: Dict[str, any] = field(default_factory=lambda: {
+        "anchor_holes": "Through-hole anchors for high-force connectors",
+        "board_thickness": "Min 1.6mm for standard connectors",
+        "edge_distance_mm": 3.0,            # From high-force connector to edge
+        "support": "Consider board stiffener for tall connectors",
+    })
+
+
+# Update the VerifiedDesignRulesEngine to include all new rule sets
 # =============================================================================
 # CONVENIENCE FUNCTION
 # =============================================================================
