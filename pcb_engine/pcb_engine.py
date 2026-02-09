@@ -3185,8 +3185,9 @@ class PCBEngine:
         if not self._polish_piston:
             self._polish_piston = PolishPiston(PolishConfig(
                 level=level,
-                reduce_vias=False,  # Disabled - creates crossing traces without collision detection
-                simplify_traces=True,  # Safe - merges collinear segments
+                reduce_vias=True,  # Now safe with collision detection
+                simplify_traces=True,  # Merges collinear segments
+                eliminate_staircases=True,  # Replaces zigzags with diagonals
                 shrink_board=False,  # Disabled - needs component repositioning
                 align_to_grid=False,  # Disabled - can break routes
                 verbose=self.config.verbose
