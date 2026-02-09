@@ -52,6 +52,13 @@ try:
 except ImportError:
     from common_types import get_pins
 
+# Import advanced ePlace analytical placement
+try:
+    from .eplace_analytical import ePlaceAnalytical, Component as EPlaceComponent, Net as EPlaceNet
+    EPLACE_ADVANCED_AVAILABLE = True
+except ImportError:
+    EPLACE_ADVANCED_AVAILABLE = False
+
 
 # =============================================================================
 # ENUMS AND CONFIGURATION
@@ -2600,7 +2607,8 @@ class PlacementPiston:
         3. Use FFT for efficient spectral solution
         4. Nesterov's method for faster convergence
 
-        Simplified implementation without full FFT.
+        Uses advanced ePlace implementation with Tetris legalization
+        that guarantees zero overlaps.
         """
         print("  [EP] Running ePlace electrostatic placement...")
 
@@ -2610,16 +2618,108 @@ class PlacementPiston:
         if n == 0:
             return self._create_result('eplace', 0, True)
 
+        # Use advanced ePlace if available
+        if EPLACE_ADVANCED_AVAILABLE:
+            return self._place_eplace_advanced()
+
+        # Fallback to simplified implementation
+        return self._place_eplace_simple()
+
+    def _place_eplace_advanced(self) -> PlacementResult:
+        """
+        Advanced ePlace using the eplace_analytical module.
+
+        Features:
+        - Electrostatic density modeling
+        - Nesterov's accelerated gradient descent
+        - Log-sum-exp wirelength approximation
+        - Tetris-style legalization (guarantees zero overlaps)
+        """
+        print("  [EP] Using advanced ePlace with Tetris legalization...")
+
+        # Convert components to ePlace format
+        eplace_components = []
+        for ref, comp in self.components.items():
+            eplace_components.append(EPlaceComponent(
+                ref=ref,
+                width=comp.width,
+                height=comp.height,
+                x=comp.x,
+                y=comp.y,
+                fixed=comp.fixed
+            ))
+
+        # Convert nets to ePlace format
+        eplace_nets = []
+        for net_name, pins in self.nets.items():
+            net_pins = []
+            for ref, pin_id, ox, oy in pins:
+                net_pins.append((ref, ox, oy))
+            eplace_nets.append(EPlaceNet(name=net_name, pins=net_pins))
+
+        # Create placer with board dimensions
+        placer = ePlaceAnalytical(
+            board_width=self.config.board_width,
+            board_height=self.config.board_height,
+            grid_bins_x=max(16, int(self.config.board_width / 2)),
+            grid_bins_y=max(16, int(self.config.board_height / 2)),
+            target_density=0.6
+        )
+
+        # Run placement
+        result = placer.place(
+            eplace_components,
+            eplace_nets,
+            max_iterations=self.config.ep_iterations
+        )
+
+        # Copy positions back to our components
+        for ecomp in eplace_components:
+            if ecomp.ref in self.components:
+                self.components[ecomp.ref].x = ecomp.x
+                self.components[ecomp.ref].y = ecomp.y
+
+        # Count overlaps for verification
+        overlaps = self._count_overlaps()
+
+        print(f"  [EP] Advanced ePlace: wirelength={result.wirelength:.1f}, "
+              f"iterations={result.iterations}, overlaps={overlaps}")
+
+        cost = self._calculate_cost()
+        print(f"  [EP] Final cost: {cost:.2f}")
+        return self._create_result('eplace', result.iterations, overlaps == 0)
+
+    def _count_overlaps(self) -> int:
+        """Count component overlaps."""
+        overlaps = 0
+        refs = list(self.components.keys())
+        for i, ref1 in enumerate(refs):
+            c1 = self.components[ref1]
+            for j in range(i + 1, len(refs)):
+                ref2 = refs[j]
+                c2 = self.components[ref2]
+
+                dx = abs(c1.x - c2.x)
+                dy = abs(c1.y - c2.y)
+                min_dx = (c1.width + c2.width) / 2
+                min_dy = (c1.height + c2.height) / 2
+
+                if dx < min_dx and dy < min_dy:
+                    overlaps += 1
+        return overlaps
+
+    def _place_eplace_simple(self) -> PlacementResult:
+        """
+        Simplified ePlace fallback implementation.
+        """
+        print("  [EP] Using simplified ePlace (advanced not available)...")
+
+        refs = sorted(self.components.keys())
+
         # Initialize density grid
         self._ep_init_grid()
 
         # Nesterov's accelerated gradient descent
-        # y = x (initial)
-        # For each iteration:
-        #   gradient = wirelength_gradient + lambda * density_gradient
-        #   x_new = y - alpha * gradient
-        #   y = x_new + momentum * (x_new - x)
-
         x = {ref: (self.components[ref].x, self.components[ref].y) for ref in refs}
         y = copy.deepcopy(x)
         momentum = 0.9

@@ -47,6 +47,13 @@ import threading
 import os
 import copy
 
+# Import FLUTE for optimal Steiner tree computation
+try:
+    from .flute_steiner import get_flute_instance, FLUTESteiner
+    FLUTE_AVAILABLE = True
+except ImportError:
+    FLUTE_AVAILABLE = False
+
 
 # =============================================================================
 # QUADTREE SPATIAL INDEX - O(log n) COURTYARD LOOKUPS
@@ -3288,7 +3295,7 @@ class RoutingPiston:
 
     def _route_net_steiner(self, net_name: str, pins: List[Tuple],
                            escapes: Dict) -> Route:
-        """Route a single net using Steiner tree approach"""
+        """Route a single net using Steiner tree approach with FLUTE optimization."""
         route = Route(net=net_name, algorithm_used='steiner')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -3307,16 +3314,28 @@ class RoutingPiston:
                     self._mark_segment_in_grid(seg, net_name)
             return route
 
-        # Multi-point case: Compute Hanan grid Steiner points
-        steiner_points = self._compute_hanan_steiner_points(endpoints)
+        # Multi-point case: Use FLUTE for optimal Steiner tree
+        if FLUTE_AVAILABLE:
+            # Use FLUTE algorithm for optimal routing order
+            flute = get_flute_instance()
+            tree = flute.build_rsmt(endpoints)
 
-        # Build graph with original endpoints + Steiner points
-        all_points = list(endpoints) + steiner_points
+            # Get optimal connections from FLUTE
+            edges = [(
+                (e.p1.x, e.p1.y),
+                (e.p2.x, e.p2.y)
+            ) for e in tree.edges]
 
-        # Compute MST on expanded point set
-        edges = self._compute_mst_edges(all_points)
+            print(f"      [FLUTE] {net_name}: {len(endpoints)} pins, "
+                  f"wirelength={tree.total_wirelength:.1f}, "
+                  f"steiner_pts={len(tree.steiner_points)}")
+        else:
+            # Fallback: Compute Hanan grid Steiner points
+            steiner_points = self._compute_hanan_steiner_points(endpoints)
+            all_points = list(endpoints) + steiner_points
+            edges = self._compute_mst_edges(all_points)
 
-        # Route each MST edge
+        # Route each edge from the Steiner tree
         for p1, p2 in edges:
             segments, vias, success = self._astar_route(p1, p2, net_name)
 
@@ -3606,7 +3625,7 @@ class RoutingPiston:
 
         optimized_order = signal_nets + pwr_gnd_nets
 
-        # First pass: route simple nets with A*, complex with Lee (guaranteed)
+        # First pass: route simple nets with A*, complex with FLUTE-optimized Steiner
         for net_name in optimized_order:
             pins = net_pins.get(net_name, [])
             if len(pins) < 2:
@@ -3615,13 +3634,15 @@ class RoutingPiston:
             endpoints = self._get_escape_endpoints(pins, escapes)
             is_power_net = net_name.upper() in power_nets or net_name in pwr_gnd_nets
 
-            if len(endpoints) > 3 or is_power_net:
-                # Multi-terminal or power net: use Lee (guaranteed shortest path)
-                # Lee handles multi-pin and power nets better than A* because
-                # it's guaranteed to find a path if one exists
+            if len(endpoints) > 2:
+                # Multi-terminal net: use FLUTE-optimized Steiner tree
+                # FLUTE provides optimal routing order, minimizing wirelength
+                route = self._route_net_steiner(net_name, pins, escapes)
+            elif is_power_net:
+                # Power net with 2 pins: use Lee (guaranteed shortest path)
                 route = self._route_net_lee(net_name, pins, escapes)
             else:
-                # Simple 2-3 pin signal net: use A* (faster)
+                # Simple 2-pin signal net: use A* (faster)
                 route = self._route_net_astar(net_name, pins, escapes)
 
             self.routes[net_name] = route
