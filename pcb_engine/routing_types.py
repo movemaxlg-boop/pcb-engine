@@ -218,6 +218,10 @@ class RoutingConfig:
     # Random seed for reproducibility
     seed: int = 42
 
+    # Parallel routing (multi-core optimization)
+    parallel_routing: bool = True  # Enable parallel routing for independent nets
+    max_workers: int = 0  # 0 = auto-detect CPU cores, otherwise use specified count
+
 
 @dataclass
 class RoutingResult:

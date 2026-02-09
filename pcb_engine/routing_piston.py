@@ -42,6 +42,10 @@ import heapq
 from collections import deque
 import random
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+import os
+import copy
 
 
 # =============================================================================
@@ -1012,8 +1016,14 @@ class RoutingPiston:
         # Select and run algorithm
         algorithm = self.config.algorithm.lower()
 
+        # Check for parallel routing
+        if self.config.parallel_routing and algorithm in ['lee', 'lee_parallel']:
+            return self._route_lee_parallel(net_order, net_pins, escapes)
+
         if algorithm == 'lee':
             return self._route_lee(net_order, net_pins, escapes)
+        elif algorithm == 'lee_parallel':
+            return self._route_lee_parallel(net_order, net_pins, escapes)
         elif algorithm == 'hadlock':
             return self._route_hadlock(net_order, net_pins, escapes)
         elif algorithm == 'soukup':
@@ -1037,6 +1047,386 @@ class RoutingPiston:
         else:
             # Default to hybrid
             return self._route_hybrid(net_order, net_pins, escapes, placement, parts_db)
+
+    # =========================================================================
+    # PARALLEL ROUTING - Multi-Core Optimization
+    # =========================================================================
+    # Routes independent nets in parallel using multiple CPU cores.
+    # Independent nets = nets that don't share components (can't interfere).
+    #
+    # Strategy:
+    # 1. Build dependency graph from net pins (which components each net uses)
+    # 2. Find independent net groups using graph coloring
+    # 3. Route each group in parallel with separate grid copies
+    # 4. Merge results and mark grid cells
+    # =========================================================================
+
+    def _find_independent_net_groups(self, net_pins: Dict) -> List[List[str]]:
+        """
+        Find groups of independent nets that can be routed in parallel.
+
+        Two nets are DEPENDENT if they share any component.
+        Independent nets can be routed simultaneously without conflict.
+
+        Returns list of groups, where each group contains independent nets.
+        """
+        # Build component -> nets mapping
+        component_to_nets: Dict[str, Set[str]] = {}
+        for net_name, pins in net_pins.items():
+            if len(pins) < 2:
+                continue
+            for pin in pins:
+                ref = pin.get('ref', '')
+                if ref:
+                    if ref not in component_to_nets:
+                        component_to_nets[ref] = set()
+                    component_to_nets[ref].add(net_name)
+
+        # Build net -> dependent nets mapping
+        net_dependencies: Dict[str, Set[str]] = {}
+        for net_name in net_pins.keys():
+            if len(net_pins.get(net_name, [])) < 2:
+                continue
+            net_dependencies[net_name] = set()
+            for pin in net_pins[net_name]:
+                ref = pin.get('ref', '')
+                if ref in component_to_nets:
+                    # All nets on same component are dependent
+                    net_dependencies[net_name].update(component_to_nets[ref])
+            net_dependencies[net_name].discard(net_name)  # Remove self
+
+        # Graph coloring to find independent groups
+        # Greedy: assign each net to first group where it has no conflicts
+        groups: List[List[str]] = []
+        assigned: Set[str] = set()
+
+        for net_name in net_pins.keys():
+            if net_name in assigned or len(net_pins.get(net_name, [])) < 2:
+                continue
+
+            dependencies = net_dependencies.get(net_name, set())
+
+            # Try to add to existing group
+            added = False
+            for group in groups:
+                # Check if net conflicts with any net in this group
+                conflicts = False
+                for existing_net in group:
+                    if existing_net in dependencies:
+                        conflicts = True
+                        break
+
+                if not conflicts:
+                    group.append(net_name)
+                    assigned.add(net_name)
+                    added = True
+                    break
+
+            # Create new group if couldn't add to existing
+            if not added:
+                groups.append([net_name])
+                assigned.add(net_name)
+
+        return groups
+
+    def _route_net_parallel_worker(self, net_name: str, pins: List[Dict],
+                                    escapes: Dict, grid_lock: threading.Lock,
+                                    fcu_grid_copy: List[List],
+                                    bcu_grid_copy: List[List]) -> Tuple[str, 'Route']:
+        """
+        Worker function for parallel routing of a single net.
+        Uses thread-local grid copies to avoid conflicts.
+        """
+        # Route using Lee algorithm on the grid copy
+        route = self._route_net_lee_on_grid(net_name, pins, escapes,
+                                            fcu_grid_copy, bcu_grid_copy)
+        return (net_name, route)
+
+    def _route_net_lee_on_grid(self, net_name: str, pins: List[Dict],
+                               escapes: Dict, fcu_grid: List[List],
+                               bcu_grid: List[List]) -> 'Route':
+        """
+        Route a net using Lee algorithm on provided grid copies.
+        This is the thread-safe version for parallel routing.
+        """
+        # Get escape endpoints for all pins
+        # Convert pins to format expected by _get_escape_endpoints
+        pin_refs = []
+        for pin in pins:
+            ref = pin.get('ref', '')
+            pin_id = pin.get('pin', '')
+            if ref and pin_id:
+                pin_refs.append({'ref': ref, 'pin': pin_id})
+
+        endpoints = self._get_escape_endpoints(pin_refs, escapes)
+
+        if len(endpoints) < 2:
+            return Route(net=net_name, success=False, segments=[], vias=[])
+
+        # Convert (x, y) endpoints to (x, y, layer) format
+        # Default to top layer for simplicity
+        endpoints_3d = [(ep[0], ep[1], 'F.Cu') for ep in endpoints]
+
+        # Use MST to connect all endpoints
+        segments = []
+        vias = []
+
+        # Connect first two endpoints
+        start = endpoints_3d[0]
+        target = endpoints_3d[1]
+
+        path = self._lee_wavefront_on_grid(start, target, net_name,
+                                           fcu_grid, bcu_grid)
+        if path:
+            segs, vs = self._path_to_segments(path, net_name)
+            segments.extend(segs)
+            vias.extend(vs)
+
+            # Mark path on grid
+            for layer, row, col in path:
+                if layer == 0:
+                    fcu_grid[row][col] = net_name
+                else:
+                    bcu_grid[row][col] = net_name
+
+        # Connect remaining endpoints to the tree
+        for i in range(2, len(endpoints_3d)):
+            target = endpoints_3d[i]
+            path = self._lee_wavefront_on_grid(target, None, net_name,
+                                               fcu_grid, bcu_grid,
+                                               connect_to_existing=True)
+            if path:
+                segs, vs = self._path_to_segments(path, net_name)
+                segments.extend(segs)
+                vias.extend(vs)
+
+                for layer, row, col in path:
+                    if layer == 0:
+                        fcu_grid[row][col] = net_name
+                    else:
+                        bcu_grid[row][col] = net_name
+
+        success = len(segments) > 0
+        return Route(net=net_name, success=success,
+                     segments=segments, vias=vias)
+
+    def _lee_wavefront_on_grid(self, start: Tuple, target: Optional[Tuple],
+                               net_name: str, fcu_grid: List[List],
+                               bcu_grid: List[List],
+                               connect_to_existing: bool = False) -> Optional[List]:
+        """
+        Lee wavefront that works on provided grid copies (thread-safe).
+        """
+        # Convert to grid coordinates
+        start_col = int(start[0] / self.config.grid_size)
+        start_row = int(start[1] / self.config.grid_size)
+        start_layer = 0 if start[2] == 'F.Cu' else 1
+
+        if target:
+            target_col = int(target[0] / self.config.grid_size)
+            target_row = int(target[1] / self.config.grid_size)
+            target_layer = 0 if target[2] == 'F.Cu' else 1
+
+        # BFS wavefront
+        dist = {}
+        parent = {}
+        queue = deque()
+
+        start_cell = (start_layer, start_row, start_col)
+        dist[start_cell] = 0
+        parent[start_cell] = None
+        queue.append(start_cell)
+
+        found = False
+        found_cell = None
+
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 4-connected
+        if self.config.allow_45_degree:
+            directions += [(-1, -1), (-1, 1), (1, -1), (1, 1)]  # 8-connected
+
+        while queue and not found:
+            layer, row, col = queue.popleft()
+            current_dist = dist[(layer, row, col)]
+
+            if current_dist > self.config.lee_max_expansion:
+                break
+
+            # Check if we reached target
+            if target and layer == target_layer and row == target_row and col == target_col:
+                found = True
+                found_cell = (layer, row, col)
+                break
+
+            # Check if we connected to existing route
+            if connect_to_existing and not target:
+                grid = fcu_grid if layer == 0 else bcu_grid
+                if 0 <= row < len(grid) and 0 <= col < len(grid[0]):
+                    cell = grid[row][col]
+                    if cell == net_name and (layer, row, col) != start_cell:
+                        found = True
+                        found_cell = (layer, row, col)
+                        break
+
+            # Expand to neighbors
+            for dr, dc in directions:
+                nr, nc = row + dr, col + dc
+
+                if not (0 <= nr < self.grid_rows and 0 <= nc < self.grid_cols):
+                    continue
+
+                grid = fcu_grid if layer == 0 else bcu_grid
+                cell = grid[nr][nc]
+
+                # Check if cell is available
+                if cell is not None and cell != net_name and cell not in self.BLOCKED_MARKERS:
+                    continue  # Blocked by another net
+                if cell in self.BLOCKED_MARKERS:
+                    continue  # Blocked by component/edge
+
+                next_cell = (layer, nr, nc)
+                if next_cell not in dist:
+                    dist[next_cell] = current_dist + 1
+                    parent[next_cell] = (layer, row, col)
+                    queue.append(next_cell)
+
+            # Try layer change (via)
+            if self.config.allow_layer_change:
+                other_layer = 1 - layer
+                other_grid = bcu_grid if layer == 0 else fcu_grid
+
+                if 0 <= row < len(other_grid) and 0 <= col < len(other_grid[0]):
+                    other_cell = other_grid[row][col]
+                    if other_cell is None or other_cell == net_name:
+                        next_cell = (other_layer, row, col)
+                        if next_cell not in dist:
+                            via_cost = int(self.config.via_cost)
+                            dist[next_cell] = current_dist + via_cost
+                            parent[next_cell] = (layer, row, col)
+                            queue.append(next_cell)
+
+        if not found:
+            return None
+
+        # Backtrace path
+        path = []
+        cell = found_cell
+        while cell:
+            path.append(cell)
+            cell = parent.get(cell)
+        path.reverse()
+
+        return path
+
+    def _route_lee_parallel(self, net_order: List[str], net_pins: Dict,
+                            escapes: Dict) -> 'RoutingResult':
+        """
+        Route using Lee algorithm with parallel execution for independent nets.
+        """
+        # Determine number of workers
+        if self.config.max_workers > 0:
+            max_workers = self.config.max_workers
+        else:
+            max_workers = os.cpu_count() or 4
+
+        # Find independent net groups
+        groups = self._find_independent_net_groups(net_pins)
+
+        total_nets = sum(len(g) for g in groups)
+        print(f"    [LEE-PARALLEL] {total_nets} nets in {len(groups)} groups, "
+              f"using {max_workers} workers")
+
+        # Route each group
+        all_routes = {}
+        grid_lock = threading.Lock()
+
+        for group_idx, group in enumerate(groups):
+            if len(group) == 1:
+                # Single net - route directly
+                net_name = group[0]
+                pins = net_pins.get(net_name, [])
+                if len(pins) >= 2:
+                    route = self._route_net_lee(net_name, pins, escapes)
+                    all_routes[net_name] = route
+                    if route.success:
+                        self._mark_route_on_grid(route)
+            else:
+                # Multiple nets - route in parallel
+                # Create grid copies for each worker
+                with ThreadPoolExecutor(max_workers=min(max_workers, len(group))) as executor:
+                    futures = {}
+
+                    for net_name in group:
+                        pins = net_pins.get(net_name, [])
+                        if len(pins) < 2:
+                            continue
+
+                        # Create grid copies for this worker
+                        fcu_copy = [row[:] for row in self.fcu_grid]
+                        bcu_copy = [row[:] for row in self.bcu_grid]
+
+                        future = executor.submit(
+                            self._route_net_parallel_worker,
+                            net_name, pins, escapes, grid_lock,
+                            fcu_copy, bcu_copy
+                        )
+                        futures[future] = net_name
+
+                    # Collect results and merge
+                    for future in as_completed(futures):
+                        net_name, route = future.result()
+                        all_routes[net_name] = route
+
+                        # Mark on main grid (synchronized)
+                        with grid_lock:
+                            if route.success:
+                                self._mark_route_on_grid(route)
+
+        # Update instance routes
+        self.routes = all_routes
+        self.failed = [n for n, r in all_routes.items() if not r.success]
+
+        routed = sum(1 for r in all_routes.values() if r.success)
+        return RoutingResult(
+            routes=all_routes,
+            success=len(self.failed) == 0,
+            routed_count=routed,
+            total_count=len(all_routes),
+            algorithm_used='lee_parallel'
+        )
+
+    def _mark_route_on_grid(self, route: 'Route'):
+        """Mark a route's segments on the main grid."""
+        for seg in route.segments:
+            # Mark start and end points
+            start_col = int(seg.start[0] / self.config.grid_size)
+            start_row = int(seg.start[1] / self.config.grid_size)
+            end_col = int(seg.end[0] / self.config.grid_size)
+            end_row = int(seg.end[1] / self.config.grid_size)
+
+            grid = self.fcu_grid if seg.layer == 'F.Cu' else self.bcu_grid
+
+            # Mark cells along the segment (Bresenham)
+            dx = abs(end_col - start_col)
+            dy = abs(end_row - start_row)
+            sx = 1 if start_col < end_col else -1
+            sy = 1 if start_row < end_row else -1
+            err = dx - dy
+
+            col, row = start_col, start_row
+            while True:
+                if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+                    grid[row][col] = route.net_name
+
+                if col == end_col and row == end_row:
+                    break
+
+                e2 = 2 * err
+                if e2 > -dy:
+                    err -= dy
+                    col += sx
+                if e2 < dx:
+                    err += dx
+                    row += sy
 
     # =========================================================================
     # ALGORITHM 1: LEE WAVEFRONT ALGORITHM (Lee, 1961)
