@@ -4,44 +4,53 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # LDO voltage regulator circuit
+# COURTYARDS: Pre-calculated by Parts Piston (single source of truth)
+# Format: {'width': W, 'height': H} centered on component origin
+# Note: Using margin=0 courtyards (pad bounding box only) - routing adds its own clearance
 complex_parts_db = {
     'parts': {
-        'U1': {  # LDO Regulator
+        'U1': {  # LDO Regulator - SOT-223
             'footprint': 'SOT-223',
             'pins': [
                 {'number': '1', 'net': 'VIN', 'offset': (-2.3, 0), 'size': (1.0, 1.8)},
                 {'number': '2', 'net': 'GND', 'offset': (0, 0), 'size': (1.0, 1.8)},
                 {'number': '3', 'net': 'VOUT', 'offset': (2.3, 0), 'size': (1.0, 1.8)},
                 {'number': '4', 'net': 'VOUT', 'offset': (0, 3.25), 'size': (3.0, 1.5)},
-            ]
+            ],
+            # Pre-calculated courtyard (pad bounding box, no IPC margin)
+            'courtyard': {'width': 5.60, 'height': 4.90}
         },
-        'C1': {  # Input cap
+        'C1': {  # Input cap - 0805
             'footprint': '0805',
             'pins': [
                 {'number': '1', 'net': 'VIN', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
                 {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
-            ]
+            ],
+            'courtyard': {'width': 2.80, 'height': 1.25}
         },
-        'C2': {  # Output cap
+        'C2': {  # Output cap - 0805
             'footprint': '0805',
             'pins': [
                 {'number': '1', 'net': 'VOUT', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
                 {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
-            ]
+            ],
+            'courtyard': {'width': 2.80, 'height': 1.25}
         },
-        'R1': {  # LED resistor
+        'R1': {  # LED resistor - 0603
             'footprint': '0603',
             'pins': [
                 {'number': '1', 'net': 'VOUT', 'offset': (-0.75, 0), 'size': (0.6, 0.9)},
                 {'number': '2', 'net': 'LED_A', 'offset': (0.75, 0), 'size': (0.6, 0.9)},
-            ]
+            ],
+            'courtyard': {'width': 2.10, 'height': 0.90}
         },
-        'D1': {  # LED
+        'D1': {  # LED - 0805
             'footprint': '0805',
             'pins': [
                 {'number': '1', 'net': 'LED_A', 'offset': (-0.95, 0), 'size': (0.9, 1.25)},
                 {'number': '2', 'net': 'GND', 'offset': (0.95, 0), 'size': (0.9, 1.25)},
-            ]
+            ],
+            'courtyard': {'width': 2.80, 'height': 1.25}
         },
     },
     'nets': {

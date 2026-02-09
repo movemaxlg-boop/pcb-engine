@@ -756,16 +756,43 @@ class RoutingPiston:
             pos_x = pos.x if hasattr(pos, 'x') else pos[0]
             pos_y = pos.y if hasattr(pos, 'y') else pos[1]
 
-            # Calculate courtyard bounds using official function
-            courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+            # PRIORITY: Use pre-calculated courtyard from Parts Piston if available
+            courtyard_data = part.get('courtyard', None)
+            if courtyard_data:
+                # Use pre-calculated courtyard
+                if hasattr(courtyard_data, 'width'):
+                    # CourtyardInfo object
+                    half_w = courtyard_data.width / 2
+                    half_h = courtyard_data.height / 2
+                    offset_x = getattr(courtyard_data, 'offset_x', 0)
+                    offset_y = getattr(courtyard_data, 'offset_y', 0)
+                    min_x = pos_x - half_w + offset_x
+                    max_x = pos_x + half_w + offset_x
+                    min_y = pos_y - half_h + offset_y
+                    max_y = pos_y + half_h + offset_y
+                elif isinstance(courtyard_data, dict):
+                    half_w = courtyard_data.get('width', 2.0) / 2
+                    half_h = courtyard_data.get('height', 2.0) / 2
+                    min_x = pos_x - half_w
+                    max_x = pos_x + half_w
+                    min_y = pos_y - half_h
+                    max_y = pos_y + half_h
+                else:
+                    courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+                    min_x = pos_x + courtyard.min_x
+                    max_x = pos_x + courtyard.max_x
+                    min_y = pos_y + courtyard.min_y
+                    max_y = pos_y + courtyard.max_y
+            else:
+                # Fallback: Calculate courtyard from pad positions
+                courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+                min_x = pos_x + courtyard.min_x
+                max_x = pos_x + courtyard.max_x
+                min_y = pos_y + courtyard.min_y
+                max_y = pos_y + courtyard.max_y
 
             # Create bounding box
-            bbox = BoundingBox(
-                min_x=pos_x + courtyard.min_x,
-                min_y=pos_y + courtyard.min_y,
-                max_x=pos_x + courtyard.max_x,
-                max_y=pos_y + courtyard.max_y
-            )
+            bbox = BoundingBox(min_x=min_x, min_y=min_y, max_x=max_x, max_y=max_y)
 
             # Determine layer blocking
             fp_lower = footprint.lower()
@@ -3782,16 +3809,47 @@ class RoutingPiston:
             pos_y = pos.y if hasattr(pos, 'y') else pos[1] if isinstance(pos, (list, tuple)) else 0
 
             # FIRST: Register component courtyard as obstacle
-            # Use calculate_courtyard() for accurate bounds from pad positions
+            # PRIORITY: Use pre-calculated courtyard from Parts Piston if available
+            # This follows the principle: Parts Piston is the SINGLE SOURCE OF TRUTH
             footprint = part.get('footprint', part.get('package', ''))
-            courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
-            # Note: margin=0.0 because clearance is handled by routing algorithm
 
-            # Calculate grid cells for component courtyard
-            body_left = pos_x + courtyard.min_x
-            body_right = pos_x + courtyard.max_x
-            body_top = pos_y + courtyard.min_y
-            body_bottom = pos_y + courtyard.max_y
+            # Check if courtyard is already in parts_db (from Parts Piston)
+            courtyard_data = part.get('courtyard', None)
+            if courtyard_data:
+                # Use pre-calculated courtyard from Parts Piston
+                if hasattr(courtyard_data, 'width'):
+                    # CourtyardInfo object
+                    half_w = courtyard_data.width / 2
+                    half_h = courtyard_data.height / 2
+                    offset_x = getattr(courtyard_data, 'offset_x', 0)
+                    offset_y = getattr(courtyard_data, 'offset_y', 0)
+                    body_left = pos_x - half_w + offset_x
+                    body_right = pos_x + half_w + offset_x
+                    body_top = pos_y - half_h + offset_y
+                    body_bottom = pos_y + half_h + offset_y
+                elif isinstance(courtyard_data, dict):
+                    # Dict format from footprint generator
+                    half_w = courtyard_data.get('width', 2.0) / 2
+                    half_h = courtyard_data.get('height', 2.0) / 2
+                    body_left = pos_x - half_w
+                    body_right = pos_x + half_w
+                    body_top = pos_y - half_h
+                    body_bottom = pos_y + half_h
+                else:
+                    # Fallback to calculation
+                    courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+                    body_left = pos_x + courtyard.min_x
+                    body_right = pos_x + courtyard.max_x
+                    body_top = pos_y + courtyard.min_y
+                    body_bottom = pos_y + courtyard.max_y
+            else:
+                # No courtyard in parts_db - calculate it
+                # Note: margin=0.0 because clearance is handled by routing algorithm
+                courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+                body_left = pos_x + courtyard.min_x
+                body_right = pos_x + courtyard.max_x
+                body_top = pos_y + courtyard.min_y
+                body_bottom = pos_y + courtyard.max_y
 
             col_min = self._real_to_grid_col(body_left)
             col_max = self._real_to_grid_col(body_right)
