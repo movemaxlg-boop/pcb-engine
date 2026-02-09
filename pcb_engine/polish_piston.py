@@ -44,13 +44,12 @@ class PolishConfig:
     # General
     level: PolishLevel = PolishLevel.STANDARD
 
-    # Via reduction - Now SAFE with collision detection
-    reduce_vias: bool = True  # Safe - checks for crossings before removing
+    # Via reduction - DISABLED by default (can create crossing traces)
+    reduce_vias: bool = False  # Disabled - needs collision detection to work safely
     via_keep_margin: float = 0.5  # Keep vias if removal increases length by more than this (mm)
 
     # Trace simplification
     simplify_traces: bool = True  # Merge collinear segments
-    eliminate_staircases: bool = True  # Replace staircase patterns with diagonals
     min_segment_length: float = 0.0  # Don't remove tiny segments (breaks connectivity!)
     collinear_tolerance: float = 0.05  # Segments within this angle (rad) are considered collinear
 
@@ -154,13 +153,9 @@ class PolishPiston:
         if self.config.reduce_vias:
             polished_routes = self._reduce_vias(polished_routes)
 
-        # Phase 2: Trace simplification (merge collinear)
+        # Phase 2: Trace simplification
         if self.config.simplify_traces:
             polished_routes = self._simplify_traces(polished_routes)
-
-        # Phase 2.5: Staircase elimination (replace zigzags with diagonals)
-        if self.config.eliminate_staircases:
-            polished_routes = self._eliminate_staircases(polished_routes)
 
         # Phase 3: Arc smoothing (optional)
         if self.config.use_arcs:
@@ -217,16 +212,9 @@ class PolishPiston:
 
         Strategy:
         1. Find vias that connect exactly 2 segments (one on each layer)
-        2. Check if merged segment would cross any OTHER traces (collision detection!)
-        3. Only remove if the merge is safe (no crossings)
+        2. Check if we can merge them into a single segment on F.Cu
+        3. Only remove if the segments form a continuous path through the via
         """
-        # Build list of all F.Cu segments for collision detection
-        all_fcu_segments = []
-        for net_name, route in routes.items():
-            for seg in route.segments:
-                if seg.layer == 'F.Cu':
-                    all_fcu_segments.append((net_name, seg))
-
         for net_name, route in routes.items():
             if not route.vias:
                 continue
@@ -236,7 +224,7 @@ class PolishPiston:
             i = 0
             while i < len(route.vias):
                 via = route.vias[i]
-                if self._try_remove_via(route, i, net_name, all_fcu_segments):
+                if self._try_remove_via(route, i):
                     removed_count += 1
                     # Don't increment i - the list shifted
                 else:
@@ -247,8 +235,7 @@ class PolishPiston:
 
         return routes
 
-    def _try_remove_via(self, route: Route, via_index: int,
-                        current_net: str, all_fcu_segments: List) -> bool:
+    def _try_remove_via(self, route: Route, via_index: int) -> bool:
         """
         Try to remove a via by merging connected segments.
         Returns True if via was removed, False otherwise.
@@ -256,7 +243,7 @@ class PolishPiston:
         IMPORTANT: We can only remove a via if:
         1. Exactly one segment on each layer connects to it
         2. The merged segment would have non-zero length
-        3. The merged segment wouldn't cross other traces (COLLISION DETECTION!)
+        3. The merged segment wouldn't cross other obstacles (checked later by DRC)
         """
         if via_index >= len(route.vias):
             return False
@@ -303,24 +290,7 @@ class PolishPiston:
             # Would create zero-length segment, don't remove
             return False
 
-        # COLLISION DETECTION: Check if merged segment would cross other F.Cu traces
-        clearance = 0.2  # mm - minimum clearance between traces
-        for other_net, other_seg in all_fcu_segments:
-            # Skip segments from the same net (they're allowed to touch)
-            if other_net == current_net:
-                continue
-
-            # Skip the segments we're about to remove
-            if other_seg is fcu_seg:
-                continue
-
-            # Check if the merged path would cross this segment
-            if self._segments_too_close(fcu_other, bcu_other,
-                                        other_seg.start, other_seg.end, clearance):
-                # Would create a crossing or clearance violation - don't remove via
-                return False
-
-        # Safe to remove - create merged segment on F.Cu
+        # Create merged segment on F.Cu
         merged_seg = TrackSegment(
             start=fcu_other,
             end=bcu_other,
@@ -341,64 +311,6 @@ class PolishPiston:
         route.vias.pop(via_index)
 
         return True
-
-    def _segments_too_close(self, a1: Tuple[float, float], a2: Tuple[float, float],
-                            b1: Tuple[float, float], b2: Tuple[float, float],
-                            clearance: float) -> bool:
-        """
-        Check if two line segments are too close (would violate clearance).
-        Returns True if they cross or are within clearance distance.
-        """
-        # First check if they actually intersect
-        if self._segments_intersect(a1, a2, b1, b2):
-            return True
-
-        # Check minimum distance between segments
-        min_dist = self._min_segment_distance(a1, a2, b1, b2)
-        return min_dist < clearance
-
-    def _segments_intersect(self, a1: Tuple[float, float], a2: Tuple[float, float],
-                            b1: Tuple[float, float], b2: Tuple[float, float]) -> bool:
-        """Check if two line segments intersect (excluding endpoints)."""
-        def ccw(A, B, C):
-            return (C[1]-A[1]) * (B[0]-A[0]) > (B[1]-A[1]) * (C[0]-A[0])
-
-        # Check if segments intersect (excluding shared endpoints)
-        if self._points_equal(a1, b1) or self._points_equal(a1, b2) or \
-           self._points_equal(a2, b1) or self._points_equal(a2, b2):
-            return False  # Shared endpoint is OK
-
-        return ccw(a1, b1, b2) != ccw(a2, b1, b2) and ccw(a1, a2, b1) != ccw(a1, a2, b2)
-
-    def _min_segment_distance(self, a1: Tuple[float, float], a2: Tuple[float, float],
-                               b1: Tuple[float, float], b2: Tuple[float, float]) -> float:
-        """Calculate minimum distance between two line segments."""
-        # Check distances from each endpoint to the other segment
-        distances = [
-            self._point_to_segment_distance(a1, b1, b2),
-            self._point_to_segment_distance(a2, b1, b2),
-            self._point_to_segment_distance(b1, a1, a2),
-            self._point_to_segment_distance(b2, a1, a2),
-        ]
-        return min(distances)
-
-    def _point_to_segment_distance(self, p: Tuple[float, float],
-                                    s1: Tuple[float, float],
-                                    s2: Tuple[float, float]) -> float:
-        """Calculate minimum distance from point to line segment."""
-        dx = s2[0] - s1[0]
-        dy = s2[1] - s1[1]
-
-        if dx == 0 and dy == 0:
-            # Segment is a point
-            return self._point_distance(p, s1)
-
-        # Project point onto line
-        t = max(0, min(1, ((p[0]-s1[0])*dx + (p[1]-s1[1])*dy) / (dx*dx + dy*dy)))
-
-        # Find closest point on segment
-        closest = (s1[0] + t*dx, s1[1] + t*dy)
-        return self._point_distance(p, closest)
 
     def _point_distance(self, p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
         """Calculate distance between two points."""
@@ -555,201 +467,6 @@ class PolishPiston:
         dx = seg.end[0] - seg.start[0]
         dy = seg.end[1] - seg.start[1]
         return math.sqrt(dx*dx + dy*dy)
-
-    # =========================================================================
-    # PHASE 2.5: STAIRCASE ELIMINATION
-    # =========================================================================
-
-    def _eliminate_staircases(self, routes: Dict[str, Route]) -> Dict[str, Route]:
-        """
-        Replace staircase patterns with clean diagonal lines.
-
-        A staircase is a sequence of alternating horizontal and vertical segments
-        that could be replaced with a single diagonal. This is common with
-        grid-based routers like Lee algorithm.
-
-        Example:
-            Before:  ─┐     After:  ╲
-                      │              ╲
-                      └─              ╲
-
-        We use Douglas-Peucker algorithm to simplify paths while keeping
-        the start and end points fixed.
-        """
-        # Build collision map for all segments (for safe diagonal creation)
-        all_segments = []
-        for net_name, route in routes.items():
-            for seg in route.segments:
-                all_segments.append((net_name, seg))
-
-        for net_name, route in routes.items():
-            if len(route.segments) < 3:
-                continue
-
-            # Group consecutive segments on same layer
-            layer_groups = self._group_by_layer(route.segments)
-
-            new_segments = []
-            for layer, group in layer_groups:
-                if len(group) < 3:
-                    new_segments.extend(group)
-                    continue
-
-                # Try to simplify this group with diagonals
-                simplified = self._simplify_staircase_group(
-                    group, net_name, all_segments
-                )
-                new_segments.extend(simplified)
-
-            original_count = len(route.segments)
-            route.segments = new_segments
-
-            removed = original_count - len(route.segments)
-            if removed > 0 and self.config.verbose:
-                self.messages.append(f"  {net_name}: eliminated {removed} staircase segments")
-
-        return routes
-
-    def _group_by_layer(self, segments: List[TrackSegment]) -> List[Tuple[str, List[TrackSegment]]]:
-        """Group consecutive segments by layer."""
-        if not segments:
-            return []
-
-        groups = []
-        current_layer = segments[0].layer
-        current_group = [segments[0]]
-
-        for seg in segments[1:]:
-            if seg.layer == current_layer:
-                current_group.append(seg)
-            else:
-                groups.append((current_layer, current_group))
-                current_layer = seg.layer
-                current_group = [seg]
-
-        groups.append((current_layer, current_group))
-        return groups
-
-    def _simplify_staircase_group(self, segments: List[TrackSegment],
-                                   current_net: str,
-                                   all_segments: List) -> List[TrackSegment]:
-        """
-        Simplify a group of same-layer segments by replacing staircases with diagonals.
-        Uses a modified Douglas-Peucker approach.
-
-        IMPORTANT: If ANY simplified segment would collide, return original segments.
-        This is safer than partial simplification which can create gaps.
-        """
-        if len(segments) < 3:
-            return segments
-
-        # Build the path as a list of points
-        points = [segments[0].start]
-        for seg in segments:
-            points.append(seg.end)
-
-        # Simplify the path
-        simplified_points = self._douglas_peucker(points, tolerance=0.3)
-
-        # If no simplification possible, return originals
-        if len(simplified_points) >= len(points):
-            return segments
-
-        if len(simplified_points) < 2:
-            return segments
-
-        # Check if ALL simplified segments are safe
-        layer = segments[0].layer
-        width = segments[0].width
-        net = segments[0].net
-        clearance = 0.40  # Trace width (0.25) + clearance (0.15) = 0.40
-
-        for i in range(len(simplified_points) - 1):
-            start = simplified_points[i]
-            end = simplified_points[i + 1]
-
-            for other_net, other_seg in all_segments:
-                if other_net == current_net:
-                    continue
-                if other_seg.layer != layer:
-                    continue
-
-                if self._segments_too_close(start, end,
-                                           other_seg.start, other_seg.end, clearance):
-                    # Collision detected - return original segments unchanged
-                    return segments
-
-        # All segments are safe - create simplified path
-        new_segments = []
-        for i in range(len(simplified_points) - 1):
-            new_segments.append(TrackSegment(
-                start=simplified_points[i],
-                end=simplified_points[i + 1],
-                layer=layer,
-                width=width,
-                net=net
-            ))
-
-        return new_segments
-
-    def _douglas_peucker(self, points: List[Tuple[float, float]],
-                         tolerance: float) -> List[Tuple[float, float]]:
-        """
-        Douglas-Peucker line simplification algorithm.
-        Removes points that are within tolerance distance from the simplified line.
-        """
-        if len(points) <= 2:
-            return points
-
-        # Find the point with maximum distance from line between first and last
-        max_dist = 0
-        max_idx = 0
-
-        start = points[0]
-        end = points[-1]
-
-        for i in range(1, len(points) - 1):
-            dist = self._point_to_line_distance(points[i], start, end)
-            if dist > max_dist:
-                max_dist = dist
-                max_idx = i
-
-        # If max distance is greater than tolerance, recursively simplify
-        if max_dist > tolerance:
-            # Recursively simplify both halves
-            left = self._douglas_peucker(points[:max_idx + 1], tolerance)
-            right = self._douglas_peucker(points[max_idx:], tolerance)
-
-            # Combine (excluding duplicate point at join)
-            return left[:-1] + right
-        else:
-            # All points are within tolerance - simplify to just endpoints
-            return [start, end]
-
-    def _point_to_line_distance(self, point: Tuple[float, float],
-                                 line_start: Tuple[float, float],
-                                 line_end: Tuple[float, float]) -> float:
-        """Calculate perpendicular distance from point to line."""
-        dx = line_end[0] - line_start[0]
-        dy = line_end[1] - line_start[1]
-
-        line_len = math.sqrt(dx*dx + dy*dy)
-        if line_len < 0.001:
-            return self._point_distance(point, line_start)
-
-        # Calculate perpendicular distance
-        return abs(dy * point[0] - dx * point[1] + line_end[0] * line_start[1] - line_end[1] * line_start[0]) / line_len
-
-    def _point_in_range(self, point: Tuple[float, float],
-                        range_start: Tuple[float, float],
-                        range_end: Tuple[float, float]) -> bool:
-        """Check if point is roughly within the bounding box of two points."""
-        min_x = min(range_start[0], range_end[0]) - 0.1
-        max_x = max(range_start[0], range_end[0]) + 0.1
-        min_y = min(range_start[1], range_end[1]) - 0.1
-        max_y = max(range_start[1], range_end[1]) + 0.1
-
-        return min_x <= point[0] <= max_x and min_y <= point[1] <= max_y
 
     # =========================================================================
     # PHASE 3: ARC SMOOTHING (Optional)
