@@ -1,0 +1,692 @@
+Perfect. Below is a clean, buildable code structure (Python) that codifies the exact strategy from your script into a reusable “PCB helper”:
+
+Rule-based placement (power-trunk left→right, caps near pins, LED branch corner)
+
+Constraint-aware routing (simple A* Manhattan router with obstacles)
+
+GND plane (recommended) or GND bus (like your script) as a switch
+
+KiCad DRC loop as the validator gate
+
+You can plug this into your existing pcb_engine output stage.
+
+Project structure (drop-in repo layout)
+pcb_assistant/
+  __init__.py
+  main_generate.py
+
+  model/
+    netlist.py
+    geometry.py
+    footprints.py
+    constraints.py
+
+  synth/
+    graph_analyzer.py
+    placer_rules.py
+    placer_optimize.py
+    router_grid.py
+    router_post.py
+    ground.py
+
+  export/
+    pcb_engine_adapter.py
+    kicad_drc.py
+
+  examples/
+    ten_comp_power.py
+
+Core data model (minimal, but real)
+model/netlist.py
+from dataclasses import dataclass
+from typing import Dict, List, Tuple
+
+Point = Tuple[float, float]
+
+@dataclass(frozen=True)
+class PinRef:
+    ref: str
+    pin: str
+
+@dataclass
+class PartPin:
+    number: str
+    net: str
+    offset: Point
+    size: Tuple[float, float]
+
+@dataclass
+class Part:
+    ref: str
+    value: str
+    footprint: str
+    pins: List[PartPin]
+
+@dataclass
+class Net:
+    name: str
+    pins: List[PinRef]
+
+@dataclass
+class Netlist:
+    parts: Dict[str, Part]
+    nets: Dict[str, Net]
+
+model/constraints.py
+from dataclasses import dataclass
+
+@dataclass
+class Constraints:
+    clearance: float = 0.2
+    trace_width_power: float = 0.6
+    trace_width_signal: float = 0.25
+    via_diameter: float = 0.8
+    via_drill: float = 0.4
+
+    board_w: float = 50.0
+    board_h: float = 35.0
+
+    # Placement rules
+    trunk_y_ratio: float = 0.50  # centerline
+    cap_y_offset: float = 7.0
+    edge_margin: float = 4.0
+
+1) Graph analysis: trunk vs branches (codifies your “flow”)
+synth/graph_analyzer.py
+from collections import defaultdict, deque
+from typing import Dict, List, Set, Tuple
+from pcb_assistant.model.netlist import Netlist
+
+def build_connectivity_graph(nl: Netlist) -> Dict[str, Set[str]]:
+    """
+    Part-level undirected graph: parts are nodes, edges exist if they share a net.
+    """
+    net_to_parts = defaultdict(set)
+    for net in nl.nets.values():
+        for p in net.pins:
+            net_to_parts[net.name].add(p.ref)
+
+    g = defaultdict(set)
+    for parts in net_to_parts.values():
+        parts = list(parts)
+        for i in range(len(parts)):
+            for j in range(i + 1, len(parts)):
+                a, b = parts[i], parts[j]
+                g[a].add(b)
+                g[b].add(a)
+    return g
+
+def trunk_chain_power(nl: Netlist, start_ref: str, end_ref: str) -> List[str]:
+    """
+    Find a reasonable trunk chain from connector->regulator by BFS shortest path.
+    (For your 10-comp: J1 -> F1 -> D1 -> U1)
+    """
+    g = build_connectivity_graph(nl)
+    q = deque([start_ref])
+    prev = {start_ref: None}
+    while q:
+        cur = q.popleft()
+        if cur == end_ref:
+            break
+        for nxt in g[cur]:
+            if nxt not in prev:
+                prev[nxt] = cur
+                q.append(nxt)
+
+    if end_ref not in prev:
+        return [start_ref, end_ref]  # fallback
+
+    # reconstruct
+    path = []
+    cur = end_ref
+    while cur is not None:
+        path.append(cur)
+        cur = prev[cur]
+    path.reverse()
+    return path
+
+def classify_parts(nl: Netlist, trunk: List[str]) -> Tuple[Set[str], Set[str]]:
+    trunk_set = set(trunk)
+    others = set(nl.parts.keys()) - trunk_set
+    return trunk_set, others
+
+2) Rule-based placement (the same layout, but parameterized)
+synth/placer_rules.py
+from typing import Dict, Tuple, List
+from pcb_assistant.model.netlist import Netlist
+from pcb_assistant.model.constraints import Constraints
+
+Point = Tuple[float, float]
+
+def place_power_template(
+    nl: Netlist,
+    c: Constraints,
+    trunk: List[str],
+    cap_in: str = "C1",
+    cap_in_small: str = "C2",
+    cap_out: str = "C3",
+    cap_out_small: str = "C4",
+    led_r: str = "R1",
+    led_d: str = "D2",
+) -> Dict[str, Point]:
+    """
+    Codifies your script's intent:
+    - Trunk is placed left->right on trunk_y
+    - Input caps near regulator input x (above/below)
+    - Output caps near regulator output x (above/below)
+    - LED branch bottom-right
+    """
+    y_mid = c.board_h * c.trunk_y_ratio
+    x0 = c.edge_margin
+    x1 = c.board_w - c.edge_margin
+
+    # distribute trunk references along x axis
+    n = len(trunk)
+    if n < 2:
+        xs = [x0, x1]
+    else:
+        step = (x1 - x0) / (n - 1)
+        xs = [x0 + i * step for i in range(n)]
+
+    placement: Dict[str, Point] = {}
+    for ref, x in zip(trunk, xs):
+        placement[ref] = (x, y_mid)
+
+    # place regulator caps near regulator x if present
+    # Find U1 if exists; otherwise use last trunk part
+    reg_ref = "U1" if "U1" in nl.parts else trunk[-1]
+    reg_x, reg_y = placement[reg_ref]
+
+    # input caps slightly left of regulator, output caps slightly right
+    in_x = max(c.edge_margin + 10.0, reg_x)  # safe fallback
+    out_x = min(c.board_w - c.edge_margin - 8.0, reg_x + 10.0)
+
+    # Use explicit targets if they exist in parts
+    if cap_in in nl.parts: placement[cap_in] = (reg_x, reg_y + c.cap_y_offset)
+    if cap_in_small in nl.parts: placement[cap_in_small] = (reg_x, reg_y - c.cap_y_offset)
+    if cap_out in nl.parts: placement[cap_out] = (reg_x + 10.0, reg_y + c.cap_y_offset)
+    if cap_out_small in nl.parts: placement[cap_out_small] = (reg_x + 10.0, reg_y - c.cap_y_offset)
+
+    # LED branch bottom-right
+    if led_r in nl.parts: placement[led_r] = (c.board_w - 8.0, 5.0)
+    if led_d in nl.parts: placement[led_d] = (c.board_w - 4.0, 5.0)
+
+    # Any unplaced parts: scatter near center with mild offsets
+    k = 0
+    for ref in nl.parts.keys():
+        if ref not in placement:
+            placement[ref] = (c.board_w * 0.55 + (k % 3) * 3.0, c.board_h * 0.5 + (k // 3) * 3.0)
+            k += 1
+
+    return placement
+
+3) Small placement optimizer (optional, but makes it “agent-like”)
+synth/placer_optimize.py
+
+This is a “nudge + score” loop. It keeps the template but improves it.
+
+import random
+from typing import Dict, Tuple
+from pcb_assistant.model.netlist import Netlist
+from pcb_assistant.model.constraints import Constraints
+
+Point = Tuple[float, float]
+
+def score_placement(nl: Netlist, placement: Dict[str, Point]) -> float:
+    # Sum of Manhattan distances between connected parts on each net
+    cost = 0.0
+    for net in nl.nets.values():
+        pts = [placement[p.ref] for p in net.pins if p.ref in placement]
+        if len(pts) < 2:
+            continue
+        # connect all to centroid-ish
+        cx = sum(p[0] for p in pts) / len(pts)
+        cy = sum(p[1] for p in pts) / len(pts)
+        cost += sum(abs(p[0] - cx) + abs(p[1] - cy) for p in pts)
+    return cost
+
+def optimize_placement(nl: Netlist, c: Constraints, placement: Dict[str, Point], iters: int = 800) -> Dict[str, Point]:
+    best = dict(placement)
+    best_score = score_placement(nl, best)
+
+    # Only nudge non-trunk parts mostly
+    refs = list(nl.parts.keys())
+
+    for _ in range(iters):
+        ref = random.choice(refs)
+        x, y = best[ref]
+        dx = random.choice([-1.0, 0.0, 1.0])
+        dy = random.choice([-1.0, 0.0, 1.0])
+
+        cand = dict(best)
+        nx = min(max(x + dx, c.edge_margin), c.board_w - c.edge_margin)
+        ny = min(max(y + dy, c.edge_margin), c.board_h - c.edge_margin)
+        cand[ref] = (nx, ny)
+
+        s = score_placement(nl, cand)
+        if s < best_score:
+            best, best_score = cand, s
+
+    return best
+
+4) Routing algorithm: simple grid A* Manhattan (the big missing piece)
+synth/router_grid.py
+
+This replaces your hard-coded segments with an algorithm.
+
+import heapq
+from typing import Dict, List, Tuple, Set, Optional
+from pcb_assistant.model.netlist import Netlist
+
+Point = Tuple[float, float]
+GridPt = Tuple[int, int]
+
+def to_grid(p: Point, grid_mm: float) -> GridPt:
+    return (int(round(p[0] / grid_mm)), int(round(p[1] / grid_mm)))
+
+def from_grid(g: GridPt, grid_mm: float) -> Point:
+    return (g[0] * grid_mm, g[1] * grid_mm)
+
+def astar(start: GridPt, goal: GridPt, blocked: Set[GridPt], bounds: Tuple[int,int,int,int]) -> Optional[List[GridPt]]:
+    (xmin, ymin, xmax, ymax) = bounds
+
+    def h(a: GridPt, b: GridPt) -> int:
+        return abs(a[0]-b[0]) + abs(a[1]-b[1])
+
+    openq = []
+    heapq.heappush(openq, (0 + h(start, goal), 0, start))
+    came = {start: None}
+    gscore = {start: 0}
+
+    while openq:
+        _, cost, cur = heapq.heappop(openq)
+        if cur == goal:
+            path = []
+            while cur is not None:
+                path.append(cur)
+                cur = came[cur]
+            path.reverse()
+            return path
+
+        for dx, dy in [(1,0), (-1,0), (0,1), (0,-1)]:
+            nx, ny = cur[0] + dx, cur[1] + dy
+            if nx < xmin or nx > xmax or ny < ymin or ny > ymax:
+                continue
+            nxt = (nx, ny)
+            if nxt in blocked:
+                continue
+            ng = cost + 1
+            if nxt not in gscore or ng < gscore[nxt]:
+                gscore[nxt] = ng
+                came[nxt] = cur
+                heapq.heappush(openq, (ng + h(nxt, goal), ng, nxt))
+    return None
+
+def route_net_two_pin(
+    a: Point, b: Point,
+    blocked: Set[GridPt],
+    grid_mm: float,
+    bounds: Tuple[int,int,int,int]
+) -> Optional[List[Point]]:
+    s = to_grid(a, grid_mm)
+    t = to_grid(b, grid_mm)
+    pathg = astar(s, t, blocked, bounds)
+    if not pathg:
+        return None
+    return [from_grid(g, grid_mm) for g in pathg]
+
+
+You then:
+
+mark pads + existing tracks as “blocked”
+
+route each connection
+
+compress the grid path into segments (polyline simplification)
+
+5) Ground strategy module (bus like your script OR plane)
+synth/ground.py
+from dataclasses import dataclass
+from typing import List, Tuple
+
+Point = Tuple[float, float]
+
+@dataclass
+class Zone:
+    layer: str
+    net: str
+    polygon: List[Point]
+
+def make_gnd_plane(board_w: float, board_h: float, margin: float = 0.8) -> Zone:
+    poly = [
+        (margin, margin),
+        (board_w - margin, margin),
+        (board_w - margin, board_h - margin),
+        (margin, board_h - margin),
+    ]
+    return Zone(layer="B.Cu", net="GND", polygon=poly)
+
+
+(Your pcb_engine adapter can convert this Zone into whatever zone primitives it supports, or fall back to the “GND bus” approach.)
+
+6) Adapter: convert placement + routed polylines → pcb_engine Routes
+export/pcb_engine_adapter.py
+
+You map your algorithm output into:
+
+TrackSegment
+
+Route
+
+Via
+
+zones (if supported)
+
+(You already have this pattern in your script, so this part is straightforward.)
+
+7) DRC gate module
+export/kicad_drc.py
+import os, json, subprocess
+from typing import Dict, Any
+
+def run_kicad_drc(kicad_cli: str, pcb_path: str, report_path: str) -> Dict[str, Any]:
+    subprocess.run(
+        [kicad_cli, "pcb", "drc", "--format", "json", "--severity-all",
+         "--output", report_path, pcb_path],
+        capture_output=True, text=True
+    )
+    if not os.path.exists(report_path):
+        return {"ok": False, "errors": ["No DRC report produced"]}
+    with open(report_path, "r") as f:
+        return {"ok": True, "report": json.load(f)}
+
+The generator entrypoint (what you run)
+main_generate.py (high level)
+from pcb_assistant.model.constraints import Constraints
+from pcb_assistant.synth.graph_analyzer import trunk_chain_power
+from pcb_assistant.synth.placer_rules import place_power_template
+from pcb_assistant.synth.placer_optimize import optimize_placement
+from pcb_assistant.synth.ground import make_gnd_plane
+
+def generate(nl):
+    c = Constraints()
+
+    trunk = trunk_chain_power(nl, start_ref="J1", end_ref="U1")
+    placement = place_power_template(nl, c, trunk)
+    placement = optimize_placement(nl, c, placement, iters=600)
+
+    # Routing (you’ll call router_grid here per net, then adapt to pcb_engine)
+    # gnd_zone = make_gnd_plane(c.board_w, c.board_h)
+
+    # export via pcb_engine + drc gate
+    # return pcb_path
+
+What you get from this codification
+
+This turns your current “hand-drawn in code” into a real algorithm that can:
+
+regenerate a board if a part moves
+
+avoid crossings automatically (within limits)
+
+iterate until DRC is clean
+
+reuse the same template for many power boards
+
+It’s not a full autorouter — but it’s the sweet spot that’s actually useful in real life.
+
+Next step (I’ll choose defaults and proceed)
+
+If you want to proceed without more back-and-forth, do this:
+
+Keep GND plane on B.Cu (better than the bus)
+
+Route VIN/5V on F.Cu with the grid A* router
+
+Allow at most 1 via per connection
+
+DRC loop: reroute failing nets up to N attempts
+
+If you paste your pcb_engine’s available primitives for zones (or tell me it doesn’t support zones), I’ll tailor the adapter so it outputs either:
+
+a real zone plane, or
+
+your existing “bus + drops” method automatically.
+
+what real autorouter can do ?
+
+A real autorouter is very different from the scripted strategy you’ve been discussing. What you built (and codified) is a deterministic layout generator. A real autorouter is a search-and-optimization engine.
+
+Let me be very precise and grounded here.
+
+1) What a real autorouter actually does (core capabilities)
+1. It searches, not executes
+
+Your current approach:
+
+You decide the path
+
+Code draws the path
+
+A real autorouter:
+
+Explores thousands to millions of routing possibilities
+
+Evaluates them with a cost function
+
+Keeps the best ones
+
+Iterates until convergence or timeout
+
+This is the key difference.
+
+2. It treats routing as a global optimization problem
+
+A real autorouter optimizes simultaneously for:
+
+Total wire length
+
+Number of vias
+
+Clearance margins
+
+Layer balance
+
+Crosstalk
+
+Differential pair symmetry
+
+Impedance
+
+Return paths
+
+Manufacturability
+
+Future routability (don’t block other nets)
+
+Your script optimizes none of these globally — it just avoids collisions locally.
+
+3. It understands net classes
+
+A real autorouter knows:
+
+Power nets ≠ signal nets ≠ RF nets
+
+Each net has:
+
+width
+
+clearance
+
+via type
+
+allowed layers
+
+max length
+
+delay constraints
+
+Your script encodes widths manually; a real autorouter enforces them automatically and consistently.
+
+4. It routes multi-pin nets correctly
+
+This is subtle but critical.
+
+Your approach:
+
+Star routing (branching from a point)
+
+No topology decision
+
+A real autorouter:
+
+Decides whether a net should be:
+
+daisy-chained
+
+star-routed
+
+tree-routed
+
+Chooses topology that minimizes skew, loop area, or impedance mismatch
+
+For example:
+
+Power nets → low impedance mesh
+
+Clocks → controlled tree
+
+USB → differential pair with phase matching
+
+5. It uses real geometric models
+
+A real autorouter reasons about:
+
+Pad shapes (rounded, oblong, thermal spokes)
+
+Copper pours
+
+Keepouts
+
+Courtyards
+
+Solder mask openings
+
+Drill hits
+
+Board edges
+
+Slot milling
+
+Your generator treats pads as abstract rectangles.
+
+2) Advanced things only real autorouters do
+A) Push-and-shove routing
+
+This is huge.
+
+When routing a new trace, the router can:
+
+Push existing traces aside
+
+Reroute small segments
+
+Rebalance spacing dynamically
+
+Your script cannot move anything once placed.
+
+B) Layer swapping with intent
+
+Autorouters decide:
+
+When to drop a via
+
+When to change layers
+
+When not to, even if legal
+
+They minimize via count globally, not per-net.
+
+C) Return path awareness
+
+Modern autorouters:
+
+Ensure a signal has a continuous return path under it
+
+Avoid crossing plane splits
+
+Stitch ground vias automatically
+
+Your approach only connects GND electrically, not electromagnetically.
+
+D) Differential pair & length tuning
+
+Real autorouters can:
+
+Route two nets together with fixed spacing
+
+Match lengths to within microns
+
+Add serpentine tuning patterns automatically
+
+This is impossible with simple rule-based routing.
+
+E) Manufacturability optimization
+
+They optimize for:
+
+Acid traps
+
+Copper slivers
+
+Acute angles
+
+Drill density
+
+Solderability
+
+Your script doesn’t even know these exist.
+
+3) Examples of real autorouter engines (for context)
+
+This is what “real” means in practice:
+
+Shape-based routing (not grid-based)
+
+Rip-up-and-retry
+
+Multi-pass routing
+
+Constraint solvers
+
+Cost heuristics
+
+Sometimes simulated annealing or genetic algorithms
+
+They are tens to hundreds of thousands of lines of code.
+
+4) What your approach can do (and should do)
+
+Here’s the important part: you don’t need a real autorouter for most of what you want.
+
+Your strategy is excellent for:
+
+Power supplies
+
+Sensor breakouts
+
+MCU carrier boards
+
+Gas-station modules (your real use case)
+
+Repeatable templates
+
+Parametric designs
+
+AI-assisted board generation
+
+This class of tool is better described as:
+
+Rule-driven layout synthesis, not autorouting
+
+And that’s not a downgrade — it’s the right abstraction.

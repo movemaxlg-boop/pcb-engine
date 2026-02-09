@@ -77,7 +77,29 @@ from .ml_engine import (
     PlacementScorer, RoutingDifficultyEstimator, LearningDatabase
 )
 
-__version__ = '0.2.0'
+# Rules API (NEW in v2.0) - AI-reviewable design validation
+from .rule_types import (
+    RuleStatus, RuleCategory, RuleSeverity,
+    RuleReport, ValidationResult, FeedbackResult, DesignReviewReport,
+    create_pass_report, create_fail_report, create_warning_report,
+)
+from .rules_api import RulesAPI
+from .feedback import AIFeedbackProcessor, FeedbackCommand, CommandParseError
+from .design_review_report import (
+    DesignReviewGenerator,
+    generate_quick_report,
+    validate_design_for_ai,
+)
+
+# Design Pipeline (updated in v2.0)
+from .design_pipeline import (
+    DesignPipeline, DesignContext, DesignPlan,
+    BoardSpec, ComponentSpec, NetSpec,
+    PlacementDecision, RoutingDecision, PlacementZone,
+    create_pipeline, analyze_design,
+)
+
+__version__ = '2.0.0'
 __all__ = [
     # Main entry point
     'CircuitIntelligence',
@@ -104,4 +126,18 @@ __all__ = [
     # Machine Learning
     'MLEngine', 'FeatureExtractor', 'IssuePredictor',
     'PlacementScorer', 'RoutingDifficultyEstimator', 'LearningDatabase',
+
+    # Rules API (NEW in v2.0)
+    'RuleStatus', 'RuleCategory', 'RuleSeverity',
+    'RuleReport', 'ValidationResult', 'FeedbackResult', 'DesignReviewReport',
+    'create_pass_report', 'create_fail_report', 'create_warning_report',
+    'RulesAPI',
+    'AIFeedbackProcessor', 'FeedbackCommand', 'CommandParseError',
+    'DesignReviewGenerator', 'generate_quick_report', 'validate_design_for_ai',
+
+    # Design Pipeline (updated in v2.0)
+    'DesignPipeline', 'DesignContext', 'DesignPlan',
+    'BoardSpec', 'ComponentSpec', 'NetSpec',
+    'PlacementDecision', 'RoutingDecision', 'PlacementZone',
+    'create_pipeline', 'analyze_design',
 ]

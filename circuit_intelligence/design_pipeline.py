@@ -759,23 +759,24 @@ class DesignPipeline:
         for comp in context.components:
             if comp.power_dissipation > 0.5:
                 rule_report = self.rules_api.validate_thermal_design(
-                    comp.ref_des,
-                    comp.power_dissipation,
-                    comp.theta_ja if comp.theta_ja > 0 else 50.0,
-                    via_count=0,  # Unknown at this stage
-                    via_diameter=0.3,
+                    power_w=comp.power_dissipation,
+                    theta_ja_c_w=comp.theta_ja if comp.theta_ja > 0 else 50.0,
+                    max_tj_c=125.0,
+                    ambient_c=25.0,
+                    num_thermal_vias=0,  # Unknown at this stage
                 )
+                # Update rule_id to include component reference
+                rule_report.rule_id = f"THERMAL_{comp.ref_des}"
                 report.add_report(rule_report)
                 all_reports.append(rule_report)
 
         # Validate fabrication specs
-        fab_specs = {
-            'trace_width_mm': self.rules.fabrication.MIN_TRACE_WIDTH_MM,
-            'spacing_mm': self.rules.fabrication.MIN_SPACING_MM,
-            'via_drill_mm': self.rules.fabrication.MIN_VIA_DRILL_MM,
-            'annular_ring_mm': self.rules.fabrication.MIN_ANNULAR_RING_MM,
-        }
-        fab_report = self.rules_api.validate_fabrication(fab_specs)
+        fab_report = self.rules_api.validate_fabrication(
+            trace_width_mm=self.rules.fabrication.MIN_TRACE_WIDTH_MM,
+            spacing_mm=self.rules.fabrication.MIN_SPACING_MM,
+            via_drill_mm=self.rules.fabrication.MIN_VIA_DRILL_MM,
+            capability="standard"
+        )
         report.add_report(fab_report)
         all_reports.append(fab_report)
 
@@ -794,7 +795,8 @@ class DesignPipeline:
         if context.board.layer_count >= min_layers:
             layer_report = create_pass_report(
                 rule_id="STACKUP_LAYER_COUNT",
-                rule_category=RuleCategory.STACKUP,
+                category=RuleCategory.STACKUP,
+                source="Design Pipeline Analysis",
                 inputs={'layers': context.board.layer_count, 'min_required': min_layers},
                 rule_applied=f"Layer count >= {min_layers}",
                 threshold=min_layers,
@@ -803,12 +805,13 @@ class DesignPipeline:
         else:
             layer_report = create_fail_report(
                 rule_id="STACKUP_LAYER_COUNT",
-                rule_category=RuleCategory.STACKUP,
+                category=RuleCategory.STACKUP,
+                source="Design Pipeline Analysis",
                 inputs={'layers': context.board.layer_count, 'min_required': min_layers},
                 rule_applied=f"Layer count >= {min_layers}",
                 threshold=min_layers,
                 actual_value=context.board.layer_count,
-                violations=[f"Design has {context.board.layer_count} layers but requires {min_layers}"],
+                violation=f"Design has {context.board.layer_count} layers but requires {min_layers}",
             )
         report.add_report(layer_report)
         all_reports.append(layer_report)
@@ -826,7 +829,8 @@ class DesignPipeline:
                     if abs(actual_z - target_z) / target_z * 100 <= tolerance:
                         usb_report = create_pass_report(
                             rule_id=f"USB_IMPEDANCE_{net.name}",
-                            rule_category=RuleCategory.HIGH_SPEED,
+                            category=RuleCategory.HIGH_SPEED,
+                            source="USB 2.0 Specification",
                             inputs={'net': net.name, 'impedance': actual_z},
                             rule_applied=f"Impedance within {target_z}ohm +/-{tolerance}%",
                             threshold=target_z,
@@ -835,12 +839,13 @@ class DesignPipeline:
                     else:
                         usb_report = create_fail_report(
                             rule_id=f"USB_IMPEDANCE_{net.name}",
-                            rule_category=RuleCategory.HIGH_SPEED,
+                            category=RuleCategory.HIGH_SPEED,
+                            source="USB 2.0 Specification",
                             inputs={'net': net.name, 'impedance': actual_z},
                             rule_applied=f"Impedance within {target_z}ohm +/-{tolerance}%",
                             threshold=target_z,
                             actual_value=actual_z,
-                            violations=[f"Impedance {actual_z}ohm outside tolerance"],
+                            violation=f"Impedance {actual_z}ohm outside tolerance",
                         )
                     report.add_report(usb_report)
                     all_reports.append(usb_report)

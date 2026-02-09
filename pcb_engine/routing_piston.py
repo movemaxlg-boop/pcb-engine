@@ -477,6 +477,28 @@ class RoutingPiston:
         result = piston.route(parts_db, escapes, placement, net_order)
     """
 
+    @staticmethod
+    def _parse_pin_ref(pin) -> Tuple[str, str]:
+        """
+        Parse a pin reference in either tuple or dict format.
+
+        Accepts:
+        - Tuple: ('R1', '1') -> ('R1', '1')
+        - Dict: {'ref': 'R1', 'pin': '1'} -> ('R1', '1')
+        - String: 'R1.1' -> ('R1', '1')
+
+        Returns:
+            Tuple of (component_ref, pin_number)
+        """
+        if isinstance(pin, (list, tuple)) and len(pin) >= 2:
+            return str(pin[0]), str(pin[1])
+        elif isinstance(pin, dict):
+            return pin.get('ref', ''), pin.get('pin', '')
+        elif isinstance(pin, str) and '.' in pin:
+            parts = pin.split('.', 1)
+            return parts[0], parts[1]
+        return '', ''
+
     def __init__(self, config: RoutingConfig):
         self.config = config
         random.seed(config.seed)
@@ -586,8 +608,22 @@ class RoutingPiston:
         nets = parts_db.get('nets', {})
         for net_name in sorted(nets.keys()):
             pins = nets[net_name].get('pins', [])
-            for pin in sorted(pins, key=lambda p: (p.get('ref', ''), p.get('pin', ''))):
-                items.append(f"net:{net_name}:{pin.get('ref', '')}:{pin.get('pin', '')}")
+            # Sort pins handling both tuple and dict formats
+            def get_pin_sort_key(p):
+                if isinstance(p, (list, tuple)) and len(p) >= 2:
+                    return (str(p[0]), str(p[1]))
+                elif isinstance(p, dict):
+                    return (p.get('ref', ''), p.get('pin', ''))
+                return ('', '')
+            for pin in sorted(pins, key=get_pin_sort_key):
+                # Handle both tuple and dict formats
+                if isinstance(pin, (list, tuple)) and len(pin) >= 2:
+                    ref, pin_num = str(pin[0]), str(pin[1])
+                elif isinstance(pin, dict):
+                    ref, pin_num = pin.get('ref', ''), pin.get('pin', '')
+                else:
+                    ref, pin_num = '', ''
+                items.append(f"net:{net_name}:{ref}:{pin_num}")
 
         # Hash escapes would be ideal but they're computed from placement anyway
 
@@ -1083,7 +1119,7 @@ class RoutingPiston:
             if len(pins) < 2:
                 continue
             for pin in pins:
-                ref = pin.get('ref', '')
+                ref, _ = self._parse_pin_ref(pin)
                 if ref:
                     if ref not in component_to_nets:
                         component_to_nets[ref] = set()
@@ -1096,7 +1132,7 @@ class RoutingPiston:
                 continue
             net_dependencies[net_name] = set()
             for pin in net_pins[net_name]:
-                ref = pin.get('ref', '')
+                ref, _ = self._parse_pin_ref(pin)
                 if ref in component_to_nets:
                     # All nets on same component are dependent
                     net_dependencies[net_name].update(component_to_nets[ref])
@@ -1160,8 +1196,7 @@ class RoutingPiston:
         # Convert pins to format expected by _get_escape_endpoints
         pin_refs = []
         for pin in pins:
-            ref = pin.get('ref', '')
-            pin_id = pin.get('pin', '')
+            ref, pin_id = self._parse_pin_ref(pin)
             if ref and pin_id:
                 pin_refs.append({'ref': ref, 'pin': pin_id})
 
@@ -1422,7 +1457,7 @@ class RoutingPiston:
             col, row = start_col, start_row
             while True:
                 if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-                    grid[row][col] = route.net_name
+                    grid[row][col] = route.net
 
                 if col == end_col and row == end_row:
                     break
