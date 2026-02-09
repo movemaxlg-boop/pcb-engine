@@ -1,0 +1,1484 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:17",
+  "parts": [
+    {
+      "part_number": "AD813",
+      "manufacturer": "",
+      "description": "Single Supply, Low Power, Triple Video Amplifier, DIP-14/SOIC-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/AD813.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX453",
+      "manufacturer": "",
+      "description": "CMOS video amplifier with input multiplexer, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX452-MAX455.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "THS7374",
+      "manufacturer": "",
+      "description": "4 channel SDTV Video Amplifier, TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-14_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/ths7374.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AD725",
+      "manufacturer": "",
+      "description": "Low Cost RGB to NTSC/PAL Encoder with Luma Trap Port",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/AD725.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AD9708AR",
+      "manufacturer": "",
+      "description": "Video DAC (32 MHz), SOIC/TSSOP-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/AD9708.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AD9891",
+      "manufacturer": "",
+      "description": "CCD Signal Processor, 20MHz 10bits, CSPBGA-64",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 62,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-64_9.0x9.0mm_Layout10x10_P0.8mm",
+      "datasheet_url": "https://www.analog.com/static/imported-files/data_sheets/AD9891_9895.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AD9895",
+      "manufacturer": "",
+      "description": "CCD Signal Processor, 30MHz 12bits, CSPBGA-64",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 64,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-64_9.0x9.0mm_Layout10x10_P0.8mm",
+      "datasheet_url": "https://www.analog.com/static/imported-files/data_sheets/AD9891_9895.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AD9984AKST",
+      "manufacturer": "",
+      "description": "High Performance 10-Bit Display Interface 140/170MSPS, LQFP-80",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 80,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:LQFP-80_14x14mm_P0.65mm",
+      "datasheet_url": "http://www.analog.com/media/en/technical-documentation/data-sheets/AD9984A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADA4430-1YKSZ",
+      "manufacturer": "",
+      "description": "Ultralow Power, Video Filter, Power-Down, SOT-363",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4430-1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADV7280xCP",
+      "manufacturer": "",
+      "description": "10-Bit, 4x Oversampled SDTV Video Decoder with Deinterlacer, LFCSP-32",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 33,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADV7280.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADV7390BCPZ",
+      "manufacturer": "",
+      "description": "10-Bit SD/HD Video Encoder, Macrovision Antitaping, LFCSP-32",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 33,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADV7390_7391_7392_7393.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AV9173",
+      "manufacturer": "",
+      "description": "Video Genlock PLL",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ibselectronics.com/ibsstore/datasheet/Others/AV9173-01CN08.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CX7930",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CXD3400N",
+      "manufacturer": "",
+      "description": "6-channel Vertical Clock Driver for CCD Image Sensor, SSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "video\\\\cxd3400n.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HD63484P",
+      "manufacturer": "",
+      "description": "Advanced CRT Controller (ACRTC), DIP-64",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 64,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-64_W22.86mm",
+      "datasheet_url": "https://www.alldatasheet.com/datasheet-pdf/view/144378/HITACHI/HD63484.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HD63484_PLCC",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 68,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ICX415AQ",
+      "manufacturer": "",
+      "description": "Diagonal 8mm B/W Progressive Scan CCD Image Sensor with Square Pixel, CERDIP-22",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ISL59885",
+      "manufacturer": "",
+      "description": "Sync Separator for HD and SD Video, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.renesas.com/us/en/document/dst/isl59885-datasheet?r=533081",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM1881",
+      "manufacturer": "",
+      "description": "Video Sync Separator, composite sync and vertical sync outputs, DIP-8 / SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm1881.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX310",
+      "manufacturer": "",
+      "description": "8-Channel CMOS RF Video Multiplexer",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX310-MAX311.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX311",
+      "manufacturer": "",
+      "description": "8-Channel CMOS RF Video Multiplexer",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX310-MAX311.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MB88303P",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 19,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "S178",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 27,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SAA7182",
+      "manufacturer": "",
+      "description": "Digital Video Encoder, Obsolete",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 73,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://rcl-radio.ru/wp-content/uploads/2014/11/SAA7182.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SI582",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA1950",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA2593",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA7260",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA8501",
+      "manufacturer": "",
+      "description": "PAL/NTSC Encoder, RGB or Y/Y-R/Y-B Inputs, DIP/SOIC-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/TDA8501.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA8702",
+      "manufacturer": "",
+      "description": "8bit Video DAC (32 MHz), DIP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "philips/tda8702.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA8772",
+      "manufacturer": "",
+      "description": "Triple 8bit Video DAC, QFP-44",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.pa0qy.nl/pdf/TDA8772.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA9500",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 15,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEA2014",
+      "manufacturer": "",
+      "description": "Video switching circuite for TV, DIP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-8_W7.62mm",
+      "datasheet_url": "http://pdf1.alldatasheet.com/datasheet-pdf/view/123244/STMICROELECTRONICS/TEA2014.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEA5115",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TFP410PAP",
+      "manufacturer": "",
+      "description": "Digital Visual Interface Compliant PanelBus Digital Transmitter, TQFP-64",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 65,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:Texas_TQFP-64-1EP_10x10mm_P0.5mm_EP8x8mm_Mask5x5mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tfp410.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADA4430-1WYRTZ",
+      "manufacturer": "",
+      "description": "Ultralow Power, Video Filter, Power-Down, SOT-23",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADA4430-1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADV7391BCPZ",
+      "manufacturer": "",
+      "description": "10-Bit SD/HD Video Encoder, LFCSP-32",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADV7390_7391_7392_7393.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA1950F",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA8702T",
+      "manufacturer": "",
+      "description": "8bit Video DAC (32 MHz), SOIC-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "philips/tda8702.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA9503",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TDA9513",
+      "manufacturer": "",
+      "description": "",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

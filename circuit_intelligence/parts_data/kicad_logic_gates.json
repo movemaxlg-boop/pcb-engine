@@ -1,0 +1,2492 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:11",
+  "parts": [
+    {
+      "part_number": "74LVC2T45DC",
+      "manufacturer": "",
+      "description": "Dual supply translating transceiver, 3-state, 2-bit, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH2T45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CD40109BPW",
+      "manufacturer": "",
+      "description": "CMOS Quad Low to High Voltage Level Shifter, Input 3 to 18V, up to 18V output , TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/cd40109b.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "FXMA108",
+      "manufacturer": "",
+      "description": "Dual-Supply, 8-Bit Signal Translator with Configurable Voltage Supplies and Signals Levels, 3-State Outputs and Auto Direction Sensing, WQFN-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:WQFN-20-1EP_2.5x4.5mm_P0.5mm_EP1x2.9mm",
+      "datasheet_url": "http://www.onsemi.com/pub/Collateral/FXMA108-D.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LSF0108BQ",
+      "manufacturer": "",
+      "description": "8-bit Bidirectional Voltage Level Translator, Auto Direction Sensing, 0 to +5V, 100MHz , DHVQFN-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DHVQFN-20-1EP_2.5x4.5mm_P0.5mm_EP1x3mm",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/LSF0108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LSF0108PW",
+      "manufacturer": "",
+      "description": "8-bit Bidirectional Voltage Level Translator, Auto Direction Sensing, 0 to +5V, 100MHz , TSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/LSF0108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NCN4555MN",
+      "manufacturer": "",
+      "description": "SIM Card Power Supply and Level Shifter, QFN-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm",
+      "datasheet_url": "https://www.onsemi.com/pub/Collateral/NCN4555-D.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NLSV2T244D",
+      "manufacturer": "",
+      "description": "Dual-Bit Dual-Supply Non-Inverting Level Translator, Output Enable, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://www.onsemi.com/pub/Collateral/NLSV2T244-D.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NLSV2T244DM",
+      "manufacturer": "",
+      "description": "Dual-Bit Dual-Supply Non-Inverting Level Translator, Output Enable, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "http://www.onsemi.com/pub/Collateral/NLSV2T244-D.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NLSV2T244MU",
+      "manufacturer": "",
+      "description": "Dual-Bit Dual-Supply Non-Inverting Level Translator, Output Enable, UDFN-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:OnSemi_UDFN-8_1.2x1.8mm_P0.4mm",
+      "datasheet_url": "http://www.onsemi.com/pub/Collateral/NLSV2T244-D.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74AUP1T34DCK",
+      "manufacturer": "",
+      "description": "1-Bit Unidirectional Voltage-Level Translator, SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74aup1t34.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74AVC4T245PW",
+      "manufacturer": "",
+      "description": "4-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74avc4t245.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74AVC8T245PW",
+      "manufacturer": "",
+      "description": "8-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, TSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74avc8t245.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LV1T125DCK",
+      "manufacturer": "",
+      "description": "Single Power Supply, Single Buffer Gate with 3-State Output, CMOS Logic Level Shifter Level Shifter, SC70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74lv1t125.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LV1T34DBV",
+      "manufacturer": "",
+      "description": "Single Power Supply, Single Buffer GATE, CMOS Logic, Level Shifter, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74lv1t34.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LV1T34DCK",
+      "manufacturer": "",
+      "description": "Single Power Supply, Single Buffer GATE, CMOS Logic, Level Shifter, SOT-353",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74lv1t34.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC1T45DBV",
+      "manufacturer": "",
+      "description": "Single-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74lvc1t45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC1T45DCK",
+      "manufacturer": "",
+      "description": "Single-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, SOT-363",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74lvc1t45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC1T45DRL",
+      "manufacturer": "",
+      "description": "Single-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, SOT-563",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-563",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74lvc1t45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC245APW",
+      "manufacturer": "",
+      "description": "8-Bit Single-Supply Bus Transceiver With 5V tolerant input voltage and 3-State Outputs 24mA, TSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/scas218x/scas218x.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC2T45DCUR",
+      "manufacturer": "",
+      "description": "Dual-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC2T45YZP",
+      "manufacturer": "",
+      "description": "Dual-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs, DSBGA-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-8_0.9x1.9mm_Layout2x4_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/sn74lvc2t45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LVC8T245",
+      "manufacturer": "",
+      "description": "8-Bit Dual-Supply Bus Transceiver With Configurable Voltage Translation and 3-State Outputs",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74lvc8t245.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TCA9517ADGK",
+      "manufacturer": "",
+      "description": "Level-Translating I2C Bus Buffer/Repeater, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tca9517a.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0101DBV",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0101YZP",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, DSBGA-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-6_0.9x1.4mm_Layout2x3_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0102DCT",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, TSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0102.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0102DCU",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0102.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0102YZP",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, DSBGA-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-8_0.9x1.9mm_Layout2x4_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0102.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104D",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, SOIC-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104PW",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-14_4.4x5mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104RGY",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, Texas_PVGFN-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 15,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_S-PVQFN-N14",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104RUT",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, Texas_PUQFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_R-PUQFN-N12",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104YZT",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, DSBGA-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-12_1.36x1.86mm_Layout3x4_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0104ZXU",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, Texas_Junior-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_MicroStar_Junior_BGA-12_2.0x2.5mm_Layout4x3_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0106PW",
+      "manufacturer": "",
+      "description": "6-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0106.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0106RGY",
+      "manufacturer": "",
+      "description": "6-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, VQFN-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_RGY_R-PVQFN-N16_EP2.05x2.55mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0106.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0108DQSR",
+      "manufacturer": "",
+      "description": "8-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, USON-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:USON-20_2x4mm_P0.4mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0108PW",
+      "manufacturer": "",
+      "description": "8-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, TSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0108RGY",
+      "manufacturer": "",
+      "description": "8-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and \u00b115-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, VQFN-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_RGY_R-PVQFN-N20_EP2.05x3.05mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXBN0304RUT",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing, 0.9 - 3.6V APort, 0.9 - 3.6V BPort, Active Low Output Enable, Texas_PUQFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_R-PUQFN-N12",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0304.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0101DBV",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, SOT-23",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/txs0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0101YZP",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, Texas DSBGA-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-6_0.9x1.4mm_Layout2x3_P0.5mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/txs0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0102DCT",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, SSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-8_2.95x2.8mm_P0.65mm",
+      "datasheet_url": "http://www.ti.com/lit/gpn/txs0102",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0102DCU",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/gpn/txs0102",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0102DQE",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, X2SON-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:X2SON-8_1.4x1mm_P0.35mm",
+      "datasheet_url": "http://www.ti.com/lit/gpn/txs0102",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0102YZP",
+      "manufacturer": "",
+      "description": "2-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, DSBGA-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-8_0.9x1.9mm_Layout2x4_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/gpn/txs0102",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0104EPW",
+      "manufacturer": "",
+      "description": "Bidirectional  level-shifting voltage translator, TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-14_4.4x5mm_P0.65mm",
+      "datasheet_url": "www.ti.com/lit/ds/symlink/txs0104e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0108EPW",
+      "manufacturer": "",
+      "description": "Bidirectional  level-shifting voltage translator, TSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet_url": "www.ti.com/lit/ds/symlink/txs0108e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS02612RTW",
+      "manufacturer": "",
+      "description": "SDIO port expander with voltage-level translation, 6:12 Demultiplexer/Multiplexer, 1.1V to 3.6V supply range, QFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm_ThermalVias",
+      "datasheet_url": "https://www.ti.com/lit/gpn/TXS02612",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "74LVCH2T45DC",
+      "manufacturer": "",
+      "description": "Dual supply translating transceiver with bus-hold for unused/floating inputs, 3-state, 2-bit, VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/74LVC_LVCH2T45.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SN74LV1T125DBV",
+      "manufacturer": "",
+      "description": "Single Power Supply, Single Buffer Gate with 3-State Output, CMOS Logic Level Shifter Level Shifter, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/sn74lv1t125.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TCA9517D",
+      "manufacturer": "",
+      "description": "Level-Translating I2C Bus Buffer/Repeater With Enable Function, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tca9517.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0101DCK",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, SC-70-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0101DRL",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Translator With Auto Direction Sensing and \u00b115-kV ESD Protection, SOT-563",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-563",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXB0304RUT",
+      "manufacturer": "",
+      "description": "4-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing, 0.9 - 3.6V APort, 0.9 - 3.6V BPort, Active High Output Enable, Texas_PUQFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_R-PUQFN-N12",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/txb0304.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0101DCK",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, SOT-363",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/txs0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0101DRL",
+      "manufacturer": "",
+      "description": "1-Bit Bidirectional Voltage-Level Shifter for Open-Drain and Push-Pull Application, SOT-563",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-563",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/txs0101.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TXS0104ED",
+      "manufacturer": "",
+      "description": "Bidirectional  level-shifting voltage translator, SOIC-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet_url": "www.ti.com/lit/ds/symlink/txs0104e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ATF16V8Bxx-xxPU",
+      "manufacturer": "",
+      "description": "High-performance EE PLD, PAL Device Emulation / PAL Replacement, DIP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-20_W7.62mm",
+      "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0364-PLD-ATF16V8B-8BQ-8BQL-Datasheet.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "GAL16V8",
+      "manufacturer": "",
+      "description": "Programmable Logic Array, DIP-20/SOIC-20/PLCC-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL16L8",
+      "manufacturer": "",
+      "description": "Programmable Array Logic (PAL), Active-Low Combinatorial, DIP-20 / PLCC-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://docs.rs-online.com/53eb/0900766b8002a354.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL16R8",
+      "manufacturer": "",
+      "description": "Programmable Array Logic (PAL), 8 Registered Outputs, DIP-20 / PLCC-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://docs.rs-online.com/53eb/0900766b8002a354.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL20",
+      "manufacturer": "",
+      "description": "generic 20-pin Programmable Array Logic (PAL) device",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "~",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL20L8",
+      "manufacturer": "",
+      "description": "Programmable Array Logic (PAL), Active-Low Combinatorial, DIP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-24_W7.62mm",
+      "datasheet_url": "https://rocelec.widen.net/view/pdf/pn0qtf2whd/VANTS00076-1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL20R8xx-P",
+      "manufacturer": "",
+      "description": "Programmable Array Logic (PAL), 20 array inputs (12 dedicated inputs), 8 registered outputs (active-low), DIP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-24_W7.62mm",
+      "datasheet_url": "https://rocelec.widen.net/view/pdf/pn0qtf2whd/VANTS00076-1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL20RS10",
+      "manufacturer": "",
+      "description": "Programmable Logic Array, DIP-24 (Narrow)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAL24",
+      "manufacturer": "",
+      "description": "generic 24-pin Programmable Array Logic (PAL) device",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "~",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PEEL22CV10AP",
+      "manufacturer": "",
+      "description": "Not in Production, CMOS Programmable Electrically Erasable Logic Device, DIP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-24_W7.62mm",
+      "datasheet_url": "https://www.alldatasheet.com/datasheet-pdf/pdf/149182/ANACHIP/PEEL22CV10AP-15L.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PEEL22CV10AS",
+      "manufacturer": "",
+      "description": "Not in Production, CMOS Programmable Electrically Erasable Logic Device, SOIC-24W",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm",
+      "datasheet_url": "https://www.alldatasheet.com/datasheet-pdf/download/149182/ANACHIP/PEEL22CV10AP-15L.html",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

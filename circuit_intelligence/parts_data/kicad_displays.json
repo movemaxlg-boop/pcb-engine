@@ -1,0 +1,6596 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:16",
+  "parts": [
+    {
+      "part_number": "AD-121F2",
+      "manufacturer": "",
+      "description": "Single Digit 7-segment RGB LED Display, 1-inch digit height, common anode",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 22,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:AD-121F2",
+      "datasheet_url": "http://usasyck.com/products/AD-121F2_cat_e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12CGKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment Green LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12CGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12CGKWA(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12EWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment high efficiency red LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12EWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12SEKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright orange LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SEKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SEKWA(Ver.7A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12SRWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright red LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SRWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12SURKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment hyper red LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SURKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SURKWA(Ver.8A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CA56-12SYKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright yellow LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SYKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SYKWA(Ver.6A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12CGKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment green LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12CGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12CGKWA(Ver.8A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12EWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment high efficiency red LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12EWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12GWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment green LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CC56-12GWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12GWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12SEKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright orange LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SEKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SEKWA(Ver.7A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12SRWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright red LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SRWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12SURKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment hyper red LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SURKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SURKWA(Ver.7A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12SYKWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super bright yellow LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CA56-12SYKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SYKWA(Ver.6A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CC56-12YWA",
+      "manufacturer": "",
+      "description": "4 digit 7 segment  yellow LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:CC56-12YWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12YWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "D168K",
+      "manufacturer": "",
+      "description": "One digit 7 segment ultra bright red LED, low current, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:D1X8K",
+      "datasheet_url": "https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11CGKWA",
+      "manufacturer": "",
+      "description": "Double 7 segment green LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11CGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11CGKWA(Ver.6A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11SEKWA",
+      "manufacturer": "",
+      "description": "Double 7 segment super bright orange LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11SEKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SEKWA(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11SURKWA",
+      "manufacturer": "",
+      "description": "Double 7 segment hyper red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11SURKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SURKWA(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11SYKWA",
+      "manufacturer": "",
+      "description": "Double 7 segment super bright yellow LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11SYKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SYKWA(Ver.6A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11CGKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment green LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11CGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11CGKWA(Ver.16A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11SEKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright orange LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SEKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11SURKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment hyper red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SURKWA(Ver.11A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11SYKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright yellow LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SYKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SYKWA(Ver.11A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11CGKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment green LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11CGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11CGKWA(Ver.7A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11SEKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright orange LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SEKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11SURKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment hyper red LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SURKWA(Ver.8A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11SYKWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright yellow LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SYKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SYKWA(Ver.7A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DE113-XX-XX",
+      "manufacturer": "",
+      "description": "3 and half digit 7 segment transmissive standard LCD with LO BAT, pin length 7.5mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DE113-XX-XX",
+      "datasheet_url": "http://www.display-elektronik.de/filter/DE113-MS-20_75.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DE114-RS-20",
+      "manufacturer": "",
+      "description": "3 and half digit 7 segment reflective standard LCD with ~~ and BAT, pin length 6.35mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DE114-RS-20",
+      "datasheet_url": "http://www.display-elektronik.de/filter/DE114-RS-20_635.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DE122-XX-XX",
+      "manufacturer": "",
+      "description": "6 digit 7 segment reflective standard LCD, pin length 6.35mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 50,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DE122-XX-XX",
+      "datasheet_url": "http://www.display-elektronik.de/filter/DE122-RS-20_635.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DE170-XX-XX",
+      "manufacturer": "",
+      "description": "3 and half digit 7 segment reflective standard LCD with arrow, pin length 7.5mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DE170-XX-XX",
+      "datasheet_url": "http://www.display-elektronik.de/filter/DE170-RS-20_75.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DL1416",
+      "manufacturer": "",
+      "description": ".160\\",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:DL1416",
+      "datasheet_url": "https://partstack.com/resources/pdf/images/VipMasterIC/IC/INFN/INFNS19899/INFNS19899-1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_T123X-I2C",
+      "manufacturer": "",
+      "description": "3 Lines, 12 character alpha numeric LCD, transreflective STN and FSTN Gray, I2C, single or dual power",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_T123X-I2C",
+      "datasheet_url": "http://www.lcd-module.de/pdf/doma/t123-i2c.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ELD-426SYGWA",
+      "manufacturer": "",
+      "description": "Double 7 segment brilliant yellow green LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:ELD_426XXXX",
+      "datasheet_url": "http://www.everlight.com/file/ProductFile/D426SYGWA-S530-E2.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSM-441B",
+      "manufacturer": "",
+      "description": "Double 7 segment Blue LED common anode SMD mount",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSM-441B_HDSM-443B",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1589EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSM-443B",
+      "manufacturer": "",
+      "description": "Double 7 segment Blue LED common cathode SMD mount",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSM-441B_HDSM-443B",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1589EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSM-541B",
+      "manufacturer": "",
+      "description": "Double 7 segment Blue LED common anode SMD mount",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSM-441B_HDSM-443B",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1588EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSM-543B",
+      "manufacturer": "",
+      "description": "Double 7 segment Blue LED common cathode SMD mount",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSM-541B_HDSM-543B",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1588EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7401",
+      "manufacturer": "",
+      "description": "One digit 7 segment yellow, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7401",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7403",
+      "manufacturer": "",
+      "description": "One digit 7 segment yellow, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7401",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7507",
+      "manufacturer": "",
+      "description": "+-1 overflow 7 segment high efficiency red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7507",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7508",
+      "manufacturer": "",
+      "description": "+-1 overflow 7 segment high efficiency red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7507",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7801",
+      "manufacturer": "",
+      "description": "One digit 7 segment green, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7801",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7803",
+      "manufacturer": "",
+      "description": "One digit 7 segment green, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7801",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7807",
+      "manufacturer": "",
+      "description": "+-1 overflow 7 segment green, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7807",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7808",
+      "manufacturer": "",
+      "description": "+-1 overflow 7 segment green, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-7807",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-A151",
+      "manufacturer": "",
+      "description": "One digit 7 segment red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A151",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-A153",
+      "manufacturer": "",
+      "description": "One digit 7 segment red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A151",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-A401",
+      "manufacturer": "",
+      "description": "One digit 7 segment orange, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A401",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-A403",
+      "manufacturer": "",
+      "description": "One digit 7 segment orange, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A401",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HY1602E",
+      "manufacturer": "",
+      "description": "LCD 16x2 Alphanumeric 16pin Blue/Yellow/Green Backlight, 8bit parallel, 5V VDD",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HY1602E",
+      "datasheet_url": "http://www.icbank.com/data/ICBShop/board/HY1602E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSA02-105",
+      "manufacturer": "",
+      "description": "One digit 7 segment hyper red LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-105",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-105(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSA02-106",
+      "manufacturer": "",
+      "description": "One digit 7 segment super bright orange LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-106",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-106(Ver.11A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSA02-107",
+      "manufacturer": "",
+      "description": "One digit 7 segment super bright orange LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-107",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-107(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSA02-123",
+      "manufacturer": "",
+      "description": "One digit 7 segment green LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-123",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-123(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSA02-136",
+      "manufacturer": "",
+      "description": "One digit 7 segment blue LED, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-136",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-136(Ver.7B).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSC02-105",
+      "manufacturer": "",
+      "description": "One digit 7 segment hyper red LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-105",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-105(Ver.9A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSC02-106",
+      "manufacturer": "",
+      "description": "One digit 7 segment super bright orange LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-106",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSC02-107",
+      "manufacturer": "",
+      "description": "One digit 7 segment super bright orange LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-107",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSC02-123",
+      "manufacturer": "",
+      "description": "One digit 7 segment green LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-123",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-123(Ver.10A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KCSC02-136",
+      "manufacturer": "",
+      "description": "One digit 7 segment blue LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:KCSC02-136",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-136(Ver.6B).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LCD-016N002L",
+      "manufacturer": "",
+      "description": "LCD 12x2, 8 bit parallel bus, 3V or 5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:LCD-016N002L",
+      "datasheet_url": "http://www.vishay.com/docs/37299/37299.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM16255K",
+      "manufacturer": "",
+      "description": "2 Lines, 12 character reflective LCD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:LM16255",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/Sharp/mXvtrzw.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JG",
+      "manufacturer": "",
+      "description": "4 digit 7 segment green, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2001-393/C4627JG.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTS-6960HR",
+      "manufacturer": "",
+      "description": "DISPLAY 7 SEGMENTS common A.",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:7SegmentLED_LTS6760_LTS6780",
+      "datasheet_url": "https://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTS-6980HR",
+      "manufacturer": "",
+      "description": "DISPLAY 7 SEGMENTS common K, high efficient red",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:7SegmentLED_LTS6760_LTS6780",
+      "datasheet_url": "http://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3410A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment high efficient green LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3410A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3420A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment high efficient green LED common anode left hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3420A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3440A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment high efficient green LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3410A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3610A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment orange LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3610A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3620A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment orange LED common anode left hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3620A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3630A",
+      "manufacturer": "",
+      "description": "Overflow 7 segment orange LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3630A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3640A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment orange LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3610A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3810A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment yellow LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3810A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3820A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment yellow LED common anode left hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3820A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN3840A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment yellow LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN3810A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN71A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment red LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN71A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN72A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment red LED common anode left hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN72A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN73A",
+      "manufacturer": "",
+      "description": "Overflow 7 segment red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN73A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAN74A",
+      "manufacturer": "",
+      "description": "Single digit 7 segment red LED common anode right hand decimal",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:MAN71A",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NHD-0420H1Z",
+      "manufacturer": "",
+      "description": "LCD 20x4 Alphanumeric 16pin Blue/White/Green Backlight, 8bit parallel, 3.3V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:NHD-0420H1Z",
+      "datasheet_url": "http://www.newhavendisplay.com/specs/NHD-0420H1Z-FSW-GBW-33V3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NHD-C0220BIZ",
+      "manufacturer": "",
+      "description": "LCD 20x2 Alphanumeric 10pin Blue/White/Green Backlight, i2c, 3.3V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:NHD-C0220BiZ",
+      "datasheet_url": "http://www.newhavendisplay.com/specs/NHD-C0220BiZ-FSW-FBW-3V3M.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NHD-C0220BIZ-FSRGB",
+      "manufacturer": "",
+      "description": "2x20 character LCD module with common anode RGB backlight, I2C, 3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:NHD-C0220BiZ-FSRGB",
+      "datasheet_url": "https://newhavendisplay.com/content/specs/NHD-C0220BiZ-FSRGB-FBW-3VM.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "RC1602A",
+      "manufacturer": "",
+      "description": "LCD 16x2 Alphanumeric gray backlight, 3 or 5V VDD",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:RC1602A",
+      "datasheet_url": "http://www.raystar-optronics.com/down.php?ProID=18",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "RC1602A-GHW-ESX",
+      "manufacturer": "",
+      "description": "LCD 16x2 Alphanumeric 16pin Gray Backlight",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:RC1602A",
+      "datasheet_url": "http://www.raystar-optronics.com/down.php?ProID=18",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA15-11SRWA",
+      "manufacturer": "",
+      "description": "Super Bright Red Single-digit Numeric Display with white white diffused lens, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:SA15-11xxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-11EWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, high efficiency red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ewa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-12EWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, high efficiency red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ewa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SBC18-11SURKCGKWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment hyper red and green LED display, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:SBC18-11SURKCGKWA",
+      "datasheet_url": "http://www.kingbright.com/attachments/file/psearch/000/00/00/SBC18-11SURKCGKWA(Ver.6A).pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-11EWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, high efficiency red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ewa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-12EWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, high efficiency red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ewa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SM420561N",
+      "manufacturer": "",
+      "description": "One digit 7 segment blue LED, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:7SegmentLED_LTS6760_LTS6780",
+      "datasheet_url": "https://datasheet.lcsc.com/szlcsc/Wuxi-ARK-Tech-Elec-SM420561N_C141367.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WC1602A",
+      "manufacturer": "",
+      "description": "LCD 16x2 Alphanumeric , 8 bit parallel bus, 5V VDD",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:WC1602A",
+      "datasheet_url": "http://www.wincomlcd.com/pdf/WC1602A-SFYLYHTC06.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "D148K",
+      "manufacturer": "",
+      "description": "One digit 7 segment yellowish-green LED, low current, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:D1X8K",
+      "datasheet_url": "https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "D198K",
+      "manufacturer": "",
+      "description": "One digit 7 segment orangish-red LED, low current, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:D1X8K",
+      "datasheet_url": "https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "D1X8K-14BL",
+      "manufacturer": "",
+      "description": "One digit 7 segment ultra bright blue LED, low current, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:D1X8K",
+      "datasheet_url": "https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11EWA",
+      "manufacturer": "",
+      "description": "Double 7 segment high efficient red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11GWA",
+      "manufacturer": "",
+      "description": "Double 7 segment green LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11CGKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11GWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA04-11SRWA",
+      "manufacturer": "",
+      "description": "Double 7 segment super bright red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA04-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11EWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment high efficient red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11GWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment green LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11CGKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11GWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11SRWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright red LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DA56-11YWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright yellow LED common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SYKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11YWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11EWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright red LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11GWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment green LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11CGKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11GWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11SRWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment super bright red LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SURKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11SRWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DC56-11YWA",
+      "manufacturer": "",
+      "description": "Double digit 7 segment yellow LED common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:DA56-11SYKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11YWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7501",
+      "manufacturer": "",
+      "description": "One digit 7 segment high efficiency red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A151",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-7503",
+      "manufacturer": "",
+      "description": "One digit 7 segment high efficiency red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:HDSP-A151",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-2553EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JD",
+      "manufacturer": "",
+      "description": "4 digit 7 segment hyper red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2001-093/LTC-4627JD.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JD-01",
+      "manufacturer": "",
+      "description": "4 digit 7 segment hyper red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2008-0116/LTC-4627JD-01.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JF",
+      "manufacturer": "",
+      "description": "4 digit 7 segment yellow orange, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2000-192/C4627JF.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JR",
+      "manufacturer": "",
+      "description": "4 digit 7 segment super red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2000-185/LTC-4627JR.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC-4627JS",
+      "manufacturer": "",
+      "description": "4 digit 7 segment yellow, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:LTC-4627Jx",
+      "datasheet_url": "http://optoelectronics.liteon.com/upload/download/DS30-2000-186/LTC-4627JS.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA15-11EWA",
+      "manufacturer": "",
+      "description": "High Efficiency Red Single-digit Numeric Display with white white diffused lens, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:SA15-11xxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11EWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA15-11GWA",
+      "manufacturer": "",
+      "description": "Green Single-digit Numeric Display with white white diffused lens, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:SA15-11xxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11GWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-11GWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, green, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11gwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-11SRWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, super bright red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11srwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-11YWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, yellow, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ywa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-12GWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, green, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12gwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-12SRWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, super bright red, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12srwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SA39-12YWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, yellow, common anode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ywa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SBC18-11EGWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment hyper red and green LED display, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:SBC18-11SURKCGKWA",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/SBC18-11EGWA.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-11GWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, green, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11gwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-11SRWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, super bright red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11srwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-11YWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, yellow, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ywa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-12GWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, green, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12gwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-12SRWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, super bright red, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12srwa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SC39-12YWA",
+      "manufacturer": "",
+      "description": "Single digit 7 segment display, yellow, common cathode",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display_7Segment:Sx39-1xxxxx",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ywa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AG12864E",
+      "manufacturer": "",
+      "description": "Graphics Display 128x64px,  8b parallel, 1/64 Duty, 3.3V or 5V VDD",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:AG12864E",
+      "datasheet_url": "https://www.digchip.com/datasheets/parts/datasheet/1121/AG-12864E-pdf.php",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_DOGL128X-6",
+      "manufacturer": "",
+      "description": "EA DOGL128X-6 Graphical Display 128x64 optional backlight SPI 3.0-3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 26,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_DOGL128-6",
+      "datasheet_url": "https://www.lcd-module.com/eng/pdf/grafik/dogl128-6e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_DOGM128X-6",
+      "manufacturer": "",
+      "description": "EA DOGM128X-6 Graphical Display 128x64 optional backlight SPI 3.0-3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 26,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_DOGM128-6",
+      "datasheet_url": "https://www.lcd-module.de/eng/pdf/grafik/dogm128e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_DOGS104B-A",
+      "manufacturer": "",
+      "description": "LCD 4x10 character display blue transmissive background, +3.3V VDD, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_DOGS104X-A",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/doma/dogs104e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_DOGXL160-7",
+      "manufacturer": "",
+      "description": "EA DOGXL160-7 Graphical Display 160x104 no back light I2C SPI 2.7-3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 22,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_DOGXL160-7",
+      "datasheet_url": "http://www.lcd-module.com/eng/pdf/grafik/dogxl160-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP128B-6LW",
+      "manufacturer": "",
+      "description": "LCD-graphical display with LED backlight blue negative, 3.3V - 5V VDD, RS-232. I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 31,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA-eDIP128B-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP160B-7LW",
+      "manufacturer": "",
+      "description": "LCD-graphical display 160x104 with LED backlight, blue negative, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP160-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240B-7LW",
+      "manufacturer": "",
+      "description": "LCD graphical display with white LED background blue negative, 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320B-8LW",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 white LED backlight blue negative, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT32-A",
+      "manufacturer": "",
+      "description": "TFT graphical display, 320x240, 16 bit colour, LED backlight, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT32-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT43-A",
+      "manufacturer": "",
+      "description": "TFT graphical display, 480x272, 16 bit colour, LED backlight, 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT43-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT43-ATC",
+      "manufacturer": "",
+      "description": "TFT graphical display, 480x272, 16 bit colour, LED backlight, 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT43-ATC",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT57-A",
+      "manufacturer": "",
+      "description": "TFT-graphical display. 640x480, LED backlight, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT57-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT70-A",
+      "manufacturer": "",
+      "description": "TFT-graphical display with LED background, 800x480, 16-bit colours, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT70-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT70-ATC",
+      "manufacturer": "",
+      "description": "TFT-graphical display with LED background and capacitive touch panel, 800x480, 16-bit colours, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT70-ATC",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ERM19264",
+      "manufacturer": "",
+      "description": "Graphics Display 192x64px,  8b parallel, 1/64 Duty, 3.3V or 5V VDD",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:ERM19264",
+      "datasheet_url": "https://www.buydisplay.com/download/manual/ERM19264-1_Series_Datasheet.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NHD-C12832A1Z-FSRGB",
+      "manufacturer": "",
+      "description": "128x32 graphical LCD module with common anode RGB backlight, 1/33 duty, 3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:NHD-C12832A1Z-FSRGB",
+      "datasheet_url": "https://www.newhavendisplay.com/specs/NHD-C12832A1Z-FSRGB-FBW-3V.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "OLED-128O064D",
+      "manufacturer": "",
+      "description": "OLED display 128x64",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 30,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:OLED-128O064D",
+      "datasheet_url": "https://www.vishay.com/docs/37902/oled128o064dbpp3n00000.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP128B-6LWTP",
+      "manufacturer": "",
+      "description": "LCD-graphical display with LED backlight and touch panel blue negative, 3.3V - 5V VDD, RS-232. I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA-eDIP128B-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP128W-6LW",
+      "manufacturer": "",
+      "description": "LCD-graphical display with LED backlight positive mode FSTN, 3.3V - 5V VDD, RS-232. I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA-eDIP128B-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP128W-6LWTP",
+      "manufacturer": "",
+      "description": "LCD-graphical display with LED backlight and touch panel positive mode FSTN, 3.3V - 5V VDD, RS-232. I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA-eDIP128B-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP160B-7LWTP",
+      "manufacturer": "",
+      "description": "LCD-graphical display 160x104 with LED backlight and touch panel, blue negative, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP160-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP160W-7LW",
+      "manufacturer": "",
+      "description": "LCD-graphical display 160x104 with LED backlight, positive mode FSTN, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP160-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP160W-7LWTP",
+      "manufacturer": "",
+      "description": "LCD-graphical display 160x104 with LED backlight and touch panel, positive mode FSTN, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP160-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240B-7LWTP",
+      "manufacturer": "",
+      "description": "LCD graphical display with white LED background and touch panel blue negative, 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240J-7LA",
+      "manufacturer": "",
+      "description": "LCD graphical display with amber LED background blue positive mode FSTN 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240J-7LATP",
+      "manufacturer": "",
+      "description": "LCD graphical display with amber LED background and touch panel blue positive mode FSTN, 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240J-7LW",
+      "manufacturer": "",
+      "description": "LCD graphical display with white LED background blue positive mode FSTN, 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP240J-7LWTP",
+      "manufacturer": "",
+      "description": "LCD graphical display with amber LED background blue positive mode FSTN, 240x128, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP240-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320B-8LWTP",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 white LED backlight with touch panel blue negative, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320J-8LA",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 amber LED backlight blue positive FSTN, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320J-8LATP",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 amber LED backlight with touch panel blue positive mode FSTN, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320J-8LW",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 white LED backlight blue positive mode FSTN, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIP320J-8LWTP",
+      "manufacturer": "",
+      "description": "LCD graphical display 320x240 white LED backlight with touch panel blue positive mode FSTN, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIP320X-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT32-ATP",
+      "manufacturer": "",
+      "description": "TFT graphical display with touch panel, 320x240, 16 bit colour, LED backlight, 3.3V - 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT32-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT43-ATP",
+      "manufacturer": "",
+      "description": "TFT graphical display with resistive touch panel, 480x272, 16 bit colour, LED backlight, 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT43-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT43-ATS",
+      "manufacturer": "",
+      "description": "TFT graphical display with capacitive touch panel, 480x272, 16 bit colour, LED backlight, 5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT43-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT57-ATP",
+      "manufacturer": "",
+      "description": "TFT-graphical display with touch panel. 640x480, LED backlight, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT57-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "EA_eDIPTFT70-ATP",
+      "manufacturer": "",
+      "description": "TFT-graphical display with LED background, 800x480, 16-bit colours, +5V VDD, RS-232, I2C or SPI",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:EA_eDIPTFT70-XXX",
+      "datasheet_url": "http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "82720",
+      "manufacturer": "",
+      "description": "Graphics Display Controller, PDIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADS7843E",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-16_3.9x4.9mm_P0.635mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/ads7843.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AY0438X-L",
+      "manufacturer": "",
+      "description": "32-Segment CMOS LCD Driver, CMOS and TTL-compatible inputs, VDD +3.0V to +8.5V, PLCC-44",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_LCC:PLCC-44",
+      "datasheet_url": "http://www.farnell.com/datasheets/43336.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AY0438X-P",
+      "manufacturer": "",
+      "description": "32-Segment CMOS LCD Driver, CMOS and TTL-compatible inputs, VDD +3.0V to +8.5V, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.farnell.com/datasheets/43336.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CR2013-MI2120",
+      "manufacturer": "",
+      "description": "ILI9341 controller, SPI TFT LCD Display, 9-pin breakout PCB, 4-pin SD card interface, 5V/3.3V",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:CR2013-MI2120",
+      "datasheet_url": "http://pan.baidu.com/s/11Y990",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HD44780UxxxFS",
+      "manufacturer": "",
+      "description": "Dot Matrix LCD controller / driver LSI display, 8x2 characters, 9920-bit CGROM (240 character fonts), 80 x 8-bit display data RAM, PQFP-80 (Hitachi FP-80B)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 80,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:Hitachi_FP80B_PQFP-80_14x20mm_P0.8mm",
+      "datasheet_url": "https://cdn.sparkfun.com/assets/9/5/f/7/b/HD44780.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV5622PG",
+      "manufacturer": "",
+      "description": "32-Channel, Serial to Parallel Converter w/ Open Drain Outputs, PQFP-44",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:PQFP-44_10x10mm_P0.8mm",
+      "datasheet_url": "https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005854A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TSC2007xPW",
+      "manufacturer": "",
+      "description": "12-bit, 4-wire touchscreen controller, 1.2 - 3.6V single supply, I2C interface, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tsc2007.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TSC2007xYZG",
+      "manufacturer": "",
+      "description": "12-bit, 4-wire touchscreen controller, 1.2 - 3.6V single supply, I2C interface, UFBGA-12 (Texas DSBGA / YZG)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-12_2.11x1.61mm_Layout4x3_P0.5mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tsc2007.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "XPT2046QF",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, QFN-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm",
+      "datasheet_url": "http://www.xptek.cn/uploadfile/download/201707171401161883.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "XPT2046TS",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "http://www.xptek.cn/uploadfile/download/201707171401161883.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADS7843E-2K5",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-16_3.9x4.9mm_P0.635mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/ads7843.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADS7843EG4",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-16_3.9x4.9mm_P0.635mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/ads7843.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADS7843IDBQRQ1",
+      "manufacturer": "",
+      "description": "Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +125 C, QSPI, SPI, 3-wire serial interface, SSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-16_3.9x4.9mm_P0.635mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/ads7843-q1.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

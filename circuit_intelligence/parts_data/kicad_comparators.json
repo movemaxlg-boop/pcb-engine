@@ -1,0 +1,2204 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:11",
+  "parts": [
+    {
+      "part_number": "AD8561",
+      "manufacturer": "",
+      "description": "Ultrafast 7 ns Single Supply Comparator, DIP-8/SOIC-8/TSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8561.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADCMP350",
+      "manufacturer": "",
+      "description": "Single-input comparator, internal 0.6V reference, Active-Low Open-Drain output, KS-4",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:Analog_KS-4",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADCMP350_354_356.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADCMP356",
+      "manufacturer": "",
+      "description": "Single-input comparator, internal 0.6V reference, Active-High Push-Pull output, KS-4",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:Analog_KS-4",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADCMP350_354_356.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM2901",
+      "manufacturer": "",
+      "description": "Quad Differential Comparators, DIP-14/SOIC-14/TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/lm2901.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM2903",
+      "manufacturer": "",
+      "description": "Low-Power, Low-Offset Voltage, Dual Comparators, DIP-8/SOIC-8/SOP-8/TSSOP-8/VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm393.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM311",
+      "manufacturer": "",
+      "description": "Voltage Comparator, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/lm311.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM319",
+      "manufacturer": "",
+      "description": "High Speed Dual Comparator, DIP-14/SOIC-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm319-n.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM319H",
+      "manufacturer": "",
+      "description": "High Speed Dual Comparator, TO-100-10",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_THT:TO-100-10",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm319-n.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM339",
+      "manufacturer": "",
+      "description": "Quad Differential Comparators, SOIC-14/TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/lm139.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM397",
+      "manufacturer": "",
+      "description": "Single General-Purpose Voltage Comparator with Open-Collector Output, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm397.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMH7324",
+      "manufacturer": "",
+      "description": "Quad 700 ps High Speed Comparator with RSPECL Outputs, WQFN-32",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 33,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmh7324.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV331",
+      "manufacturer": "",
+      "description": "Single General-Purpose Low-Voltage Comparator, SOT-23-5/SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmv331.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV393",
+      "manufacturer": "",
+      "description": "Dual General-Purpose Low-Voltage Comparator, SOIC-8/TSSOP-8/VSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmv331.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV7271",
+      "manufacturer": "",
+      "description": "Single, 1.8V Low Power, Rail-to-Rail Input, Push-Pull Output Comparator, SOT-23-5/SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmv7271.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV7272",
+      "manufacturer": "",
+      "description": "Dual, 1.8V Low Power, Rail-to-Rail Input, Push-Pull Output Comparator, DSBGA-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:Texas_DSBGA-8_1.5195x1.5195mm_Layout3x3_P0.5mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmv7272.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1016",
+      "manufacturer": "",
+      "description": "Single UltraFast Precision 10ns Comparator, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/lt1016.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1711xMS8",
+      "manufacturer": "",
+      "description": "Single ultrafast 4.5 ns rail-to-rail comparator, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/171112f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6752xMS8-2",
+      "manufacturer": "",
+      "description": "Single 280Mhz 2.9ns Comparator, Rail-to-Rail Inputs, CMOS Output, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6752fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6752xS5",
+      "manufacturer": "",
+      "description": "Single 280Mhz 2.9ns Comparator, Rail-to-Rail Inputs, CMOS Output, TSOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-5",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6752fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6752xSC6-1",
+      "manufacturer": "",
+      "description": "Single 280Mhz 2.9ns Comparator, Rail-to-Rail Inputs, CMOS Output, SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6752fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6752xSC6-4",
+      "manufacturer": "",
+      "description": "Single 280Mhz 2.9ns Comparator, Rail-to-Rail Inputs, CMOS Output, SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6752fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6752xUD-3",
+      "manufacturer": "",
+      "description": "Single 280Mhz 2.9ns Comparator, Rail-to-Rail Inputs, CMOS Output, QFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 13,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.65x1.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6752fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6754xSC6",
+      "manufacturer": "",
+      "description": "Single High Speed Rail-to-Rail Input Comparator with LVDS Compatible Outputs, SC-70-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-363_SC-70-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6754f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTC6754xUD",
+      "manufacturer": "",
+      "description": "Single High Speed Rail-to-Rail Input Comparator with LVDS Compatible Outputs, QFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 13,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.65x1.65mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/6754f.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX941xPA",
+      "manufacturer": "",
+      "description": "High-Speed, Low-Power, 3V/5V, Rail-to-Rail, Single-Supply Comparator, PDIP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-8_W7.62mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX941-MAX944.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX941xSA",
+      "manufacturer": "",
+      "description": "High-Speed, Low-Power, 3V/5V, Rail-to-Rail, Single-Supply Comparator, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX941-MAX944.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX941xUA",
+      "manufacturer": "",
+      "description": "High-Speed, Low-Power, 3V/5V, Rail-to-Rail, Single-Supply Comparator, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX941-MAX944.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6561-OT",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Push-Pull Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6561-1R-1U-2-4-1.8V-Low-Power-Push-Pull-Output-Comparator-DS20002139E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6561R",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Push-Pull Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6561-1R-1U-2-4-1.8V-Low-Power-Push-Pull-Output-Comparator-DS20002139E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6561U",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Push-Pull Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6561-1R-1U-2-4-1.8V-Low-Power-Push-Pull-Output-Comparator-DS20002139E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6561x-LT",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Push-Pull Output Comparator, SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6561-1R-1U-2-4-1.8V-Low-Power-Push-Pull-Output-Comparator-DS20002139E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6562",
+      "manufacturer": "",
+      "description": "Dual 1.8V Low-Power Push-Pull Output Comparator, SOIC-8/MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6561-1R-1U-2-4-1.8V-Low-Power-Push-Pull-Output-Comparator-DS20002139E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6566",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Open-Drain Output Comparator, SOT-23-5/SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6566R",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Open-Drain Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6566U",
+      "manufacturer": "",
+      "description": "Single 1.8V Low-Power Open-Drain Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6567",
+      "manufacturer": "",
+      "description": "Dual 1.8V Low-Power Open-Drain Output Comparator, SOIC-8/MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP6569",
+      "manufacturer": "",
+      "description": "Quad 1.8V Low-Power Open-Drain Output Comparator, SOIC-14/TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/MCP6566-6R-6U-7-9-1.8V-Low-Power-Open-Drain-Output-Comparator-DS20002143G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP65R41",
+      "manufacturer": "",
+      "description": "3 \u03bcA Comparator with Integrated Reference Voltage, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/22269B.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP65R46",
+      "manufacturer": "",
+      "description": "3 \u03bcA Comparator with Integrated Reference Voltage, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/22269B.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MIC845H",
+      "manufacturer": "",
+      "description": "Micro-Power Comparator / Battery Monitor, Active-High Push-Pull Output, SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/mic845.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MIC845N",
+      "manufacturer": "",
+      "description": "Micro-Power Comparator / Battery Monitor, Active-High Open-Drain Output, SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/mic845.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TL3116",
+      "manufacturer": "",
+      "description": "Single Ultra-Fast Low-Power Precision Comparators, SOIC-8/TSSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tl3116.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV3501AID",
+      "manufacturer": "",
+      "description": "High-Speed Comparator, 4.5-ns, Rail-to-Rail, Push-Pull CMOS Output, SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv3501.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV3501AIDBV",
+      "manufacturer": "",
+      "description": "High-Speed Comparator, 4.5-ns, Rail-to-Rail, Push-Pull CMOS Output, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv3501.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADCMP354",
+      "manufacturer": "",
+      "description": "Single-input comparator, internal 0.6V reference, Active-High Open-Drain output, KS-4",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:Analog_KS-4",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADCMP350_354_356.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM393",
+      "manufacturer": "",
+      "description": "Low-Power, Low-Offset Voltage, Dual Comparators, DIP-8/SOIC-8/TO-99-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lm393.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV339",
+      "manufacturer": "",
+      "description": "Quad General-Purpose Low-Voltage Comparator, SOIC-14/TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/lmv331.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV7219M5",
+      "manufacturer": "",
+      "description": "Single Low-Power High-Speed Push-Pull Output Comparator, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lmv7219.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV7219M7",
+      "manufacturer": "",
+      "description": "Single Low-Power High-Speed Push-Pull Output Comparator, SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lmv7219.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LMV7275",
+      "manufacturer": "",
+      "description": "Single, 1.8V Low Power, Rail-to-Rail Input, Open Collector Output Comparator, SOT-23-5/SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lmv7275.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LP2901D",
+      "manufacturer": "",
+      "description": "Quad Differential Comparators, SOIC-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lp2901.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1011",
+      "manufacturer": "",
+      "description": "Voltage Comparator, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/lt1011.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT1116",
+      "manufacturer": "",
+      "description": "Single 12ns, Single Supply Ground-Sensing Comparator, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/1116fc.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX9031AU",
+      "manufacturer": "",
+      "description": "Single, Rail to Rail, 2.5V - 5.5V Supply, 571mW, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX9030-MAX9034.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX9031AX",
+      "manufacturer": "",
+      "description": "Single, Rail to Rail, 2.5V - 5.5V Supply, 247mW, SC70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX9030-MAX9034.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MIC845L",
+      "manufacturer": "",
+      "description": "Micro-Power Comparator / Battery Monitor, Active-Low Push-Pull Output, SC-70-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/mic845.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TL331",
+      "manufacturer": "",
+      "description": "Single Differential Comparator with Open-Collector Output, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tl331.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV7031DBV",
+      "manufacturer": "",
+      "description": "Single, 1.6V-6.5V, 315nA Quiescent, Push-Pull Output, Comparator, SOT-23-5/SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv7031.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV7041DBV",
+      "manufacturer": "",
+      "description": "Single, 1.6V-6.5V, 315nA Quiescent, Open-Drain Output, Comparator, North-west pinout, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv7041.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV7041SDCK",
+      "manufacturer": "",
+      "description": "Single, 1.6V-6.5V, 315nA Quiescent, Open-Drain Output, Comparator, South-east pinout, SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv7041.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLV7041DCK",
+      "manufacturer": "",
+      "description": "Single, 1.6V-6.5V, 315nA Quiescent, Open-Drain Output, Comparator, North-west pinout, SC-70",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-353_SC-70-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv7041.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

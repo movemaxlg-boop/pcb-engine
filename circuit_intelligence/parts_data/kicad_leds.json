@@ -1,0 +1,6884 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:16",
+  "parts": [
+    {
+      "part_number": "AL8860MP",
+      "manufacturer": "",
+      "description": "40V 1.5A Constant Current Buck LED Driver IC, MSOP-8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.5x1.8mm",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/AL8860.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AL8860WT",
+      "manufacturer": "",
+      "description": "40V 1.5A Constant Current Buck LED Driver IC, TSOT-23-5",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-5",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/AL8860.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AP3019AKTR",
+      "manufacturer": "",
+      "description": "1.2MHz White LED Boost Drivers with Built-in Schottky, 2.5..16Vin, <30Vout, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/AP3019A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "BCR430UW6",
+      "manufacturer": "",
+      "description": "100 mA adjustable constant current driver (linear), max 42V, SOT26 (SC-74)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/BCR430UW6.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CH455G",
+      "manufacturer": "",
+      "description": "Digital tube driver and keyboard scan (common cathode only), SOIC-16 (SOP-16)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm",
+      "datasheet_url": "https://www.wch-ic.com/products/CH455.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CH455K",
+      "manufacturer": "",
+      "description": "Digital tube driver and keyboard scan (common cathode only), with interrupt/current setting, DIP-18",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-18_W7.62mm",
+      "datasheet_url": "https://www.wch-ic.com/products/CH455.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CL220K4-G",
+      "manufacturer": "",
+      "description": "Temperature Compensated Constant Current LED IC, D-PAK",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TO-252-2",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CL220N5-G",
+      "manufacturer": "",
+      "description": "Temperature Compensated Constant Current LED IC, TO-220",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_THT:TO-220-3_Vertical",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DIO5661CD6",
+      "manufacturer": "",
+      "description": "37V Step-up LED driver with PWM, 2.7-5.5Vin, 1.3A Iout max, DFN-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm",
+      "datasheet_url": "http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DIO5661ST6",
+      "manufacturer": "",
+      "description": "37V Step-up LED driver with PWM, 2.7-5.5Vin, 1.3A Iout max, SOT23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DIO5661TST6",
+      "manufacturer": "",
+      "description": "37V Step-up LED driver with PWM, 2.7-5.5Vin, 1.3A Iout max, TSOT23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-6",
+      "datasheet_url": "http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HT1632C-52LQFP",
+      "manufacturer": "",
+      "description": "LED Matrix Driver, 32\u00d78 or 24\u00d716, LQFP-52",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 52,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:LQFP-52_14x14mm_P1mm",
+      "datasheet_url": "https://web.archive.org/web/20180404050010/http://www.holtek.com/documents/10179/116711/HT1632Cv170.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9921N8-G",
+      "manufacturer": "",
+      "description": "3pin Constant Current 20mA LED Driver, SOT89",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-89-3",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9925SG-G",
+      "manufacturer": "",
+      "description": "Programmable Current LED Lamp Driver, SO8 w/Heat Slug",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/hv9925.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9930LG-G",
+      "manufacturer": "",
+      "description": "Boost-Buck LED Lamp Driver, SO8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/hv9930.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9931LG-G",
+      "manufacturer": "",
+      "description": "PFC Boost-Buck LED Lamp Driver, SO8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/hv9931.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9961LG-G",
+      "manufacturer": "",
+      "description": "Buck LED Lamp Driver Average-Mode Constant Current, 8V-450V, SO8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9961NG-G",
+      "manufacturer": "",
+      "description": "Buck LED Lamp Driver Average-Mode Constant Current, 8V-450V, SO16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9967BK7-G",
+      "manufacturer": "",
+      "description": "Buck LED Lamp Driver Average-Mode Constant Current, DFN8 (3x3mm)",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/hv9967b.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9967BMG-G",
+      "manufacturer": "",
+      "description": "Buck LED Lamp Driver Average-Mode Constant Current, MSOP8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/devicedoc/hv9967b.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9972LG-G",
+      "manufacturer": "",
+      "description": "Isolated LED Lamp Driver Constant Current, SO8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "https://www.mouser.com/ds/2/268/HV9972-272498-1181261.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3216",
+      "manufacturer": "",
+      "description": "16 channel LED controller with audio modulation mode, QFN-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/IS31FL3216.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3218-GR",
+      "manufacturer": "",
+      "description": "18 LED matrix driver with 8-bit PWM, SOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOP-24_7.5x15.4mm_P1.27mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3218.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3218-QF",
+      "manufacturer": "",
+      "description": "18 LED matrix driver with 8-bit PWM, QFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3218.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3236-TQ",
+      "manufacturer": "",
+      "description": "36 LED matrix driver with 8-bit PWM, eTQFP-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 49,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm",
+      "datasheet_url": "https://www.lumissil.com/assets/pdf/core/IS31FL3236_DS.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3731-QF",
+      "manufacturer": "",
+      "description": "9x16 LED matrix driver with 8-bit PWM and breathing, QFN-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3731.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3731-SA",
+      "manufacturer": "",
+      "description": "9x16 LED matrix driver with 8-bit PWM and breathing, SSOP-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 28,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3731.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3733-QF",
+      "manufacturer": "",
+      "description": "12x16 LED matrix driver with 8-bit PWM and breathing, QFN-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 49,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/IS31FL3733.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3733-TQ",
+      "manufacturer": "",
+      "description": "12x16 LED matrix driver with 8-bit PWM and breathing, TQFP-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 49,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/IS31FL3733.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3736",
+      "manufacturer": "",
+      "description": "12x8 LED matrix driver with 8-bit PWM and breathing, QFN-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 41,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3736.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3737",
+      "manufacturer": "",
+      "description": "12x12 LED matrix driver with 8-bit PWM and breathing, QFN-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 41,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31FL3737.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31LT3360",
+      "manufacturer": "",
+      "description": "Constant current  LED driver, internal switch, up to 40V/1.2A, SOT-89-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-89-5",
+      "datasheet_url": "http://www.issi.com/WW/pdf/31LT3360.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KTD2026",
+      "manufacturer": "",
+      "description": "4-channel constant-current linear LED Driver, I2C interface, 0.125..24mAout, VIN 2.7..5.5V, DFN-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm",
+      "datasheet_url": "https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KTD2027",
+      "manufacturer": "",
+      "description": "4-channel constant-current linear LED Driver, I2C interface, 0.125..24mAout, VIN 2.7..5.5V DFN-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm",
+      "datasheet_url": "https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "KTD2061xxUAC",
+      "manufacturer": "",
+      "description": "36-channel (12xRGB) LED driver with I\u00b2C Control, VCC = VIN = 2.5..5.5V, 23kHz MUX frequency, UQFN-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:UQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm_ThermalVias",
+      "datasheet_url": "https://www.kinet-ic.com/uploads/web/KTD2058,%20KTD2059,%20KTD2060,%20KTD2061/KTD2061-58-59-60-04e.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED1642GWPTR",
+      "manufacturer": "",
+      "description": "16-channel LED driver with error detection, current gain control and 12/16 bit PWM brightness control, QSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:QSOP-24_3.9x8.7mm_P0.635mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/led1642gw.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED1642GWQTR",
+      "manufacturer": "",
+      "description": "16-channel LED driver with error detection, current gain control and 12/16 bit PWM brightness control, QFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/led1642gw.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED1642GWTTR",
+      "manufacturer": "",
+      "description": "16-channel LED driver with error detection, current gain control and 12/16 bit PWM brightness control, TSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/led1642gw.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED1642GWXTTR",
+      "manufacturer": "",
+      "description": "16-channel LED driver with error detection, current gain control and 12/16 bit PWM brightness control, HTSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/led1642gw.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED5000",
+      "manufacturer": "",
+      "description": "3A monolithic step-down current source with dimming, HSOP-8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/led5000.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM3914N",
+      "manufacturer": "",
+      "description": "10 LED Dot/Bar Display Driver, DIP-18",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 18,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-18_W7.62mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm3914.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LM3914V",
+      "manufacturer": "",
+      "description": "10 LED Dot/Bar Display Driver, PLCC-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_LCC:PLCC-20",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm3914.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LP5036",
+      "manufacturer": "",
+      "description": "36-Channel 12-Bit PWM Ultra-low Quiescent Current I2C RGB LED Driver",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 47,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:VQFN-46-1EP_5x6mm_P0.4mm_EP2.8x3.8mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/lp5036.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LP8868XQDMT",
+      "manufacturer": "",
+      "description": "LED Driver Boost , Input 4.5-65V, with PWM Dimming, Automotive, VSON-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 15,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:VSON-14-1EP_3x4.45mm_P0.65mm_EP1.6x4.2mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lp8868x-q1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3465",
+      "manufacturer": "",
+      "description": "1.2MHz White LED Drivers with Built-in Schottky, ThinSOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xMSE",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controllers, Hysteresis Open led Status pin, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xMSE-1",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controllers, Frequency Synchronisation, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xUD",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controller, Hysteresis Open led Status pins, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xUD-1",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controllers, Frequency Synchronisation, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT8391xFE",
+      "manufacturer": "",
+      "description": "60V Synchronous 4-Switch Buck-Boost LED Controller, TSSOP-28",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.74x4.75mm_ThermalVias",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/lt8391.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX7219",
+      "manufacturer": "",
+      "description": "8-Digit LED Display Driver",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX7221xNG",
+      "manufacturer": "",
+      "description": "Serially Interfaced, 8-Digit LED Display Driver, PDIP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-24_W7.62mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX7221xWG",
+      "manufacturer": "",
+      "description": "Serially Interfaced, 8-Digit LED Display Driver, SOIC-24W",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MBI5252GFN",
+      "manufacturer": "",
+      "description": "16-Channel, 14-bit PWM constant current LED sink driver with built-in 8K-bit SRAM, 6-bit current gain, LED open detection, HVQFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm",
+      "datasheet_url": "https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MBI5252GP",
+      "manufacturer": "",
+      "description": "16-Channel, 14-bit PWM constant current LED sink driver with built-in 8K-bit SRAM, 6-bit current gain, LED open detection, SSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SSOP-24_3.9x8.7mm_P0.635mm",
+      "datasheet_url": "https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC14495P",
+      "manufacturer": "",
+      "description": "C-MOS BCD-TO-SEVEN-SEGMENT 4-BIT LATCH / DECODER DRIVER, DIP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-16_W7.62mm",
+      "datasheet_url": "https://www.futurlec.com/Datasheet/Motorola/MC14495.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP1643xMS",
+      "manufacturer": "",
+      "description": "Constant-current LED boost regulator, 0.65V startup, 550mA output, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/20005208A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCP1662-xOT",
+      "manufacturer": "",
+      "description": "Step-Up LED Driver w/ UVLO and Open Load Protection, 500kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://ww1.microchip.com/downloads/en/DeviceDoc/20005316E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MP3362GJ",
+      "manufacturer": "",
+      "description": "Single string LED driver, 3V to 36V input, 4A peak current limit, 200Khz to 2Mhz, SOT23-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-8",
+      "datasheet_url": "https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP3362GJ/document_id/9117/",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MPQ2483DQ",
+      "manufacturer": "",
+      "description": "55V, 2.5A Programmable Frequency LED Driver, DFN-10",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 11,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.7x2.5mm",
+      "datasheet_url": "https://www.monolithicpower.com/pub/media/document/MPQ2483_r1.05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NCP5623DTBR2G",
+      "manufacturer": "",
+      "description": "Triple Output I2C Controlled RGB LED Driver, TSSOP-14",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-14_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.onsemi.com/pub/Collateral/NCP5623-D.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "NCR401U",
+      "manufacturer": "",
+      "description": "10mA (with external R up to 65mA) constant current driver (linear), max 40V, SOT457 (SC-74)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm",
+      "datasheet_url": "https://assets.nexperia.com/documents/data-sheet/NCR401U.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAM2841G",
+      "manufacturer": "",
+      "description": "Boost WLED Driver, Vo = 40V maximum, Ilim = 1.5A, PWM dimming, OCP, OVP, UDFN-8 / USON-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.86x1.55mm",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/PAM2841.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PAM2841S",
+      "manufacturer": "",
+      "description": "Boost WLED Driver, Vo = 40V maximum, Ilim = 1.5A, PWM dimming, OCP, OVP, MSOP-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-8_3x3mm_P0.65mm",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/PAM2841.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PCA9531PW",
+      "manufacturer": "",
+      "description": "8-bit PWM I2C eight LED driver, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/PCA9531.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PCA9635",
+      "manufacturer": "",
+      "description": "16-bit PWM Fm+ I2C-bus LED driver, TSSOP-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 28,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/PCA9635.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PCA9685BS",
+      "manufacturer": "",
+      "description": "16-channel 12-bit PWM Fm+ I2C-bus LED controller RGBA QFN",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm",
+      "datasheet_url": "http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PCA9685PW",
+      "manufacturer": "",
+      "description": "16-channel 12-bit PWM Fm+ I2C-bus LED controller RGBA TSSOP",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 28,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm",
+      "datasheet_url": "http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PCA9745BTW",
+      "manufacturer": "",
+      "description": "16-channel, 8-bit PWM, Constant Current, Dimming, LED controller, SPI, HTSSOP-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:NXP_HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.2x3.4mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/PCA9745B.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "RCD-24",
+      "manufacturer": "",
+      "description": "LED Driver DC/DC Converter, input 4.5 to 36V, output current 0.3 to 1.2A",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Converter_DCDC:Converter_DCDC_RECOM_RCD-24_THT",
+      "datasheet_url": "https://g.recomcdn.com/media/Datasheet/pdf/.fYUQjOlW/.t2a80a771bdbb0ef300f7/Datasheet-93/RCD-24.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ST1CC40DR",
+      "manufacturer": "",
+      "description": "3A monolithic step-down current source with synchronous rectification, 3-18V Input Voltage, 850kHz, SO-8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ST1CC40PUR",
+      "manufacturer": "",
+      "description": "3A monolithic step-down current source with synchronous rectification, 3-18V Input Voltage, 850kHz, DFN-8",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm",
+      "datasheet_url": "http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP08CP05B",
+      "manufacturer": "",
+      "description": "8-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, DIP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-16_W7.62mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp08cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP08CP05XT",
+      "manufacturer": "",
+      "description": "8-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, HTSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 17,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp08cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CP05M",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, SOIC-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp16cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CP05XT",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, HTSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp16cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CPC26T",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..90mA output current, 20V driving capability, 3..5.5V power supply, TSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/STP16CPC26.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CPC26X",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..90mA output current, 20V driving capability, 3..5.5V power supply, HTSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/STP16CPC26.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TCA6507RUE",
+      "manufacturer": "",
+      "description": "7-bit I2C/SMBus LED driver with intensity control, X2QFN-12",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_X2QFN-RUE-12_1.4x2mm_P0.4mm",
+      "datasheet_url": "https://www.ti.com/lit/gpn/tca6507",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC59108xPW",
+      "manufacturer": "",
+      "description": "8-Channel, 8-Bit Fm+ I2C-Bus Constant-Current LED Sink Driver, TSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlc59108.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5916",
+      "manufacturer": "",
+      "description": "8-Channel Constant-Current LED Sink Driver",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlc5916.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5940NT",
+      "manufacturer": "",
+      "description": "16-Channel LED Driver With DOT Correction and Grayscale PWM Control, DIP package",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 28,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-28_W7.62mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5940.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5940PWP",
+      "manufacturer": "",
+      "description": "16-Channel LED Driver With DOT Correction and Grayscale PWM Control, TSSOP package with thermal pad",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 29,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP3.4x9.5mm_Mask2.4x6.17mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5940.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5947DAP",
+      "manufacturer": "",
+      "description": "24-Channel, 12-Bit PWM LED Driver, HTSSOP",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 33,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5947.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5947RHB",
+      "manufacturer": "",
+      "description": "24-Channel, 12-Bit PWM LED Driver, QFN",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 33,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5947.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5949PWP",
+      "manufacturer": "",
+      "description": "16-channel, 12-bit ES-PWM, constant-current sink LED driver, HTSSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.4x7.8mm_Mask2.44x3.42mm_ThermalVias",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlc5949.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5951DAP",
+      "manufacturer": "",
+      "description": "24-Channel, 12-Bit PWM LED Driver With 7-Bit Dot Correction and 3-Group, 8-Bit Global Brightness Control, HTSSOP-38",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 39,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-38-1EP_6.1x12.5mm_P0.65mm_EP5.2x12.5mm_Mask3.39x6.35mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5951.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5951RHA",
+      "manufacturer": "",
+      "description": "24-Channel, 12-Bit PWM LED Driver With 7-Bit Dot Correction and 3-Group, 8-Bit Global Brightness Control, Texas S-PVQFN-N40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 41,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5951.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5957RTQ",
+      "manufacturer": "",
+      "description": "48-channel, 16bit ES-PWM LED driver with Pre-charge FET, LED OPEN Detection and Caterpillar Cancelling, QFN-56",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 57,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.6x5.6mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5957.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5971PWP",
+      "manufacturer": "",
+      "description": "12-Channel, 16-Bit, Enhanced Spectrum, PWM, RGB, LED Driver With 3.3-V Linear Regulator, HTSSOP-20",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5971.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5971RGE",
+      "manufacturer": "",
+      "description": "12-Channel, 16-Bit, Enhanced Spectrum, PWM, RGB, LED Driver With 3.3-V Linear Regulator, VQFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5971.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5973",
+      "manufacturer": "",
+      "description": "3 Channel 12bit PWM constant currend LED Driver with single wire interface",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5973.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS61165DBV",
+      "manufacturer": "",
+      "description": "High-Brightness, White LED Driver, 3V to 18V input voltage range, internal switch, constant current, up to 38V/1.2A output, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps61165.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS61165DRV",
+      "manufacturer": "",
+      "description": "High-Brightness, White LED Driver, 3V to 18V input voltage range, internal switch, constant current, up to 38V/1.2A output, WSON-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps61165.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS92200D1DDC",
+      "manufacturer": "",
+      "description": "1.5A Synchronous Buck LED Driver, PWM dimming, 4V to 30V supply, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps92200.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS92511DDA",
+      "manufacturer": "",
+      "description": "500mA, 65V Constant Current Buck LED Driver, SOIC-8 / SOP-8 (Texas DDA0008A)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 9,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.34x2.34mm_ThermalVias",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps92511.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS92612DBV",
+      "manufacturer": "",
+      "description": "Constant current LED Driver, 4.5V to 40V input voltage range, up to 40V/150mA output,  SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps92612.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS92692PWP",
+      "manufacturer": "",
+      "description": "LED Driver Buck Boost Sepic Flyback, Input 4.5-65V, with PWM Dimming, HTSSOP-20",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 21,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.4x3.7mm",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps92692-q1.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2811",
+      "manufacturer": "",
+      "description": "3-Channel 8-Bit PWM LED Driver, DIP-8/SOIC-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://cdn-shop.adafruit.com/datasheets/WS2811.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ZXLD383",
+      "manufacturer": "",
+      "description": "LED Driver Boost Converter, PFM controlled, operating frequency 330kHz (Vled = 3.5V), TSOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-5",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/ZXLD383.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ZXSC310",
+      "manufacturer": "",
+      "description": "LED Driver Boost Converter, PFM controlled, up to 200kHz, SOT-23-5",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/ZXSC310.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ZXSC400",
+      "manufacturer": "",
+      "description": "LED Driver Boost Converter, PFM controlled, maximum operating frequency 200kHz, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/ZXSC400.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "iC-HTG",
+      "manufacturer": "",
+      "description": "CW power laser diode driver, external driver transistor, integrated DAC & ADC, SPI or I2C, 3 to 24V supply, temperature monitor, HVQFN-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 25,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm",
+      "datasheet_url": "https://www.ichaus.de/product/ic-htg/#documents",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "AP3019AKTTR",
+      "manufacturer": "",
+      "description": "1.2MHz White LED Boost Drivers with Built-in Schottky, 2.5..16Vin, <30Vout, ThinSOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-6",
+      "datasheet_url": "https://www.diodes.com/assets/Datasheets/AP3019A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CH455H",
+      "manufacturer": "",
+      "description": "Digital tube driver and keyboard scan (common cathode only), with interrupt/current setting, SOP-18",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOP-18_7.495x11.515mm_P1.27mm",
+      "datasheet_url": "https://www.wch-ic.com/products/CH455.html",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9922N8-G",
+      "manufacturer": "",
+      "description": "3pin Constant Current 50mA LED Driver, SOT89",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-89-3",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HV9923N8-G",
+      "manufacturer": "",
+      "description": "3pin Constant Current 30mA LED Driver, SOT89",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-89-3",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3216A",
+      "manufacturer": "",
+      "description": "16 channel LED controller with audio modulation mode, QFN-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm",
+      "datasheet_url": "http://www.issi.com/WW/pdf/IS31FL3216A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IS31FL3236A-TQ",
+      "manufacturer": "",
+      "description": "36 LED matrix driver with 8-bit PWM, 3kHz/22kHz, eTQFP-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm",
+      "datasheet_url": "https://www.lumissil.com/assets/pdf/core/IS31FL3236A_DS.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3465A",
+      "manufacturer": "",
+      "description": "2.4MHz White LED Drivers with Built-in Schottky in ThinSOT",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-6",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xMSE-2",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controllers, Improved Open Led Status Pin, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3755xUD-2",
+      "manufacturer": "",
+      "description": "40 Vin, 75 Vout, DC/DC LED Controllers, Improved Open led Status pin, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xMSE",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controllers, Hysteresis Open led Status pin, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xMSE-1",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controllers, Frequency Synchronisation, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xMSE-2",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controllers, Improved Open Led Status Pin, MSOP-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xUD",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controller, Hysteresis Open led Status pins, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xUD-1",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controllers, Frequency Synchronisation, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LT3756xUD-2",
+      "manufacturer": "",
+      "description": "100 Vin, 100 Vout, DC/DC LED Controllers, Improved Open led Status pin, QFN-16",
+      "category": "IC",
+      "subcategory": "BUCK",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MAX7221xRG",
+      "manufacturer": "",
+      "description": "Serially Interfaced, 8-Digit LED Display Driver, CDIP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-24_W7.62mm",
+      "datasheet_url": "https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MPQ3362GJ-AEC1",
+      "manufacturer": "",
+      "description": "Single string LED driver, 3V to 36V input, 4A peak current limit, 200Khz to 2Mhz, AEC1-Q100, SOT23-8",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:TSOT-23-8",
+      "datasheet_url": "https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MPQ3362GJ-AEC1/document_id/9116/",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP08CP05M",
+      "manufacturer": "",
+      "description": "8-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, SOIC-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp08cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP08CP05T",
+      "manufacturer": "",
+      "description": "8-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, TSSOP-16",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-16_4.4x5mm_P0.65mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp08cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CP05P",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, QSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:QSOP-24_3.9x8.7mm_P0.635mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp16cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CP05T",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..100mA output current, 20V driving capability, 3.0..5.5V power supply, SOIC-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/stp16cp05.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CPC26M",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..90mA output current, 20V driving capability, 3..5.5V power supply, SOIC-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/STP16CPC26.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "STP16CPC26P",
+      "manufacturer": "",
+      "description": "16-bit constant current LED sink driver, 5..90mA output current, 20V driving capability, 3..5.5V power supply, QSOP-24",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_SO:QSOP-24_3.9x8.7mm_P0.635mm",
+      "datasheet_url": "https://www.st.com/resource/en/datasheet/STP16CPC26.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5917",
+      "manufacturer": "",
+      "description": "8-Channel Constant-Current LED Sink Driver, Short to VLED detection",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlc5917.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TLC5951RTA",
+      "manufacturer": "",
+      "description": "24-Channel, 12-Bit PWM LED Driver With 7-Bit Dot Correction and 3-Group, 8-Bit Global Brightness Control, Texas S-PVQFN-N40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tlc5951.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TPS92200D2DDC",
+      "manufacturer": "",
+      "description": "1.5A Synchronous Buck LED Driver, analog dimming, 4V to 30V supply, SOT-23-6",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps92200.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "APA-106-F5",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller, 5mm Package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm-4_RGB",
+      "datasheet_url": "https://cdn.sparkfun.com/datasheets/Components/LED/COM-12877.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "APA102",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_RGB_5050-6",
+      "datasheet_url": "http://www.led-color.com/upload/201506/APA102%20LED.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "APA102-2020",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED-APA102-2020",
+      "datasheet_url": "http://www.led-color.com/upload/201604/APA102-2020%20SMD%20LED.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "APFA3010",
+      "manufacturer": "",
+      "description": "LED RGB, Common Anode, SMD, 3.0x1.5mm, Horizontal",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Kingbright_APFA3010_3x1.5mm_Horizontal",
+      "datasheet_url": "http://www.kingbrightusa.com/images/catalog/SPEC/APFA3010LSEEZGKQBKC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ASMB-MTB0-0A3A2",
+      "manufacturer": "",
+      "description": "Tricolor Black Surface LED, Common Anode Pin 1, PLCC-4",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Avago_PLCC4_3.2x2.8mm_CW",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-4186EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ASMB-MTB1-0A3A2",
+      "manufacturer": "",
+      "description": "Tricolor Black Surface LED, Common Anode Pin 4, PLCC-4",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Avago_PLCC4_3.2x2.8mm_CW",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-4194EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ASMT-YTC2-0AA02",
+      "manufacturer": "",
+      "description": "Triple LED RVB (Avago Technology)",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Avago_PLCC6_3x2.8mm",
+      "datasheet_url": "http://www.avagotech.com/docs/AV02-2589EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CLS6B-FKW",
+      "manufacturer": "",
+      "description": "Cree PLCC6 3 in 1 SMD LED, PLCC-6",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-PLCC6_4.7x1.5mm",
+      "datasheet_url": "https://www.cree.com/led-components/media/documents/CLS6B-FKW.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CLV1L-FKB",
+      "manufacturer": "",
+      "description": "Cree PLCC4 3 in 1 SMD LED",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-PLCC4_3.2x2.8mm_CCW",
+      "datasheet_url": "http://www.cree.com/led-components/media/documents/CLV1L-FKB-1238.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4830",
+      "manufacturer": "",
+      "description": "10-element LED arrays, high efficient red",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4830",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4830_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, high efficiency red",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4830",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4832",
+      "manufacturer": "",
+      "description": "10-element LED arrays, Mix of high efficient red, yellow and green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4832",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4832_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, Mix of high efficiency red, yellow and green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4832",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4836",
+      "manufacturer": "",
+      "description": "10-element LED arrays, Mix of high efficient red, yellow and green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4836",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4836_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, Mix of high efficiency red, yellow and green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4836",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4840",
+      "manufacturer": "",
+      "description": "10-element LED arrays, Yellow",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4840",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4840_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, yellow",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4840",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4850",
+      "manufacturer": "",
+      "description": "10-element LED arrays, Green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4850",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HDSP-4850_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, green",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HDSP-4850",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HLCP-J100",
+      "manufacturer": "",
+      "description": "10-element LED arrays, AIGaAs Red",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HLCP-J100",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "HLCP-J100_2",
+      "manufacturer": "",
+      "description": "BAR GRAPH 10 segment block, AlGaAs red",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 20,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Display:HLCP-J100",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-1798EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IR26-21C_L110_TR8",
+      "manufacturer": "",
+      "description": "940nm, 20 deg, Infrared LED, 1206",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_1206_3216Metric",
+      "datasheet_url": "http://www.everlight.com/file/ProductFile/IR26-21C-L110-TR8.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IRL81A",
+      "manufacturer": "",
+      "description": "850nm High Power Infrared Emitter, Side-Emitter package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_SideEmitter_Rectangular_W4.5mm_H1.6mm",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic0/00203825_0.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Inolux_IN-P55TATRGB",
+      "manufacturer": "",
+      "description": "Inolux RGB LED, PLCC-6",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Inolux_IN-P55TATRGB_PLCC6_5.0x5.5mm_P1.8mm",
+      "datasheet_url": "https://www.inolux-corp.com/datasheet/SMDLED/RGB%20Top%20View/IN-P55TATRGB.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Inolux_IN-PI554FCH",
+      "manufacturer": "",
+      "description": "5050 RGB LED 4-Pin with integrated IC",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Inolux_IN-PI554FCH_PLCC4_5.0x5.0mm_P3.2mm",
+      "datasheet_url": "http://www.inolux-corp.com/datasheet/SMDLED/Addressable%20LED/IN-PI554FCH.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Inolux_IN-PI556FCH",
+      "manufacturer": "",
+      "description": "5050 RGB LED 6-Pin with integrated IC",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812_PLCC6_5.0x5.0mm_P1.6mm",
+      "datasheet_url": "http://www.inolux-corp.com/datasheet/SMDLED/Addressable%20LED/IN-PI556FCH.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LD271",
+      "manufacturer": "",
+      "description": "940nm IR-LED, 5mm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm_IRGrey",
+      "datasheet_url": "http://www.alliedelec.com/m/d/40788c34903a719969df15f1fbea1056.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_12V_HighDensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 12V, 4 LEDs in series, high density",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_12V_HighDensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_3V_HighDensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 3V, 4 LEDs in parallel, high density",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_3V_HighDensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_6V_HighDensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 6V, 2x2 serial LEDs in parallel, high density",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_6V_HighDensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP70_12V",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP70 LED, 12V footprint (all 4 LEDs in series)",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP70_12V",
+      "datasheet_url": "http://www.cree.com/%7E/media/Files/Cree/LED%20Components%20and%20Modules/XLamp/Data%20and%20Binning/ds%20XHP70.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP70_6V",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP70 LED, 6V footprint (2x2 serial LEDs in parallel)",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP70_6V",
+      "datasheet_url": "http://www.cree.com/%7E/media/Files/Cree/LED%20Components%20and%20Modules/XLamp/Data%20and%20Binning/ds%20XHP70.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LTST-C235KGKRKT",
+      "manufacturer": "",
+      "description": "LED dual red/green, 4-pin, down-facing",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_LiteOn_LTST-C235KGKRKT",
+      "datasheet_url": "https://optoelectronics.liteon.com/upload/download/DS22-2009-0219/LTST-C235KGKRKT.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LiteOn_LTST-E563C",
+      "manufacturer": "",
+      "description": "5x5mm RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_LiteOn_LTST-E563C_PLCC4_5.0x5.0mm_P3.2mm",
+      "datasheet_url": "https://optoelectronics.liteon.com/upload/download/DS35-2018-0092/LTST-E563CHEGBW-AW.PDF",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "QLS6A-FKW",
+      "manufacturer": "",
+      "description": "Cree PLCC6 3 in 1 SMD LED with zener protection, PLCC-6",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-PLCC6_4.7x1.5mm",
+      "datasheet_url": "https://www.cree.com/led-components/media/documents/1381-QLS6AFKW.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH4356P",
+      "manufacturer": "",
+      "description": "Infrared LED , 3mm LED package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D3.0mm_IRBlack",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic5/00181708_0.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH460",
+      "manufacturer": "",
+      "description": "GaAlAs Infrared LED, TO-18 package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_THT:TO-18-2_Window",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic6/00029609_0.pdf/SFh%20460.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH482",
+      "manufacturer": "",
+      "description": "GaAlAs Infrared LED (880 nm), TO-18 package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_THT:TO-18-2_Window",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic2/00182155_0.pdf/SFH%20482%20E7800,%20Lead%20(Pb)%20Free%20Product%20-%20RoHS%20Compliant.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SK6805",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_SK6805_PLCC4_2.4x2.7mm_P1.3mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SK6812",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_SK6812_PLCC4_5.0x5.0mm_P3.2mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/product-files/1138/SK6812+LED+datasheet+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SK6812MINI",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_SK6812MINI_PLCC4_3.5x3.5mm_P1.75mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/product-files/2686/SK6812MINI_REV.01-1-2.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SMLVN6RGB",
+      "manufacturer": "",
+      "description": "High Brightness Tri-Color LED, RGB, 3.5x2.8mm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_ROHM_SMLVN6",
+      "datasheet_url": "https://www.rohm.com/datasheet/SMLVN6RGB1U",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2812B",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2812B-2020",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller, 2.0 x 2.0 mm, 12 mA",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812B-2020_PLCC4_2.0x2.0mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/product-files/4684/4684_WS2812B-2020_V1.3_EN.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2812S",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812_PLCC6_5.0x5.0mm_P1.6mm",
+      "datasheet_url": "http://www.world-semi.com/DownLoadFile/115",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2813",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812_PLCC6_5.0x5.0mm_P1.6mm",
+      "datasheet_url": "http://www.normandled.com/upload/201605/WS2813%20LED%20Datasheet.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2822S",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812_PLCC6_5.0x5.0mm_P1.6mm",
+      "datasheet_url": "http://akizukidenshi.com/download/ds/worldsemi/WS2822S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ASMT-YTB7-0AA02",
+      "manufacturer": "",
+      "description": "Triple LED RVB (Avago Technology)",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Avago_PLCC6_3x2.8mm",
+      "datasheet_url": "https://docs.broadcom.com/docs/AV02-3793EN",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CLX6F-FKC",
+      "manufacturer": "",
+      "description": "RGB LED, PLCC-6",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_RGB_PLCC-6",
+      "datasheet_url": "https://assets.cree-led.com/a/ds/h/HB-CLX6F-FKC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CQY99",
+      "manufacturer": "",
+      "description": "950nm IR-LED, 5mm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm_IRGrey",
+      "datasheet_url": "https://www.prtice.info/IMG/pdf/CQY99.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "IR204A",
+      "manufacturer": "",
+      "description": "Infrared LED , 3mm LED package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D3.0mm_IRBlack",
+      "datasheet_url": "http://www.everlight.com/file/ProductFile/IR204-A.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LD274",
+      "manufacturer": "",
+      "description": "950nm IR-LED, 5mm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm_IRGrey",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/siemens/LD274.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_12V_HighIntensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 12V, all 4 LEDs in series, high intensity",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_12V_HighIntensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_3V_HighIntensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 3V, 4 LEDs in parallel, high intensity",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_3V_HighIntensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LED_Cree_XHP50_6V_HighIntensity",
+      "manufacturer": "",
+      "description": "XLamp\u00ae XHP50 LED, 6V, 2x2 serial LEDs in parallel, high intensity",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-XHP50_6V_HighIntensity",
+      "datasheet_url": "https://downloads.cree-led.com/files/ds/x/XLamp-XHP50.3.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "QLS6B-FKW",
+      "manufacturer": "",
+      "description": "Cree PLCC6 3 in 1 SMD LED, PLCC-6",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_Cree-PLCC6_4.7x1.5mm",
+      "datasheet_url": "https://www.cree.com/led-components/media/documents/1397-QLS6BFKW.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH4346",
+      "manufacturer": "",
+      "description": "Infrared LED , 3mm LED package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D3.0mm_IRBlack",
+      "datasheet_url": "http://cdn-reichelt.de/documents/datenblatt/A500/SFH4346.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH4546",
+      "manufacturer": "",
+      "description": "High-Power IR LED 940nm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm_IRGrey",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic1/00101982_0.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH4550",
+      "manufacturer": "",
+      "description": "950nm High-Power IR-LED, 5mm",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D5.0mm_IRGrey",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic3/00116140_0.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "SFH480",
+      "manufacturer": "",
+      "description": "GaAlAs Infrared LED (880 nm), TO-18 package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_TO_SOT_THT:TO-18-2_Window",
+      "datasheet_url": "http://www.osram-os.com/Graphics/XPic1/00083613_0.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TSAL4400",
+      "manufacturer": "",
+      "description": "Infrared LED , 3mm LED package",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_THT:LED_D3.0mm_IRBlack",
+      "datasheet_url": "http://www.vishay.com/docs/81006/tsal4400.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "WS2812",
+      "manufacturer": "",
+      "description": "RGB LED with integrated controller",
+      "category": "DIODE",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "LED_SMD:LED_WS2812_PLCC6_5.0x5.0mm_P1.6mm",
+      "datasheet_url": "https://cdn-shop.adafruit.com/datasheets/WS2812.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

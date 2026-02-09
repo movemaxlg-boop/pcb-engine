@@ -1,0 +1,4220 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:17",
+  "parts": [
+    {
+      "part_number": "0896BM15A0001",
+      "manufacturer": "",
+      "description": "863-928MHz 1:1 RF Transformer, Unbalanced to Balanced",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Balun_Johanson_0896BM15A0001",
+      "datasheet_url": "https://www.johansontechnology.com/datasheets/0896BM15A0001/0896BM15A0001.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "30F-51NL",
+      "manufacturer": "",
+      "description": "1CT:1CT 10/100/1000 Base-T Ethernet Transformer, SMD-24",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_YDS_30F-51NL_SO-24_7.1x15.1mm",
+      "datasheet_url": "https://datasheet.lcsc.com/lcsc/1811051610_Shanghai-YDS-Tech-30F-51NL_C123168.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "5400BL15B050",
+      "manufacturer": "",
+      "description": "4.9-5.9GHz 1:1 RF Transformer, Unbalanced to Balanced",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Balun_Johanson_5400BL15B050E",
+      "datasheet_url": "https://www.johansontechnology.com/datasheets/5400BL15B050/5400BL15B050.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1-1",
+      "manufacturer": "",
+      "description": "0.15-400MHz 1:1 RF Transformer, Balanced to Balanced, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1-1WT",
+      "manufacturer": "",
+      "description": "0.005-125MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1-1WT.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1-1WT-1",
+      "manufacturer": "",
+      "description": "1-400MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1-1WT-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1-6T",
+      "manufacturer": "",
+      "description": "0.06-160MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1-6T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1.5-1",
+      "manufacturer": "",
+      "description": "0.5-650MHz 1:1.5 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1.5-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1.5-122",
+      "manufacturer": "",
+      "description": "20-1200MHz 1:1.5 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1.5-122+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1.5-17",
+      "manufacturer": "",
+      "description": "0.5-1700MHz 1:1.5 RF Transformer, Unbalanced to Unbalanced, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 3,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1.5-17+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT1.5-2",
+      "manufacturer": "",
+      "description": "0.3-225MHz 1:1.5 RF Transformer, Balanced to Balanced, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT1.5-2+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT2-1T",
+      "manufacturer": "",
+      "description": "0.40-450MHz 1:2 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT2-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT3-6T",
+      "manufacturer": "",
+      "description": "1-600MHz 1:3 RF Transformer, Unbalanced to Balanced Center Tap, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT3-6T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-6",
+      "manufacturer": "",
+      "description": "0.07-250MHz 1:4 RF Transformer, Balanced to Balanced, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-6+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTL1-15-75",
+      "manufacturer": "",
+      "description": "10-1500MHz 1:1 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTL1-15-75+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTL1-4-75",
+      "manufacturer": "",
+      "description": "0.5-1000MHz 1:1 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTL1-4-75+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTT1-1",
+      "manufacturer": "",
+      "description": "0.3-300MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTT1-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTT1-6",
+      "manufacturer": "",
+      "description": "0.015-100MHz 1:1 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD637",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTT1-6+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTT1.5-1",
+      "manufacturer": "",
+      "description": "0.25-300MHz 1:1.5 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTT1.5-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "B0322J5050AHF",
+      "manufacturer": "",
+      "description": "300MHz to 2200MHz 1:1 RF Transformer, 50 ohm, Unbalanced to Balanced",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Anaren_0805_2012Metric-6",
+      "datasheet_url": "https://cdn.ttm.com/repository/products/wireless-xinger/balun-transformers/B0322J5050AHF/B0322J5050AHF.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST1",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 20A, 1:20 to 1:125",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST1",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST1_Split",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 20A, 1:20 to 1:125",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST1",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST2",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 20A, 1:20 to 1:125",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST2",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST2010",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 40A, 1:20 to 1:200",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST2010",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst2010.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST2010_Split",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 40A, 1:20 to 1:200",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST2010",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst2010.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CST2_Split",
+      "manufacturer": "",
+      "description": "Coilcraft Current Sense Transformer, SMD, 20A, 1:20 to 1:125",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Coilcraft_CST2",
+      "datasheet_url": "https://www.coilcraft.com/pdfs/cst.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ED8_4",
+      "manufacturer": "",
+      "description": "600:600 Impedance Permalloy Core 1:1 Isolated Audio Transformer",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_ED8_4-Lead_10.5x8mm_P5mm",
+      "datasheet_url": "https://gitlab.com/kicad/libraries/kicad-footprints/-/merge_requests/3626",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ETC1-1-13",
+      "manufacturer": "",
+      "description": "4.5-4000MHz 1:1 RF Transformer, Balanced Transmission Line, SM-22",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_MACOM_SM-22",
+      "datasheet_url": "https://cdn.macom.com/datasheets/ETC1-1-13.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "LL1587",
+      "manufacturer": "",
+      "description": "Lundahl Transformers, Microphone Transformer",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Microphone_Lundahl_LL1587",
+      "datasheet_url": "http://www.lundahl.se/wp-content/uploads/datasheets/1587.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "P0926NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_P0926NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA1323NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA1323NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2001NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2001NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2002NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2004NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2004NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2005NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2005NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2006NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2006NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2007NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2007NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2777NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2777NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA3493NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1.25:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA3493NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PT61017PEL",
+      "manufacturer": "",
+      "description": "Ethernet LAN 10/100 Base-Tx Transformer with Center Taps",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 12,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_Bourns_PT61017PEL",
+      "datasheet_url": "https://www.bourns.com/docs/Product-Datasheets/PT61017PEL.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PT61020EL",
+      "manufacturer": "",
+      "description": "10/100/1000 Base-T Ethernet Transformer, SMD-24",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_Bourns_PT61020EL",
+      "datasheet_url": "https://www.bourns.com/pdfs/PT61020.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TC1-1-13M+",
+      "manufacturer": "",
+      "description": "4.5-3000MHz 1:1 RF Transformer, Balanced Transmission Line, AT224-1A",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_MiniCircuits_AT224-1A",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/TC1-1-13M+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ0.5-D-1",
+      "manufacturer": "",
+      "description": "TEZ0.5/D/x, 0.5VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-22x24",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ0.5-D-2",
+      "manufacturer": "",
+      "description": "TEZ0.5/D/x-x, 0.5VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-22x24",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ1.5-D-1",
+      "manufacturer": "",
+      "description": "TEZ1.5/D/x, 1.5VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ1.5-D-2",
+      "manufacturer": "",
+      "description": "TEZ1.5/D/x-x, 1.5VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ10.0-D-1",
+      "manufacturer": "",
+      "description": "TEZ10.0/D/x, 10VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-44x52",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ10.0-D-2",
+      "manufacturer": "",
+      "description": "TEZ10.0/D/x-x, 10VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-44x52",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ16.0-D-1",
+      "manufacturer": "",
+      "description": "TEZ16.0/D/x, 16VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-47x57",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ16.0-D-2",
+      "manufacturer": "",
+      "description": "TEZ16.0/D/x-x, 16VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-47x57",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.0-D-1",
+      "manufacturer": "",
+      "description": "TEZ2.0/D/x, 2VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.0-D-2",
+      "manufacturer": "",
+      "description": "TEZ2.0/D/x-x, 2VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.5-D-1",
+      "manufacturer": "",
+      "description": "TEZ2.5/D/x, 2.5VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.5-D-2",
+      "manufacturer": "",
+      "description": "TEZ2.5/D/x-x, 2.5VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.6-D-1",
+      "manufacturer": "",
+      "description": "TEZ2.6/D/x, 2.6VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ2.6-D-2",
+      "manufacturer": "",
+      "description": "TEZ2.6/D/x-x, 2.6VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-28x33",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ4.0-D-1",
+      "manufacturer": "",
+      "description": "TEZ4.0/D/x, 4VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-35x42",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ4.0-D-2",
+      "manufacturer": "",
+      "description": "TEZ4.0/D/x-x, 4VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-35x42",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ6.0-D-1",
+      "manufacturer": "",
+      "description": "TEZ6.0/D/x, 6VA, Single Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-38x45",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TEZ6.0-D-2",
+      "manufacturer": "",
+      "description": "TEZ6.0/D/x-x, 6VA, Dual Secondary, Cast Resin Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Breve_TEZ-38x45",
+      "datasheet_url": "http://www.breve.pl/pdf/ANG/TEZ_ang.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TG110-E050N5xx",
+      "manufacturer": "",
+      "description": "Ethernet LAN 10/100 Base-Tx Transformer",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 16,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_Halo_N5_SO-16_7.11x12.7mm",
+      "datasheet_url": "https://www.haloelectronics.com/pdf/discrete-ultra-100baset.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TG111-MSC13LF",
+      "manufacturer": "",
+      "description": "Single Port Gigabit Ethernet Transformers",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 24,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_HALO_TG111-MSC13",
+      "datasheet_url": "https://www.haloelectronics.com/pdf/discrete-genesus.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TR1-SO8",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TR60_FC",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TR60_IC",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TR60_IC2",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF1",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF2",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF3",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF4",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 5,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF5",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF6",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF7",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TRANSF8",
+      "manufacturer": "",
+      "description": "",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 7,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Triad_VPP16-310",
+      "manufacturer": "",
+      "description": "Power transformer, 2x Pri, 2x Sec, 230/115 VAC to 16/8V (0.31/0.62 A)",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Triad_VPP16-310",
+      "datasheet_url": "https://catalog.triadmagnetics.com/Asset/VPP16-310.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Wuerth_750315371",
+      "manufacturer": "",
+      "description": "5V, 1A , 320 - 480kHz, 1:1.1, Center Tapped, SMD",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 6,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Wuerth_750315371",
+      "datasheet_url": "https://www.we-online.com/catalog/datasheet/750315371.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Wuerth_750343373",
+      "manufacturer": "",
+      "description": "Primary 18-60V 300kHz, Dual Secondary 12V-3A/12V-1A, Flyback Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 10,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Wuerth_750343373",
+      "datasheet_url": "https://katalog.we-online.com/ctm/datasheet/750343373.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Wuerth_760871131",
+      "manufacturer": "",
+      "description": "Primary 120-420V 60kHz, Dual Secondary 12V-0.5A/12V-0.5A, Single Aux 15V 0.1A, Flyback Transformer, PCB",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 14,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Wuerth_760871131",
+      "datasheet_url": "https://www.we-online.com/catalog/datasheet/760871131.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Wurth_750319177",
+      "manufacturer": "",
+      "description": "WE-AGDT Auxiliary Gate Drive, WE-AGDT-EP7",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 8,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Wurth_WE-AGDT-EP7",
+      "datasheet_url": "https://www.we-online.com/components/products/datasheet/750319177.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ZMCT103C",
+      "manufacturer": "",
+      "description": "Qingxian Zeming Langxi Electronic ZMCT103C current transformer 1000:1 10A",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 2,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Zeming_ZMCT103C",
+      "datasheet_url": "https://5krorwxhmqqirik.leadongcdn.com/ZMCT103C+specification-aidirBqoKomRilSjpimnokp.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ZMPT101K",
+      "manufacturer": "",
+      "description": "Qingxian Zeming Langxi Electronic ZMPT101K voltage transformer 1000:1000 2mA:2mA",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 4,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_THT:Transformer_Zeming_ZMPT101K",
+      "datasheet_url": "https://5krorwxhmqqirik.leadongcdn.com/ZMPT101K+specification-aidikBqoKomRilSkopqmikp.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "0433BM15A0001",
+      "manufacturer": "",
+      "description": "430-435MHz 1:1 RF Transformer, Unbalanced to Balanced, with integrated DC blocking capacitor",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Balun_Johanson_0896BM15A0001",
+      "datasheet_url": "https://www.johansontechnology.com/datasheets/0433BM15A0001/0433BM15A0001.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "0868BM15C0001",
+      "manufacturer": "",
+      "description": "863-873MHz 1:1 RF Transformer, Unbalanced to Balanced, with integrated DC blocking capacitor",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Balun_Johanson_0896BM15A0001",
+      "datasheet_url": "https://www.johansontechnology.com/datasheets/0868BM15C0001/0868BM15C0001.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "0915BM15A0001",
+      "manufacturer": "",
+      "description": "902-928MHz 1:1 RF Transformer, Unbalanced to Balanced, with integrated DC blocking capacitor",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Converter:Balun_Johanson_0896BM15A0001",
+      "datasheet_url": "https://www.johansontechnology.com/datasheets/0915BM15A0001/0915BM15A0001.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT16-1T",
+      "manufacturer": "",
+      "description": "1.5-160MHz 1:16 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT16-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT16-6",
+      "manufacturer": "",
+      "description": "0.25-105MHz 1:16 RF Transformer, Balanced to Balanced, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT16-6+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT16-6T",
+      "manufacturer": "",
+      "description": "0.10-400MHz 1:16 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT16-6T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT2-1T-1P",
+      "manufacturer": "",
+      "description": "8-600MHz 1:2 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT2-1T-1P+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT2-71T",
+      "manufacturer": "",
+      "description": "0.40-500MHz 1:2 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT2-71T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT3-1T",
+      "manufacturer": "",
+      "description": "1-500MHz 1:3 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT3-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT3-1T-75",
+      "manufacturer": "",
+      "description": "1-500MHz 1:3 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT3-1T-75+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-1T",
+      "manufacturer": "",
+      "description": "9-625MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-1WT",
+      "manufacturer": "",
+      "description": "2-775MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-1WT+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-5WT",
+      "manufacturer": "",
+      "description": "1-650MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap, CD637",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-5WT+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-6T",
+      "manufacturer": "",
+      "description": "1.5-70MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap, CD637",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-6T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT4-6WT",
+      "manufacturer": "",
+      "description": "2-70MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap, CD637",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT4-6WT+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT8-1T",
+      "manufacturer": "",
+      "description": "8-775MHz 1:8 RF Transformer, Unbalanced to Balanced Center Tap, CD637",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD637_H5.23mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT8-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADT9-1T",
+      "manufacturer": "",
+      "description": "1-250MHz 1:9 RF Transformer, Unbalanced to Balanced Center Tap, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADT9-1T+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTL1-12",
+      "manufacturer": "",
+      "description": "20-1200MHz 1:1 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTL1-12+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTL1-18-75",
+      "manufacturer": "",
+      "description": "5-1800MHz 1:1 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTL1-18-75+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTL2-18",
+      "manufacturer": "",
+      "description": "30-1800MHz 1:2 RF Transformer, Balanced Transmission Line, CD542",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTL2-18+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTT3-2",
+      "manufacturer": "",
+      "description": "0.2-210MHz 1:3 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTT3-2+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADTT4-1",
+      "manufacturer": "",
+      "description": "0.2-120MHz 1:4 RF Transformer, Unbalanced to Balanced Center Tap at Primary/Secondary, CD636",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "RF_Mini-Circuits:Mini-Circuits_CD636_H4.11mm",
+      "datasheet_url": "https://www.minicircuits.com/pdfs/ADTT4-1+.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "P0544NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0173NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2005NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0184NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2007NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0184NL1",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2777NL",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0185NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2006NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0185NL1",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1.25:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA3493NL",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0264NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2004NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0297NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 2:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA0510NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 2.5:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2008NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 2:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PA2009NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 2.5:1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2002NL-PA2008NL-PA2009NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/P663.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "PE-68386NL",
+      "manufacturer": "",
+      "description": "SMT Gate Drive Transformer, 1:1",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Pulse_PA2001NL",
+      "datasheet_url": "https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TG110-S050N2xx",
+      "manufacturer": "",
+      "description": "Ethernet LAN 10/100 Base-Tx Transformer",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_Halo_N2_SO-16_7.11x12.7mm",
+      "datasheet_url": "https://www.haloelectronics.com/pdf/discrete-ultra-100baset.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Wuerth_749013011A",
+      "manufacturer": "",
+      "description": "Ethernet LAN 10/100 Base-Tx Transformer CT, SMD",
+      "category": "",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Transformer_SMD:Transformer_Ethernet_Wuerth_749013011A",
+      "datasheet_url": "https://www.we-online.com/katalog/datasheet/749013011A.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}

@@ -1,0 +1,2672 @@
+{
+  "version": "1.0",
+  "source": "KiCad Symbol Libraries",
+  "library_path": "C:/Program Files/KiCad/9.0/share/kicad/symbols",
+  "import_date": "2026-02-09 11:09:12",
+  "parts": [
+    {
+      "part_number": "CDP1802ACE",
+      "manufacturer": "",
+      "description": "8-bit, General Purpose, 5V, 3.2 MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.cosmacelf.com/publications/data-sheets/cdp1802.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "P4080-BGA1295",
+      "manufacturer": "",
+      "description": "QorIQ P4080 Communications Processor, BGA-1295",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 1216,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "https://www.nxp.com/jp/products/microcontrollers-and-processors/power-architecture-processors/qoriq-platforms/p-series/qoriq-p4080-p4040-p4081-multicore-communications-processors:P4080?&tab=Documentation_Tab&linkline=Data-Sheet",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Z084000xP",
+      "manufacturer": "",
+      "description": "8-bit General Purpose Microprocessor, 8-bit data bus, 16-bit address bus, 4 / 6.17 / 8 MHz, DIP-40 (600 mil)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "https://archive.org/details/zilog-z-8400",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CDP1802ACEX",
+      "manufacturer": "",
+      "description": "8-bit, General Purpose, 5V, 3.2 MHz, Burned-In, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.cosmacelf.com/publications/data-sheets/cdp1802.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CDP1802BCE",
+      "manufacturer": "",
+      "description": "8-bit, General Purpose, 5V, 5 MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.cosmacelf.com/publications/data-sheets/cdp1802.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "CDP1802BCEX",
+      "manufacturer": "",
+      "description": "8-bit, General Purpose, 5V, 5 MHz, Burned-In, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.cosmacelf.com/publications/data-sheets/cdp1802.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "Z84C00xxP",
+      "manufacturer": "",
+      "description": "8-bit General Purpose Microprocessor, 8-bit data bus, 16-bit address bus, up to 6.17 / 8 / 10 / 20 MHz, CMOS version, DIP-40 (600 mil)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "https://archive.org/details/zilog-z-8400",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC6800",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC6802",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC6809",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC6809E",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://www.bitsavers.org/components/motorola/_dataSheets/6809E.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68A00",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.5MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68A02",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.5MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68A09",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.5MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68A09E",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 1.5MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68B00",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 2.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68B02",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 2.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68B09",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 2.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68B09E",
+      "manufacturer": "",
+      "description": "8-Bit Microprocessing unit 2.0MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68000FN",
+      "manufacturer": "",
+      "description": "16/32-bit microprocessor, 16-bit external data bus, 23-bit external address bus (effectively 24-bit), PLCC-68 (case 779-01)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 68,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_LCC:PLCC-68_24.2x24.2mm_P1.27mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68000P",
+      "manufacturer": "",
+      "description": "16/32-bit microprocessor, 16-bit external data bus, 23-bit external address bus (effectively 24-bit), DIP-64 (900 mil, case 754-01)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 64,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-64_W22.86mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68008FN",
+      "manufacturer": "",
+      "description": "8/32-bit microprocessor, 8-bit external data bus, 22-bit external address bus, PLCC-52 (case 778-01/778-02)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 52,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_LCC:MO047AD_PLCC-52_19.1x19.1mm_P1.27mm",
+      "datasheet_url": "https://archive.org/details/bitsavers_motorola68Apr85_5825575/mode/1up",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68008P",
+      "manufacturer": "",
+      "description": "8/32-bit microprocessor, 8-bit external data bus, 20-bit external address bus, DIP-48 (600 mil, case 767-02)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-48_W15.24mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68332",
+      "manufacturer": "",
+      "description": "MCU 32 bit, PQFP-132",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 132,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:PQFP-132_24x24mm_P0.635mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet/motorola/SPAKMC332AVFC20.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68010P",
+      "manufacturer": "",
+      "description": "16/32-bit microprocessor, 16-bit external data bus, 23-bit external address bus (effectively 24-bit), virtual memory support, loop mode, DIP-64 (900 mil, case 754-01)",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-64_W22.86mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6QP5EYM",
+      "manufacturer": "",
+      "description": "i.MX 6QuadPlus Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 624,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6QP7CVT",
+      "manufacturer": "",
+      "description": "i.MX 6QuadPlus Application Processor for Industrial Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 624,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPIEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6D4AVT",
+      "manufacturer": "",
+      "description": "i.MX 6Dual Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6D5EYM",
+      "manufacturer": "",
+      "description": "i.MX 6Dual Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6D6AVT",
+      "manufacturer": "",
+      "description": "i.MX 6Dual Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6D7CVT",
+      "manufacturer": "",
+      "description": "i.MX 6Dual Application Processor for Industrial Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQIEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6DP4AVT",
+      "manufacturer": "",
+      "description": "i.MX 6DualPlus Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6DP5EVT",
+      "manufacturer": "",
+      "description": "i.MX 6DualPlus Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6DP5EYM",
+      "manufacturer": "",
+      "description": "i.MX 6DualPlus Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6DP6AVT",
+      "manufacturer": "",
+      "description": "i.MX 6DualPlus Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6DP7CVT",
+      "manufacturer": "",
+      "description": "i.MX 6DualPlus Application Processor for Industrial Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPIEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6Q4AVT",
+      "manufacturer": "",
+      "description": "i.MX 6Quad Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6Q5EYM",
+      "manufacturer": "",
+      "description": "i.MX 6Quad Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6Q6AVT",
+      "manufacturer": "",
+      "description": "i.MX 6Quad Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6Q7CVT",
+      "manufacturer": "",
+      "description": "i.MX 6Quad Application Processor for Industrial Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQIEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6QP4AVT",
+      "manufacturer": "",
+      "description": "i.MX 6QuadPlus Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6QP5EVT",
+      "manufacturer": "",
+      "description": "i.MX 6QuadPlus Application Processor for Consumer Products, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPCEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MCIMX6QP6AVT",
+      "manufacturer": "",
+      "description": "i.MX 6QuadPlus Automotive and Infotainment Application Processor, BGA-624",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_BGA:BGA-624_21x21mm_Layout25x25_P0.8mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/IMX6DQPAEC.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MPC8641D",
+      "manufacturer": "",
+      "description": "Freescale PowerPC E600 core, package BGA1023 pins pitch 1mm",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 1022,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADAU1450",
+      "manufacturer": "",
+      "description": "SigmaDSP SigmaDSP Digital Audio Processor, 147.456 MHz, 8kword Data RAM, I2C/SPI, LFCSP-72",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 73,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADAU1701",
+      "manufacturer": "",
+      "description": "SigmaDSP 28-/56-Bit Audio Processor with Two ADCs and Four DACs, 50 MIPS, 1kword Program RAM, 2kword Data RAM, LQFP-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 48,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:LQFP-48_7x7mm_P0.5mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1701.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADAU1451",
+      "manufacturer": "",
+      "description": "SigmaDSP SigmaDSP Digital Audio Processor, 294.912 MHz, 40kword Data RAM, I2C/SPI, S/PDIF I/O, 16-Channel ASRC, LFCSP-72",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADAU1452",
+      "manufacturer": "",
+      "description": "SigmaDSP SigmaDSP Digital Audio Processor, 294.912 MHz, 40kword Data RAM, I2C/SPI, S/PDIF I/O, 16-Channel ASRC, LFCSP-72",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "ADAU1702",
+      "manufacturer": "",
+      "description": "SigmaDSP 28-/56-Bit Audio Processor with Two ADCs and Four DACs, 25 MIPS, 512kword Program RAM, 512kword Data RAM, LQFP-48",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:LQFP-48_7x7mm_P0.5mm",
+      "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1702.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSP96002",
+      "manufacturer": "",
+      "description": "32-bit General Purpose Floating-point DSP, Dual Port, PGA-223",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 218,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://cache.freescale.com/files/dsp/doc/inactive/DSP96002.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33EP256MU810-xPT",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 256k Flash, 30k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 100,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:TQFP-100_14x14mm_P0.5mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70616g.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128GP204",
+      "manufacturer": "",
+      "description": "40MIPS, 128k Flash, 8k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128GP804",
+      "manufacturer": "",
+      "description": "40MIPS, 128k Flash, 16k SRAM, ECAN, Audio DAC",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128MC204",
+      "manufacturer": "",
+      "description": "40MIPS, 128k Flash, 8k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128MC804",
+      "manufacturer": "",
+      "description": "40MIPS, 128k Flash, 16k SRAM, ECAN, 16-bit DAC",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ256MC710A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 256k Flash, 30k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 100,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ32GP304",
+      "manufacturer": "",
+      "description": "40MIPS, 32k Flash, 4k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ32MC304",
+      "manufacturer": "",
+      "description": "40MIPS, 32k Flash, 8k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64GP204",
+      "manufacturer": "",
+      "description": "40MIPS, 64k Flash, 8k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64GP306A-IMR",
+      "manufacturer": "",
+      "description": "40MIPS, 64k Flash, 16k SRAM, QFN-64",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 65,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70593d.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64GP804",
+      "manufacturer": "",
+      "description": "40MIPS, 64k Flash, 16k SRAM, ECAN, Audio DAC",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64MC204",
+      "manufacturer": "",
+      "description": "40MIPS, 64k Flash, 8k SRAM",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64MC802-xSP",
+      "manufacturer": "",
+      "description": "40 MIPS, 64k Flash, 16k SRAM, DIP-28",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 28,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-28_W7.62mm",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64MC804",
+      "manufacturer": "",
+      "description": "40MIPS, 64k Flash, 16k SRAM, ECAN, 16-bit DAC",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 44,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128MC510A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 128k Flash, 8k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ128MC710A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller,40MIPS, 128k Flash, 16k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ256MC510A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 256k Flash, 16k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64MC510A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 64k Flash, 8k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSPIC33FJ64MC710A",
+      "manufacturer": "",
+      "description": "High-Performance, 16-bit Digital Signal Controller, 40MIPS, 64k Flash, 16k SRAM, TQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "DSP56301",
+      "manufacturer": "",
+      "description": "24-Bit Digital Signal Processor with PCI bus interface",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 200,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_QFP:PQFP-208_28x28mm_P0.5mm",
+      "datasheet_url": "https://www.nxp.com/docs/en/data-sheet/DSP56301DS.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "TMS320LF2406PZ",
+      "manufacturer": "",
+      "description": "16bit DSP Controller 32Kx16B Flash 2.5Kx16B RAM, Obsolete NRND, PQFP-100",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 98,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "",
+      "datasheet_url": "http://www.ti.com/lit/ds/symlink/tms320lf2406.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC6845",
+      "manufacturer": "",
+      "description": "CRT Controller 1MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 40,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68A45",
+      "manufacturer": "",
+      "description": "CRT Controller 1.5MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf",
+      "data_source": "KiCad Symbol Library"
+    },
+    {
+      "part_number": "MC68B45",
+      "manufacturer": "",
+      "description": "CRT Controller 2MHz, DIP-40",
+      "category": "IC",
+      "subcategory": "",
+      "thermal": {
+        "theta_ja": 0.0,
+        "theta_jc": 0.0,
+        "max_temp": 125.0
+      },
+      "electrical": {
+        "voltage_max": 0.0,
+        "current_max": 0.0,
+        "value": 0.0,
+        "tolerance": 0.0,
+        "supply_voltage_range": [
+          0.0,
+          0.0
+        ],
+        "output_current": 0.0
+      },
+      "mechanical": {
+        "package": "",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0,
+        "pin_count": 0,
+        "pin_pitch": 0.0
+      },
+      "alternatives": [],
+      "design_notes": [],
+      "footprint": "Package_DIP:DIP-40_W15.24mm",
+      "datasheet_url": "http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf",
+      "data_source": "KiCad Symbol Library"
+    }
+  ]
+}
