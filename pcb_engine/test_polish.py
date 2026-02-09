@@ -176,10 +176,31 @@ if output_file:
 else:
     print(f"   ERROR: No output generated")
 
+# Step 6: SAFETY CHECK (Manufacturing Quality Gate)
+print("\n6. SAFETY CHECK (Manufacturing Quality Gate)")
+from pcb_engine.safety_piston import SafetyPiston, SafetyConfig
+
+# Collect vias from all routes
+all_vias = []
+for route in polish_result.routes.values():
+    all_vias.extend(route.vias)
+
+safety_piston = SafetyPiston(SafetyConfig())
+safety_result = safety_piston.check(
+    parts_db=complex_parts_db,
+    placement=placement_result.positions,
+    routes=polish_result.routes,
+    board_width=40.0,
+    board_height=30.0,
+    vias=all_vias
+)
+safety_piston.print_report(safety_result)
+
 print("\n" + "=" * 70)
 print("SUMMARY")
 print("=" * 70)
 print(f"Original: {routing_result.via_count} vias, {total_segments} segments")
 print(f"Polished: {polish_result.new_via_count} vias, {polish_result.new_segment_count} segments")
 print(f"Board shrunk by {polish_result.board_reduction_percent:.1f}%")
+print(f"Safety Score: {safety_result.overall_score:.0f}/100")
 print("=" * 70)

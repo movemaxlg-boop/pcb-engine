@@ -45,7 +45,188 @@ import numpy as np
 
 
 # =============================================================================
-# SPATIAL INDEX - O(1) OBSTACLE LOOKUPS
+# QUADTREE SPATIAL INDEX - O(log n) COURTYARD LOOKUPS
+# =============================================================================
+# For answering "What components are near (x, y)?" in O(log n) instead of O(n)
+# Uses component courtyards for accurate bounding boxes.
+
+@dataclass
+class BoundingBox:
+    """Axis-aligned bounding box for spatial queries"""
+    min_x: float
+    min_y: float
+    max_x: float
+    max_y: float
+
+    def contains_point(self, x: float, y: float) -> bool:
+        return self.min_x <= x <= self.max_x and self.min_y <= y <= self.max_y
+
+    def intersects(self, other: 'BoundingBox') -> bool:
+        return not (self.max_x < other.min_x or other.max_x < self.min_x or
+                    self.max_y < other.min_y or other.max_y < self.min_y)
+
+    def contains_box(self, other: 'BoundingBox') -> bool:
+        return (self.min_x <= other.min_x and self.max_x >= other.max_x and
+                self.min_y <= other.min_y and self.max_y >= other.max_y)
+
+    @property
+    def center(self) -> Tuple[float, float]:
+        return ((self.min_x + self.max_x) / 2, (self.min_y + self.max_y) / 2)
+
+    @property
+    def width(self) -> float:
+        return self.max_x - self.min_x
+
+    @property
+    def height(self) -> float:
+        return self.max_y - self.min_y
+
+
+@dataclass
+class QuadTreeItem:
+    """An item stored in the quadtree (component courtyard)"""
+    ref: str              # Component reference (e.g., "U1", "R1")
+    bbox: BoundingBox     # Courtyard bounding box
+    net: Optional[str]    # Net name if pad, None if component body
+    layer: str = 'F.Cu'   # Which layer this blocks
+
+
+class QuadTree:
+    """
+    Quadtree for O(log n) spatial queries on component courtyards.
+
+    Unlike the bitmap-based SpatialIndex which works at grid resolution,
+    the QuadTree works at real-world coordinates and provides:
+    - "What components are at position (x, y)?" → O(log n)
+    - "What components intersect this rectangle?" → O(log n + k)
+    - "What obstacles are within distance d of point (x, y)?" → O(log n + k)
+
+    This is especially useful for:
+    - Large boards with many components
+    - Fine-grained obstacle queries during routing
+    - Courtyard-based collision detection
+    """
+
+    MAX_ITEMS = 4     # Split when exceeding this
+    MAX_DEPTH = 10    # Maximum tree depth
+
+    def __init__(self, bounds: BoundingBox, depth: int = 0):
+        self.bounds = bounds
+        self.depth = depth
+        self.items: List[QuadTreeItem] = []
+        self.children: Optional[List['QuadTree']] = None  # NW, NE, SW, SE
+
+    def insert(self, item: QuadTreeItem) -> bool:
+        """Insert an item into the quadtree. Returns True if successful."""
+        # Check if item intersects this node's bounds
+        if not self.bounds.intersects(item.bbox):
+            return False
+
+        # If we have children, try to insert into them
+        if self.children is not None:
+            for child in self.children:
+                if child.bounds.contains_box(item.bbox):
+                    return child.insert(item)
+            # Item spans multiple children, keep it at this level
+            self.items.append(item)
+            return True
+
+        # Add to this node
+        self.items.append(item)
+
+        # Split if needed
+        if len(self.items) > self.MAX_ITEMS and self.depth < self.MAX_DEPTH:
+            self._split()
+
+        return True
+
+    def _split(self):
+        """Split this node into 4 children"""
+        cx, cy = self.bounds.center
+        min_x, min_y = self.bounds.min_x, self.bounds.min_y
+        max_x, max_y = self.bounds.max_x, self.bounds.max_y
+
+        self.children = [
+            QuadTree(BoundingBox(min_x, cy, cx, max_y), self.depth + 1),  # NW
+            QuadTree(BoundingBox(cx, cy, max_x, max_y), self.depth + 1),  # NE
+            QuadTree(BoundingBox(min_x, min_y, cx, cy), self.depth + 1),  # SW
+            QuadTree(BoundingBox(cx, min_y, max_x, cy), self.depth + 1),  # SE
+        ]
+
+        # Re-distribute items to children
+        remaining = []
+        for item in self.items:
+            inserted = False
+            for child in self.children:
+                if child.bounds.contains_box(item.bbox):
+                    child.insert(item)
+                    inserted = True
+                    break
+            if not inserted:
+                remaining.append(item)  # Spans multiple children
+        self.items = remaining
+
+    def query_point(self, x: float, y: float) -> List[QuadTreeItem]:
+        """Find all items whose bounding boxes contain the point (x, y)."""
+        results = []
+
+        # Check if point is in bounds
+        if not self.bounds.contains_point(x, y):
+            return results
+
+        # Check items at this level
+        for item in self.items:
+            if item.bbox.contains_point(x, y):
+                results.append(item)
+
+        # Check children
+        if self.children is not None:
+            for child in self.children:
+                results.extend(child.query_point(x, y))
+
+        return results
+
+    def query_range(self, bbox: BoundingBox) -> List[QuadTreeItem]:
+        """Find all items that intersect the given bounding box."""
+        results = []
+
+        if not self.bounds.intersects(bbox):
+            return results
+
+        for item in self.items:
+            if item.bbox.intersects(bbox):
+                results.append(item)
+
+        if self.children is not None:
+            for child in self.children:
+                results.extend(child.query_range(bbox))
+
+        return results
+
+    def query_radius(self, x: float, y: float, radius: float) -> List[QuadTreeItem]:
+        """Find all items within radius of point (x, y)."""
+        # Use bounding box query then filter by distance
+        search_box = BoundingBox(x - radius, y - radius, x + radius, y + radius)
+        candidates = self.query_range(search_box)
+
+        results = []
+        radius_sq = radius * radius
+        for item in candidates:
+            # Check if any corner of bbox is within radius
+            cx, cy = item.bbox.center
+            dist_sq = (cx - x)**2 + (cy - y)**2
+            if dist_sq <= radius_sq:
+                results.append(item)
+                continue
+            # Check if point is inside bbox (edge case)
+            if item.bbox.contains_point(x, y):
+                results.append(item)
+
+        return results
+
+
+# =============================================================================
+# SPATIAL INDEX - O(1) OBSTACLE LOOKUPS (Grid-based)
 # =============================================================================
 # Concept borrowed from database query indexing: pre-compute everything once,
 # then use O(1) bitmap lookups instead of O(n) neighbor scans during routing.
@@ -347,9 +528,13 @@ class RoutingPiston:
         # Special grid markers
         self.BLOCKED_MARKERS = {'__PAD_NC__', '__COMPONENT__', '__EDGE__', '__PAD_CONFLICT__'}
 
-        # SPATIAL INDEX for O(1) obstacle lookups (initialized lazily)
+        # SPATIAL INDEX for O(1) obstacle lookups (grid-based bitmap)
         self.spatial_index: Optional[SpatialIndex] = None
         self.use_spatial_index = True  # Enable by default
+
+        # QUADTREE for O(log n) courtyard-based spatial queries
+        # Used for "what obstacles are near (x,y)?" queries
+        self.courtyard_tree: Optional[QuadTree] = None
 
         # Statistics
         self.stats = {
@@ -471,16 +656,20 @@ class RoutingPiston:
 
     def _build_spatial_index(self):
         """
-        Build spatial index from the occupancy grids.
+        Build spatial indexes from the occupancy grids and component data.
 
-        This pre-computes obstacle locations and clearance zones for O(1) lookups
-        during routing, instead of O(n) neighbor scans per cell.
+        Two index types are built:
+        1. SpatialIndex (bitmap) - O(1) grid-based lookups for routing
+        2. QuadTree (tree) - O(log n) courtyard-based queries
 
         Inspired by database query indexing - precompute once, query fast.
         """
         import time
         start = time.time()
 
+        # =====================================================================
+        # BUILD BITMAP INDEX (Grid-based O(1) lookups)
+        # =====================================================================
         self.spatial_index = SpatialIndex(rows=self.grid_rows, cols=self.grid_cols)
 
         # Transfer blocked markers from grids to spatial index
@@ -506,9 +695,123 @@ class RoutingPiston:
             via_clearance_cells=self.via_clearance_cells
         )
 
-        elapsed = time.time() - start
-        print(f"    [INDEX] Spatial index built in {elapsed*1000:.1f}ms "
-              f"({self.grid_rows}x{self.grid_cols} = {self.grid_rows*self.grid_cols:,} cells)")
+        bitmap_time = time.time() - start
+
+        # =====================================================================
+        # BUILD QUADTREE INDEX (Courtyard-based O(log n) queries)
+        # =====================================================================
+        tree_start = time.time()
+        self._build_quadtree()
+        tree_time = time.time() - tree_start
+
+        total_time = time.time() - start
+        # Count all items in quadtree (including children)
+        courtyard_count = self._count_quadtree_items(self.courtyard_tree) if self.courtyard_tree else 0
+        print(f"    [INDEX] Built in {total_time*1000:.1f}ms: "
+              f"bitmap={bitmap_time*1000:.1f}ms, quadtree={tree_time*1000:.1f}ms "
+              f"({self.grid_rows}x{self.grid_cols} cells, {courtyard_count} courtyards)")
+
+    def _count_quadtree_items(self, node: QuadTree) -> int:
+        """Recursively count all items in a quadtree."""
+        if node is None:
+            return 0
+        count = len(node.items)
+        if node.children:
+            for child in node.children:
+                count += self._count_quadtree_items(child)
+        return count
+
+    def _build_quadtree(self):
+        """
+        Build QuadTree from component courtyards.
+
+        This enables O(log n) queries for "what obstacles are near (x, y)?",
+        essential for efficient routing on large boards with many components.
+        """
+        # Import courtyard calculation utility
+        try:
+            from .common_types import calculate_courtyard
+        except ImportError:
+            from common_types import calculate_courtyard
+
+        # Create quadtree covering the board
+        board_bounds = BoundingBox(
+            min_x=0, min_y=0,
+            max_x=self.config.board_width,
+            max_y=self.config.board_height
+        )
+        self.courtyard_tree = QuadTree(board_bounds)
+
+        # Insert component courtyards
+        if not hasattr(self, '_placement') or not hasattr(self, '_parts_db'):
+            return  # No placement data yet
+
+        parts = self._parts_db.get('parts', {})
+
+        for ref, pos in self._placement.items():
+            part = parts.get(ref, {})
+            footprint = part.get('footprint', part.get('package', ''))
+
+            # Get position
+            pos_x = pos.x if hasattr(pos, 'x') else pos[0]
+            pos_y = pos.y if hasattr(pos, 'y') else pos[1]
+
+            # Calculate courtyard bounds using official function
+            courtyard = calculate_courtyard(part, margin=0.0, footprint_name=footprint)
+
+            # Create bounding box
+            bbox = BoundingBox(
+                min_x=pos_x + courtyard.min_x,
+                min_y=pos_y + courtyard.min_y,
+                max_x=pos_x + courtyard.max_x,
+                max_y=pos_y + courtyard.max_y
+            )
+
+            # Determine layer blocking
+            fp_lower = footprint.lower()
+            is_smd = any(pkg in fp_lower for pkg in [
+                '0402', '0603', '0805', '1206', 'sot', 'soic', 'qfp', 'qfn', 'bga'
+            ])
+            layer = 'F.Cu' if is_smd else 'BOTH'
+
+            # Insert into quadtree
+            item = QuadTreeItem(ref=ref, bbox=bbox, net=None, layer=layer)
+            self.courtyard_tree.insert(item)
+
+    def query_obstacles_near(self, x: float, y: float, radius: float = 2.0) -> List[str]:
+        """
+        Query component references near a point using the QuadTree.
+
+        This is O(log n + k) where k is the number of results,
+        compared to O(n) for scanning all components.
+
+        Args:
+            x, y: Position in mm
+            radius: Search radius in mm
+
+        Returns:
+            List of component references near the point
+        """
+        if self.courtyard_tree is None:
+            return []
+
+        items = self.courtyard_tree.query_radius(x, y, radius)
+        return [item.ref for item in items]
+
+    def is_point_in_courtyard(self, x: float, y: float) -> Optional[str]:
+        """
+        Check if a point is inside any component courtyard.
+
+        Uses QuadTree for O(log n) lookup.
+
+        Returns:
+            Component reference if point is in a courtyard, None otherwise
+        """
+        if self.courtyard_tree is None:
+            return None
+
+        items = self.courtyard_tree.query_point(x, y)
+        return items[0].ref if items else None
 
     # =========================================================================
     # MAIN ROUTING ENTRY POINT
