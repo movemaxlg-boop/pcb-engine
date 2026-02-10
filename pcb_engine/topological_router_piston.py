@@ -503,17 +503,27 @@ class TopologicalRouterPiston:
             )
 
             # Add pads as obstacles (but with associated net)
-            for pin in part.get('pins', part.get('used_pins', [])):
-                pin_num = pin.get('number', '')
-                net = pin.get('net', '')
+            pins_data = part.get('pins', part.get('used_pins', {}))
 
-                offset = pin.get('offset', (0, 0))
-                if not offset or offset == (0, 0):
-                    physical = pin.get('physical', {})
-                    offset = (physical.get('offset_x', 0), physical.get('offset_y', 0))
+            # Handle both dict and list formats
+            if isinstance(pins_data, dict):
+                pin_items = pins_data.items()
+            else:
+                # List format - each item should have 'number' or be indexed
+                pin_items = [(str(i), p) if isinstance(p, dict) else (str(i), {}) for i, p in enumerate(pins_data)]
 
-                pad_x = x + offset[0]
-                pad_y = y + offset[1]
+            for pin_num, pin_info in pin_items:
+                if isinstance(pin_info, dict):
+                    net = pin_info.get('net', '')
+                    offset_x = pin_info.get('x', pin_info.get('offset_x', 0))
+                    offset_y = pin_info.get('y', pin_info.get('offset_y', 0))
+                else:
+                    net = ''
+                    offset_x = 0
+                    offset_y = 0
+
+                pad_x = x + offset_x
+                pad_y = y + offset_y
 
                 self.obstacles[f"{ref}_{pin_num}"] = Obstacle(
                     id=f"{ref}_{pin_num}",
@@ -559,18 +569,27 @@ class TopologicalRouterPiston:
             x = pos.x if hasattr(pos, 'x') else pos[0]
             y = pos.y if hasattr(pos, 'y') else pos[1]
 
-            for pin in part.get('pins', part.get('used_pins', [])):
-                net = pin.get('net', '')
+            pins_data = part.get('pins', part.get('used_pins', {}))
+
+            # Handle both dict and list formats
+            if isinstance(pins_data, dict):
+                pin_items = pins_data.items()
+            else:
+                pin_items = [(str(i), p) if isinstance(p, dict) else (str(i), {}) for i, p in enumerate(pins_data)]
+
+            for pin_num, pin_info in pin_items:
+                if isinstance(pin_info, dict):
+                    net = pin_info.get('net', '')
+                    offset_x = pin_info.get('x', pin_info.get('offset_x', 0))
+                    offset_y = pin_info.get('y', pin_info.get('offset_y', 0))
+                else:
+                    continue
+
                 if not net:
                     continue
 
-                offset = pin.get('offset', (0, 0))
-                if not offset or offset == (0, 0):
-                    physical = pin.get('physical', {})
-                    offset = (physical.get('offset_x', 0), physical.get('offset_y', 0))
-
-                pad_x = x + offset[0]
-                pad_y = y + offset[1]
+                pad_x = x + offset_x
+                pad_y = y + offset_y
 
                 nets[net].append(Point(pad_x, pad_y))
 

@@ -145,6 +145,10 @@ class Pin:
     escape_direction: Optional[EscapeDirection] = None
     assigned_via: Optional['Via'] = None
 
+    def __hash__(self):
+        """Make Pin hashable by id"""
+        return hash(self.id)
+
 
 @dataclass
 class Via:
