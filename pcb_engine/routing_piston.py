@@ -6978,10 +6978,11 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
             algorithm='hybrid'
         )
 
-    # Algorithm cascade - try in order of likelihood of success
+    # Algorithm cascade - PATHFINDER first (routes 11/11 in ~7s),
+    # HYBRID second (gets 9/11 in ~60s, slower and worse for this design profile)
     CASCADE = [
-        ('hybrid', 'HYBRID (A* + Steiner + Ripup)'),
         ('pathfinder', 'PATHFINDER (Negotiated Congestion)'),
+        ('hybrid', 'HYBRID (A* + Steiner + Ripup)'),
         ('lee', 'LEE (Guaranteed Shortest Path)'),
         ('ripup', 'RIP-UP & REROUTE (Iterative)'),
     ]
