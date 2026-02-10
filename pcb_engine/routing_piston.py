@@ -7013,7 +7013,7 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
     cascade_start = time_module.time()
 
     total_nets = len(net_order)
-    good_enough_threshold = 0.80  # Accept >=80% as good enough
+    good_enough_threshold = 1.0  # All nets must be routed - no partial acceptance
     no_improve_count = 0
     max_no_improve = 2  # Stop if 2 algorithms in a row don't improve
 

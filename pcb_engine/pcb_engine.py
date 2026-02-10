@@ -3277,11 +3277,8 @@ class PCBEngine:
                 self.state.net_order
             )
 
-        # === FALLBACK TO CASCADE IF SMART ROUTING RESULT IS POOR ===
-        # Only invoke CASCADE if Smart Router got <90% completion.
-        # Smart Router typically gets 10/11 (91%) which is better than CASCADE's 9/11.
-        smart_completion = result.routed_count / max(result.total_count, 1)
-        if not result.success and smart_completion < 0.90:
+        # === FALLBACK TO CASCADE IF SMART ROUTING DIDN'T GET 100% ===
+        if not result.success:
             self._log(f"  [ENGINE] Routing incomplete ({result.routed_count}/{result.total_count})")
             self._log(f"  [ENGINE] Ordering CASCADE: try remaining algorithms...")
 
@@ -3308,11 +3305,9 @@ class PCBEngine:
             if hasattr(route, 'vias'):
                 self.state.vias.extend(route.vias)
 
-        # Consider routing successful if >=90% nets were routed.
-        # A 1-2 net shortfall on a complex board is acceptable — those nets may be
-        # genuinely unroutable with the current placement. Accept and move on.
-        completion = result.routed_count / max(result.total_count, 1)
-        routing_success = result.success or (completion >= 0.90 and result.total_count > 0)
+        # Routing succeeds ONLY when ALL nets are connected.
+        # Unrouted nets = broken circuit. No exceptions.
+        routing_success = result.success or (result.routed_count == result.total_count and result.total_count > 0)
 
         return PistonReport(
             piston='routing',
