@@ -4288,24 +4288,62 @@ class PCBEngine:
             return (0.0, 0.0)
 
     def _build_simple_escapes(self) -> Dict:
-        """Build simple escape routes (pin to pin center)"""
+        """Build escape routes from pad positions to free routing space.
+
+        Each escape starts at the pad center and extends outward (away from the
+        component center) until it reaches a point that is NOT inside another
+        pad's clearance zone. This ensures routing endpoints are always in
+        routable grid space.
+        """
         escapes = {}
 
-        # BUG-02 FIX: Guard against empty/None placement
         if not self.state.placement:
             self._log("WARNING: No placement data available for escape generation")
             return escapes
 
         parts = self.state.parts_db.get('parts', {})
         nets = self.state.parts_db.get('nets', {})
+        clearance = getattr(self.config, 'clearance', 0.15)
 
-        # Build reverse lookup: pin_ref -> net_name (e.g., 'R1.1' -> 'VCC')
+        # Build reverse lookup: pin_ref -> net_name
         pin_to_net = {}
         for net_name, net_data in nets.items():
             for pin_ref in net_data.get('pins', []):
                 pin_to_net[pin_ref] = net_name
 
-        # Define SimpleEscape class outside the loop
+        # Pre-build ALL pad positions + clearance zones for collision detection
+        # Each entry: (x, y, net, ref, half_w, half_h) where half_w/h includes clearance
+        all_pads = []
+        for ref, pos in self.state.placement.items():
+            part = parts.get(ref, {})
+            pos_x, pos_y = get_xy(pos)
+            for p in get_pins(part):
+                pn = str(p.get('number', ''))
+                pnet = p.get('net', '')
+                if not pnet:
+                    pnet = pin_to_net.get(f"{ref}.{pn}", '')
+                off = p.get('offset', (0, 0))
+                if not off or off == (0, 0):
+                    phys = p.get('physical', {})
+                    off = (phys.get('offset_x', 0), phys.get('offset_y', 0))
+                px = pos_x + (float(off[0]) if off[0] else 0)
+                py = pos_y + (float(off[1]) if off[1] else 0)
+                # Pad clearance zone: must match routing grid's pad_clear radius
+                # routing grid uses clearance_cells * grid_size = ~0.3mm around each pad
+                grid_size = getattr(self.config, 'grid_size', 0.15)
+                pad_half = 0.3 + clearance + grid_size * 2  # ~0.75mm exclusion
+                all_pads.append((px, py, pnet, ref, pad_half))
+
+        # Also build component body exclusion zones
+        comp_bodies = []
+        for ref, pos in self.state.placement.items():
+            part = parts.get(ref, {})
+            size = part.get('size', (0, 0))
+            if isinstance(size, (list, tuple)) and len(size) >= 2:
+                cx, cy = get_xy(pos)
+                hw, hh = float(size[0]) / 2 + 0.25, float(size[1]) / 2 + 0.25
+                comp_bodies.append((cx, cy, hw, hh, ref))
+
         class SimpleEscape:
             def __init__(self, start, end, net, layer):
                 self.start = start
@@ -4314,25 +4352,45 @@ class PCBEngine:
                 self.net = net
                 self.layer = layer
 
+        def is_point_free(x, y, my_net, my_ref):
+            """Check if a point is in free routing space (not inside any foreign pad/body)."""
+            # Check board bounds (with margin)
+            margin = 0.5
+            if x < margin or x > self.config.board_width - margin:
+                return False
+            if y < margin or y > self.config.board_height - margin:
+                return False
+            # Check against all pads
+            for px, py, pnet, pref, phalf in all_pads:
+                if pref == my_ref:
+                    continue  # Skip own component's pads
+                if pnet == my_net:
+                    continue  # Same-net pads are OK
+                if abs(x - px) < phalf and abs(y - py) < phalf:
+                    return False
+            # Check against component bodies
+            for cx, cy, hw, hh, cref in comp_bodies:
+                if cref == my_ref:
+                    continue
+                if abs(x - cx) < hw and abs(y - cy) < hh:
+                    return False
+            return True
+
         for ref, pos in self.state.placement.items():
             part = parts.get(ref, {})
             escapes[ref] = {}
 
-            # Get footprint and pin count for default offset calculation
             footprint = part.get('footprint', '')
             pins_list = get_pins(part)
             total_pins = len(pins_list)
+            pos_x, pos_y = get_xy(pos)
 
-            # BUG-06 FIX: Use get_pins for consistent pin access
             for pin in pins_list:
                 pin_num = str(pin.get('number', ''))
 
-                # Look up net from pin.get('net') OR from nets dict
                 net = pin.get('net', '')
                 if not net:
-                    pin_ref = f"{ref}.{pin_num}"
-                    net = pin_to_net.get(pin_ref, '')
-
+                    net = pin_to_net.get(f"{ref}.{pin_num}", '')
                 if not net:
                     continue
 
@@ -4340,79 +4398,67 @@ class PCBEngine:
                 if not offset or offset == (0, 0):
                     physical = pin.get('physical', {})
                     offset = (physical.get('offset_x', 0), physical.get('offset_y', 0))
-
-                # DRC-FIX: If still no offset, generate default based on footprint
                 if not offset or offset == (0, 0):
                     offset = self._get_default_pin_offset(footprint, pin_num, total_pins)
 
-                # BUG-03 FIX: Use get_xy for consistent position access
-                pos_x, pos_y = get_xy(pos)
-                pad_x = pos_x + float(offset[0]) if offset[0] else pos_x
-                pad_y = pos_y + float(offset[1]) if offset[1] else pos_y
+                pad_x = pos_x + (float(offset[0]) if offset[0] else 0)
+                pad_y = pos_y + (float(offset[1]) if offset[1] else 0)
 
-                # COURTYARD-FIX: Escape direction should go AROUND component courtyards
-                # Check if escaping horizontally would cross another component
-                escape_length = 1.0
+                # Determine escape direction: away from component center
+                off_x = float(offset[0]) if offset[0] else 0
+                off_y = float(offset[1]) if offset[1] else 0
 
-                # Calculate default escape direction: away from component center
-                if offset[0]:
-                    off_x = float(offset[0])
-                    if off_x < 0:
-                        default_escape_x = pad_x - escape_length
-                    else:
-                        default_escape_x = pad_x + escape_length
+                # Build direction candidates (primary + fallbacks)
+                # Primary: outward from component center
+                directions = []
+                if abs(off_x) >= abs(off_y):
+                    # Pin is more to the side -> escape horizontally first
+                    dx = -1.0 if off_x < 0 else 1.0
+                    directions.append((dx, 0))      # horizontal primary
+                    directions.append((0, -1.0 if pad_y < pos_y else 1.0))  # vertical
+                    directions.append((-dx, 0))      # opposite horizontal
+                    directions.append((0, 1.0 if pad_y < pos_y else -1.0))  # opposite vertical
                 else:
-                    default_escape_x = pad_x + escape_length
-                default_escape_y = pad_y
+                    # Pin is more top/bottom -> escape vertically first
+                    dy = -1.0 if off_y < 0 else 1.0
+                    directions.append((0, dy))       # vertical primary
+                    directions.append((-1.0 if pad_x < pos_x else 1.0, 0))  # horizontal
+                    directions.append((0, -dy))      # opposite vertical
+                    directions.append((1.0 if pad_x < pos_x else -1.0, 0))  # opposite horizontal
 
-                # Check if the escape path crosses another component's courtyard
-                escape_blocked = False
-                for other_ref, other_pos in self.state.placement.items():
-                    if other_ref == ref:
-                        continue
-                    other_x, other_y = get_xy(other_pos)
-                    other_part = parts.get(other_ref, {})
-                    other_fp = other_part.get('footprint', '')
-
-                    # Get courtyard size (body + margin)
-                    # 0603: body 2.0mm, courtyard ~2.5mm
-                    courtyard_half_w = 1.5  # Conservative estimate
-                    courtyard_half_h = 1.0
-
-                    # Check if escape path would cross this component's courtyard
-                    # Path is from (pad_x, pad_y) to (default_escape_x, default_escape_y)
-                    min_x = min(pad_x, default_escape_x)
-                    max_x = max(pad_x, default_escape_x)
-
-                    # Check horizontal overlap
-                    if (abs(pad_y - other_y) < courtyard_half_h and
-                        min_x < other_x + courtyard_half_w and
-                        max_x > other_x - courtyard_half_w):
-                        escape_blocked = True
+                # Try each direction, extending until we find free space
+                escape_x, escape_y = pad_x, pad_y
+                found_free = False
+                for dx, dy in directions:
+                    for step in [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]:
+                        ex = pad_x + dx * step
+                        ey = pad_y + dy * step
+                        if is_point_free(ex, ey, net, ref):
+                            escape_x, escape_y = ex, ey
+                            found_free = True
+                            break
+                    if found_free:
                         break
 
-                # If horizontal escape is blocked, escape vertically (UP, away from board center)
-                if escape_blocked:
-                    # Go UP (or DOWN based on position)
-                    board_center_y = self.config.board_height / 2
-                    if pad_y < board_center_y:
-                        # Pad is above center, escape UP
-                        escape_x = pad_x
-                        escape_y = pad_y - escape_length
-                    else:
-                        # Pad is below center, escape DOWN
-                        escape_x = pad_x
-                        escape_y = pad_y + escape_length
-                else:
-                    escape_x = default_escape_x
-                    escape_y = default_escape_y
+                # If no free space found, use 2mm outward as fallback
+                if not found_free:
+                    if directions:
+                        dx, dy = directions[0]
+                        escape_x = pad_x + dx * 2.0
+                        escape_y = pad_y + dy * 2.0
 
-                escapes[ref][pin_num] = SimpleEscape(
+                esc_obj = SimpleEscape(
                     start=(float(pad_x), float(pad_y)),
                     end=(float(escape_x), float(escape_y)),
                     net=net,
                     layer=getattr(pos, 'layer', 'F.Cu')
                 )
+                # Store by pin NUMBER (e.g., '8')
+                escapes[ref][pin_num] = esc_obj
+                # Also store by pin NAME if different (e.g., 'IO19')
+                pin_name = str(pin.get('name', ''))
+                if pin_name and pin_name != pin_num:
+                    escapes[ref][pin_name] = esc_obj
 
         return escapes
 

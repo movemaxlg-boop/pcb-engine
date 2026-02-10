@@ -1921,7 +1921,7 @@ class RoutingPiston:
             return None
 
         # Get endpoints
-        endpoints = self._get_escape_endpoints(net_name, pins, escapes)
+        endpoints = self._get_escape_endpoints(pins, escapes)
         if not endpoints or len(endpoints) < 2:
             return None
 
@@ -2322,8 +2322,10 @@ class RoutingPiston:
         else:
             max_workers = os.cpu_count() or 4
 
-        # Find independent net groups
-        groups = self._find_independent_net_groups(net_pins)
+        # Find independent net groups - ONLY for nets in net_order
+        # This respects pour (GND/3V3 removed from net_order by engine)
+        filtered_net_pins = {n: net_pins[n] for n in net_order if n in net_pins}
+        groups = self._find_independent_net_groups(filtered_net_pins)
 
         total_nets = sum(len(g) for g in groups)
         print(f"    [LEE-PARALLEL] {total_nets} nets in {len(groups)} groups, "
@@ -5672,12 +5674,74 @@ class RoutingPiston:
 
         return True
 
+    def _build_pin_name_to_number_map(self) -> Dict[str, Dict[str, str]]:
+        """
+        Build a lookup: comp_ref -> {pin_name -> pin_number, pin_number -> pin_number}.
+
+        Nets reference pins by NAME (e.g., 'U1.IO19'), but escapes store by NUMBER (e.g., '8').
+        This map resolves that mismatch.
+        """
+        if hasattr(self, '_pin_name_map') and self._pin_name_map:
+            return self._pin_name_map
+
+        self._pin_name_map = {}
+        if not hasattr(self, '_parts_db') or not self._parts_db:
+            return self._pin_name_map
+
+        try:
+            from .common_types import get_pins
+        except ImportError:
+            from common_types import get_pins
+
+        parts = self._parts_db.get('parts', {})
+        for ref, part in parts.items():
+            name_map = {}
+            for p in get_pins(part):
+                num = str(p.get('number', ''))
+                name = str(p.get('name', ''))
+                # Map name -> number (e.g., 'IO19' -> '8')
+                if name:
+                    name_map[name] = num
+                # Map number -> number (identity, so number lookups also work)
+                if num:
+                    name_map[num] = num
+            self._pin_name_map[ref] = name_map
+
+        return self._pin_name_map
+
+    def _resolve_escape_key(self, comp: str, pin: str, escapes: Dict) -> str:
+        """
+        Resolve a pin identifier to the key used in the escapes dict.
+
+        Tries: pin as-is, then name->number mapping, then number->name mapping.
+        Returns the key that exists in escapes[comp], or '' if not found.
+        """
+        if comp not in escapes:
+            return ''
+        comp_escapes = escapes[comp]
+
+        # Direct match (pin is already the correct key)
+        if pin in comp_escapes:
+            return pin
+
+        # Resolve via name->number map
+        name_map = self._build_pin_name_to_number_map()
+        if comp in name_map:
+            resolved = name_map[comp].get(pin, '')
+            if resolved and resolved in comp_escapes:
+                return resolved
+
+        return ''
+
     def _get_escape_endpoints(self, pins: List, escapes: Dict) -> List[Tuple[float, float]]:
         """
         Get escape endpoints for a net's pins.
 
         For simple designs without escape routing, this method falls back to
         calculating pin positions directly from placement + parts_db.
+
+        IMPORTANT: Nets reference pins by NAME (e.g., 'U1.IO19'), but escapes
+        store by NUMBER (e.g., '8'). We resolve this via _resolve_escape_key().
         """
         endpoints = []
         for pin_ref in pins:
@@ -5690,9 +5754,12 @@ class RoutingPiston:
             else:
                 continue
 
+            # Resolve pin name to escape dict key (handles name->number mismatch)
+            escape_key = self._resolve_escape_key(comp, pin, escapes)
+
             # First try to get endpoint from escapes (for complex designs)
-            if comp in escapes and pin in escapes[comp]:
-                esc = escapes[comp][pin]
+            if escape_key and comp in escapes and escape_key in escapes[comp]:
+                esc = escapes[comp][escape_key]
                 # Try explicit end/endpoint attributes first
                 end = getattr(esc, 'end', None) or getattr(esc, 'endpoint', None)
                 if end:
@@ -5747,7 +5814,6 @@ class RoutingPiston:
                     parts = parts_db.get('parts', {})
                     if comp in parts:
                         part = parts[comp]
-                        # Import get_pins for consistent pin access
                         try:
                             from .common_types import get_pins
                         except ImportError:
@@ -5755,8 +5821,13 @@ class RoutingPiston:
 
                         for p in get_pins(part):
                             pin_num = str(p.get('number', ''))
-                            if pin_num == pin:
+                            pin_name = str(p.get('name', ''))
+                            # Match by number OR name
+                            if pin_num == pin or pin_name == pin:
                                 offset = p.get('offset', (0, 0))
+                                if not offset or offset == (0, 0):
+                                    physical = p.get('physical', {})
+                                    offset = (physical.get('offset_x', 0), physical.get('offset_y', 0))
                                 if isinstance(offset, (list, tuple)) and len(offset) >= 2:
                                     pin_x = comp_x + float(offset[0])
                                     pin_y = comp_y + float(offset[1])
@@ -5793,10 +5864,12 @@ class RoutingPiston:
             else:
                 continue
 
-            if comp not in escapes or pin not in escapes[comp]:
+            # Resolve pin name to escape dict key (handles name->number mismatch)
+            escape_key = self._resolve_escape_key(comp, pin, escapes)
+            if not escape_key:
                 continue
 
-            esc = escapes[comp][pin]
+            esc = escapes[comp][escape_key]
 
             # Get pad position (start) and escape endpoint (end)
             start = getattr(esc, 'start', None)
