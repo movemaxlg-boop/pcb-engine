@@ -1701,6 +1701,10 @@ class RoutingPiston:
                 # Save to cache for next algorithm in CASCADE
                 self._cache_index(placement, parts_db)
 
+        # Save clean grid snapshot (components+escapes only, no routes)
+        # Used by RIPUP and other iterative algorithms for fast grid restoration
+        self._save_grid_snapshot()
+
         # BUILD GROUND PLANE MAP for return path analysis
         # This identifies where solid ground reference exists (typically B.Cu pour)
         if self._return_path_enabled:
@@ -3836,7 +3840,7 @@ class RoutingPiston:
             routed = sum(1 for r in all_routes.values() if r.success)
 
             # Track best result
-            if best_result is None or routed > best_result.routed_count:
+            if best_result is None or routed >= best_result.routed_count:
                 self.routes = dict(all_routes)
                 best_result = RoutingResult(
                     routes=dict(all_routes),
@@ -3850,6 +3854,16 @@ class RoutingPiston:
 
             if overlaps == 0:
                 print(f"    [PATHFINDER] Converged in {iteration + 1} iterations!")
+                # Update best_result with final converged state (0 overlaps)
+                best_result = RoutingResult(
+                    routes=dict(all_routes),
+                    success=routed == len(net_order),
+                    routed_count=routed,
+                    total_count=len(net_order),
+                    algorithm_used='pathfinder',
+                    iterations=iteration + 1,
+                    statistics={'overlaps': 0, 'penalty': penalty_factor}
+                )
                 return best_result
 
             # Update history costs for contested cells
@@ -4118,19 +4132,20 @@ class RoutingPiston:
 
         best_result = None
         best_routed = -1
+        no_improve_count = 0
+        max_no_improve = 3  # Early exit after 3 iterations with no improvement
+
+        # Use Lee for power/ground nets (guaranteed path finding)
+        power_nets = {'GND', 'VCC', 'VDD', 'VSS', 'V+', 'V-', '3V3', '5V', '12V',
+                      'VBAT', 'VBUS', 'AVCC', 'AVDD', 'DVCC', 'DVDD', 'AGND', 'DGND',
+                      'VIN', 'VOUT', 'PWR', 'POWER', 'SUPPLY'}
 
         for iteration in range(self.config.max_ripup_iterations):
-            # Reset grids (keep component obstacles)
-            self._initialize_grids()
-            self._register_components(placement, parts_db)
-            self._register_escapes(escapes)
+            # Restore grid to clean state from snapshot (fast array copy)
+            # Snapshot was saved in route() after components+escapes registered
+            self._clear_routed_traces()
 
             # Route all nets in current order
-            # Use Lee for power/ground nets (guaranteed path finding)
-            power_nets = {'GND', 'VCC', 'VDD', 'VSS', 'V+', 'V-', '3V3', '5V', '12V',
-                          'VBAT', 'VBUS', 'AVCC', 'AVDD', 'DVCC', 'DVDD', 'AGND', 'DGND',
-                          'VIN', 'VOUT', 'PWR', 'POWER', 'SUPPLY'}
-
             failed_nets = []
             for net_name in current_order:
                 pins = net_pins.get(net_name, [])
@@ -4161,6 +4176,7 @@ class RoutingPiston:
             # Track best result
             if routed > best_routed:
                 best_routed = routed
+                no_improve_count = 0
                 best_result = RoutingResult(
                     routes=dict(self.routes),
                     success=len(failed_nets) == 0,
@@ -4169,10 +4185,17 @@ class RoutingPiston:
                     algorithm_used='ripup',
                     iterations=iteration + 1
                 )
+            else:
+                no_improve_count += 1
 
             # Success?
             if not failed_nets:
                 print(f"    [RIPUP] Success! All {len(net_order)} nets routed in {iteration + 1} iterations")
+                return best_result
+
+            # Early exit: no improvement for N consecutive iterations
+            if no_improve_count >= max_no_improve:
+                print(f"    [RIPUP] Early exit: no improvement for {max_no_improve} iterations (best: {best_routed}/{len(net_order)})")
                 return best_result
 
             # Reorder for next iteration
@@ -6375,6 +6398,36 @@ class RoutingPiston:
                     if grid[r][c] is None or grid[r][c] == net_name:
                         grid[r][c] = net_name
 
+    def _save_grid_snapshot(self):
+        """
+        Save a snapshot of the grid state AFTER components and escapes
+        are registered but BEFORE any routing. Used by RIPUP to quickly
+        restore the clean grid state without rebuilding from scratch.
+        """
+        import copy
+        self._grid_snapshot_fcu = [row[:] for row in self.fcu_grid]
+        self._grid_snapshot_bcu = [row[:] for row in self.bcu_grid]
+
+    def _clear_routed_traces(self):
+        """
+        Restore grid to clean state (after components+escapes, before routing).
+        If a snapshot exists, restores from it (fast array copy).
+        Otherwise falls back to full rebuild.
+        """
+        if hasattr(self, '_grid_snapshot_fcu') and self._grid_snapshot_fcu:
+            # Fast path: restore from snapshot
+            for r in range(self.grid_rows):
+                self.fcu_grid[r][:] = self._grid_snapshot_fcu[r][:]
+                self.bcu_grid[r][:] = self._grid_snapshot_bcu[r][:]
+        else:
+            # Fallback: full rebuild (should not happen if _save_grid_snapshot called)
+            self._initialize_grids()
+            if hasattr(self, '_placement') and hasattr(self, '_parts_db'):
+                self._register_components(self._placement, self._parts_db)
+        # Clear route tracking
+        self.routes = {}
+        self.failed = []
+
     def _get_component_body_size(self, footprint: str) -> tuple:
         """Get component body size (width, height) in mm based on footprint.
 
@@ -6755,6 +6808,11 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
 
     cascade_start = time_module.time()
 
+    total_nets = len(net_order)
+    good_enough_threshold = 0.80  # Accept >=80% as good enough
+    no_improve_count = 0
+    max_no_improve = 2  # Stop if 2 algorithms in a row don't improve
+
     for algo, desc in CASCADE:
         print(f"    [CASCADE] Trying {desc}...")
         algo_start = time_module.time()
@@ -6767,7 +6825,7 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
         algo_time = time_module.time() - algo_start
         print(f"    [CASCADE] {algo}: {result.routed_count}/{result.total_count} nets routed ({algo_time:.1f}s)")
 
-        # EARLY EXIT on success
+        # EARLY EXIT on full success
         if result.success:
             total_time = time_module.time() - cascade_start
             print(f"    [CASCADE] SUCCESS with {algo}! (total cascade: {total_time:.1f}s)")
@@ -6777,9 +6835,26 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
         if result.routed_count > best_routed:
             best_routed = result.routed_count
             best_result = result
+            no_improve_count = 0
+        else:
+            no_improve_count += 1
 
-    # All algorithms failed - try with relaxed constraints
-    print("    [CASCADE] All algorithms failed. Trying with relaxed constraints...")
+        # EARLY EXIT: good enough (>80% routed)
+        if total_nets > 0 and best_routed / total_nets >= good_enough_threshold:
+            total_time = time_module.time() - cascade_start
+            print(f"    [CASCADE] Good enough: {best_routed}/{total_nets} "
+                  f"({100*best_routed/total_nets:.0f}%) using {best_result.algorithm_used} ({total_time:.1f}s)")
+            return best_result
+
+        # EARLY EXIT: no improvement from last 2 algorithms
+        if no_improve_count >= max_no_improve:
+            total_time = time_module.time() - cascade_start
+            print(f"    [CASCADE] Early exit: {no_improve_count} algorithms without improvement. "
+                  f"Best: {best_routed}/{total_nets} using {best_result.algorithm_used} ({total_time:.1f}s)")
+            return best_result
+
+    # All algorithms tried - try with relaxed constraints if needed
+    print("    [CASCADE] All algorithms tried. Trying with relaxed constraints...")
 
     piston.config.algorithm = 'hybrid'
     piston.config.clearance = piston.config.clearance * 0.8  # Reduce clearance 20%
