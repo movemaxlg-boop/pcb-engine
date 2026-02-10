@@ -601,8 +601,27 @@ class RoutingPiston:
         # Hash placement positions
         for ref in sorted(placement.keys()):
             comp = placement[ref]
+            # Handle both object and tuple/dict formats for position
+            if hasattr(comp, 'x'):
+                pos_x, pos_y = comp.x, comp.y
+                rotation = getattr(comp, 'rotation', 0)
+                width = getattr(comp, 'width', 0)
+                height = getattr(comp, 'height', 0)
+            elif isinstance(comp, (list, tuple)) and len(comp) >= 2:
+                pos_x, pos_y = comp[0], comp[1]
+                rotation = comp[2] if len(comp) > 2 else 0
+                width = comp[3] if len(comp) > 3 else 0
+                height = comp[4] if len(comp) > 4 else 0
+            elif isinstance(comp, dict):
+                pos_x = comp.get('x', 0)
+                pos_y = comp.get('y', 0)
+                rotation = comp.get('rotation', 0)
+                width = comp.get('width', 0)
+                height = comp.get('height', 0)
+            else:
+                pos_x, pos_y, rotation, width, height = 0, 0, 0, 0, 0
             # Include position, rotation, and size (affects courtyards)
-            items.append(f"{ref}:{comp.x:.3f},{comp.y:.3f},{comp.rotation},{comp.width:.3f},{comp.height:.3f}")
+            items.append(f"{ref}:{pos_x:.3f},{pos_y:.3f},{rotation},{width:.3f},{height:.3f}")
 
         # Hash parts_db nets (affects which cells are marked with net names)
         nets = parts_db.get('nets', {})
