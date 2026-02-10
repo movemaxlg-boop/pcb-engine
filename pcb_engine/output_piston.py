@@ -776,6 +776,8 @@ class OutputPiston:
         lines.append('      (layer "B.SilkS" (type "Bottom Silk Screen"))')
         lines.append('    )')
         lines.append(f'    (pad_to_mask_clearance {self.config.clearance})')
+        lines.append(f'    (solder_mask_min_width 0.1)')
+        lines.append(f'    (allow_soldermask_bridges_in_footprints no)')
         lines.append('  )')
         lines.append('')
 
@@ -810,9 +812,113 @@ class OutputPiston:
                 elif isinstance(pin_ref, (list, tuple)) and len(pin_ref) >= 2:
                     pin_to_net[f"{pin_ref[0]}.{pin_ref[1]}"] = net_name
 
+        # Pre-compute ref des bounding boxes for overlap detection
+        # Each ref is at absolute position (comp_x, comp_y - offset)
+        ref_bboxes = {}  # ref -> (min_x, min_y, max_x, max_y)
         for ref, pos in placement.items():
             part = parts.get(ref, {})
-            fp_content = self._generate_footprint(ref, pos, part, net_ids, pin_to_net)
+            footprint_name = part.get('footprint', 'Unknown:Unknown')
+            if isinstance(pos, (list, tuple)):
+                cx, cy = pos[0], pos[1]
+            elif hasattr(pos, 'x'):
+                cx, cy = pos.x, pos.y
+            else:
+                cx, cy = 0, 0
+            ref_size, ref_offset = self._get_ref_des_params(footprint_name, part)
+            # Ref text at (cx, cy - ref_offset), approximate bbox
+            # KiCad uses stroke font where char width ~ 60% of height
+            # Add small buffer for solder mask clearance check
+            text_w = len(ref) * ref_size * 0.6 + 0.1
+            half_w = text_w / 2
+            half_h = ref_size / 2 + 0.05
+            ry = cy - ref_offset
+            ref_bboxes[ref] = (cx - half_w, ry - half_h, cx + half_w, ry + half_h)
+
+        # Build list of ALL pad mask openings (absolute positions)
+        # Uses FOOTPRINT_LIBRARY as source of truth for pad positions
+        mask_expansion = 0.15  # Same as pad_to_mask_clearance
+        pad_mask_rects = []  # (min_x, min_y, max_x, max_y) of mask openings
+        import math
+        for ref, pos in placement.items():
+            part = parts.get(ref, {})
+            if isinstance(pos, (list, tuple)):
+                cx, cy = pos[0], pos[1]
+            elif hasattr(pos, 'x'):
+                cx, cy = pos.x, pos.y
+            else:
+                continue
+            rotation = getattr(pos, 'rotation', 0) if not isinstance(pos, (list, tuple)) else 0
+            angle_rad = math.radians(rotation)
+            cos_a = math.cos(angle_rad)
+            sin_a = math.sin(angle_rad)
+
+            # Use FOOTPRINT_LIBRARY for accurate pad positions
+            fp_name = part.get('footprint', '')
+            fp_def = get_footprint_definition(fp_name)
+            if fp_def and fp_def.pad_positions:
+                for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+                    # Rotate pad offset
+                    ox = pad_x * cos_a - pad_y * sin_a
+                    oy = pad_x * sin_a + pad_y * cos_a
+                    px, py = cx + ox, cy + oy
+                    hw = pad_w / 2 + mask_expansion
+                    hh = pad_h / 2 + mask_expansion
+                    pad_mask_rects.append((px - hw, py - hh, px + hw, py + hh))
+            else:
+                # Fallback: use pins from parts_db
+                for pin in get_pins(part):
+                    offset = pin.get('offset', (0, 0))
+                    if not offset or offset == (0, 0):
+                        phys = pin.get('physical', {})
+                        offset = (phys.get('offset_x', 0), phys.get('offset_y', 0))
+                    ox = offset[0] * cos_a - offset[1] * sin_a
+                    oy = offset[0] * sin_a + offset[1] * cos_a
+                    px, py = cx + ox, cy + oy
+                    pad_size = pin.get('pad_size', pin.get('size', (1.0, 0.6)))
+                    if not isinstance(pad_size, (list, tuple)):
+                        pad_size = (1.0, 0.6)
+                    hw = pad_size[0] / 2 + mask_expansion
+                    hh = pad_size[1] / 2 + mask_expansion
+                    pad_mask_rects.append((px - hw, py - hh, px + hw, py + hh))
+
+        # Detect overlapping refs: check against other refs AND pad mask openings
+        hidden_refs = set()
+        ref_list = list(ref_bboxes.keys())
+
+        # 1. Hide refs that overlap other refs (keep higher priority)
+        for i in range(len(ref_list)):
+            for j in range(i + 1, len(ref_list)):
+                r1 = ref_bboxes[ref_list[i]]
+                r2 = ref_bboxes[ref_list[j]]
+                if not (r1[2] < r2[0] or r1[0] > r2[2] or r1[3] < r2[1] or r1[1] > r2[3]):
+                    ref_a, ref_b = ref_list[i], ref_list[j]
+                    priority = {'U': 5, 'J': 4, 'Q': 3, 'D': 2, 'L': 1, 'R': 0, 'C': 0}
+                    pa = priority.get(ref_a[0], 1) if ref_a else 0
+                    pb = priority.get(ref_b[0], 1) if ref_b else 0
+                    if pa >= pb:
+                        hidden_refs.add(ref_b)
+                    else:
+                        hidden_refs.add(ref_a)
+
+        # 2. Hide refs that overlap ANY pad mask opening (silk_over_copper)
+        for ref in ref_list:
+            if ref in hidden_refs:
+                continue
+            rb = ref_bboxes[ref]
+            for pr in pad_mask_rects:
+                if not (rb[2] < pr[0] or rb[0] > pr[2] or rb[3] < pr[1] or rb[1] > pr[3]):
+                    hidden_refs.add(ref)
+                    break
+
+        if hidden_refs:
+            print(f"  [SILK] Hiding {len(hidden_refs)} overlapping/pad-clipped refs: {sorted(hidden_refs)}")
+
+        for ref, pos in placement.items():
+            part = parts.get(ref, {})
+            fp_content = self._generate_footprint(
+                ref, pos, part, net_ids, pin_to_net,
+                hide_ref=(ref in hidden_refs)
+            )
             lines.append(fp_content)
 
         # Tracks - skip GND traces if GND pour is enabled (GND connects via pour)
@@ -923,7 +1029,74 @@ class OutputPiston:
 
         return '\n'.join(lines)
 
-    def _generate_footprint(self, ref: str, pos, part: Dict, net_ids: Dict, pin_to_net: Dict = None) -> str:
+    # KiCad minimum text requirements (from board DRC rules)
+    MIN_TEXT_HEIGHT = 0.8   # mm - KiCad default minimum
+    MIN_TEXT_THICKNESS = 0.15  # mm - KiCad default minimum stroke width
+
+    def _get_ref_des_params(self, footprint_name: str, part: Dict) -> tuple:
+        """Get adaptive ref des font size and offset based on component size.
+
+        Small components (0402, 0603) get smaller offset to stay close.
+        Large components (ICs, connectors) get larger offset.
+        Font size stays at KiCad minimum (0.8mm) to avoid text_height violations.
+        This prevents silk_overlap between nearby small passives via offset control.
+
+        Returns: (font_size_mm, offset_from_center_mm)
+        """
+        fn = footprint_name.upper()
+        min_size = self.MIN_TEXT_HEIGHT  # 0.8mm - never go below
+        # Ref offset must clear: pad extent + mask expansion (0.15) + half text height
+        mask_exp = 0.15
+        half_text = min_size / 2  # 0.4mm
+
+        # Pad extents from center for each footprint (Y direction = above/below pads)
+        # For 2-terminal SMD, pads are on X axis so Y extent is pad_height/2
+        # Offset = max(pad_y_extent, body_h/2) + mask_exp + half_text + margin
+        margin = 0.15  # Extra safety margin
+
+        # Small passives: pads extend ~0.45-0.625mm in Y from center
+        if any(k in fn for k in ['0402', '0201']):
+            # pad_size 0.56x0.62, body 0.3mm tall -> pad_y = 0.31
+            pad_extent_y = 0.35
+            return (min_size, pad_extent_y + mask_exp + half_text + margin)
+        if any(k in fn for k in ['0603']):
+            # pad_size 0.75x0.9, body 0.45mm tall -> pad_y = 0.45
+            pad_extent_y = 0.50
+            return (min_size, pad_extent_y + mask_exp + half_text + margin)
+        if any(k in fn for k in ['0805']):
+            # pad_size 0.9x1.25, body 0.6mm tall -> pad_y = 0.625
+            pad_extent_y = 0.65
+            return (min_size, pad_extent_y + mask_exp + half_text + margin)
+        if any(k in fn for k in ['1206']):
+            # pad_size 1.05x1.75, body 1.0mm tall -> pad_y = 0.875
+            pad_extent_y = 0.90
+            return (min_size, pad_extent_y + mask_exp + half_text + margin)
+
+        # SOT packages: pads on multiple edges, extend ~1.5mm from center
+        if 'SOT-23' in fn or 'SOT23' in fn:
+            return (min_size, 1.5 + mask_exp + half_text + margin)
+
+        # QFN packages: pads around all edges
+        if 'QFN' in fn or 'DFN' in fn:
+            body = part.get('body', {})
+            body_h = body.get('height', part.get('body_height', 5.0))
+            return (1.0, body_h / 2 + 0.5 + mask_exp + half_text + margin)
+
+        # ICs - use body height from parts_db if available
+        body = part.get('body', {})
+        body_h = body.get('height', part.get('body_height', 0))
+        if body_h > 5:
+            return (1.0, body_h / 2 + mask_exp + half_text + margin + 0.5)
+
+        # Connectors, USB, large modules
+        if any(k in fn for k in ['USB_C', 'ESP32', 'WROOM', 'PINHEADER']):
+            return (min_size, 3.5)
+
+        # Default: assume pads extend ~1mm from center
+        return (min_size, 1.0 + mask_exp + half_text + margin)
+
+    def _generate_footprint(self, ref: str, pos, part: Dict, net_ids: Dict,
+                            pin_to_net: Dict = None, hide_ref: bool = False) -> str:
         """Generate footprint section for a component with embedded pads"""
         pin_to_net = pin_to_net or {}
         import uuid
@@ -953,19 +1126,25 @@ class OutputPiston:
         lines.append(f'    (uuid "{uuid.uuid4()}")')
         lines.append(f'    (at {x:.4f} {y:.4f} {rotation})')
 
+        # Adaptive ref des: size and offset based on component footprint
+        ref_size, ref_offset = self._get_ref_des_params(footprint_name, part)
+        ref_thickness = max(ref_size * 0.15, self.MIN_TEXT_THICKNESS)
+
         # Properties
         lines.append(f'    (property "Reference" "{ref}"')
-        lines.append(f'      (at 0 -2.5 0)')
+        lines.append(f'      (at 0 {-ref_offset:.2f} 0)')
         lines.append(f'      (layer "F.SilkS")')
+        if hide_ref:
+            lines.append(f'      (hide yes)')
         lines.append(f'      (uuid "{uuid.uuid4()}")')
-        lines.append(f'      (effects (font (size 1 1) (thickness 0.15)))')
+        lines.append(f'      (effects (font (size {ref_size} {ref_size}) (thickness {ref_thickness:.3f})))')
         lines.append(f'    )')
 
         lines.append(f'    (property "Value" "{value}"')
-        lines.append(f'      (at 0 2.5 0)')
+        lines.append(f'      (at 0 {ref_offset:.2f} 0)')
         lines.append(f'      (layer "F.Fab")')
         lines.append(f'      (uuid "{uuid.uuid4()}")')
-        lines.append(f'      (effects (font (size 1 1) (thickness 0.15)))')
+        lines.append(f'      (effects (font (size {ref_size} {ref_size}) (thickness {ref_thickness:.3f})))')
         lines.append(f'    )')
 
         lines.append(f'    (property "Footprint" "{footprint_name}"')
@@ -1196,48 +1375,29 @@ class OutputPiston:
         # For 2-terminal SMD (resistors, caps), pads are on left/right
         # We only draw partial silkscreen on TOP and BOTTOM edges
         # The silkscreen should be OUTSIDE the solder mask opening
-        silk_margin = 0.25  # Distance outside pad edge
+        # Solder mask expands by pad_to_mask_clearance (0.15mm default)
+        mask_expansion = 0.15  # Same as pad_to_mask_clearance in setup
+        silk_clearance = 0.2   # Extra clearance to guarantee no overlap
+        silk_margin = mask_expansion + silk_clearance  # Total = 0.35mm from pad edge
 
         if pad_y == 0.0:  # Pads only on X axis (standard 2-terminal SMD)
-            # Only draw short line segments at top-center and bottom-center
-            # These lines are BETWEEN the two pads where no copper exists
-            gap_start = pad_x + silk_margin  # Start of line (inside from pad)
-
-            # If the component is small, pad_x might be larger than body_w/2
-            # In that case, there's no safe place for silkscreen body outline
-            # Just add pin 1 marker OUTSIDE the pad area + solder mask expansion
-            # Solder mask expands 0.1mm, so use 0.5mm clearance to be safe
-            if gap_start >= body_w / 2:
-                # Pin 1 marker - placed OUTSIDE the pad outer edge + solder mask
-                marker_x = -(pad_x + 0.5)  # 0.5mm outside pad edge (clears solder mask)
-                marker_y = -(body_h / 2 + 0.5)  # Above the component
-                lines.append(f'(fp_circle (center {marker_x:.3f} {marker_y:.3f}) (end {marker_x + 0.1:.3f} {marker_y:.3f}) (stroke (width 0.1) (type solid)) (fill solid) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
-                return lines
-
-            # Draw only the center portion of top edge
-            silk_x = body_w / 2 - gap_start  # How much of the edge to draw
-            if silk_x > 0.2:  # Only draw if segment > 0.2mm
-                # Top center segment
-                lines.append(f'(fp_line (start -{silk_x:.3f} -{body_h/2:.3f}) (end {silk_x:.3f} -{body_h/2:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
-                # Bottom center segment
-                lines.append(f'(fp_line (start -{silk_x:.3f} {body_h/2:.3f}) (end {silk_x:.3f} {body_h/2:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
-
-            # Pin 1 marker - placed well outside the pad area + solder mask
-            marker_x = -(pad_x + 0.5)  # 0.5mm clearance from pad (clears solder mask)
-            marker_y = -(body_h / 2 + 0.4)  # 0.4mm above component
-            lines.append(f'(fp_circle (center {marker_x:.3f} {marker_y:.3f}) (end {marker_x + 0.1:.3f} {marker_y:.3f}) (stroke (width 0.1) (type solid)) (fill solid) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
+            # For small passives, skip body outline entirely (ref des is enough)
+            # Pin 1 markers on small passives cause more DRC issues than they help
+            # Small 2-terminal components don't need polarity markers
+            pass  # No silkscreen lines for 2-terminal SMD - ref des handles identification
 
         else:  # SOT-23 style with pads on multiple edges
             # For multi-edge pad components, use corner markers only
             # These go in the corners where there are no pads
             corner_size = 0.3
 
-            # Top-left corner (usually pad-free)
-            lines.append(f'(fp_line (start -{body_w/2:.3f} -{body_h/2:.3f}) (end -{body_w/2 - corner_size:.3f} -{body_h/2:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
-            lines.append(f'(fp_line (start -{body_w/2:.3f} -{body_h/2:.3f}) (end -{body_w/2:.3f} -{body_h/2 - corner_size:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
+            # Place lines OUTSIDE the body + mask expansion zone
+            silk_x = body_w / 2 + silk_margin
+            silk_y = body_h / 2 + silk_margin
 
-            # Pin 1 marker
-            lines.append(f'(fp_circle (center -{body_w/2 - 0.25:.3f} -{body_h/2 - 0.25:.3f}) (end -{body_w/2 - 0.15:.3f} -{body_h/2 - 0.25:.3f}) (stroke (width 0.1) (type solid)) (fill solid) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
+            # Top-left corner L-shape (outside pad area)
+            lines.append(f'(fp_line (start -{silk_x:.3f} -{silk_y:.3f}) (end -{silk_x + corner_size:.3f} -{silk_y:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
+            lines.append(f'(fp_line (start -{silk_x:.3f} -{silk_y:.3f}) (end -{silk_x:.3f} -{silk_y + corner_size:.3f}) (stroke (width 0.12) (type solid)) (layer "F.SilkS") (uuid "{uuid_module.uuid4()}"))')
 
         return lines
 
