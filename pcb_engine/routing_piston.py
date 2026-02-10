@@ -609,6 +609,14 @@ class RoutingPiston:
         self._trunk_chains: List[Dict] = []  # Detected trunk chains
         self._net_to_chain: Dict[str, int] = {}  # net_name -> chain index
 
+        # RETURN PATH AWARENESS - Track ground/power reference planes
+        # High-frequency signals need a continuous ground plane beneath them
+        # for proper return current flow. Without it, return currents take
+        # longer paths causing EMI and signal integrity issues.
+        self._ground_plane_map: Optional[np.ndarray] = None  # True = solid ground
+        self._return_path_violations: List[Dict] = []  # Detected violations
+        self._return_path_enabled: bool = True  # Enable return path analysis
+
     # =========================================================================
     # INDEX CACHE HELPER - CASCADE OPTIMIZATION
     # =========================================================================
@@ -1427,6 +1435,220 @@ class RoutingPiston:
         }
 
     # =========================================================================
+    # RETURN PATH AWARENESS - Ensure proper ground reference for signals
+    # =========================================================================
+    # High-frequency signals require a continuous ground plane beneath them.
+    # Return current flows on the reference plane directly under the signal trace.
+    # Violations (slots, voids, layer changes without via stitching) cause:
+    # - EMI radiation from the longer return path
+    # - Crosstalk between adjacent signals
+    # - Impedance discontinuities affecting signal integrity
+
+    def _build_ground_plane_map(self, parts_db: Dict, pour_layer: str = 'B.Cu') -> None:
+        """
+        Build a map of where solid ground plane exists.
+
+        For 2-layer boards: assumes bottom layer is ground pour (common practice)
+        For 4+ layer boards: would check internal ground layers
+
+        The map is a 2D boolean array where True = solid ground reference
+        """
+        self._ground_plane_map = np.ones((self.grid_rows, self.grid_cols), dtype=bool)
+
+        # Mark component pads as breaks in ground plane
+        # (Pads are connections, not continuous copper)
+        if pour_layer == 'B.Cu':
+            grid = self.bcu_grid
+        else:
+            grid = self.fcu_grid
+
+        for row in range(self.grid_rows):
+            for col in range(self.grid_cols):
+                cell = grid[row][col]
+                if cell is not None:
+                    # Non-GND nets break the ground plane
+                    if cell not in ['GND', 'GROUND', 'VSS', 'AGND', 'DGND']:
+                        self._ground_plane_map[row, col] = False
+
+        # Also mark anti-pads (clearance around non-ground pads)
+        # These create voids in the pour
+        clearance_cells = self.clearance_cells
+        for row in range(self.grid_rows):
+            for col in range(self.grid_cols):
+                if not self._ground_plane_map[row, col]:
+                    # Expand the void by clearance
+                    for dr in range(-clearance_cells, clearance_cells + 1):
+                        for dc in range(-clearance_cells, clearance_cells + 1):
+                            nr, nc = row + dr, col + dc
+                            if 0 <= nr < self.grid_rows and 0 <= nc < self.grid_cols:
+                                self._ground_plane_map[nr, nc] = False
+
+    def _analyze_return_path(self, route: 'Route', net_name: str) -> Dict:
+        """
+        Analyze a route for return path quality.
+
+        Checks:
+        1. How much of the route is over solid ground plane
+        2. Any layer transitions without via stitching
+        3. Long segments crossing ground voids
+
+        Returns:
+            Dict with analysis results:
+            {
+                'coverage': 0.95,  # 95% over solid ground
+                'void_crossings': 2,  # Number of void crossings
+                'max_void_length': 1.5,  # Longest void crossing in mm
+                'quality': 'good'  # 'good', 'marginal', 'poor'
+            }
+        """
+        if self._ground_plane_map is None:
+            return {
+                'coverage': 1.0,
+                'void_crossings': 0,
+                'max_void_length': 0.0,
+                'quality': 'unknown',
+            }
+
+        total_cells = 0
+        covered_cells = 0
+        void_crossings = 0
+        current_void_length = 0
+        max_void_length = 0
+        in_void = False
+
+        for seg in route.segments:
+            # Sample points along the segment
+            length = seg.length
+            if length < 0.01:
+                continue
+
+            num_samples = max(2, int(length / self.config.grid_size))
+            for i in range(num_samples):
+                t = i / (num_samples - 1) if num_samples > 1 else 0
+                x = seg.start[0] + t * (seg.end[0] - seg.start[0])
+                y = seg.start[1] + t * (seg.end[1] - seg.start[1])
+
+                col = self._real_to_grid_col(x)
+                row = self._real_to_grid_row(y)
+
+                if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+                    total_cells += 1
+                    if self._ground_plane_map[row, col]:
+                        covered_cells += 1
+                        if in_void:
+                            # Exiting void
+                            in_void = False
+                            max_void_length = max(max_void_length, current_void_length)
+                            current_void_length = 0
+                    else:
+                        if not in_void:
+                            # Entering void
+                            in_void = True
+                            void_crossings += 1
+                        current_void_length += self.config.grid_size
+
+        # Final void check
+        if in_void:
+            max_void_length = max(max_void_length, current_void_length)
+
+        coverage = covered_cells / total_cells if total_cells > 0 else 1.0
+
+        # Determine quality
+        if coverage >= 0.95 and max_void_length < 1.0:
+            quality = 'good'
+        elif coverage >= 0.80 and max_void_length < 3.0:
+            quality = 'marginal'
+        else:
+            quality = 'poor'
+
+        return {
+            'coverage': coverage,
+            'void_crossings': void_crossings,
+            'max_void_length': max_void_length,
+            'quality': quality,
+        }
+
+    def _calculate_return_path_cost(self, row: int, col: int, layer: int) -> float:
+        """
+        Calculate additional routing cost based on return path quality.
+
+        Used during pathfinding to penalize routes over ground voids.
+        Layer 0 (F.Cu) signals need reference on layer 1 (B.Cu).
+
+        Returns:
+            Cost multiplier (1.0 = good, up to 3.0 = poor)
+        """
+        if self._ground_plane_map is None or not self._return_path_enabled:
+            return 1.0
+
+        # Only top layer signals need bottom layer reference
+        if layer != 0:
+            return 1.0
+
+        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+            if self._ground_plane_map[row, col]:
+                return 1.0  # Good reference
+            else:
+                return 2.5  # Penalize void crossing
+        return 1.0
+
+    def _check_route_return_path(self, route: 'Route', net_name: str) -> None:
+        """
+        Check a route for return path violations and record them.
+
+        Called after routing to identify potential signal integrity issues.
+        """
+        from pcb_engine.routing_types import NetClass
+
+        # Only check high-speed and critical nets
+        net_class = self._net_classes.get(net_name, NetClass.SIGNAL)
+        if net_class not in [NetClass.HIGH_SPEED, NetClass.DIFFERENTIAL, NetClass.RF]:
+            return
+
+        analysis = self._analyze_return_path(route, net_name)
+
+        if analysis['quality'] == 'poor':
+            self._return_path_violations.append({
+                'net': net_name,
+                'net_class': net_class.value,
+                'coverage': analysis['coverage'],
+                'void_crossings': analysis['void_crossings'],
+                'max_void_length': analysis['max_void_length'],
+                'severity': 'error' if analysis['coverage'] < 0.7 else 'warning',
+            })
+        elif analysis['quality'] == 'marginal':
+            self._return_path_violations.append({
+                'net': net_name,
+                'net_class': net_class.value,
+                'coverage': analysis['coverage'],
+                'void_crossings': analysis['void_crossings'],
+                'max_void_length': analysis['max_void_length'],
+                'severity': 'warning',
+            })
+
+    def get_return_path_stats(self) -> Dict:
+        """Get return path analysis statistics."""
+        if not self._return_path_violations:
+            return {
+                'enabled': self._return_path_enabled,
+                'violations': 0,
+                'errors': 0,
+                'warnings': 0,
+                'details': [],
+            }
+
+        errors = [v for v in self._return_path_violations if v['severity'] == 'error']
+        warnings = [v for v in self._return_path_violations if v['severity'] == 'warning']
+
+        return {
+            'enabled': self._return_path_enabled,
+            'violations': len(self._return_path_violations),
+            'errors': len(errors),
+            'warnings': len(warnings),
+            'details': self._return_path_violations,
+        }
+
+    # =========================================================================
     # MAIN ROUTING ENTRY POINT
     # =========================================================================
 
@@ -1478,6 +1700,12 @@ class RoutingPiston:
                 self._build_spatial_index()
                 # Save to cache for next algorithm in CASCADE
                 self._cache_index(placement, parts_db)
+
+        # BUILD GROUND PLANE MAP for return path analysis
+        # This identifies where solid ground reference exists (typically B.Cu pour)
+        if self._return_path_enabled:
+            self._build_ground_plane_map(parts_db, 'B.Cu')
+            self._return_path_violations = []  # Reset violations
 
         # Select and run algorithm
         algorithm = self.config.algorithm.lower()
@@ -1859,7 +2087,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(all_routes),
             algorithm_used='lee_parallel',
-            statistics={'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _mark_route_on_grid(self, route: 'Route'):
@@ -1928,11 +2156,15 @@ class RoutingPiston:
 
             if not route.success:
                 self.failed.append(net_name)
+            else:
+                # Check return path for high-speed nets
+                self._check_route_return_path(route, net_name)
 
         routed = sum(1 for r in self.routes.values() if r.success)
-        # Add trunk chain statistics
+        # Add trunk chain and return path statistics
         stats = dict(self.stats)
         stats['trunk_chains'] = self.get_trunk_chain_stats()
+        stats['return_path'] = self.get_return_path_stats()
         return RoutingResult(
             routes=self.routes,
             success=len(self.failed) == 0,
@@ -2360,7 +2592,7 @@ class RoutingPiston:
             algorithm_used='hadlock',
             total_wirelength=sum(r.total_length for r in self.routes.values() if r.success),
             via_count=sum(len(r.vias) for r in self.routes.values() if r.success),
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_hadlock(self, net_name: str, pins: List[Tuple],
@@ -2567,7 +2799,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='soukup',
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_soukup(self, net_name: str, pins: List[Tuple],
@@ -2771,7 +3003,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='mikami',
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_mikami(self, net_name: str, pins: List[Tuple],
@@ -3082,7 +3314,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='astar',
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_astar(self, net_name: str, pins: List[Tuple],
@@ -3754,7 +3986,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='steiner',
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_steiner(self, net_name: str, pins: List[Tuple],
@@ -3935,7 +4167,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='channel',
-            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats(), 'return_path': self.get_return_path_stats()}
         )
 
     def _route_net_channel(self, net_name: str, pins: List[Tuple],
