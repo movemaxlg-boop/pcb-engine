@@ -171,6 +171,109 @@ class RoutingAlgorithm(Enum):
     CHANNEL = 'channel'             # Channel/greedy routing
     HYBRID = 'hybrid'               # Combination of above
     AUTO = 'auto'                   # Automatically select best
+    PUSH_AND_SHOVE = 'push_and_shove'  # Interactive push-and-shove
+
+
+class NetClass(Enum):
+    """Net classification for per-net routing rules."""
+    SIGNAL = 'signal'               # Standard signal traces
+    POWER = 'power'                 # Power supply nets (VCC, VDD, 5V, etc.)
+    GROUND = 'ground'               # Ground nets (GND, AGND, DGND, etc.)
+    HIGH_SPEED = 'high_speed'       # High-speed signals (clocks, USB, etc.)
+    DIFFERENTIAL = 'differential'   # Differential pairs (USB_D+/D-, etc.)
+    ANALOG = 'analog'               # Analog signals (ADC, DAC, etc.)
+    RF = 'rf'                       # RF signals (antenna, etc.)
+    HIGH_CURRENT = 'high_current'   # High current traces (motor drivers)
+    HIGH_VOLTAGE = 'high_voltage'   # High voltage traces (>50V)
+
+
+@dataclass
+class NetClassRules:
+    """
+    Routing rules for a net class.
+
+    These rules override the global RoutingConfig values for nets
+    belonging to this class. This enables proper manufacturing:
+    - Power nets get wider traces for current handling
+    - High-speed nets get controlled impedance
+    - High-voltage nets get extra clearance
+    """
+    net_class: NetClass
+    trace_width: float              # Trace width in mm
+    clearance: float                # Clearance from other nets in mm
+    via_diameter: float = 0.8       # Via pad diameter in mm
+    via_drill: float = 0.4          # Via drill diameter in mm
+    max_via_count: int = -1         # Max vias allowed (-1 = unlimited)
+    max_length: float = 0.0         # Max trace length in mm (0 = unlimited)
+    priority: int = 5               # Routing priority (1 = highest, 10 = lowest)
+
+
+# Default net class rules - industry standard values
+DEFAULT_NET_CLASS_RULES: Dict[NetClass, NetClassRules] = {
+    NetClass.SIGNAL: NetClassRules(
+        net_class=NetClass.SIGNAL,
+        trace_width=0.15,           # Standard 6mil trace
+        clearance=0.15,             # Standard 6mil clearance
+        priority=5,                 # Normal priority
+    ),
+    NetClass.POWER: NetClassRules(
+        net_class=NetClass.POWER,
+        trace_width=0.5,            # Wider for current (20mil)
+        clearance=0.2,              # Slightly more clearance
+        via_diameter=1.0,           # Larger vias for thermal relief
+        via_drill=0.5,
+        priority=2,                 # High priority (route first)
+    ),
+    NetClass.GROUND: NetClassRules(
+        net_class=NetClass.GROUND,
+        trace_width=0.5,            # Same as power
+        clearance=0.2,
+        via_diameter=1.0,
+        via_drill=0.5,
+        priority=1,                 # Highest priority (ground plane connections)
+    ),
+    NetClass.HIGH_SPEED: NetClassRules(
+        net_class=NetClass.HIGH_SPEED,
+        trace_width=0.12,           # Controlled impedance (narrower)
+        clearance=0.2,              # Extra clearance to reduce crosstalk
+        max_via_count=2,            # Minimize vias for signal integrity
+        priority=3,
+    ),
+    NetClass.DIFFERENTIAL: NetClassRules(
+        net_class=NetClass.DIFFERENTIAL,
+        trace_width=0.12,           # USB/HDMI typically 90-100 ohm
+        clearance=0.15,             # Tight clearance for pair
+        max_via_count=1,            # Single via for layer transition
+        priority=3,
+    ),
+    NetClass.ANALOG: NetClassRules(
+        net_class=NetClass.ANALOG,
+        trace_width=0.2,            # Slightly wider for noise immunity
+        clearance=0.25,             # Extra clearance from digital
+        priority=4,
+    ),
+    NetClass.RF: NetClassRules(
+        net_class=NetClass.RF,
+        trace_width=0.5,            # 50 ohm microstrip (board dependent)
+        clearance=0.5,              # Large clearance for RF isolation
+        max_via_count=0,            # No vias allowed (RF traces)
+        priority=2,
+    ),
+    NetClass.HIGH_CURRENT: NetClassRules(
+        net_class=NetClass.HIGH_CURRENT,
+        trace_width=1.0,            # Very wide for high current
+        clearance=0.3,
+        via_diameter=1.2,           # Large thermal vias
+        via_drill=0.6,
+        priority=2,
+    ),
+    NetClass.HIGH_VOLTAGE: NetClassRules(
+        net_class=NetClass.HIGH_VOLTAGE,
+        trace_width=0.5,
+        clearance=1.0,              # Large clearance for voltage isolation
+        priority=2,
+    ),
+}
 
 
 @dataclass
@@ -221,6 +324,30 @@ class RoutingConfig:
     # Parallel routing (multi-core optimization)
     parallel_routing: bool = True  # Enable parallel routing for independent nets
     max_workers: int = 0  # 0 = auto-detect CPU cores, otherwise use specified count
+
+    # Net class rules (per-class trace widths, clearances)
+    # If None, uses DEFAULT_NET_CLASS_RULES
+    net_class_rules: Optional[Dict[NetClass, NetClassRules]] = None
+
+    # Enable net class constraints (use per-net widths/clearances)
+    use_net_class_constraints: bool = True
+
+    def get_net_class_rules(self, net_class: NetClass) -> NetClassRules:
+        """Get routing rules for a net class."""
+        rules = self.net_class_rules or DEFAULT_NET_CLASS_RULES
+        return rules.get(net_class, DEFAULT_NET_CLASS_RULES[NetClass.SIGNAL])
+
+    def get_trace_width_for_class(self, net_class: NetClass) -> float:
+        """Get trace width for a net class (or default if disabled)."""
+        if not self.use_net_class_constraints:
+            return self.trace_width
+        return self.get_net_class_rules(net_class).trace_width
+
+    def get_clearance_for_class(self, net_class: NetClass) -> float:
+        """Get clearance for a net class (or default if disabled)."""
+        if not self.use_net_class_constraints:
+            return self.clearance
+        return self.get_net_class_rules(net_class).clearance
 
 
 @dataclass

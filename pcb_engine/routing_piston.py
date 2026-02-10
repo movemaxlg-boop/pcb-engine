@@ -577,6 +577,13 @@ class RoutingPiston:
         self.spatial_index: Optional[SpatialIndex] = None
         self.use_spatial_index = True  # Enable by default
 
+        # NET CLASS CONSTRAINTS - per-net trace widths and clearances
+        # This enables proper manufacturing: power nets get wider traces,
+        # high-speed nets get controlled impedance, etc.
+        self._net_classes: Dict[str, 'NetClass'] = {}  # net_name -> NetClass
+        self._net_trace_widths: Dict[str, float] = {}  # net_name -> trace_width
+        self._net_clearances: Dict[str, float] = {}    # net_name -> clearance
+
         # QUADTREE for O(log n) courtyard-based spatial queries
         # Used for "what obstacles are near (x,y)?" queries
         self.courtyard_tree: Optional[QuadTree] = None
@@ -1043,6 +1050,92 @@ class RoutingPiston:
         return items[0].ref if items else None
 
     # =========================================================================
+    # NET CLASS CONSTRAINTS
+    # =========================================================================
+    # These methods enable per-net trace widths and clearances based on
+    # net classification (POWER, GROUND, HIGH_SPEED, etc.)
+
+    def _classify_nets(self, parts_db: Dict):
+        """
+        Classify all nets and cache their routing parameters.
+
+        This is called once at the start of routing to build lookup tables
+        for per-net trace widths and clearances.
+        """
+        from pcb_engine.routing_types import NetClass, DEFAULT_NET_CLASS_RULES
+
+        nets = parts_db.get('nets', {})
+
+        for net_name in nets.keys():
+            net_class = self._classify_net(net_name)
+            self._net_classes[net_name] = net_class
+
+            # Get rules for this class
+            if self.config.use_net_class_constraints:
+                rules = self.config.get_net_class_rules(net_class)
+                self._net_trace_widths[net_name] = rules.trace_width
+                self._net_clearances[net_name] = rules.clearance
+            else:
+                # Use global defaults
+                self._net_trace_widths[net_name] = self.config.trace_width
+                self._net_clearances[net_name] = self.config.clearance
+
+    def _classify_net(self, net_name: str) -> 'NetClass':
+        """Classify a net based on its name."""
+        from pcb_engine.routing_types import NetClass
+
+        name_upper = net_name.upper()
+
+        # Ground nets (highest priority)
+        if any(x in name_upper for x in ['GND', 'GROUND', 'VSS', 'AGND', 'DGND', 'PGND']):
+            return NetClass.GROUND
+
+        # Power nets
+        if any(x in name_upper for x in ['VCC', 'VDD', '5V', '3V3', '3.3V', '12V', 'VBAT',
+                                          'VIN', 'VOUT', 'PWR', 'POWER', '+5V', '+3.3V',
+                                          'AVCC', 'AVDD', 'DVCC', 'DVDD', 'V+']):
+            return NetClass.POWER
+
+        # High-speed signals
+        if any(x in name_upper for x in ['CLK', 'CLOCK', 'USB', 'HDMI', 'ETH', 'PCIE',
+                                          'DDR', 'SDRAM', 'QSPI', 'HSPI', 'MOSI', 'MISO',
+                                          'SCK', 'SCLK']):
+            return NetClass.HIGH_SPEED
+
+        # Differential pairs
+        if any(x in name_upper for x in ['_P', '_N', '+', '-']) and \
+           any(x in name_upper for x in ['USB', 'LVDS', 'HDMI', 'ETH', 'PCIE', 'DIFF']):
+            return NetClass.DIFFERENTIAL
+
+        # RF signals
+        if any(x in name_upper for x in ['RF', 'ANT', 'ANTENNA', 'LNA', 'PA_OUT', '2.4G']):
+            return NetClass.RF
+
+        # Analog signals
+        if any(x in name_upper for x in ['ANALOG', 'ADC', 'DAC', 'VREF', 'SENSE', 'AIN']):
+            return NetClass.ANALOG
+
+        # High current (motor, LED)
+        if any(x in name_upper for x in ['MOTOR', 'LED_PWR', 'HEAT', 'DRIVE']):
+            return NetClass.HIGH_CURRENT
+
+        # Default to signal
+        return NetClass.SIGNAL
+
+    def get_trace_width(self, net_name: str) -> float:
+        """Get trace width for a specific net."""
+        return self._net_trace_widths.get(net_name, self.config.trace_width)
+
+    def get_clearance(self, net_name: str) -> float:
+        """Get clearance for a specific net."""
+        return self._net_clearances.get(net_name, self.config.clearance)
+
+    def get_net_class(self, net_name: str) -> 'NetClass':
+        """Get the net class for a specific net."""
+        from pcb_engine.routing_types import NetClass
+        return self._net_classes.get(net_name, NetClass.SIGNAL)
+
+    # =========================================================================
     # MAIN ROUTING ENTRY POINT
     # =========================================================================
 
@@ -1063,6 +1156,10 @@ class RoutingPiston:
         # Store for use by _get_escape_endpoints fallback
         self._placement = placement
         self._parts_db = parts_db
+
+        # CLASSIFY NETS - Determine per-net trace widths and clearances
+        # This builds lookup tables for power/ground/signal/etc. net classes
+        self._classify_nets(parts_db)
 
         # Build net_pins lookup
         nets = parts_db.get('nets', {})
@@ -3593,7 +3690,7 @@ class RoutingPiston:
                 start=(trunk_start_x, trunk_y),
                 end=(trunk_end_x, trunk_y),
                 layer=layer_name,
-                width=self.config.trace_width,
+                width=self.get_trace_width(net_name),
                 net=net_name
             )
             route.segments.append(trunk_seg)
@@ -3615,7 +3712,7 @@ class RoutingPiston:
                         start=(branch_x, branch_start_y),
                         end=(branch_x, branch_end_y),
                         layer=layer_name,
-                        width=self.config.trace_width,
+                        width=self.get_trace_width(net_name),
                         net=net_name
                     )
                     route.segments.append(branch_seg)
@@ -4448,7 +4545,7 @@ class RoutingPiston:
                             start=(start_x, start_y),
                             end=(end_x, end_y),
                             layer=layer_name,
-                            width=self.config.trace_width,
+                            width=self.get_trace_width(net_name),
                             net=net_name
                         ))
 
@@ -4481,7 +4578,7 @@ class RoutingPiston:
                             start=(start_x, start_y),
                             end=(end_x, end_y),
                             layer=layer_name,
-                            width=self.config.trace_width,
+                            width=self.get_trace_width(net_name),
                             net=net_name
                         ))
 
@@ -4500,7 +4597,7 @@ class RoutingPiston:
                     start=(start_x, start_y),
                     end=(end_x, end_y),
                     layer=layer_name,
-                    width=self.config.trace_width,
+                    width=self.get_trace_width(net_name),
                     net=net_name
                 ))
 
@@ -4898,7 +4995,7 @@ class RoutingPiston:
                 start=(pad_x, pad_y),
                 end=(escape_x, escape_y),
                 layer=layer,
-                width=self.config.trace_width,
+                width=self.get_trace_width(net_name),
                 net=net_name
             )
             stubs.append(stub)
@@ -5036,7 +5133,7 @@ class RoutingPiston:
                             start=(pad_x, pad_y),
                             end=nearest,
                             layer='F.Cu',
-                            width=self.config.trace_width,
+                            width=self.get_trace_width(net_name),
                             net=net_name
                         )
                         stubs.append(stub)
@@ -5195,7 +5292,7 @@ class RoutingPiston:
             start=(start_x, start_y),
             end=(end_x, end_y),
             layer=layer_name,
-            width=self.config.trace_width,
+            width=self.get_trace_width(net_name),
             net=net_name
         )
 
