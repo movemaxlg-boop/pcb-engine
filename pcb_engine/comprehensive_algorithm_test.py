@@ -1038,6 +1038,7 @@ ALGORITHM_REGISTRY = {
             {'name': 'channel', 'full_name': 'Channel Routing', 'ref': 'Hashimoto & Stevens, 1971', 'category': 'channel'},
             {'name': 'hybrid', 'full_name': 'Hybrid Router', 'ref': 'PCB Engine Meta', 'category': 'meta'},
             {'name': 'auto', 'full_name': 'Auto Select', 'ref': 'PCB Engine Meta', 'category': 'meta'},
+            {'name': 'push_and_shove', 'full_name': 'Push-and-Shove', 'ref': 'KiCad PNS/CERN, 2013', 'category': 'interactive'},
         ],
         'test_cases_fn': TestCaseFactory.get_all_routing_test_cases,
         'runner_fn': 'run_routing_algorithm',
