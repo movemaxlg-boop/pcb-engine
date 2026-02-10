@@ -160,6 +160,10 @@ class NetRoutingStrategy:
     via_size: float = 0.8      # mm
     via_drill: float = 0.4     # mm
 
+    # Layer constraints (from c_layout)
+    allowed_layers: Optional[List[int]] = None  # None = all layers allowed
+    max_vias: Optional[int] = None  # None = no limit
+
     # Special handling flags
     use_push_and_shove: bool = False
     trunk_chain_id: Optional[int] = None
@@ -169,6 +173,9 @@ class NetRoutingStrategy:
     # Learning database reference
     learned_algorithm: Optional[str] = None
     learned_success_rate: float = 0.0
+
+    # Source of strategy (for debugging/tracing)
+    source: str = 'auto'  # 'auto', 'clayout', 'learning', 'user'
 
 
 @dataclass

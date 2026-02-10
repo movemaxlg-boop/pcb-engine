@@ -1972,8 +1972,9 @@ class PartsPiston:
                 try:
                     val = parse_si_value(item['value'])
                     values.append((val, item))
-                except:
-                    pass
+                except (ValueError, KeyError, TypeError):
+                    # Skip items with invalid or unparseable values
+                    continue
 
             values.sort(key=lambda x: x[0])
 

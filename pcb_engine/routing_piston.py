@@ -1966,7 +1966,8 @@ class RoutingPiston:
                     'via_count': via_count,
                     'wire_length': wire_length,
                 }
-        except Exception:
+        except (IndexError, ValueError, AttributeError, KeyError) as e:
+            # Routing algorithm failed - return None to trigger fallback
             pass
 
         return None

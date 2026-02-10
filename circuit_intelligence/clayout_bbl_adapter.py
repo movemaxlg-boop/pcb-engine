@@ -16,6 +16,11 @@ from typing import Dict, List, Any, Optional, Callable, Tuple
 from dataclasses import dataclass, field
 import time
 import copy
+import sys
+import os
+
+# Add pcb_engine to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from .clayout_types import (
     ConstitutionalLayout,
@@ -27,8 +32,22 @@ from .clayout_types import (
     RuleOverride,
     EscalationReport,
     CLayoutValidationResult,
+    NetType,
 )
 from .clayout_validator import validate_clayout
+
+# Import Smart Algorithm Manager components
+try:
+    from pcb_engine.routing_planner import (
+        RoutingPlanner, RoutingPlan, NetClass, RoutingAlgorithm,
+        NetRoutingStrategy
+    )
+    from pcb_engine.learning_database import LearningDatabase
+    SMART_ROUTING_AVAILABLE = True
+except ImportError:
+    SMART_ROUTING_AVAILABLE = False
+    RoutingPlanner = None
+    RoutingPlan = None
 
 
 # =============================================================================
@@ -298,6 +317,30 @@ class CLayoutConverter:
             'via_constraints': hints.via_constraints,
         }
 
+    def _convert_net_classes(self, clayout: ConstitutionalLayout) -> Dict[str, str]:
+        """
+        Convert c_layout net types to routing planner net classes.
+
+        This bridges the c_layout NetType with RoutingPlanner NetClass.
+        """
+        net_classes = {}
+
+        # Map c_layout NetType to RoutingPlanner NetClass
+        NET_TYPE_TO_CLASS = {
+            NetType.POWER: 'power',
+            NetType.GND: 'ground',
+            NetType.SIGNAL: 'signal',
+            NetType.DIFF_PAIR: 'differential',
+            NetType.HIGH_SPEED: 'high_speed',
+            NetType.ANALOG: 'analog',
+            NetType.CLOCK: 'high_speed',  # Clock treated as high-speed
+        }
+
+        for net in clayout.nets:
+            net_classes[net.name] = NET_TYPE_TO_CLASS.get(net.net_type, 'signal')
+
+        return net_classes
+
 
 # =============================================================================
 # BBL ADAPTER
@@ -309,21 +352,39 @@ class CLayoutBBLAdapter:
 
     This handles:
     1. Converting c_layout to parts_db
-    2. Running BBL with proper configuration
-    3. Interpreting results with rule hierarchy
-    4. Generating escalation reports
+    2. Creating smart routing plan via RoutingPlanner
+    3. Running BBL with proper configuration
+    4. Interpreting results with rule hierarchy
+    5. Generating escalation reports
+
+    INTEGRATION WITH SMART ALGORITHM MANAGER:
+    =========================================
+    The adapter now integrates with the RoutingPlanner to provide
+    intelligent per-net algorithm selection based on:
+    - c_layout net types (power, ground, high_speed, diff_pair, etc.)
+    - Routing hints (priority nets, diff pairs, length match groups)
+    - Learning database (historical success data)
     """
 
-    def __init__(self, bbl_engine=None):
+    def __init__(self, bbl_engine=None, learning_db=None):
         """
         Initialize the adapter.
 
         Args:
             bbl_engine: Optional BBL engine instance (will create if not provided)
+            learning_db: Optional learning database for smart routing
         """
         self.bbl_engine = bbl_engine
         self.converter = CLayoutConverter()
         self._current_clayout: Optional[ConstitutionalLayout] = None
+        self._learning_db = learning_db
+        self._routing_plan: Optional['RoutingPlan'] = None
+
+        # Initialize RoutingPlanner if available
+        if SMART_ROUTING_AVAILABLE:
+            self._routing_planner = RoutingPlanner(learning_db)
+        else:
+            self._routing_planner = None
 
     def run_with_clayout(
         self,
@@ -331,6 +392,7 @@ class CLayoutBBLAdapter:
         progress_callback: Optional[Callable] = None,
         escalation_callback: Optional[Callable] = None,
         validate_first: bool = True,
+        use_smart_routing: bool = True,
     ) -> CLayoutBBLResult:
         """
         Run BBL with a Constitutional Layout.
@@ -340,6 +402,7 @@ class CLayoutBBLAdapter:
             progress_callback: Optional callback for progress updates
             escalation_callback: Optional callback for escalations
             validate_first: Whether to validate c_layout before running
+            use_smart_routing: Whether to use RoutingPlanner for algorithm selection
 
         Returns:
             CLayoutBBLResult with execution results
@@ -367,6 +430,32 @@ class CLayoutBBLAdapter:
 
         # Step 2: Convert c_layout to parts_db
         parts_db = self.converter.convert(clayout)
+
+        # Step 2.5: Create smart routing plan (if available)
+        routing_plan = None
+        if use_smart_routing and self._routing_planner and SMART_ROUTING_AVAILABLE:
+            routing_plan = self._create_routing_plan(clayout, parts_db)
+            self._routing_plan = routing_plan
+
+            # Add routing plan to parts_db for BBL
+            parts_db['routing_plan'] = {
+                'has_plan': True,
+                'net_strategies': {
+                    name: {
+                        'net_class': strategy.net_class.value,
+                        'primary_algorithm': strategy.primary_algorithm.value,
+                        'fallback_algorithms': [a.value for a in strategy.fallback_algorithms],
+                        'trace_width': strategy.trace_width,
+                        'clearance': strategy.clearance,
+                        'priority': strategy.priority,
+                    }
+                    for name, strategy in routing_plan.net_strategies.items()
+                },
+                'routing_order': routing_plan.routing_order,
+                'enable_trunk_chains': routing_plan.enable_trunk_chains,
+                'ground_pour_recommended': routing_plan.ground_pour_recommended,
+                'success_prediction': routing_plan.overall_success_prediction,
+            }
 
         # Step 3: Run BBL
         if self.bbl_engine:
@@ -508,6 +597,105 @@ class CLayoutBBLAdapter:
     def get_escalation_report(self) -> Optional[EscalationReport]:
         """Get the last escalation report, if any."""
         return getattr(self, '_last_escalation', None)
+
+    def get_routing_plan(self) -> Optional['RoutingPlan']:
+        """Get the routing plan created for the last run."""
+        return self._routing_plan
+
+    def _create_routing_plan(
+        self,
+        clayout: ConstitutionalLayout,
+        parts_db: Dict
+    ) -> 'RoutingPlan':
+        """
+        Create a smart routing plan from c_layout.
+
+        This bridges c_layout's rich net metadata with the RoutingPlanner's
+        algorithm selection system.
+
+        Args:
+            clayout: The Constitutional Layout
+            parts_db: The converted parts database
+
+        Returns:
+            RoutingPlan with per-net strategies
+        """
+        # Build board config from c_layout
+        board_config = {
+            'board_width': clayout.board.width_mm,
+            'board_height': clayout.board.height_mm,
+            'layers': clayout.board.layer_count,
+        }
+
+        # Add net class hints from c_layout
+        net_classes = self.converter._convert_net_classes(clayout)
+        for net_name, net_class in net_classes.items():
+            if net_name in parts_db.get('nets', {}):
+                parts_db['nets'][net_name]['class'] = net_class
+
+        # Add routing priority from c_layout
+        routing_hints = clayout.routing_hints
+        for i, net_name in enumerate(routing_hints.priority_nets):
+            if net_name in parts_db.get('nets', {}):
+                parts_db['nets'][net_name]['priority'] = i + 1  # 1-indexed priority
+
+        # Add diff pair information
+        for diff_pair in routing_hints.diff_pairs:
+            for net_name in [diff_pair.positive_net, diff_pair.negative_net]:
+                if net_name in parts_db.get('nets', {}):
+                    parts_db['nets'][net_name]['class'] = 'differential'
+                    parts_db['nets'][net_name]['impedance'] = diff_pair.impedance_ohm
+                    parts_db['nets'][net_name]['max_mismatch'] = diff_pair.max_mismatch_mm
+
+        # Create the routing plan
+        plan = self._routing_planner.create_routing_plan(parts_db, board_config)
+
+        # Apply c_layout-specific overrides to the plan
+        self._apply_clayout_overrides(plan, clayout)
+
+        return plan
+
+    def _apply_clayout_overrides(
+        self,
+        plan: 'RoutingPlan',
+        clayout: ConstitutionalLayout
+    ) -> None:
+        """
+        Apply c_layout rule overrides to the routing plan.
+
+        If c_layout has specific rules that override default behavior,
+        apply them to the net strategies.
+        """
+        routing_hints = clayout.routing_hints
+
+        # Apply no_auto_route - mark these nets to skip
+        for net_name in routing_hints.no_auto_route:
+            if net_name in plan.net_strategies:
+                # Set priority very low so it routes last (or not at all)
+                plan.net_strategies[net_name].priority = 999
+
+        # Apply length matching groups
+        for lm_group in routing_hints.length_match_groups:
+            for net_name in lm_group.nets:
+                if net_name in plan.net_strategies:
+                    plan.net_strategies[net_name].length_match_group = lm_group.name
+
+        # Apply layer assignments as constraints
+        for net_name, layers in routing_hints.layer_assignments.items():
+            if net_name in plan.net_strategies:
+                # Store layer constraint in strategy (for routing piston to use)
+                plan.net_strategies[net_name].allowed_layers = layers
+
+        # Apply via constraints
+        for net_name, via_info in routing_hints.via_constraints.items():
+            if net_name in plan.net_strategies:
+                strategy = plan.net_strategies[net_name]
+                if 'via_size' in via_info:
+                    strategy.via_size = via_info['via_size']
+                if 'via_drill' in via_info:
+                    strategy.via_drill = via_info['via_drill']
+                if 'max_vias' in via_info:
+                    strategy.max_vias = via_info.get('max_vias')
 
 
 # =============================================================================

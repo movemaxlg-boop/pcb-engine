@@ -1558,8 +1558,8 @@ class StackupPiston:
                     layer_info['diff_pair_width_mm'] = round(w_50, 4)
                     layer_info['diff_pair_spacing_mm'] = round(spacing, 4)
                     layer_info['calculated_z_diff'] = round(result_diff.z_diff, 2)
-                except:
-                    layer_info['diff_pair_error'] = "Could not solve for 100 ohm differential"
+                except (ValueError, ZeroDivisionError, AttributeError) as e:
+                    layer_info['diff_pair_error'] = f"Could not solve for 100 ohm differential: {e}"
 
             results['layers'].append(layer_info)
 

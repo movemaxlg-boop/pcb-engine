@@ -3656,7 +3656,8 @@ class PCBEngine:
             strategy = self._learning_piston.recommend_routing_strategy(design_data)
             self._log(f"  Learning recommends: {strategy}")
             return strategy
-        except:
+        except (AttributeError, KeyError, TypeError) as e:
+            self._log(f"  Learning recommendation failed ({e}), defaulting to hybrid")
             return 'hybrid'
 
     # =========================================================================

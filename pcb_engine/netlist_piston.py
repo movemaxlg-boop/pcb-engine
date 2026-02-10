@@ -431,7 +431,8 @@ class NetlistPiston:
             elif ',' in header.split('\n')[0]:
                 return NetlistFormat.CSV
 
-        except Exception:
+        except (IOError, UnicodeDecodeError) as e:
+            # File reading error - fall through to default
             pass
 
         return NetlistFormat.KICAD_SEXPR  # Default

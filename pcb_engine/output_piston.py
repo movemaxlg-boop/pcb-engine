@@ -384,8 +384,8 @@ class OutputPiston:
                     if os.path.exists(dest):
                         os.remove(dest)
                     shutil.move(item_path, dest)
-                except Exception:
-                    pass  # Ignore locked files
+                except (OSError, PermissionError, shutil.Error):
+                    pass  # Skip locked or in-use files during cleanup
 
         # Find current LAST_WORKING and previous LAST_DESIGN folders
         # Also collect ALL unmarked folders to move to old/
@@ -566,8 +566,9 @@ class OutputPiston:
                 subprocess.run(['attrib', '-s', '-h', desktop_ini], capture_output=True)
                 os.remove(desktop_ini)
                 subprocess.run(['attrib', '-r', folder_path], capture_output=True)
-            except:
-                pass
+            except (OSError, subprocess.SubprocessError) as e:
+                # Windows-specific file attribute operations may fail on other platforms
+                pass  # Non-critical: folder icon is cosmetic feature
 
     def _auto_generate_placement(self, parts_db: Dict) -> Dict:
         """
