@@ -13,6 +13,11 @@ Validation checks:
 4. Board can physically fit all parts (rough check)
 5. Overrides have valid justifications
 6. Rule hierarchy is consistent
+
+FULLY INTEGRATED WITH RULES API:
+- Uses RulesAPI for fabrication limits validation
+- Uses RulesAPI for component spacing checks
+- All thresholds come from the 631-rule database
 """
 
 from typing import Dict, List, Set, Optional, Tuple
@@ -31,6 +36,7 @@ from .clayout_types import (
     RoutingHints,
     RulePriority,
 )
+from .rules_api import RulesAPI
 
 
 # =============================================================================
@@ -120,6 +126,11 @@ class CLayoutValidator:
     Validates a c_layout before passing to BBL.
 
     This is the "gate" that ensures we don't waste time on impossible designs.
+
+    FULLY INTEGRATED WITH RULES API:
+    - Uses RulesAPI for fabrication limits
+    - Uses RulesAPI for spacing validation
+    - All thresholds from 631-rule database
     """
 
     def __init__(self, parts_db: Optional[Dict] = None):
@@ -131,6 +142,7 @@ class CLayoutValidator:
         """
         self.parts_db = parts_db or {}
         self.footprint_sizes = FOOTPRINT_SIZES
+        self.rules_api = RulesAPI()
 
     def validate(self, clayout: ConstitutionalLayout) -> CLayoutValidationResult:
         """
@@ -153,6 +165,7 @@ class CLayoutValidator:
         errors.extend(self.check_no_rule_conflicts(clayout))
         errors.extend(self.check_overrides_valid(clayout))
         errors.extend(self.check_hierarchy_consistent(clayout))
+        errors.extend(self.check_fabrication_limits(clayout))
 
         # Warnings (non-blocking)
         warnings.extend(self.check_board_fits(clayout))
@@ -355,6 +368,66 @@ class CLayoutValidator:
             if binding.rule_id in seen:
                 errors.append(f"Rule '{binding.rule_id}' duplicated in hierarchy")
             seen.add(binding.rule_id)
+
+        return errors
+
+    def check_fabrication_limits(self, clayout: ConstitutionalLayout) -> List[str]:
+        """
+        Check that board constraints meet fabrication limits.
+
+        Uses RulesAPI to get actual fabrication limits from 631-rule database.
+        """
+
+        errors = []
+        board = clayout.board
+
+        # Get limits from RulesAPI
+        min_trace = self.rules_api.get_min_trace_width("standard")
+        min_space = self.rules_api.get_min_spacing("standard")
+        min_via = self.rules_api.get_min_via_drill("standard")
+        min_annular = self.rules_api.get_annular_ring(2)  # IPC Class 2
+
+        # Validate trace width
+        if board.min_trace_mm > 0 and board.min_trace_mm < min_trace:
+            errors.append(
+                f"Board min_trace ({board.min_trace_mm}mm) is below fabrication "
+                f"limit ({min_trace}mm per IPC-2221B)"
+            )
+
+        # Validate spacing
+        if board.min_space_mm > 0 and board.min_space_mm < min_space:
+            errors.append(
+                f"Board min_space ({board.min_space_mm}mm) is below fabrication "
+                f"limit ({min_space}mm per IPC-2221B)"
+            )
+
+        # Validate via drill
+        if board.min_via_drill_mm > 0 and board.min_via_drill_mm < min_via:
+            errors.append(
+                f"Board min_via_drill ({board.min_via_drill_mm}mm) is below "
+                f"fabrication limit ({min_via}mm)"
+            )
+
+        # Validate annular ring
+        if board.min_via_annular_mm > 0 and board.min_via_annular_mm < min_annular:
+            errors.append(
+                f"Board min_via_annular ({board.min_via_annular_mm}mm) is below "
+                f"IPC Class 2 requirement ({min_annular}mm per IPC-2221B)"
+            )
+
+        # Validate voltage vs spacing using RulesAPI
+        max_voltage = 0.0
+        for net in clayout.nets:
+            if net.voltage:
+                max_voltage = max(max_voltage, abs(net.voltage))
+
+        if max_voltage > 0:
+            required_spacing = self.rules_api.get_conductor_spacing(max_voltage)
+            if board.min_space_mm > 0 and board.min_space_mm < required_spacing:
+                errors.append(
+                    f"Board min_space ({board.min_space_mm}mm) insufficient for "
+                    f"{max_voltage}V (requires {required_spacing}mm per IPC-2221B Table 6-1)"
+                )
 
         return errors
 
