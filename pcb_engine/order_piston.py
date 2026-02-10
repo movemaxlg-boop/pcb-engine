@@ -602,6 +602,38 @@ class OrderPiston:
     # NET ROUTING ORDER
     # =========================================================================
 
+    def compute_net_order(
+        self,
+        parts_db: Dict,
+        placement: Optional[Dict] = None,
+        algorithm: Optional[str] = None
+    ) -> List[str]:
+        """
+        Compute net routing order using specified algorithm.
+
+        This is an alias for get_net_order that allows specifying
+        the algorithm directly instead of via config.
+
+        Args:
+            parts_db: Parts database with nets
+            placement: Optional component placement
+            algorithm: Algorithm name (short_first, long_first, critical_first,
+                       bounding_box, pin_count, congestion, power_first,
+                       signal_first, auto). If None, uses config default.
+
+        Returns:
+            List of net names in routing order
+        """
+        if algorithm:
+            # Temporarily override the strategy
+            old_strategy = self.config.net_order_strategy
+            self.config.net_order_strategy = algorithm
+            try:
+                return self.get_net_order(parts_db, placement)
+            finally:
+                self.config.net_order_strategy = old_strategy
+        return self.get_net_order(parts_db, placement)
+
     def get_net_order(self, parts_db: Dict, placement: Optional[Dict] = None) -> List[str]:
         """
         Determine optimal net routing order.

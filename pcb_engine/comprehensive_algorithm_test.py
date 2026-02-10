@@ -670,26 +670,64 @@ class AlgorithmRunner:
         start_time = time.time()
 
         try:
-            from pcb_engine.optimization_piston import OptimizationPiston, OptimizationConfig
+            from pcb_engine.optimization_piston import OptimizationPiston, OptimizationConfig, OptimizationType
+            from pcb_engine.routing_piston import RoutingPiston
+            from pcb_engine.routing_types import RoutingConfig
 
-            config = OptimizationConfig(
+            # Map algorithm name to OptimizationType
+            algorithm_map = {
+                'via_minimize': OptimizationType.VIA_MINIMIZE,
+                'wirelength': OptimizationType.WIRE_LENGTH,
+                'length_match': OptimizationType.LENGTH_MATCH,
+                'diff_pair': OptimizationType.DIFF_PAIR_TUNE,
+                'crosstalk': OptimizationType.CROSSTALK,
+                'dro': OptimizationType.DESIGN_RULE,
+            }
+
+            opt_type = algorithm_map.get(algorithm, OptimizationType.VIA_MINIMIZE)
+
+            # First, create routes by running routing
+            routing_config = RoutingConfig(
                 board_width=test_case['board_width'],
                 board_height=test_case['board_height'],
+                algorithm='hadlock',  # Use fast algorithm
+                trace_width=0.25,
+                clearance=0.15,
+                grid_size=0.5,
+            )
+            routing_piston = RoutingPiston(routing_config)
+
+            parts_db = test_case['parts_db']
+            placement = test_case.get('placement', {})
+            routeable = [n for n, info in parts_db.get('nets', {}).items()
+                        if len(info.get('pins', [])) >= 2]
+
+            routing_result = routing_piston.route(
+                parts_db=parts_db,
+                escapes={},
+                placement=placement,
+                net_order=routeable
             )
 
-            piston = OptimizationPiston(config)
+            # Convert routing result to dict format for optimization
+            routes = {}
+            if hasattr(routing_result, 'routes'):
+                routes = routing_result.routes
+            elif hasattr(routing_result, 'routed_nets'):
+                routes = {net: routing_result.routed_nets.get(net, {})
+                         for net in routing_result.routed_nets}
 
-            # Need existing routes to optimize
-            # For now, create dummy routes or use pre-routed data
-            routes = test_case.get('routes', {})
+            # Now run optimization
+            opt_config = OptimizationConfig()
+            piston = OptimizationPiston(opt_config)
 
             with ThreadPoolExecutor(max_workers=1) as executor:
                 future = executor.submit(
                     piston.optimize,
                     routes,
-                    test_case['parts_db'],
-                    test_case.get('placement', {}),
-                    algorithm
+                    None,  # vias (extracted from routes)
+                    None,  # diff_pairs
+                    opt_type
                 )
                 try:
                     result = future.result(timeout=timeout)
@@ -697,8 +735,11 @@ class AlgorithmRunner:
                     metrics.execution_time_ms = (time.time() - start_time) * 1000
                     metrics.status = TestStatus.PASS
 
-                    if hasattr(result, 'improved'):
-                        metrics.quality_score = 100 if result.improved else 50
+                    # Results is a list of OptimizationResult
+                    if isinstance(result, list) and len(result) > 0:
+                        # Check if any optimization improved things
+                        improved = any(getattr(r, 'improved', False) for r in result)
+                        metrics.quality_score = 100 if improved else 50
 
                 except FuturesTimeoutError:
                     metrics.status = TestStatus.TIMEOUT

@@ -508,6 +508,30 @@ class PlacementPiston:
     # HELPER FUNCTIONS
     # =========================================================================
 
+    def _get_components_from_pins(self, pins: List) -> Set[str]:
+        """
+        Extract component references from a list of pins.
+
+        Handles multiple pin formats:
+        - String format: 'R1.1' -> 'R1'
+        - Tuple format: ('R1', '1') -> 'R1'
+        - Tuple with position: ('R1', '1', 0, 0) -> 'R1'
+
+        Returns:
+            Set of component references
+        """
+        components = set()
+        for pin_ref in pins:
+            if isinstance(pin_ref, str):
+                # Parse 'R1.1' -> 'R1'
+                comp = pin_ref.split('.')[0] if '.' in pin_ref else pin_ref
+            elif isinstance(pin_ref, (list, tuple)) and len(pin_ref) >= 1:
+                comp = str(pin_ref[0])
+            else:
+                continue
+            components.add(comp)
+        return components
+
     def _is_power_net(self, net_name: str) -> bool:
         power_names = ['GND', 'VCC', 'VDD', '3V3', '5V', 'VBUS', '12V', 'AVCC', 'AGND']
         return net_name.upper() in power_names or net_name.upper().startswith('V')
@@ -1595,7 +1619,8 @@ class PlacementPiston:
 
         # Nets crossing the cut before swap
         for net_name, net_info in self.nets.items():
-            comps = set(c for c, p in net_info.get('pins', []) if c in self.components)
+            pins = net_info.get('pins', [])
+            comps = self._get_components_from_pins(pins) & set(self.components.keys())
 
             in_left = len(comps & left_set)
             in_right = len(comps & right_set)
@@ -2313,7 +2338,8 @@ class PlacementPiston:
 
             # Attraction between connected clusters
             for net_name, net_info in self.nets.items():
-                comps_in_net = set(c for c, p in net_info.get('pins', []) if c in self.components)
+                pins = net_info.get('pins', [])
+                comps_in_net = self._get_components_from_pins(pins) & set(self.components.keys())
 
                 clusters_in_net = set()
                 for i, cluster in enumerate(clusters):
@@ -2577,7 +2603,7 @@ class PlacementPiston:
 
         for net_name, net_info in self.nets.items():
             pins = net_info.get('pins', [])
-            comps_in_net = [c for c, p in pins if c in self.components]
+            comps_in_net = list(self._get_components_from_pins(pins) & set(self.components.keys()))
 
             if ref not in comps_in_net or len(comps_in_net) < 2:
                 continue
@@ -2651,11 +2677,22 @@ class PlacementPiston:
 
         # Convert nets to ePlace format
         eplace_nets = []
-        for net_name, pins in self.nets.items():
+        for net_name, net_info in self.nets.items():
+            pins = net_info.get('pins', [])
             net_pins = []
-            for ref, pin_id, ox, oy in pins:
-                net_pins.append((ref, ox, oy))
-            eplace_nets.append(EPlaceNet(name=net_name, pins=net_pins))
+            for pin_ref in pins:
+                # Parse pin reference to get component
+                if isinstance(pin_ref, str):
+                    ref = pin_ref.split('.')[0] if '.' in pin_ref else pin_ref
+                elif isinstance(pin_ref, (list, tuple)) and len(pin_ref) >= 1:
+                    ref = str(pin_ref[0])
+                else:
+                    continue
+                # Use component center as pin position (offset 0, 0)
+                if ref in self.components:
+                    net_pins.append((ref, 0.0, 0.0))
+            if net_pins:
+                eplace_nets.append(EPlaceNet(name=net_name, pins=net_pins))
 
         # Create placer with board dimensions
         placer = ePlaceAnalytical(
@@ -2956,7 +2993,7 @@ class PlacementPiston:
         # Sum over all nets containing this component
         for net_name, net_info in self.nets.items():
             pins = net_info.get('pins', [])
-            comps_in_net = [c for c, p in pins if c in self.components]
+            comps_in_net = list(self._get_components_from_pins(pins) & set(self.components.keys()))
 
             if ref not in comps_in_net or len(comps_in_net) < 2:
                 continue
