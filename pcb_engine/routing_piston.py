@@ -1745,6 +1745,304 @@ class RoutingPiston:
             return self._route_hybrid(net_order, net_pins, escapes, placement, parts_db)
 
     # =========================================================================
+    # SMART ROUTING WITH PLAN
+    # =========================================================================
+
+    def route_with_plan(self, routing_plan: 'RoutingPlan',
+                       parts_db: Dict, escapes: Dict, placement: Dict,
+                       learning_db: 'LearningDatabase' = None) -> 'RoutingResult':
+        """
+        Route using a smart routing plan with per-net algorithm selection.
+
+        This is the INTELLIGENT routing method that uses the RoutingPlanner's
+        analysis to select the best algorithm for each net, rather than
+        applying a single algorithm to all nets.
+
+        Args:
+            routing_plan: RoutingPlan from RoutingPlanner with per-net strategies
+            parts_db: Parts database with nets and component info
+            escapes: Escape routes {ref: {pin: EscapeRoute}}
+            placement: Component placements {ref: Position}
+            learning_db: Optional learning database to record outcomes
+
+        Returns:
+            RoutingResult with all routes and statistics
+        """
+        import time as time_module
+        from .routing_planner import NetClass, RoutingAlgorithm
+        from .learning_database import RoutingOutcome
+
+        # Store for use by internal methods
+        self._placement = placement
+        self._parts_db = parts_db
+
+        # Initialize grids and spatial index (once for all nets)
+        self._initialize_grids()
+        self._register_components(placement, parts_db)
+        self._register_escapes(escapes)
+
+        if self.use_spatial_index:
+            self._build_spatial_index()
+
+        # Build ground plane map if needed
+        if routing_plan.enable_return_path_check:
+            self._build_ground_plane_map(parts_db, 'B.Cu')
+            self._return_path_violations = []
+
+        # Build net_pins lookup
+        nets = parts_db.get('nets', {})
+        net_pins = {name: info.get('pins', []) for name, info in nets.items()}
+
+        # Results tracking
+        all_routes = {}
+        outcomes = []  # For learning database
+        routed_count = 0
+        failed_nets = []
+        algorithm_usage = {}  # Track which algorithm succeeded
+
+        # Route each net according to its strategy
+        for net_name in routing_plan.routing_order:
+            strategy = routing_plan.get_strategy(net_name)
+            if not strategy:
+                continue
+
+            pins = net_pins.get(net_name, [])
+            if len(pins) < 2:
+                continue  # Skip unroutable nets
+
+            # Set per-net trace width and clearance
+            self._net_trace_widths[net_name] = strategy.trace_width
+            self._net_clearances[net_name] = strategy.clearance
+
+            # Try routing with this net's algorithm chain
+            start_time = time_module.time()
+            success = False
+            algorithm_used = None
+            route_result = None
+
+            # Build algorithm chain: primary + fallbacks + push-and-shove
+            algorithms_to_try = [strategy.primary_algorithm] + strategy.fallback_algorithms
+            if strategy.use_push_and_shove:
+                algorithms_to_try.append(RoutingAlgorithm.PUSH_AND_SHOVE)
+
+            for algorithm in algorithms_to_try:
+                # Temporarily set algorithm
+                orig_algorithm = self.config.algorithm
+                self.config.algorithm = algorithm.value
+
+                try:
+                    # Route just this net
+                    single_result = self._route_single_net(
+                        net_name, pins, escapes, net_pins
+                    )
+
+                    if single_result and single_result.get('success', False):
+                        success = True
+                        algorithm_used = algorithm
+                        route_result = single_result
+                        break
+
+                except Exception as e:
+                    # Algorithm failed, try next
+                    pass
+                finally:
+                    self.config.algorithm = orig_algorithm
+
+            # Record outcome
+            elapsed_ms = (time_module.time() - start_time) * 1000
+
+            if success and route_result:
+                all_routes[net_name] = route_result.get('route', [])
+                routed_count += 1
+                algorithm_usage[algorithm_used.value] = algorithm_usage.get(algorithm_used.value, 0) + 1
+
+                # Mark route on grid to block future routing
+                for segment in route_result.get('route', []):
+                    if hasattr(segment, 'start') and hasattr(segment, 'end'):
+                        self._mark_route_on_grid(segment, net_name)
+            else:
+                failed_nets.append(net_name)
+
+            # Record to learning database
+            if learning_db:
+                outcome = RoutingOutcome(
+                    net_name=net_name,
+                    net_class=strategy.net_class.value,
+                    design_hash='',  # Will be set by caller
+                    algorithm=algorithm_used.value if algorithm_used else 'none',
+                    success=success,
+                    time_ms=elapsed_ms,
+                    via_count=route_result.get('via_count', 0) if route_result else 0,
+                    wire_length_mm=route_result.get('wire_length', 0) if route_result else 0,
+                    quality_score=100 if success else 0,
+                )
+                outcomes.append(outcome)
+                learning_db.record_outcome(outcome)
+
+        # Check return path for high-speed nets
+        if routing_plan.enable_return_path_check:
+            for net_name in routing_plan.routing_order:
+                strategy = routing_plan.get_strategy(net_name)
+                if strategy and strategy.check_return_path:
+                    route = all_routes.get(net_name, [])
+                    if route:
+                        self._check_route_return_path(net_name, route)
+
+        # Create result
+        total_nets = len([n for n in routing_plan.routing_order
+                         if len(net_pins.get(n, [])) >= 2])
+
+        return RoutingResult(
+            routes=all_routes,
+            success=routed_count == total_nets,
+            routed_count=routed_count,
+            total_count=total_nets,
+            failed_nets=failed_nets,
+            algorithm_used='smart_plan',
+            timing_ms=0,  # Total time tracked by caller
+            metadata={
+                'algorithm_usage': algorithm_usage,
+                'return_path_violations': len(self._return_path_violations) if hasattr(self, '_return_path_violations') else 0,
+                'outcomes': outcomes,
+            }
+        )
+
+    def _route_single_net(self, net_name: str, pins: List,
+                         escapes: Dict, net_pins: Dict) -> Optional[Dict]:
+        """
+        Route a single net using the currently configured algorithm.
+
+        This is a helper for route_with_plan() that routes just one net.
+
+        Returns:
+            Dict with 'success', 'route', 'via_count', 'wire_length' or None
+        """
+        if len(pins) < 2:
+            return None
+
+        # Get endpoints
+        endpoints = self._get_escape_endpoints(net_name, pins, escapes)
+        if not endpoints or len(endpoints) < 2:
+            return None
+
+        start = endpoints[0]
+        end = endpoints[1]
+
+        # Try routing with current algorithm
+        algorithm = self.config.algorithm.lower()
+
+        try:
+            if algorithm == 'lee':
+                path = self._route_lee_net(start, end, net_name)
+            elif algorithm == 'hadlock':
+                path = self._route_hadlock_net(start, end, net_name)
+            elif algorithm == 'a_star' or algorithm == 'astar':
+                path = self._route_astar_net(start, end, net_name)
+            elif algorithm == 'pathfinder':
+                # Pathfinder needs full context, use simpler approach
+                path = self._route_astar_net(start, end, net_name)
+            elif algorithm == 'steiner':
+                # For 2-pin net, Steiner = direct routing
+                path = self._route_lee_net(start, end, net_name)
+            elif algorithm in ['push_and_shove', 'pns', 'shove']:
+                # Try push-and-shove routing
+                path = self._route_with_push_and_shove(start, end, net_name)
+            else:
+                # Default to A*
+                path = self._route_astar_net(start, end, net_name)
+
+            if path:
+                # Convert path to track segments
+                segments = self._path_to_segments(path, net_name)
+                via_count = sum(1 for s in segments if hasattr(s, 'is_via') and s.is_via)
+                wire_length = sum(
+                    self._segment_length(s) for s in segments
+                    if not (hasattr(s, 'is_via') and s.is_via)
+                )
+
+                return {
+                    'success': True,
+                    'route': segments,
+                    'via_count': via_count,
+                    'wire_length': wire_length,
+                }
+        except Exception:
+            pass
+
+        return None
+
+    def _route_with_push_and_shove(self, start: Tuple, end: Tuple,
+                                   net_name: str) -> Optional[List]:
+        """
+        Try routing with push-and-shove when direct routing fails.
+        """
+        # First try direct A*
+        path = self._route_astar_net(start, end, net_name)
+        if path:
+            return path
+
+        # Try walkaround
+        if hasattr(self, '_find_walkaround_path'):
+            path = self._find_walkaround_path(start, end, net_name)
+            if path:
+                return path
+
+        # Try shove
+        if hasattr(self, '_attempt_shove_routing'):
+            path = self._attempt_shove_routing(start, end, net_name)
+            if path:
+                return path
+
+        return None
+
+    def _segment_length(self, segment) -> float:
+        """Calculate length of a track segment in mm"""
+        if hasattr(segment, 'start') and hasattr(segment, 'end'):
+            dx = segment.end[0] - segment.start[0]
+            dy = segment.end[1] - segment.start[1]
+            return (dx*dx + dy*dy) ** 0.5
+        return 0.0
+
+    def _mark_route_on_grid(self, segment, net_name: str) -> None:
+        """Mark a routed segment on the grid to block future routing"""
+        if not hasattr(segment, 'start') or not hasattr(segment, 'end'):
+            return
+
+        layer = getattr(segment, 'layer', 'F.Cu')
+        grid_layer = self._layer_to_grid.get(layer, 0)
+
+        # Mark cells along the segment
+        x1, y1 = segment.start
+        x2, y2 = segment.end
+
+        # Convert to grid coordinates
+        gx1, gy1 = self._mm_to_grid(x1, y1)
+        gx2, gy2 = self._mm_to_grid(x2, y2)
+
+        # Simple Bresenham's line
+        dx = abs(gx2 - gx1)
+        dy = abs(gy2 - gy1)
+        sx = 1 if gx1 < gx2 else -1
+        sy = 1 if gy1 < gy2 else -1
+        err = dx - dy
+
+        x, y = gx1, gy1
+        while True:
+            if 0 <= x < self.grid_width and 0 <= y < self.grid_height:
+                self.grid[grid_layer, y, x] = net_name
+
+            if x == gx2 and y == gy2:
+                break
+
+            e2 = 2 * err
+            if e2 > -dy:
+                err -= dy
+                x += sx
+            if e2 < dx:
+                err += dx
+                y += sy
+
+    # =========================================================================
     # PARALLEL ROUTING - Multi-Core Optimization
     # =========================================================================
     # Routes independent nets in parallel using multiple CPU cores.

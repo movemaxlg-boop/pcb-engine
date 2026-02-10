@@ -279,6 +279,20 @@ except ImportError:
     LearningMode = None
     LearningResult = None
 
+# Import Smart Algorithm Manager components
+try:
+    from .routing_planner import RoutingPlanner, RoutingPlan, NetClass
+except ImportError:
+    RoutingPlanner = None
+    RoutingPlan = None
+    NetClass = None
+
+try:
+    from .learning_database import LearningDatabase, RoutingOutcome
+except ImportError:
+    LearningDatabase = None
+    RoutingOutcome = None
+
 try:
     from .grid_calculator import calculate_optimal_grid_size
 except ImportError:
@@ -3028,7 +3042,7 @@ class PCBEngine:
         )
 
     def _execute_routing(self, effort: PistonEffort) -> PistonReport:
-        """Execute Routing Piston with AI-directed algorithm selection"""
+        """Execute Routing Piston with SMART algorithm selection"""
         self.state.stage = EngineStage.ROUTING
 
         params = self._get_effort_parameters(effort)
@@ -3051,23 +3065,46 @@ class PCBEngine:
                 errors=['Routing piston not available']
             )
 
-        # === AI ALGORITHM SELECTION ===
-        # Ask Circuit AI / AI Agent which algorithm to use
-        work_order = self._request_algorithm_selection('routing', {
-            'effort': effort.value,
-            'grid_size': grid_size,
-            'density': len(self.state.parts_db.get('nets', {})) / (self.config.board_width * self.config.board_height),
-        })
+        # === SMART ALGORITHM MANAGER ===
+        # Use RoutingPlanner for intelligent per-net algorithm selection
+        use_smart_routing = RoutingPlanner is not None and LearningDatabase is not None
+        routing_plan = None
 
-        # Use AI-selected algorithm, or default
-        selected_algorithm = work_order.algorithm or self.config.routing_algorithm
-        if params['algorithms'] == 'all':
-            selected_algorithm = 'hybrid'  # Force hybrid on deeper efforts
+        if use_smart_routing:
+            self._log("  [SMART] Using Smart Algorithm Manager with per-net selection")
 
-        self._log(f"  Algorithm: {selected_algorithm} (AI: {work_order.ai_reasoning})")
+            # Initialize or get learning database
+            if not hasattr(self, '_learning_db') or self._learning_db is None:
+                self._learning_db = LearningDatabase()
 
+            # Create routing planner with learning database
+            planner = RoutingPlanner(self._learning_db)
+
+            # Create board config
+            board_config = {
+                'board_width': self.config.board_width,
+                'board_height': self.config.board_height,
+                'layers': self.config.layer_count,
+            }
+
+            # Create routing plan
+            routing_plan = planner.create_routing_plan(
+                self.state.parts_db,
+                board_config
+            )
+
+            # Log plan summary
+            self._log(f"  [SMART] Design: {routing_plan.design_profile.density.value} density, "
+                     f"{routing_plan.design_profile.net_count} nets")
+            self._log(f"  [SMART] Prediction: {routing_plan.overall_success_prediction*100:.0f}% success")
+
+            # Log algorithm distribution
+            algo_dist = routing_plan.get_algorithm_distribution()
+            self._log(f"  [SMART] Algorithms: {', '.join(f'{a}:{c}' for a,c in algo_dist.items())}")
+
+        # Create routing config for fallback
         routing_config = RoutingConfig(
-            algorithm=selected_algorithm,
+            algorithm='hybrid',  # Default, will be overridden by plan
             board_width=self.config.board_width,
             board_height=self.config.board_height,
             grid_size=grid_size,
@@ -3081,21 +3118,49 @@ class PCBEngine:
 
         escapes = self._build_simple_escapes()
 
-        # First attempt with selected algorithm
-        result = self._routing_piston.route(
-            self.state.parts_db,
-            escapes,
-            self.state.placement,
-            self.state.net_order
-        )
+        # === ROUTE WITH SMART PLAN OR FALLBACK ===
+        if use_smart_routing and routing_plan:
+            # Use smart routing with per-net strategies
+            result = self._routing_piston.route_with_plan(
+                routing_plan,
+                self.state.parts_db,
+                escapes,
+                self.state.placement,
+                self._learning_db
+            )
+            self._log(f"  [SMART] Result: {result.routed_count}/{result.total_count} nets routed")
 
-        # === ENGINE COMMAND: TRY ALGORITHM CASCADE IF ROUTING FAILS ===
-        # If initial routing failed, try hybrid algorithm which includes ripup-reroute
+            # Log algorithm usage from metadata
+            if hasattr(result, 'metadata') and 'algorithm_usage' in result.metadata:
+                usage = result.metadata['algorithm_usage']
+                self._log(f"  [SMART] Usage: {', '.join(f'{a}:{c}' for a,c in usage.items())}")
+        else:
+            # Fallback to legacy algorithm selection
+            work_order = self._request_algorithm_selection('routing', {
+                'effort': effort.value,
+                'grid_size': grid_size,
+                'density': len(self.state.parts_db.get('nets', {})) / (self.config.board_width * self.config.board_height),
+            })
+
+            selected_algorithm = work_order.algorithm or self.config.routing_algorithm
+            if params['algorithms'] == 'all':
+                selected_algorithm = 'hybrid'
+
+            self._log(f"  Algorithm: {selected_algorithm} (AI: {work_order.ai_reasoning})")
+            routing_config.algorithm = selected_algorithm
+
+            result = self._routing_piston.route(
+                self.state.parts_db,
+                escapes,
+                self.state.placement,
+                self.state.net_order
+            )
+
+        # === FALLBACK TO CASCADE IF SMART ROUTING FAILS ===
         if not result.success:
-            self._log(f"  [ENGINE] Initial routing failed ({result.routed_count}/{result.total_count})")
-            self._log(f"  [ENGINE] Ordering CASCADE: try all 11 algorithms...")
+            self._log(f"  [ENGINE] Routing incomplete ({result.routed_count}/{result.total_count})")
+            self._log(f"  [ENGINE] Ordering CASCADE: try remaining algorithms...")
 
-            # Use the cascade function which tries multiple algorithms
             try:
                 cascade_result = route_with_cascade(
                     parts_db=self.state.parts_db,
@@ -3107,7 +3172,6 @@ class PCBEngine:
                     config=routing_config
                 )
 
-                # Use cascade result if it's better
                 if cascade_result.routed_count > result.routed_count:
                     result = cascade_result
                     self._log(f"  [ENGINE] CASCADE improved: {result.routed_count}/{result.total_count}")
@@ -3128,7 +3192,8 @@ class PCBEngine:
             metrics={
                 'routed_count': result.routed_count,
                 'total_count': result.total_count,
-                'algorithm': result.algorithm_used
+                'algorithm': result.algorithm_used,
+                'smart_routing': use_smart_routing,
             }
         )
 

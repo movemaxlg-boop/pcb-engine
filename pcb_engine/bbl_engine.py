@@ -1587,6 +1587,18 @@ class BBLEngine:
             kicad_drc = self.state.piston_results.get('kicad_drc', {})
             output = self.state.piston_results.get('output', {})
 
+            # === SMART ALGORITHM MANAGER: Save Learning Database ===
+            if self.pcb_engine and hasattr(self.pcb_engine, '_learning_db'):
+                try:
+                    learning_db = self.pcb_engine._learning_db
+                    if learning_db:
+                        learning_db.save()
+                        summary = learning_db.get_summary()
+                        self._log(f"  [LEARNING] Saved {summary['total_outcomes']} routing outcomes")
+                        self._log(f"  [LEARNING] Overall success rate: {summary['overall_success_rate']*100:.1f}%")
+                except Exception as e:
+                    self._log(f"  [LEARNING] Failed to save learning database: {e}")
+
             # Learn from internal vs KiCad DRC differences
             if self.pcb_engine:
                 try:
