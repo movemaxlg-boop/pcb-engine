@@ -1914,5 +1914,7 @@ class BBLEngine:
 
     def shutdown(self):
         """Shutdown the BBL engine and clean up resources."""
-        self._executor.shutdown(wait=False)
+        # Save history FIRST to capture any in-flight state
         self._save_history()
+        # Then shutdown executor, waiting for running tasks to complete (max 30s)
+        self._executor.shutdown(wait=True)

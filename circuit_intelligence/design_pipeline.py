@@ -196,8 +196,9 @@ class DesignPipeline:
 
         try:
             self.parts_lib.load_defaults()
-        except:
-            pass  # Parts library optional
+        except (IOError, FileNotFoundError, KeyError, ValueError) as e:
+            # Parts library is optional - log but continue
+            print(f"Note: Parts library not loaded ({type(e).__name__}): {e}")
 
     def create_design_plan(self, context: DesignContext) -> DesignPlan:
         """

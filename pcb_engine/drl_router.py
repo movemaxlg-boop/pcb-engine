@@ -652,14 +652,22 @@ class RoutingEnvironment:
         }
 
     def _random_free_cell(self) -> Tuple[int, int, int]:
-        """Get random free cell."""
-        while True:
+        """Get random free cell with bounded attempts to prevent infinite loop."""
+        max_attempts = self.grid_width * self.grid_height * self.num_layers
+        attempts = 0
+
+        while attempts < max_attempts:
             layer = random.randint(0, self.num_layers - 1)
             y = random.randint(0, self.grid_height - 1)
             x = random.randint(0, self.grid_width - 1)
 
             if self.grid[layer, y, x] == 0:
                 return (layer, y, x)
+
+            attempts += 1
+
+        # Grid is too full - raise an error instead of hanging
+        raise RuntimeError(f"Failed to find free cell after {max_attempts} attempts - grid is too congested")
 
     def render(self) -> str:
         """Render environment as ASCII art."""
