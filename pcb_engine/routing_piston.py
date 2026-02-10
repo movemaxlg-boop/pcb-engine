@@ -454,6 +454,98 @@ class SpatialIndex:
         return (self.is_clear_for_net(row, col, net_name, 'F.Cu') and
                 self.is_clear_for_net(row, col, net_name, 'B.Cu'))
 
+    def build_net_clearance_bitmap(self, net_name: str, clearance_cells: int,
+                                    layer: str = 'F.Cu') -> np.ndarray:
+        """
+        Build a boolean bitmap: True = cell is CLEAR for routing this net.
+
+        This is THE KEY OPTIMIZATION: instead of checking 12 clearance offsets
+        per cell during BFS (884K string comparisons for 68K cells), we build
+        this bitmap ONCE per net using NumPy/scipy (~1ms), then BFS just does
+        bitmap[row, col] — a single O(1) array lookup.
+
+        A cell is clear if:
+        1. Not blocked (component body, edge, NC pad)
+        2. Not occupied by a DIFFERENT net
+        3. Not within clearance distance of a DIFFERENT net's cells
+
+        Cells owned by the SAME net are passable (routing to own pads).
+        """
+        net_id = self.get_net_id(net_name)
+        blocked = self.blocked_fcu if layer == 'F.Cu' else self.blocked_bcu
+        net_grid = self.net_fcu if layer == 'F.Cu' else self.net_bcu
+
+        # Step 1: Find own-net cell IDs (includes __PAD_CLEAR_<netname>__ markers)
+        # __PAD_CLEAR_VBUS__ gets its own net_id that's different from VBUS,
+        # but we must treat it as passable for VBUS routing.
+        pad_clear_name = f'__PAD_CLEAR_{net_name}__'
+        pad_clear_id = self.net_to_id.get(pad_clear_name, -999)
+
+        # Step 2: Find all cells that are obstacles for this net
+        # Obstacles = blocked cells + cells belonging to OTHER nets
+        # Own net (net_id), own pad clearance (pad_clear_id), and empty (0) are NOT obstacles
+        own_mask = (net_grid == net_id) | (net_grid == pad_clear_id)
+        other_net_mask = (net_grid != 0) & (net_grid != -1) & ~own_mask
+        obstacles = blocked | other_net_mask
+
+        # Step 3: Expand obstacles by clearance radius (binary dilation)
+        try:
+            from scipy.ndimage import binary_dilation
+            cc = clearance_cells
+            y, x = np.ogrid[-cc:cc+1, -cc:cc+1]
+            kernel = x*x + y*y <= cc*cc
+            expanded_obstacles = binary_dilation(obstacles, structure=kernel)
+        except ImportError:
+            # Manual expansion fallback
+            expanded_obstacles = np.copy(obstacles)
+            offsets = []
+            cc = clearance_cells
+            for dr in range(-cc, cc + 1):
+                for dc in range(-cc, cc + 1):
+                    if dr*dr + dc*dc <= cc*cc:
+                        offsets.append((dr, dc))
+            obstacle_coords = np.argwhere(obstacles)
+            for r, c in obstacle_coords:
+                for dr, dc in offsets:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < self.rows and 0 <= nc < self.cols:
+                        expanded_obstacles[nr, nc] = True
+
+        # Step 4: Clear = NOT in expanded obstacle zone
+        # BUT: own net cells are ALWAYS passable (we need to reach our own pads)
+        clear_bitmap = ~expanded_obstacles | own_mask
+
+        return clear_bitmap
+
+    def build_accessible_bitmap(self, net_name: str, layer: str = 'F.Cu') -> np.ndarray:
+        """
+        Build a relaxed accessibility bitmap (no clearance check, just passability).
+
+        Used for "approaching pad" zones near target — we relax clearance
+        requirements to allow routing into tight pad areas.
+
+        A cell is accessible if:
+        1. Not a hard blocker (component body, edge)
+        2. Either empty, belongs to our net, or is a pad conflict/clearance marker
+        """
+        net_id = self.get_net_id(net_name)
+        blocked = self.blocked_fcu if layer == 'F.Cu' else self.blocked_bcu
+        net_grid = self.net_fcu if layer == 'F.Cu' else self.net_bcu
+
+        # Include own pad clearance markers as accessible
+        pad_clear_name = f'__PAD_CLEAR_{net_name}__'
+        pad_clear_id = self.net_to_id.get(pad_clear_name, -999)
+
+        # Also include __PAD_CONFLICT__ as accessible (original code does this)
+        pad_conflict_id = self.net_to_id.get('__PAD_CONFLICT__', -999)
+
+        # Accessible = not blocked AND (empty OR own net OR own pad clear OR pad conflict)
+        accessible = ~blocked & (
+            (net_grid == 0) | (net_grid == net_id) |
+            (net_grid == pad_clear_id) | (net_grid == pad_conflict_id)
+        )
+        return accessible
+
 # Import shared types from routing_types.py (canonical definitions)
 from .routing_types import (
     TrackSegment,
@@ -564,6 +656,11 @@ class RoutingPiston:
         # Board margin
         self.board_margin = max(1.0, config.clearance + config.trace_width / 2 + 0.5)
         self.margin_cells = max(2, int(math.ceil(self.board_margin / config.grid_size)))
+
+        # Per-net bitmap cache for O(1) clearance checks
+        self._current_net_bitmap_name: Optional[str] = None
+        self._current_net_bitmap_fcu: Optional[np.ndarray] = None
+        self._current_net_bitmap_bcu: Optional[np.ndarray] = None
 
         # Tracking
         self.placed_vias: Set[Tuple[float, float]] = set()
@@ -2484,6 +2581,7 @@ class RoutingPiston:
     def _route_net_lee(self, net_name: str, pins: List[Tuple],
                        escapes: Dict) -> Route:
         """Route a single net using Lee algorithm"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='lee')
 
         # Get escape endpoints
@@ -2604,6 +2702,65 @@ class RoutingPiston:
 
         return route
 
+    def _build_bfs_bitmaps(self, net_name: str, end_row: int, end_col: int):
+        """
+        Build per-net routing bitmaps for O(1) BFS lookups.
+
+        THE KEY OPTIMIZATION: Instead of _is_cell_clear_for_net() doing 13
+        Python string comparisons per cell (center + 12 clearance offsets),
+        we build NumPy boolean bitmaps ONCE per net (~1ms via scipy dilation),
+        then BFS just checks bitmap[row, col].
+
+        For 68K cells explored: 884K string ops → 68K array lookups = ~10x faster.
+
+        Returns:
+            (clear_fcu, clear_bcu, accessible_fcu, accessible_bcu, approach_fcu)
+            - clear_*: Full clearance check (for normal routing cells)
+            - accessible_*: Relaxed check (for own-net pad approach)
+            - approach_fcu: Boolean mask of "approaching own pad" zone near target
+        """
+        si = self.spatial_index
+        if si is None:
+            return None  # Fallback to Python checks
+
+        clear_fcu = si.build_net_clearance_bitmap(net_name, self.clearance_cells, 'F.Cu')
+        clear_bcu = si.build_net_clearance_bitmap(net_name, self.clearance_cells, 'B.Cu')
+        accessible_fcu = si.build_accessible_bitmap(net_name, 'F.Cu')
+        accessible_bcu = si.build_accessible_bitmap(net_name, 'B.Cu')
+
+        # Build "approaching own pad" zone near target
+        # This is a bitmap marking cells within 2*clearance of any own-net cell
+        # near the target, allowing relaxed clearance for pad approach
+        net_id = si.get_net_id(net_name)
+        net_fcu = si.net_fcu
+
+        # Create a mask of own-net cells near target
+        approach_radius = self.clearance_cells * 2
+        target_zone_radius = 10  # Same as manhattan_to_target <= 10 in original
+
+        # Bounding box for target zone
+        r_min = max(0, end_row - target_zone_radius - approach_radius)
+        r_max = min(si.rows, end_row + target_zone_radius + approach_radius + 1)
+        c_min = max(0, end_col - target_zone_radius - approach_radius)
+        c_max = min(si.cols, end_col + target_zone_radius + approach_radius + 1)
+
+        # Find own-net cells in the target zone
+        own_net_near_target = np.zeros((si.rows, si.cols), dtype=bool)
+        zone = net_fcu[r_min:r_max, c_min:c_max]
+        own_net_near_target[r_min:r_max, c_min:c_max] = (zone == net_id)
+
+        # Expand by approach_radius to create the "approaching pad" zone
+        try:
+            from scipy.ndimage import binary_dilation
+            ar = approach_radius
+            y, x = np.ogrid[-ar:ar+1, -ar:ar+1]
+            kernel = x*x + y*y <= ar*ar
+            approach_fcu = binary_dilation(own_net_near_target, structure=kernel)
+        except ImportError:
+            approach_fcu = own_net_near_target  # Fallback: only exact cells
+
+        return clear_fcu, clear_bcu, accessible_fcu, accessible_bcu, approach_fcu
+
     def _lee_wavefront_3d(self, start: Tuple[float, float], end: Tuple[float, float],
                           net_name: str, connect_to_existing: bool = False,
                           routed_cells: set = None
@@ -2613,6 +2770,9 @@ class RoutingPiston:
 
         Uses 3D BFS where state is (row, col, layer).
         Via cost is added when changing layers.
+
+        OPTIMIZED: When spatial_index is available, uses pre-built per-net
+        NumPy bitmaps for O(1) clearance checks instead of Python loops.
 
         Args:
             start: Starting point (x, y) in mm
@@ -2639,6 +2799,13 @@ class RoutingPiston:
         # Bounds check
         if not self._in_bounds(start_row, start_col) or not self._in_bounds(end_row, end_col):
             return [], [], False
+
+        # BUILD PER-NET BITMAPS for O(1) clearance checks
+        # This replaces 13 Python string comparisons per cell with 1 array lookup
+        bitmaps = self._build_bfs_bitmaps(net_name, end_row, end_col)
+        use_bitmaps = bitmaps is not None
+        if use_bitmaps:
+            clear_fcu, clear_bcu, accessible_fcu, accessible_bcu, approach_fcu = bitmaps
 
         # 3D distance grids: [layer][row][col] = distance
         # layer 0 = F.Cu, layer 1 = B.Cu
@@ -2765,43 +2932,49 @@ class RoutingPiston:
                     if not self._is_diagonal_path_clear(grid, row, col, nr, nc, net_name):
                         continue  # Can't take diagonal - path blocked
 
-                # Check if this neighbor is part of our target net's pad area
-                neighbor_cell = grid[nr][nc] if self._in_bounds(nr, nc) else None
+                # =====================================================================
+                # CELL CLEARANCE CHECK - O(1) BITMAP vs O(13) PYTHON LOOP
+                # =====================================================================
+                if use_bitmaps:
+                    # FAST PATH: Use pre-built NumPy bitmaps (~10x faster)
+                    # clear_bitmap[r,c] = True means cell is routable for this net
+                    clear_bitmap = clear_fcu if layer == 0 else clear_bcu
+                    acc_bitmap = accessible_fcu if layer == 0 else accessible_bcu
 
-                # BUG FIX: Use relaxed clearance check when:
-                # 1. Cell is marked with our net (it's our pad), OR
-                # 2. We're within clearance distance of a cell marked with our net
-                #    (this allows routing through the "approach zone" to reach a pad)
-                # 3. We're close to the target coordinates
-                is_own_net_cell = neighbor_cell == net_name
-                is_near_target = abs(nr - end_row) <= 10 and abs(nc - end_col) <= 10
-
-                # Check if any nearby cell is marked with our net
-                # BUG FIX: Use a larger radius (2x clearance) to detect approach zone
-                # This allows routing through the "clear to pad" transition area
-                is_approaching_own_pad = False
-                if not is_own_net_cell and is_near_target:
-                    approach_radius = self.clearance_cells * 2  # Double the clearance radius
-                    for dr2 in range(-approach_radius, approach_radius + 1):
-                        for dc2 in range(-approach_radius, approach_radius + 1):
-                            check_r, check_c = nr + dr2, nc + dc2
-                            if self._in_bounds(check_r, check_c):
-                                if grid[check_r][check_c] == net_name:
-                                    is_approaching_own_pad = True
-                                    break
-                        if is_approaching_own_pad:
-                            break
-
-                use_relaxed_check = is_own_net_cell or is_approaching_own_pad
-
-                if use_relaxed_check:
-                    # Relaxed check - just needs to be accessible, not full clearance
-                    if not self._is_cell_accessible_for_net(grid, nr, nc, net_name):
-                        continue
+                    if clear_bitmap[nr, nc]:
+                        pass  # Cell is clear — proceed to add to queue
+                    elif approach_fcu[nr, nc] and acc_bitmap[nr, nc]:
+                        # Approaching own pad — use relaxed accessibility check
+                        pass  # Cell is accessible in approach zone — proceed
+                    else:
+                        continue  # Cell is blocked — skip
                 else:
-                    # Normal clearance check for routing cells
-                    if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
-                        continue
+                    # FALLBACK: Original Python loop (when spatial_index not built)
+                    neighbor_cell = grid[nr][nc] if self._in_bounds(nr, nc) else None
+                    is_own_net_cell = neighbor_cell == net_name
+                    is_near_target = abs(nr - end_row) <= 10 and abs(nc - end_col) <= 10
+
+                    is_approaching_own_pad = False
+                    if not is_own_net_cell and is_near_target:
+                        approach_radius = self.clearance_cells * 2
+                        for dr2 in range(-approach_radius, approach_radius + 1):
+                            for dc2 in range(-approach_radius, approach_radius + 1):
+                                check_r, check_c = nr + dr2, nc + dc2
+                                if self._in_bounds(check_r, check_c):
+                                    if grid[check_r][check_c] == net_name:
+                                        is_approaching_own_pad = True
+                                        break
+                            if is_approaching_own_pad:
+                                break
+
+                    use_relaxed_check = is_own_net_cell or is_approaching_own_pad
+
+                    if use_relaxed_check:
+                        if not self._is_cell_accessible_for_net(grid, nr, nc, net_name):
+                            continue
+                    else:
+                        if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
+                            continue
 
                 new_dist = dist + move_cost  # Use actual move cost (1.0 for cardinal, 1.414 for diagonal)
                 dist_grid[layer][nr][nc] = new_dist
@@ -2820,6 +2993,8 @@ class RoutingPiston:
                     # Previously only checked other_grid, which missed violations on
                     # the current layer (e.g., via placed next to SMD pad on F.Cu
                     # when transitioning from F.Cu to B.Cu).
+                    # NOTE: Via checks use Python function (not bitmap) because vias
+                    # have special __COMPONENT__ handling that bitmaps don't support.
                     current_clear = self._is_cell_clear_for_via(current_grid, row, col, net_name)
                     other_clear = self._is_cell_clear_for_via(other_grid, row, col, net_name)
 
@@ -2903,6 +3078,7 @@ class RoutingPiston:
     def _route_net_hadlock(self, net_name: str, pins: List[Tuple],
                            escapes: Dict) -> Route:
         """Route a single net using Hadlock's algorithm"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='hadlock')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -3110,6 +3286,7 @@ class RoutingPiston:
     def _route_net_soukup(self, net_name: str, pins: List[Tuple],
                           escapes: Dict) -> Route:
         """Route a single net using Soukup's algorithm"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='soukup')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -3314,6 +3491,7 @@ class RoutingPiston:
     def _route_net_mikami(self, net_name: str, pins: List[Tuple],
                           escapes: Dict) -> Route:
         """Route a single net using Mikami-Tabuchi"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='mikami')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -3625,6 +3803,7 @@ class RoutingPiston:
     def _route_net_astar(self, net_name: str, pins: List[Tuple],
                          escapes: Dict) -> Route:
         """Route a single net using A*"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='astar')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -3891,6 +4070,7 @@ class RoutingPiston:
                               fcu_present: Dict, bcu_present: Dict,
                               penalty: float) -> Route:
         """Route a net considering congestion costs"""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='pathfinder')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -4316,6 +4496,7 @@ class RoutingPiston:
     def _route_net_steiner(self, net_name: str, pins: List[Tuple],
                            escapes: Dict) -> Route:
         """Route a single net using Steiner tree approach with FLUTE optimization."""
+        self._prepare_net_bitmaps(net_name)
         route = Route(net=net_name, algorithm_used='steiner')
 
         endpoints = self._get_escape_endpoints(pins, escapes)
@@ -5506,21 +5687,45 @@ class RoutingPiston:
         # Block cells belonging to other nets
         return False
 
+    def _prepare_net_bitmaps(self, net_name: str):
+        """
+        Pre-build per-net clearance bitmaps for O(1) lookups.
+
+        Called once before routing each net. All subsequent calls to
+        _is_cell_clear_for_net for this net use the cached bitmap
+        instead of the 13-offset Python loop.
+
+        Benefits ALL algorithms: Lee BFS, PATHFINDER A*, Hadlock, etc.
+        """
+        if self.spatial_index is None:
+            self._current_net_bitmap_name = None
+            return
+
+        self._current_net_bitmap_name = net_name
+        self._current_net_bitmap_fcu = self.spatial_index.build_net_clearance_bitmap(
+            net_name, self.clearance_cells, 'F.Cu')
+        self._current_net_bitmap_bcu = self.spatial_index.build_net_clearance_bitmap(
+            net_name, self.clearance_cells, 'B.Cu')
+
     def _is_cell_clear_for_net(self, grid: List[List], row: int, col: int,
                                net_name: str) -> bool:
         """Check if a cell is clear for routing this net (with CIRCULAR clearance).
 
-        OPTIMIZED: Uses pre-computed circular offset pattern (like database index).
-        Instead of computing distance for each neighbor, we iterate pre-computed offsets.
-
-        FIX: Uses circular distance check instead of square.
-        Square clearance was allowing corners at distance sqrt(2)*cc while
-        blocking cardinal directions at distance cc. Circular is correct for DRC.
+        OPTIMIZED: When per-net bitmaps are pre-built (via _prepare_net_bitmaps),
+        uses O(1) NumPy array lookup instead of 13 Python string comparisons.
+        Falls back to Python loop when bitmaps not available.
         """
         if not self._in_bounds(row, col):
             return False
 
-        # Check center cell
+        # FAST PATH: Use pre-built per-net bitmap (O(1) lookup)
+        if (hasattr(self, '_current_net_bitmap_name') and
+            self._current_net_bitmap_name == net_name and
+            self._current_net_bitmap_fcu is not None):
+            bitmap = self._current_net_bitmap_fcu if grid is self.fcu_grid else self._current_net_bitmap_bcu
+            return bool(bitmap[row, col])
+
+        # FALLBACK: Original Python loop (when bitmaps not built)
         center = grid[row][col]
         if center in self.BLOCKED_MARKERS:
             return False
@@ -5528,7 +5733,6 @@ class RoutingPiston:
         # These block routing for OTHER nets, but allow same net
         if center is not None:
             if center.startswith('__PAD_CLEAR_'):
-                # Extract net name from marker
                 marker_net = center[12:-2]  # Remove '__PAD_CLEAR_' prefix and '__' suffix
                 if marker_net != net_name:
                     return False  # Clearance zone of different net
@@ -5536,15 +5740,12 @@ class RoutingPiston:
                 return False
 
         # OPTIMIZED: Use pre-computed circular offset pattern
-        # This is like a database index - we pre-computed valid offsets once,
-        # now we just iterate through them without distance calculation.
         for dr, dc in self.clearance_offsets:
             r, c = row + dr, col + dc
             if 0 <= r < self.grid_rows and 0 <= c < self.grid_cols:
                 occ = grid[r][c]
                 if occ in self.BLOCKED_MARKERS:
                     return False
-                # Handle pad clearance markers in neighbors too
                 if occ is not None:
                     if occ.startswith('__PAD_CLEAR_'):
                         marker_net = occ[12:-2]
@@ -6389,7 +6590,10 @@ class RoutingPiston:
                 self._mark_cell_with_clearance(grid, row, col, net_name)
 
     def _mark_cell_with_clearance(self, grid: List[List], row: int, col: int, net_name: str):
-        """Mark a cell and its clearance zone"""
+        """Mark a cell and its clearance zone.
+        Also updates SpatialIndex to keep bitmaps in sync with Python grid."""
+        # Determine layer from which grid we're marking
+        layer = 'F.Cu' if grid is self.fcu_grid else 'B.Cu'
         cc = self.clearance_cells
         for dr in range(-cc, cc + 1):
             for dc in range(-cc, cc + 1):
@@ -6397,28 +6601,41 @@ class RoutingPiston:
                 if self._in_bounds(r, c):
                     if grid[r][c] is None or grid[r][c] == net_name:
                         grid[r][c] = net_name
+                        # Keep SpatialIndex in sync for bitmap-based BFS
+                        if self.spatial_index is not None:
+                            self.spatial_index.mark_net(r, c, net_name, layer)
 
     def _save_grid_snapshot(self):
         """
         Save a snapshot of the grid state AFTER components and escapes
         are registered but BEFORE any routing. Used by RIPUP to quickly
         restore the clean grid state without rebuilding from scratch.
+        Also saves the SpatialIndex state for bitmap-based BFS.
         """
-        import copy
         self._grid_snapshot_fcu = [row[:] for row in self.fcu_grid]
         self._grid_snapshot_bcu = [row[:] for row in self.bcu_grid]
+        # Save SpatialIndex net arrays (these get updated as routes are marked)
+        if self.spatial_index is not None:
+            self._si_snapshot_net_fcu = self.spatial_index.net_fcu.copy()
+            self._si_snapshot_net_bcu = self.spatial_index.net_bcu.copy()
 
     def _clear_routed_traces(self):
         """
         Restore grid to clean state (after components+escapes, before routing).
         If a snapshot exists, restores from it (fast array copy).
         Otherwise falls back to full rebuild.
+        Also restores SpatialIndex to pre-routing state.
         """
         if hasattr(self, '_grid_snapshot_fcu') and self._grid_snapshot_fcu:
             # Fast path: restore from snapshot
             for r in range(self.grid_rows):
                 self.fcu_grid[r][:] = self._grid_snapshot_fcu[r][:]
                 self.bcu_grid[r][:] = self._grid_snapshot_bcu[r][:]
+            # Restore SpatialIndex net arrays too
+            if (self.spatial_index is not None and
+                hasattr(self, '_si_snapshot_net_fcu') and self._si_snapshot_net_fcu is not None):
+                np.copyto(self.spatial_index.net_fcu, self._si_snapshot_net_fcu)
+                np.copyto(self.spatial_index.net_bcu, self._si_snapshot_net_bcu)
         else:
             # Fallback: full rebuild (should not happen if _save_grid_snapshot called)
             self._initialize_grids()
