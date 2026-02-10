@@ -119,6 +119,27 @@ def test_cpu_lab():
     if power_widths:
         print(f"  [OK] Power trace widths: {power_widths}")
 
+    # 11. 3V3 should be handled by pour (11 pins on 2-layer = pour)
+    if '3V3' in result.power_grid.nets_removed_from_routing:
+        print("  [OK] 3V3 removed from routing (handled by pour on F.Cu)")
+    else:
+        errors.append("FAIL: 3V3 (11 pins) should be removed from routing via pour")
+
+    # 12. 3V3 should have pour config
+    if '3V3' in result.power_grid.power_pour_configs:
+        cfg = result.power_grid.power_pour_configs['3V3']
+        print(f"  [OK] 3V3 pour config: layer={cfg['layer']}")
+    else:
+        errors.append("FAIL: 3V3 should have pour config in power_pour_configs")
+
+    # 13. Routing order should exclude both GND and 3V3
+    routing_order = result.enhanced_parts_db.get('cpu_lab', {}).get('routing_order', [])
+    v33_in_order = any(r['net'] == '3V3' for r in routing_order)
+    if v33_in_order:
+        errors.append("FAIL: 3V3 should NOT be in routing order (handled by pour)")
+    else:
+        print("  [OK] 3V3 excluded from routing order")
+
     # Summary
     print("\n" + "=" * 60)
     if errors:

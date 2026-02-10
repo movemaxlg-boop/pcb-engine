@@ -1378,21 +1378,29 @@ class PCBEngine:
                     self._log(f"  [CPU LAB] parts_db enhanced with CPU Lab decisions")
 
             # === STAGE 4.6: POUR (Ground plane BEFORE routing) ===
-            # CPU Lab may have decided GND needs a copper pour.
+            # GND should ALWAYS use copper pour on 2-layer boards (never traces).
             # Running pour BEFORE routing removes GND from the routing queue.
             if self._should_run_pour():
                 self._pour_result = self._execute_pour_stage()
+                # Determine which nets the pour handles
+                nets_removed = ['GND']  # Default: always remove GND
+                if self._cpu_lab_result and hasattr(self._cpu_lab_result, 'power_grid') and self._cpu_lab_result.power_grid:
+                    nets_removed = getattr(self._cpu_lab_result.power_grid, 'nets_removed_from_routing', ['GND'])
+
                 if self._pour_result and self._pour_result.success:
                     self._log(f"  [ENGINE] Pour completed - GND handled by copper pour")
-                    # Remove GND from net_order so router doesn't try to route it
-                    nets_removed = self._cpu_lab_result.power_grid.nets_removed_from_routing if self._cpu_lab_result else ['GND']
-                    before = len(self.state.net_order)
-                    self.state.net_order = [n for n in self.state.net_order if n not in nets_removed]
-                    removed = before - len(self.state.net_order)
-                    if removed:
-                        self._log(f"  [ENGINE] Removed {removed} pour-handled nets from routing queue")
                 else:
-                    self._log(f"  [ENGINE] Pour skipped or failed - GND will be routed as traces")
+                    # Even if pour had warnings, GND still shouldn't be trace-routed
+                    # The pour zone exists, stitching vias are optional
+                    self._log(f"  [ENGINE] Pour generated (with warnings) - GND still removed from routing")
+
+                # ALWAYS remove GND from routing queue when pour runs
+                # GND via copper pour is ALWAYS better than GND traces
+                before = len(self.state.net_order)
+                self.state.net_order = [n for n in self.state.net_order if n not in nets_removed]
+                removed = before - len(self.state.net_order)
+                if removed:
+                    self._log(f"  [ENGINE] Removed {removed} pour-handled nets from routing queue: {nets_removed}")
 
             # === STAGE 5: ROUTING ===
             piston_result = self._run_piston_with_drc('routing', self._execute_routing)
@@ -4038,82 +4046,137 @@ class PCBEngine:
         """
         Check if pour piston should run BEFORE routing.
 
+        Pour ALWAYS runs on 2-layer boards when GND has 2+ pins.
+        GND should NEVER be trace-routed - a ground pour is always better.
+
         Pour runs when:
-        1. CPU Lab decided GND needs a pour (gnd_strategy == 'pour')
-        2. PourPiston is available
-        3. Board is 2-layer (4+ layer boards use dedicated GND layer)
+        1. Board is 2-layer AND GND net exists with 2+ pins (ALWAYS)
+        2. CPU Lab decided GND needs a pour (gnd_strategy == 'pour')
+        3. PourPiston is available
         """
         if PourPiston is None:
+            self._log("  [POUR] PourPiston not available - skipping")
             return False
 
-        # Check CPU Lab decision
-        if self._cpu_lab_result:
-            cpu_lab_data = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {})
-            gnd_strategy = cpu_lab_data.get('gnd_strategy', 'trace')
-            if gnd_strategy == 'pour':
-                return True
-
-        # Fallback: check if board has many GND pins (pour is better)
+        # On 2-layer boards, GND ALWAYS uses pour (never traces)
         nets = self.state.parts_db.get('nets', {})
         gnd_info = nets.get('GND', {})
         gnd_pins = gnd_info.get('pins', [])
-        if len(gnd_pins) >= 5 and self.config.layer_count <= 2:
+
+        if self.config.layer_count <= 2 and len(gnd_pins) >= 2:
+            self._log(f"  [POUR] GND has {len(gnd_pins)} pins on 2-layer board - POUR required")
             return True
 
+        # Check CPU Lab decision for other cases
+        if self._cpu_lab_result:
+            cpu_lab_data = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {})
+            power_grid = cpu_lab_data.get('power_grid', {})
+            gnd_strategy = power_grid.get('gnd_strategy', cpu_lab_data.get('gnd_strategy', 'trace'))
+            if gnd_strategy == 'pour':
+                self._log(f"  [POUR] CPU Lab decided: pour")
+                return True
+            # Check for power net pours (e.g., 3V3 on F.Cu)
+            power_pours = power_grid.get('power_pour_configs', {})
+            if power_pours:
+                self._log(f"  [POUR] CPU Lab: {len(power_pours)} power net pour(s) needed")
+                return True
+
+        self._log(f"  [POUR] No pour needed (layers={self.config.layer_count}, GND pins={len(gnd_pins)})")
         return False
 
     def _execute_pour_stage(self) -> Optional['PourResult']:
         """
-        Execute Pour Piston to generate GND copper pour BEFORE routing.
+        Execute Pour Piston for ALL pour nets BEFORE routing.
+
+        Handles multiple pours:
+        - GND copper pour on B.Cu (always, if CPU Lab decided pour)
+        - Power net pours on F.Cu (e.g., 3V3 with 11 pins)
 
         This is the key insight from CPU design: handle power/ground FIRST
-        on dedicated resources, then route signals.
+        on dedicated resources, then route signals only.
         """
-        self._log("\n--- STAGE 4.6: POUR (Ground Plane BEFORE Routing) ---")
+        self._log("\n--- STAGE 4.6: POUR (Power Grid BEFORE Routing) ---")
         stage_start = time.time()
 
-        try:
-            # Get pour config from CPU Lab or use defaults
-            pour_layer = 'B.Cu'
-            pour_net = 'GND'
+        # Collect all pour configs to execute
+        pour_jobs = []
 
-            if self._cpu_lab_result:
-                cpu_lab_data = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {})
-                pour_layer = cpu_lab_data.get('pour_layer', 'B.Cu')
-                pour_net = cpu_lab_data.get('pour_net', 'GND')
+        if self._cpu_lab_result:
+            power_grid = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {}).get('power_grid', {})
 
-            config = PourConfig(
-                net=pour_net,
-                layer=pour_layer,
-                clearance=self.config.clearance,
-                add_stitching_vias=True,
-            )
+            # GND pour (B.Cu)
+            gnd_config = power_grid.get('gnd_pour_config', {})
+            if gnd_config:
+                pour_jobs.append(gnd_config)
 
-            self._pour_piston = PourPiston(config)
-            result = self._pour_piston.generate(
-                parts_db=self.state.parts_db,
-                placement=self.state.placement,
-                board_width=self.config.board_width,
-                board_height=self.config.board_height,
-                routes=None,  # No routes yet - pour runs BEFORE routing
-                vias=None,
-            )
+            # Power net pours (F.Cu) - e.g., 3V3
+            power_pours = power_grid.get('power_pour_configs', {})
+            for net_name, pcfg in power_pours.items():
+                pour_jobs.append(pcfg)
 
-            stage_time = time.time() - stage_start
-            self._log(f"  [POUR] {pour_net} pour on {pour_layer}: "
-                      f"{'SUCCESS' if result.success else 'FAILED'} ({stage_time*1000:.0f}ms)")
-            if result.connected_pads:
-                self._log(f"  [POUR] Connected {len(result.connected_pads)} pads via pour")
-            if result.stitching_vias:
-                self._log(f"  [POUR] {len(result.stitching_vias)} stitching vias placed")
-            for w in result.warnings:
-                self._log(f"  [POUR] Warning: {w}")
+        # Fallback: if no CPU Lab, just do GND on B.Cu
+        if not pour_jobs:
+            pour_jobs.append({
+                'net': 'GND',
+                'layer': 'B.Cu',
+                'clearance': self.config.clearance,
+                'add_stitching_vias': True,
+            })
 
-            return result
+        # Execute each pour
+        all_results = []
+        first_result = None
+        existing_zones = []
 
-        except Exception as e:
-            self._log(f"  [POUR] Error: {e} - GND will be routed as traces")
-            return None
+        for job in pour_jobs:
+            pour_net = job.get('net', 'GND')
+            pour_layer = job.get('layer', 'B.Cu')
+
+            try:
+                config = PourConfig(
+                    net=pour_net,
+                    layer=pour_layer,
+                    clearance=job.get('clearance', self.config.clearance),
+                    add_stitching_vias=job.get('add_stitching_vias', True),
+                    stitching_via_spacing=job.get('stitching_via_spacing', 10.0),
+                )
+
+                piston = PourPiston(config)
+                result = piston.generate(
+                    parts_db=self.state.parts_db,
+                    placement=self.state.placement,
+                    board_width=self.config.board_width,
+                    board_height=self.config.board_height,
+                    routes=None,
+                    vias=None,
+                    existing_pours=existing_zones,
+                )
+
+                status = 'SUCCESS' if result.success else 'FAILED'
+                pads = len(result.connected_pads) if result.connected_pads else 0
+                vias = len(result.stitching_vias) if result.stitching_vias else 0
+                self._log(f"  [POUR] {pour_net} on {pour_layer}: {status} "
+                          f"({pads} pads, {vias} stitching vias)")
+
+                if result.success:
+                    existing_zones.extend(result.zones)
+                    all_results.append(result)
+                    if first_result is None:
+                        first_result = result
+
+                for w in result.warnings:
+                    self._log(f"  [POUR] Warning: {w}")
+
+            except Exception as e:
+                self._log(f"  [POUR] {pour_net} error: {e}")
+
+        stage_time = time.time() - stage_start
+        self._log(f"  [POUR] {len(all_results)}/{len(pour_jobs)} pours completed ({stage_time*1000:.0f}ms)")
+
+        # Store all pour results for output piston
+        self._all_pour_results = all_results
+
+        return first_result
 
     def _get_default_pin_offset(self, footprint: str, pin_num: str, total_pins: int) -> Tuple[float, float]:
         """

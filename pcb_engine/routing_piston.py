@@ -6621,13 +6621,12 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
     """
     ENGINE COMMAND: Try multiple routing algorithms until one succeeds.
 
-    The Engine (PistonOrchestrator) calls this when routing fails.
-    This implements the CASCADE strategy:
+    PERFORMANCE: Uses ONE piston instance and rebuilds the spatial index
+    only ONCE. Each algorithm resets the grids from cache but reuses the
+    same obstacle bitmap. This avoids the O(n*m) index rebuild cost
+    being multiplied by the number of cascade attempts.
 
-    1. Try HYBRID first (combines A* + Steiner + Ripup)
-    2. If still failing, try PATHFINDER (negotiated congestion)
-    3. If still failing, try LEE (guaranteed shortest if exists)
-    4. If still failing, try with relaxed constraints
+    Early exit: Returns immediately when an algorithm succeeds.
 
     Args:
         parts_db: Parts database with nets
@@ -6641,6 +6640,8 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
     Returns:
         Best RoutingResult achieved
     """
+    import time as time_module
+
     if config is None:
         config = RoutingConfig(
             board_width=board_width,
@@ -6661,19 +6662,42 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
 
     print("\n    [CASCADE] Engine ordering RoutingPiston to try multiple algorithms...")
 
+    # BUILD INDEX ONCE - reuse across all algorithms
+    # This is the key optimization: the spatial index (bitmap, courtyard tree)
+    # only depends on placement+parts_db, NOT the routing algorithm.
+    config.algorithm = CASCADE[0][0]  # Initial algorithm doesn't matter for index
+    piston = RoutingPiston(config)
+
+    # Pre-build: initialize grids and spatial index ONCE
+    piston._placement = placement
+    piston._parts_db = parts_db
+    piston._initialize_grids()
+    piston._register_components(placement, parts_db)
+    piston._register_escapes(escapes)
+    if piston.use_spatial_index:
+        piston._build_spatial_index()
+        # Cache it so .route() gets a cache HIT
+        piston._cache_index(placement, parts_db)
+    print("    [CASCADE] Index built ONCE and cached for all algorithms")
+
+    cascade_start = time_module.time()
+
     for algo, desc in CASCADE:
         print(f"    [CASCADE] Trying {desc}...")
+        algo_start = time_module.time()
 
-        # Create fresh piston with this algorithm
-        config.algorithm = algo
-        piston = RoutingPiston(config)
-
+        # Reuse same piston - just change algorithm
+        # .route() will get a cache HIT on the spatial index
+        piston.config.algorithm = algo
         result = piston.route(parts_db, escapes, placement, net_order)
 
-        print(f"    [CASCADE] {algo}: {result.routed_count}/{result.total_count} nets routed")
+        algo_time = time_module.time() - algo_start
+        print(f"    [CASCADE] {algo}: {result.routed_count}/{result.total_count} nets routed ({algo_time:.1f}s)")
 
+        # EARLY EXIT on success
         if result.success:
-            print(f"    [CASCADE] SUCCESS with {algo}!")
+            total_time = time_module.time() - cascade_start
+            print(f"    [CASCADE] SUCCESS with {algo}! (total cascade: {total_time:.1f}s)")
             return result
 
         # Track best partial result
@@ -6684,20 +6708,20 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
     # All algorithms failed - try with relaxed constraints
     print("    [CASCADE] All algorithms failed. Trying with relaxed constraints...")
 
-    config.algorithm = 'hybrid'
-    config.clearance = config.clearance * 0.8  # Reduce clearance 20%
-    config.via_cost = config.via_cost * 0.5    # Make vias cheaper
+    piston.config.algorithm = 'hybrid'
+    piston.config.clearance = piston.config.clearance * 0.8  # Reduce clearance 20%
+    piston.config.via_cost = piston.config.via_cost * 0.5    # Make vias cheaper
 
-    piston = RoutingPiston(config)
     result = piston.route(parts_db, escapes, placement, net_order)
 
     if result.routed_count > best_routed:
         best_result = result
         print(f"    [CASCADE] Relaxed constraints: {result.routed_count}/{result.total_count}")
 
+    total_time = time_module.time() - cascade_start
     if best_result:
         print(f"    [CASCADE] Best result: {best_result.routed_count}/{best_result.total_count} "
-              f"using {best_result.algorithm_used}")
+              f"using {best_result.algorithm_used} (total: {total_time:.1f}s)")
         return best_result
 
     # Return empty result if nothing worked

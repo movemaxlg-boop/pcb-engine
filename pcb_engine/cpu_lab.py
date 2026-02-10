@@ -114,6 +114,9 @@ class PowerGridPlan:
     power_trace_widths: Dict[str, float] = field(default_factory=dict)
     # net_name -> trace width in mm
 
+    power_pour_configs: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    # net_name -> pour config dict (for power nets handled by pour)
+
     nets_removed_from_routing: List[str] = field(default_factory=list)
     # Nets handled by pour (removed from router's job)
 
@@ -306,7 +309,7 @@ class PowerGridPlanner:
                 f"- removed from routing queue"
             )
 
-        # Pour config
+        # GND pour config
         pour_config = {}
         if gnd_strategy == GndStrategy.POUR:
             pour_config = {
@@ -320,12 +323,35 @@ class PowerGridPlanner:
                 'stitching_via_spacing': 8.0,
             }
 
+        # Power net pour configs (for high-fanout power nets on 2-layer boards)
+        power_pour_configs = {}
+        for net_name, strategy in power_strategies.items():
+            if strategy == PowerStrategy.POUR:
+                pin_count = len(power_nets[net_name].get('pins', []))
+                # Power pours go on F.Cu (GND already has B.Cu)
+                power_pour_configs[net_name] = {
+                    'net': net_name,
+                    'layer': 'F.Cu',
+                    'clearance': 0.3,
+                    'thermal_relief': 'thermal',
+                    'thermal_spoke_width': 0.5,
+                    'thermal_gap': 0.5,
+                    'add_stitching_vias': True,
+                    'stitching_via_spacing': 10.0,
+                }
+                removed.append(net_name)
+                reasoning.append(
+                    f"{net_name} ({pin_count} pins) handled by pour on F.Cu "
+                    f"- removed from routing queue"
+                )
+
         return PowerGridPlan(
             gnd_strategy=gnd_strategy,
             gnd_pour_layer='B.Cu',
             gnd_pour_config=pour_config,
             power_strategies=power_strategies,
             power_trace_widths=power_widths,
+            power_pour_configs=power_pour_configs,
             nets_removed_from_routing=removed,
             reasoning=reasoning,
         )
@@ -375,8 +401,12 @@ class PowerGridPlanner:
     def _decide_power_strategy(self, net_name: str, pin_count: int, layers: int
                                ) -> Tuple[PowerStrategy, float]:
         """Decide strategy and trace width for a power net."""
-        if pin_count >= 8:
-            return PowerStrategy.TRUNK_AND_BRANCH, 0.5  # Thick trunk
+        # On 2-layer boards, high-fanout power nets get copper pour
+        # (same logic as GND: too many pins to route as traces)
+        if layers <= 2 and pin_count >= 8:
+            return PowerStrategy.POUR, 0.5  # Copper pour on F.Cu
+        elif pin_count >= 8:
+            return PowerStrategy.TRUNK_AND_BRANCH, 0.5  # 4+ layer: thick trunk
         elif pin_count >= 4:
             return PowerStrategy.STAR_TOPOLOGY, 0.4  # Star from source
         else:
@@ -1523,6 +1553,7 @@ class CPULab:
                 'gnd_pour_config': power.gnd_pour_config,
                 'power_strategies': {k: v.value for k, v in power.power_strategies.items()},
                 'power_trace_widths': power.power_trace_widths,
+                'power_pour_configs': power.power_pour_configs,
                 'nets_removed_from_routing': power.nets_removed_from_routing,
             },
 
