@@ -1953,14 +1953,11 @@ class RoutingPiston:
             elapsed_ms = (time_module.time() - start_time) * 1000
 
             if success and route_result:
-                all_routes[net_name] = route_result.get('route', [])
+                route_obj = route_result.get('route')
+                all_routes[net_name] = route_obj
                 routed_count += 1
                 algorithm_usage[algorithm_used.value] = algorithm_usage.get(algorithm_used.value, 0) + 1
-
-                # Mark route on grid to block future routing
-                for segment in route_result.get('route', []):
-                    if hasattr(segment, 'start') and hasattr(segment, 'end'):
-                        self._mark_route_on_grid(segment, net_name)
+                # Note: routes are already marked on grid by _route_net_* functions
             else:
                 failed_nets.append(net_name)
 
@@ -1985,9 +1982,9 @@ class RoutingPiston:
             for net_name in routing_plan.routing_order:
                 strategy = routing_plan.get_strategy(net_name)
                 if strategy and strategy.check_return_path:
-                    route = all_routes.get(net_name, [])
+                    route = all_routes.get(net_name)
                     if route:
-                        self._check_route_return_path(net_name, route)
+                        self._check_route_return_path(route, net_name)
 
         # Create result
         total_nets = len([n for n in routing_plan.routing_order
@@ -2014,6 +2011,8 @@ class RoutingPiston:
         Route a single net using the currently configured algorithm.
 
         This is a helper for route_with_plan() that routes just one net.
+        Uses the actual working routing functions (_route_net_lee, _route_net_astar, etc.)
+        which handle multi-pin MST routing correctly.
 
         Returns:
             Dict with 'success', 'route', 'via_count', 'wire_length' or None
@@ -2021,54 +2020,41 @@ class RoutingPiston:
         if len(pins) < 2:
             return None
 
-        # Get endpoints
-        endpoints = self._get_escape_endpoints(pins, escapes)
-        if not endpoints or len(endpoints) < 2:
-            return None
-
-        start = endpoints[0]
-        end = endpoints[1]
-
-        # Try routing with current algorithm
         algorithm = self.config.algorithm.lower()
 
         try:
+            # Use the REAL routing functions that handle multi-pin nets via MST
             if algorithm == 'lee':
-                path = self._route_lee_net(start, end, net_name)
+                route = self._route_net_lee(net_name, pins, escapes)
             elif algorithm == 'hadlock':
-                path = self._route_hadlock_net(start, end, net_name)
-            elif algorithm == 'a_star' or algorithm == 'astar':
-                path = self._route_astar_net(start, end, net_name)
-            elif algorithm == 'pathfinder':
-                # Pathfinder needs full context, use simpler approach
-                path = self._route_astar_net(start, end, net_name)
+                route = self._route_net_hadlock(net_name, pins, escapes)
+            elif algorithm in ('a_star', 'astar'):
+                route = self._route_net_astar(net_name, pins, escapes)
+            elif algorithm == 'soukup':
+                route = self._route_net_soukup(net_name, pins, escapes)
+            elif algorithm == 'mikami':
+                route = self._route_net_mikami(net_name, pins, escapes)
             elif algorithm == 'steiner':
-                # For 2-pin net, Steiner = direct routing
-                path = self._route_lee_net(start, end, net_name)
-            elif algorithm in ['push_and_shove', 'pns', 'shove']:
-                # Try push-and-shove routing
-                path = self._route_with_push_and_shove(start, end, net_name)
+                route = self._route_net_steiner(net_name, pins, escapes)
             else:
-                # Default to A*
-                path = self._route_astar_net(start, end, net_name)
+                # Default: try A*, fallback to Lee
+                route = self._route_net_astar(net_name, pins, escapes)
+                if not route.success:
+                    route = self._route_net_lee(net_name, pins, escapes)
 
-            if path:
-                # Convert path to track segments
-                segments = self._path_to_segments(path, net_name)
-                via_count = sum(1 for s in segments if hasattr(s, 'is_via') and s.is_via)
+            if route and route.success:
+                via_count = len(route.vias) if hasattr(route, 'vias') else 0
                 wire_length = sum(
-                    self._segment_length(s) for s in segments
-                    if not (hasattr(s, 'is_via') and s.is_via)
-                )
+                    self._segment_length(s) for s in route.segments
+                ) if route.segments else 0
 
                 return {
                     'success': True,
-                    'route': segments,
+                    'route': route,  # Return full Route object
                     'via_count': via_count,
                     'wire_length': wire_length,
                 }
-        except (IndexError, ValueError, AttributeError, KeyError) as e:
-            # Routing algorithm failed - return None to trigger fallback
+        except Exception:
             pass
 
         return None
