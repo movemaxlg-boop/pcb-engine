@@ -59,6 +59,8 @@ class ComponentCategory(Enum):
     LED = "led"
     SENSOR = "sensor"
     MEMORY = "memory"
+    ANALOG = "analog"  # Analog ICs (op-amps, ADCs, DACs, etc.)
+    RF = "rf"  # RF components (antennas, baluns, filters)
     OTHER = "other"
 
 

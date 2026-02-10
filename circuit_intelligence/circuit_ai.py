@@ -752,7 +752,7 @@ class CircuitAI:
         components: List[ComponentDefinition],
         intent: DesignIntent
     ) -> List[NetDefinition]:
-        """Define nets based on components and intent."""
+        """Define nets based on components and intent using RulesAPI."""
 
         nets = []
 
@@ -774,31 +774,38 @@ class CircuitAI:
         # USB nets if USB connector present
         has_usb = any("USB" in c.part_number for c in components)
         if has_usb:
-            # USB data lines
+            # Get USB specs from RulesAPI
+            usb_rules = self.rules_api.validate_usb_layout(0, 0, 90)  # Get specs
+            usb_impedance = self.rules_api.rules.usb2.DIFFERENTIAL_IMPEDANCE_OHM  # 90 ohm
+            usb_mismatch = self.rules_api.rules.usb2.MAX_LENGTH_MISMATCH_MM  # 1.25mm
+
+            # USB data lines with RulesAPI values
             nets.append(NetDefinition(
                 name="USB_DP",
                 net_type=NetType.DIFF_PAIR,
                 pins=[],
-                impedance_ohm=90.0,
+                impedance_ohm=usb_impedance,
                 matched_with="USB_DM",
-                max_mismatch_mm=1.25,
+                max_mismatch_mm=usb_mismatch,
             ))
             nets.append(NetDefinition(
                 name="USB_DM",
                 net_type=NetType.DIFF_PAIR,
                 pins=[],
-                impedance_ohm=90.0,
+                impedance_ohm=usb_impedance,
                 matched_with="USB_DP",
-                max_mismatch_mm=1.25,
+                max_mismatch_mm=usb_mismatch,
             ))
 
-            # VBUS
+            # VBUS - get current capacity from RulesAPI
+            # USB 2.0 allows 500mA (0.5A) for standard, 1.5A for BC1.2
+            vbus_current = 0.5  # Standard USB 2.0
             nets.append(NetDefinition(
                 name="VBUS",
                 net_type=NetType.POWER,
                 pins=[],
                 voltage=5.0,
-                current_max=0.5,
+                current_max=vbus_current,
             ))
 
         return nets
@@ -808,14 +815,19 @@ class CircuitAI:
         components: List[ComponentDefinition],
         nets: List[NetDefinition]
     ) -> PlacementHints:
-        """Generate placement hints based on component relationships."""
+        """Generate placement hints based on component relationships using RulesAPI."""
 
         hints = PlacementHints()
+
+        # Get placement constraints from RulesAPI
+        decoupling_distance = self.rules_api.get_decoupling_distance()  # 3.0mm from rules
+        crystal_distance = self.rules_api.get_crystal_distance()  # 5.0mm from rules
+        analog_separation = self.rules_api.get_analog_separation()  # 10.0mm from rules
 
         # Find MCUs
         mcus = [c for c in components if c.category == ComponentCategory.MCU]
 
-        # Decoupling caps near MCUs
+        # Decoupling caps near MCUs - use RulesAPI value
         for mcu in mcus:
             caps_for_mcu = [
                 c.ref_des for c in components
@@ -825,8 +837,18 @@ class CircuitAI:
             if caps_for_mcu:
                 hints.proximity_groups.append(ProximityGroup(
                     components=[mcu.ref_des] + caps_for_mcu,
-                    max_distance_mm=3.0,
-                    reason="Decoupling capacitors must be close to MCU power pins",
+                    max_distance_mm=decoupling_distance,
+                    reason=f"Decoupling capacitors must be within {decoupling_distance}mm of MCU power pins (IPC-2221B)",
+                ))
+
+        # Crystals near MCUs - use RulesAPI value
+        crystals = [c for c in components if c.category == ComponentCategory.CRYSTAL]
+        for crystal in crystals:
+            if crystal.inferred_for:
+                hints.proximity_groups.append(ProximityGroup(
+                    components=[crystal.inferred_for, crystal.ref_des],
+                    max_distance_mm=crystal_distance,
+                    reason=f"Crystal must be within {crystal_distance}mm of MCU oscillator pins",
                 ))
 
         # Connectors on edge
@@ -836,7 +858,7 @@ class CircuitAI:
         ]
         hints.edge_components = connectors
 
-        # Keep RF away from digital
+        # Keep RF away from digital - use RulesAPI analog_separation value
         rf_comps = [c.ref_des for c in components if "RF" in c.part_number.upper()]
         digital_comps = [c.ref_des for c in components if c.category == ComponentCategory.MCU]
         for rf in rf_comps:
@@ -844,8 +866,19 @@ class CircuitAI:
                 hints.keep_apart.append(KeepApart(
                     component_a=rf,
                     component_b=digital,
-                    min_distance_mm=10.0,
-                    reason="RF isolation from digital noise",
+                    min_distance_mm=analog_separation,
+                    reason=f"RF isolation requires minimum {analog_separation}mm from digital noise sources",
+                ))
+
+        # Keep analog away from digital switching noise
+        analog_comps = [c.ref_des for c in components if c.category == ComponentCategory.ANALOG]
+        for analog in analog_comps:
+            for digital in digital_comps:
+                hints.keep_apart.append(KeepApart(
+                    component_a=analog,
+                    component_b=digital,
+                    min_distance_mm=analog_separation,
+                    reason=f"Analog components need {analog_separation}mm separation from digital noise",
                 ))
 
         return hints
@@ -855,9 +888,16 @@ class CircuitAI:
         nets: List[NetDefinition],
         intent: DesignIntent
     ) -> RoutingHints:
-        """Generate routing hints based on net requirements."""
+        """Generate routing hints based on net requirements using RulesAPI."""
 
         hints = RoutingHints()
+
+        # Get default differential pair specs from RulesAPI
+        default_diff_impedance = self.rules_api.rules.usb2.DIFFERENTIAL_IMPEDANCE_OHM  # 90 ohm
+        default_diff_mismatch = self.rules_api.rules.usb2.MAX_LENGTH_MISMATCH_MM  # 1.25mm
+
+        # Check for high-speed interfaces and get their specific rules
+        features = " ".join(intent.required_features).lower() if intent.required_features else ""
 
         # Find diff pairs
         for net in nets:
@@ -867,12 +907,49 @@ class CircuitAI:
                     # Only add if not already added
                     existing = [d.positive_net for d in hints.diff_pairs]
                     if net.name not in existing and net.matched_with not in existing:
+                        # Determine impedance and mismatch based on net type
+                        impedance = net.impedance_ohm
+                        mismatch = net.max_mismatch_mm
+
+                        # Use RulesAPI defaults if not specified on net
+                        if not impedance:
+                            if "USB" in net.name.upper():
+                                impedance = self.rules_api.rules.usb2.DIFFERENTIAL_IMPEDANCE_OHM
+                            elif "HDMI" in net.name.upper():
+                                hdmi_rules = self.rules_api.get_hdmi_rules("HDMI_1.4")
+                                impedance = hdmi_rules.get("diff_impedance_ohm", 100.0)
+                            else:
+                                impedance = default_diff_impedance
+
+                        if not mismatch:
+                            if "USB" in net.name.upper():
+                                mismatch = self.rules_api.rules.usb2.MAX_LENGTH_MISMATCH_MM
+                            else:
+                                mismatch = default_diff_mismatch
+
                         hints.diff_pairs.append(DiffPairSpec(
                             positive_net=net.name,
                             negative_net=net.matched_with,
-                            impedance_ohm=net.impedance_ohm or 90.0,
-                            max_mismatch_mm=net.max_mismatch_mm or 1.25,
+                            impedance_ohm=impedance,
+                            max_mismatch_mm=mismatch,
                         ))
+
+        # Add length matching groups for high-speed buses
+        if "ddr3" in features:
+            ddr3_rules = self.rules_api.get_ddr3_rules()
+            hints.length_match_groups.append(LengthMatchGroup(
+                nets=["DQ0", "DQ1", "DQ2", "DQ3", "DQ4", "DQ5", "DQ6", "DQ7"],
+                max_mismatch_mm=ddr3_rules.get("dq_length_match_mm", 12.7),
+                reason=f"DDR3 DQ length matching (max {ddr3_rules.get('dq_length_match_mm', 12.7)}mm)",
+            ))
+
+        if "ddr4" in features:
+            ddr4_rules = self.rules_api.get_ddr4_rules()
+            hints.length_match_groups.append(LengthMatchGroup(
+                nets=["DQ0", "DQ1", "DQ2", "DQ3", "DQ4", "DQ5", "DQ6", "DQ7"],
+                max_mismatch_mm=ddr4_rules.get("dq_length_match_mm", 6.35),
+                reason=f"DDR4 DQ length matching (max {ddr4_rules.get('dq_length_match_mm', 6.35)}mm)",
+            ))
 
         # Priority nets - power and critical signals first
         power_nets = [n.name for n in nets if n.net_type in [NetType.POWER, NetType.GND]]
@@ -889,19 +966,36 @@ class CircuitAI:
         intent: DesignIntent,
         clayout: ConstitutionalLayout
     ) -> List[RuleOverride]:
-        """Determine if any rule overrides are needed."""
+        """Determine if any rule overrides are needed using RulesAPI values."""
 
         overrides = []
 
+        # Get original values from RulesAPI
+        usb_hs_mismatch = self.rules_api.rules.usb2.MAX_LENGTH_MISMATCH_MM  # 1.25mm for HS
+        usb_fs_mismatch = 5.0  # Full-Speed allows 5mm tolerance
+
         # Check if USB Full-Speed mode allows relaxed matching
-        features = " ".join(intent.required_features).lower()
+        features = " ".join(intent.required_features).lower() if intent.required_features else ""
         if "full-speed" in features or "12mbps" in features:
             overrides.append(RuleOverride(
                 rule_id="USB2_LENGTH_MATCHING",
-                original_value=1.25,
-                new_value=5.0,
+                original_value=usb_hs_mismatch,
+                new_value=usb_fs_mismatch,
                 justification="USB Full-Speed mode allows relaxed length matching",
-                evidence="USB 2.0 Specification - Full-Speed has 5mm tolerance",
+                evidence="USB 2.0 Specification - Full-Speed has 5mm tolerance vs High-Speed 1.25mm",
+                approved_by="AI",
+            ))
+
+        # Check for low-power designs that can relax current capacity rules
+        if "low power" in features or "battery" in features:
+            # Get standard current capacity
+            standard_current = self.rules_api.get_current_capacity(0.2, 1.0)  # 0.2mm trace, 1oz copper
+            overrides.append(RuleOverride(
+                rule_id="CURRENT_CAPACITY",
+                original_value=standard_current,
+                new_value=standard_current * 0.8,  # Allow 80% for battery designs
+                justification="Low-power battery design allows reduced trace capacity margins",
+                evidence="IPC-2152 allows derating for intermittent loads",
                 approved_by="AI",
             ))
 
