@@ -603,6 +603,12 @@ class RoutingPiston:
             'layer_changes': 0
         }
 
+        # TRUNK CHAIN DETECTION - Identify nets that share routing corridors
+        # A trunk chain is a group of nets that can be routed in parallel
+        # along a common trunk, saving wirelength and improving manufacturability
+        self._trunk_chains: List[Dict] = []  # Detected trunk chains
+        self._net_to_chain: Dict[str, int] = {}  # net_name -> chain index
+
     # =========================================================================
     # INDEX CACHE HELPER - CASCADE OPTIMIZATION
     # =========================================================================
@@ -1136,6 +1142,291 @@ class RoutingPiston:
         return self._net_classes.get(net_name, NetClass.SIGNAL)
 
     # =========================================================================
+    # TRUNK CHAIN DETECTION - Identify parallel routing opportunities
+    # =========================================================================
+    # A trunk chain is a group of nets that:
+    # 1. Have similar routing direction (horizontal or vertical)
+    # 2. Have overlapping span (start-end range)
+    # 3. Can be routed in parallel to save wirelength and improve signal integrity
+
+    def _detect_trunk_chains(self, parts_db: Dict, escapes: Dict) -> List[Dict]:
+        """
+        Detect trunk chains - groups of nets that can share a routing corridor.
+
+        Returns:
+            List of trunk chain definitions:
+            [
+                {
+                    'nets': ['NET1', 'NET2', 'NET3'],
+                    'direction': 'horizontal',  # or 'vertical'
+                    'corridor': (min_x, max_x, avg_y),  # or (avg_x, min_y, max_y)
+                    'spacing': 0.3,  # recommended spacing between traces
+                },
+                ...
+            ]
+        """
+        self._trunk_chains = []
+        self._net_to_chain = {}
+
+        nets = parts_db.get('nets', {})
+        if not nets:
+            return []
+
+        # First, characterize each net's routing direction and span
+        net_profiles = {}
+        for net_name, info in nets.items():
+            pins = info.get('pins', [])
+            if len(pins) < 2:
+                continue
+
+            endpoints = self._get_escape_endpoints(pins, escapes)
+            if len(endpoints) < 2:
+                continue
+
+            # Calculate net bounding box and direction
+            xs = [p[0] for p in endpoints]
+            ys = [p[1] for p in endpoints]
+            min_x, max_x = min(xs), max(xs)
+            min_y, max_y = min(ys), max(ys)
+            span_x = max_x - min_x
+            span_y = max_y - min_y
+
+            # Determine preferred direction
+            if span_x > span_y * 1.5:
+                direction = 'horizontal'
+            elif span_y > span_x * 1.5:
+                direction = 'vertical'
+            else:
+                direction = 'diagonal'  # Not a good trunk candidate
+
+            center_x = (min_x + max_x) / 2
+            center_y = (min_y + max_y) / 2
+
+            net_profiles[net_name] = {
+                'min_x': min_x, 'max_x': max_x,
+                'min_y': min_y, 'max_y': max_y,
+                'center_x': center_x, 'center_y': center_y,
+                'span_x': span_x, 'span_y': span_y,
+                'direction': direction,
+                'endpoints': endpoints,
+            }
+
+        # Group nets by direction and overlapping corridors
+        horizontal_nets = [n for n, p in net_profiles.items() if p['direction'] == 'horizontal']
+        vertical_nets = [n for n, p in net_profiles.items() if p['direction'] == 'vertical']
+
+        # Find horizontal trunk chains
+        h_chains = self._find_parallel_chains(horizontal_nets, net_profiles, 'horizontal')
+        # Find vertical trunk chains
+        v_chains = self._find_parallel_chains(vertical_nets, net_profiles, 'vertical')
+
+        self._trunk_chains = h_chains + v_chains
+
+        # Build net-to-chain mapping
+        for idx, chain in enumerate(self._trunk_chains):
+            for net_name in chain['nets']:
+                self._net_to_chain[net_name] = idx
+
+        return self._trunk_chains
+
+    def _find_parallel_chains(self, net_names: List[str], profiles: Dict,
+                               direction: str) -> List[Dict]:
+        """
+        Find groups of nets that can be routed in parallel.
+
+        For horizontal nets: group by similar Y-coordinate and overlapping X-span
+        For vertical nets: group by similar X-coordinate and overlapping Y-span
+        """
+        chains = []
+        used = set()
+
+        # Tolerance for "same corridor" (in mm)
+        corridor_tolerance = 3.0  # Nets within 3mm can share a corridor
+
+        for net1 in net_names:
+            if net1 in used:
+                continue
+
+            p1 = profiles[net1]
+            chain_nets = [net1]
+            used.add(net1)
+
+            for net2 in net_names:
+                if net2 in used:
+                    continue
+
+                p2 = profiles[net2]
+
+                if direction == 'horizontal':
+                    # Check if Y centers are close and X spans overlap
+                    y_diff = abs(p1['center_y'] - p2['center_y'])
+                    x_overlap = min(p1['max_x'], p2['max_x']) - max(p1['min_x'], p2['min_x'])
+
+                    if y_diff < corridor_tolerance and x_overlap > 1.0:
+                        chain_nets.append(net2)
+                        used.add(net2)
+
+                else:  # vertical
+                    # Check if X centers are close and Y spans overlap
+                    x_diff = abs(p1['center_x'] - p2['center_x'])
+                    y_overlap = min(p1['max_y'], p2['max_y']) - max(p1['min_y'], p2['min_y'])
+
+                    if x_diff < corridor_tolerance and y_overlap > 1.0:
+                        chain_nets.append(net2)
+                        used.add(net2)
+
+            # Only create chain if 2+ nets
+            if len(chain_nets) >= 2:
+                # Calculate corridor bounds
+                if direction == 'horizontal':
+                    min_x = min(profiles[n]['min_x'] for n in chain_nets)
+                    max_x = max(profiles[n]['max_x'] for n in chain_nets)
+                    avg_y = sum(profiles[n]['center_y'] for n in chain_nets) / len(chain_nets)
+                    corridor = (min_x, max_x, avg_y)
+                else:
+                    avg_x = sum(profiles[n]['center_x'] for n in chain_nets) / len(chain_nets)
+                    min_y = min(profiles[n]['min_y'] for n in chain_nets)
+                    max_y = max(profiles[n]['max_y'] for n in chain_nets)
+                    corridor = (avg_x, min_y, max_y)
+
+                # Calculate recommended spacing (based on net classes)
+                max_width = max(self.get_trace_width(n) for n in chain_nets)
+                max_clearance = max(self.get_clearance(n) for n in chain_nets)
+                spacing = max_width + max_clearance
+
+                chains.append({
+                    'nets': chain_nets,
+                    'direction': direction,
+                    'corridor': corridor,
+                    'spacing': spacing,
+                    'net_count': len(chain_nets),
+                })
+
+        return chains
+
+    def _route_trunk_chain(self, chain: Dict, escapes: Dict) -> Dict[str, Route]:
+        """
+        Route a trunk chain - multiple nets sharing a common trunk with proper spacing.
+
+        Returns:
+            Dict mapping net_name -> Route for all nets in the chain
+        """
+        routes = {}
+        nets = chain['nets']
+        direction = chain['direction']
+        corridor = chain['corridor']
+        spacing = chain['spacing']
+
+        layer = 0 if self.config.prefer_top_layer else 1
+        grid = self.fcu_grid if layer == 0 else self.bcu_grid
+        layer_name = 'F.Cu' if layer == 0 else 'B.Cu'
+
+        # Calculate trunk offsets for each net (centered around corridor)
+        num_nets = len(nets)
+        total_width = (num_nets - 1) * spacing
+        start_offset = -total_width / 2
+
+        for i, net_name in enumerate(nets):
+            offset = start_offset + i * spacing
+            route = Route(net=net_name, algorithm_used='trunk_chain')
+
+            if direction == 'horizontal':
+                min_x, max_x, base_y = corridor
+                trunk_y = base_y + offset
+
+                # Create trunk segment
+                trunk_seg = TrackSegment(
+                    start=(min_x, trunk_y),
+                    end=(max_x, trunk_y),
+                    layer=layer_name,
+                    width=self.get_trace_width(net_name),
+                    net=net_name
+                )
+                route.segments.append(trunk_seg)
+
+                # Add branches to actual endpoints
+                endpoints = self._get_escape_endpoints(
+                    self._parts_db.get('nets', {}).get(net_name, {}).get('pins', []),
+                    escapes
+                )
+                for ep in endpoints:
+                    if abs(ep[1] - trunk_y) > 0.01:
+                        branch = TrackSegment(
+                            start=(ep[0], trunk_y),
+                            end=ep,
+                            layer=layer_name,
+                            width=self.get_trace_width(net_name),
+                            net=net_name
+                        )
+                        route.segments.append(branch)
+
+            else:  # vertical
+                base_x, min_y, max_y = corridor
+                trunk_x = base_x + offset
+
+                # Create trunk segment
+                trunk_seg = TrackSegment(
+                    start=(trunk_x, min_y),
+                    end=(trunk_x, max_y),
+                    layer=layer_name,
+                    width=self.get_trace_width(net_name),
+                    net=net_name
+                )
+                route.segments.append(trunk_seg)
+
+                # Add branches to actual endpoints
+                endpoints = self._get_escape_endpoints(
+                    self._parts_db.get('nets', {}).get(net_name, {}).get('pins', []),
+                    escapes
+                )
+                for ep in endpoints:
+                    if abs(ep[0] - trunk_x) > 0.01:
+                        branch = TrackSegment(
+                            start=(trunk_x, ep[1]),
+                            end=ep,
+                            layer=layer_name,
+                            width=self.get_trace_width(net_name),
+                            net=net_name
+                        )
+                        route.segments.append(branch)
+
+            route.success = len(route.segments) > 0
+            routes[net_name] = route
+
+        return routes
+
+    def get_trunk_chain_stats(self) -> Dict:
+        """Get statistics about detected trunk chains."""
+        if not self._trunk_chains:
+            return {
+                'total_chains': 0,
+                'total_nets_in_chains': 0,
+                'horizontal_chains': 0,
+                'vertical_chains': 0,
+                'largest_chain': 0,
+                'chains': [],
+            }
+
+        h_chains = [c for c in self._trunk_chains if c['direction'] == 'horizontal']
+        v_chains = [c for c in self._trunk_chains if c['direction'] == 'vertical']
+
+        return {
+            'total_chains': len(self._trunk_chains),
+            'total_nets_in_chains': sum(c['net_count'] for c in self._trunk_chains),
+            'horizontal_chains': len(h_chains),
+            'vertical_chains': len(v_chains),
+            'largest_chain': max(c['net_count'] for c in self._trunk_chains),
+            'chains': [
+                {
+                    'nets': c['nets'],
+                    'direction': c['direction'],
+                    'spacing': c['spacing'],
+                }
+                for c in self._trunk_chains
+            ],
+        }
+
+    # =========================================================================
     # MAIN ROUTING ENTRY POINT
     # =========================================================================
 
@@ -1160,6 +1451,10 @@ class RoutingPiston:
         # CLASSIFY NETS - Determine per-net trace widths and clearances
         # This builds lookup tables for power/ground/signal/etc. net classes
         self._classify_nets(parts_db)
+
+        # DETECT TRUNK CHAINS - Identify parallel routing opportunities
+        # This finds groups of nets that can share a routing corridor
+        self._detect_trunk_chains(parts_db, escapes)
 
         # Build net_pins lookup
         nets = parts_db.get('nets', {})
@@ -1563,7 +1858,8 @@ class RoutingPiston:
             success=len(self.failed) == 0,
             routed_count=routed,
             total_count=len(all_routes),
-            algorithm_used='lee_parallel'
+            algorithm_used='lee_parallel',
+            statistics={'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _mark_route_on_grid(self, route: 'Route'):
@@ -1634,6 +1930,9 @@ class RoutingPiston:
                 self.failed.append(net_name)
 
         routed = sum(1 for r in self.routes.values() if r.success)
+        # Add trunk chain statistics
+        stats = dict(self.stats)
+        stats['trunk_chains'] = self.get_trunk_chain_stats()
         return RoutingResult(
             routes=self.routes,
             success=len(self.failed) == 0,
@@ -1642,7 +1941,7 @@ class RoutingPiston:
             algorithm_used='lee',
             total_wirelength=sum(r.total_length for r in self.routes.values() if r.success),
             via_count=sum(len(r.vias) for r in self.routes.values() if r.success),
-            statistics=dict(self.stats)
+            statistics=stats
         )
 
     def _route_net_lee(self, net_name: str, pins: List[Tuple],
@@ -2061,7 +2360,7 @@ class RoutingPiston:
             algorithm_used='hadlock',
             total_wirelength=sum(r.total_length for r in self.routes.values() if r.success),
             via_count=sum(len(r.vias) for r in self.routes.values() if r.success),
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_hadlock(self, net_name: str, pins: List[Tuple],
@@ -2268,7 +2567,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='soukup',
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_soukup(self, net_name: str, pins: List[Tuple],
@@ -2472,7 +2771,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='mikami',
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_mikami(self, net_name: str, pins: List[Tuple],
@@ -2783,7 +3082,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='astar',
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_astar(self, net_name: str, pins: List[Tuple],
@@ -3455,7 +3754,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='steiner',
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_steiner(self, net_name: str, pins: List[Tuple],
@@ -3636,7 +3935,7 @@ class RoutingPiston:
             routed_count=routed,
             total_count=len(net_order),
             algorithm_used='channel',
-            statistics=dict(self.stats)
+            statistics={**self.stats, 'trunk_chains': self.get_trunk_chain_stats()}
         )
 
     def _route_net_channel(self, net_name: str, pins: List[Tuple],
