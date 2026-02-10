@@ -362,6 +362,9 @@ class RoutingResult:
     total_wirelength: float = 0.0
     via_count: int = 0
     statistics: Dict[str, Any] = field(default_factory=dict)
+    failed_nets: List[str] = field(default_factory=list)
+    timing_ms: float = 0.0
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 # =============================================================================

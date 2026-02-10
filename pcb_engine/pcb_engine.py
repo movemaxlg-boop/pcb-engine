@@ -293,6 +293,22 @@ except ImportError:
     LearningDatabase = None
     RoutingOutcome = None
 
+# Import CPU Lab (VLSI-inspired enhancement)
+try:
+    from .cpu_lab import CPULab, CPULabResult, FactoryInspector
+except ImportError:
+    CPULab = None
+    CPULabResult = None
+    FactoryInspector = None
+
+# Import Pour Piston (copper pour for GND/power)
+try:
+    from .pour_piston import PourPiston, PourConfig, PourResult
+except ImportError:
+    PourPiston = None
+    PourConfig = None
+    PourResult = None
+
 try:
     from .grid_calculator import calculate_optimal_grid_size
 except ImportError:
@@ -865,6 +881,12 @@ class PCBEngine:
         self._bom_optimizer_piston: BOMOptimizerPiston = None if BOMOptimizerPiston is None else None
         self._learning_piston: LearningPiston = None if LearningPiston is None else None
 
+        # CPU Lab (VLSI-inspired enhancement) - runs between placement and routing
+        self._cpu_lab: CPULab = None
+        self._cpu_lab_result: CPULabResult = None
+        self._pour_piston: PourPiston = None
+        self._pour_result: PourResult = None
+
         # Internal state
         self._escape_result = None
         self._optimization_results = None
@@ -1321,10 +1343,80 @@ class PCBEngine:
                 if not self._handle_piston_result('escape', piston_result):
                     return self._create_result()
 
+            # === STAGE 4.5: CPU LAB (VLSI-Inspired Enhancement) ===
+            # Runs AFTER placement, BEFORE routing.
+            # Decides: GND pour, layer directions, net ordering, congestion
+            self._cpu_lab_result = self._execute_cpu_lab()
+            if self._cpu_lab_result:
+                # Factory Inspector: check placement quality
+                inspector = self._cpu_lab_result.inspector if hasattr(self._cpu_lab_result, 'inspector') else None
+                if inspector and self.state.placement:
+                    inspection = inspector.inspect_placement(
+                        self.state.placement, self.state.parts_db,
+                        self.config.board_width, self.config.board_height,
+                        self._cpu_lab_result.component_groups
+                    )
+                    if inspection.stop_the_line:
+                        self._log(f"  [INSPECTOR] STOP THE LINE: {inspection.critical_count} critical violations")
+                        for f in inspection.findings:
+                            if f.severity.value == 'critical':
+                                self._log(f"    CRITICAL: {f.message}")
+                        self.state.errors.append(f"Factory Inspector: STOP THE LINE - {inspection.critical_count} critical violations")
+                        return self._create_result()
+                    elif inspection.error_count > 0:
+                        self._log(f"  [INSPECTOR] {inspection.error_count} errors, {inspection.warning_count} warnings - continuing with caution")
+
+                # Apply CPU Lab's net ordering to engine state
+                if self._cpu_lab_result.net_priorities:
+                    routable = [p for p in self._cpu_lab_result.net_priorities if p.priority < 100]
+                    self.state.net_order = [p.net_name for p in routable]
+                    self._log(f"  [CPU LAB] Net order updated: {len(self.state.net_order)} nets prioritized")
+
+                # Update parts_db with CPU Lab decisions
+                if self._cpu_lab_result.enhanced_parts_db:
+                    self.state.parts_db = self._cpu_lab_result.enhanced_parts_db
+                    self._log(f"  [CPU LAB] parts_db enhanced with CPU Lab decisions")
+
+            # === STAGE 4.6: POUR (Ground plane BEFORE routing) ===
+            # CPU Lab may have decided GND needs a copper pour.
+            # Running pour BEFORE routing removes GND from the routing queue.
+            if self._should_run_pour():
+                self._pour_result = self._execute_pour_stage()
+                if self._pour_result and self._pour_result.success:
+                    self._log(f"  [ENGINE] Pour completed - GND handled by copper pour")
+                    # Remove GND from net_order so router doesn't try to route it
+                    nets_removed = self._cpu_lab_result.power_grid.nets_removed_from_routing if self._cpu_lab_result else ['GND']
+                    before = len(self.state.net_order)
+                    self.state.net_order = [n for n in self.state.net_order if n not in nets_removed]
+                    removed = before - len(self.state.net_order)
+                    if removed:
+                        self._log(f"  [ENGINE] Removed {removed} pour-handled nets from routing queue")
+                else:
+                    self._log(f"  [ENGINE] Pour skipped or failed - GND will be routed as traces")
+
             # === STAGE 5: ROUTING ===
             piston_result = self._run_piston_with_drc('routing', self._execute_routing)
             if not self._handle_piston_result('routing', piston_result):
                 return self._create_result()
+
+            # Factory Inspector: post-routing check
+            if self._cpu_lab_result and self._cpu_lab:
+                inspector = self._cpu_lab.inspector
+                total_nets = len(self.state.parts_db.get('nets', {}))
+                routed_count = len(self.state.routes) if self.state.routes else 0
+                post_route_report = inspector.inspect_post_routing(
+                    self.state.routes or {}, total_nets, routed_count
+                )
+                if post_route_report.stop_the_line:
+                    self._log(f"  [INSPECTOR] POST-ROUTING: STOP THE LINE")
+                    for f in post_route_report.findings:
+                        if f.severity.value == 'critical':
+                            self._log(f"    CRITICAL: {f.message}")
+                    self.state.errors.append("Factory Inspector: routing quality below threshold")
+                    return self._create_result()
+                elif post_route_report.findings:
+                    for f in post_route_report.findings:
+                        self._log(f"  [INSPECTOR] [{f.severity.value}] {f.message}")
 
             # === STAGE 5.5: TOPOLOGICAL ROUTING (optional, for advanced routing) ===
             if self._should_use_topological_routing():
@@ -3890,6 +3982,138 @@ class PCBEngine:
             if 'bga' in footprint or 'qfp' in footprint or 'qfn' in footprint:
                 return True
         return False
+
+    # =========================================================================
+    # CPU LAB INTEGRATION (VLSI-Inspired Enhancement)
+    # =========================================================================
+
+    def _execute_cpu_lab(self) -> Optional['CPULabResult']:
+        """
+        Execute CPU Lab to enhance the design with VLSI-inspired strategies.
+
+        Runs AFTER placement, BEFORE routing. Produces:
+        - Power grid plan (GND pour decision)
+        - Layer direction assignments (H/V)
+        - Global routing plan (coarse path planning)
+        - Congestion estimation
+        - Net priority ordering
+        - Component group detection
+        - Enhanced parts_db with all decisions injected
+        """
+        if CPULab is None:
+            self._log("  [CPU LAB] Not available (import failed)")
+            return None
+
+        self._log("\n--- STAGE 4.5: CPU LAB (VLSI-Inspired Enhancement) ---")
+        stage_start = time.time()
+
+        try:
+            self._cpu_lab = CPULab()
+
+            board_config = {
+                'board_width': self.config.board_width,
+                'board_height': self.config.board_height,
+                'layers': self.config.layer_count,
+            }
+
+            # Pass real placement if available
+            placement = self.state.placement if self.state.placement else None
+
+            result = self._cpu_lab.enhance(
+                self.state.parts_db, board_config, placement
+            )
+
+            stage_time = time.time() - stage_start
+            self._log(f"  [CPU LAB] Complete in {stage_time*1000:.0f}ms")
+            for s in result.summary:
+                self._log(f"    {s}")
+
+            return result
+
+        except Exception as e:
+            self._log(f"  [CPU LAB] Error: {e} - continuing without enhancement")
+            return None
+
+    def _should_run_pour(self) -> bool:
+        """
+        Check if pour piston should run BEFORE routing.
+
+        Pour runs when:
+        1. CPU Lab decided GND needs a pour (gnd_strategy == 'pour')
+        2. PourPiston is available
+        3. Board is 2-layer (4+ layer boards use dedicated GND layer)
+        """
+        if PourPiston is None:
+            return False
+
+        # Check CPU Lab decision
+        if self._cpu_lab_result:
+            cpu_lab_data = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {})
+            gnd_strategy = cpu_lab_data.get('gnd_strategy', 'trace')
+            if gnd_strategy == 'pour':
+                return True
+
+        # Fallback: check if board has many GND pins (pour is better)
+        nets = self.state.parts_db.get('nets', {})
+        gnd_info = nets.get('GND', {})
+        gnd_pins = gnd_info.get('pins', [])
+        if len(gnd_pins) >= 5 and self.config.layer_count <= 2:
+            return True
+
+        return False
+
+    def _execute_pour_stage(self) -> Optional['PourResult']:
+        """
+        Execute Pour Piston to generate GND copper pour BEFORE routing.
+
+        This is the key insight from CPU design: handle power/ground FIRST
+        on dedicated resources, then route signals.
+        """
+        self._log("\n--- STAGE 4.6: POUR (Ground Plane BEFORE Routing) ---")
+        stage_start = time.time()
+
+        try:
+            # Get pour config from CPU Lab or use defaults
+            pour_layer = 'B.Cu'
+            pour_net = 'GND'
+
+            if self._cpu_lab_result:
+                cpu_lab_data = self._cpu_lab_result.enhanced_parts_db.get('cpu_lab', {})
+                pour_layer = cpu_lab_data.get('pour_layer', 'B.Cu')
+                pour_net = cpu_lab_data.get('pour_net', 'GND')
+
+            config = PourConfig(
+                net=pour_net,
+                layer=pour_layer,
+                clearance=self.config.clearance,
+                add_stitching_vias=True,
+            )
+
+            self._pour_piston = PourPiston(config)
+            result = self._pour_piston.generate(
+                parts_db=self.state.parts_db,
+                placement=self.state.placement,
+                board_width=self.config.board_width,
+                board_height=self.config.board_height,
+                routes=None,  # No routes yet - pour runs BEFORE routing
+                vias=None,
+            )
+
+            stage_time = time.time() - stage_start
+            self._log(f"  [POUR] {pour_net} pour on {pour_layer}: "
+                      f"{'SUCCESS' if result.success else 'FAILED'} ({stage_time*1000:.0f}ms)")
+            if result.connected_pads:
+                self._log(f"  [POUR] Connected {len(result.connected_pads)} pads via pour")
+            if result.stitching_vias:
+                self._log(f"  [POUR] {len(result.stitching_vias)} stitching vias placed")
+            for w in result.warnings:
+                self._log(f"  [POUR] Warning: {w}")
+
+            return result
+
+        except Exception as e:
+            self._log(f"  [POUR] Error: {e} - GND will be routed as traces")
+            return None
 
     def _get_default_pin_offset(self, footprint: str, pin_num: str, total_pins: int) -> Tuple[float, float]:
         """
