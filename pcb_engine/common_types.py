@@ -632,7 +632,8 @@ COURTYARD_MARGIN_LOOSE = 0.50   # Level C - Most (prototype/hand solder)
 def calculate_courtyard(
     part: Dict,
     margin: float = COURTYARD_MARGIN_NOMINAL,
-    footprint_name: str = None
+    footprint_name: str = None,
+    rotation: int = 0
 ) -> CourtyardBounds:
     """
     Calculate component courtyard from pad positions.
@@ -679,18 +680,36 @@ def calculate_courtyard(
 
     # Calculate bounds from pins
     for pin in pins:
-        # Get pad offset
-        offset = pin.get('offset', (0, 0))
-        if isinstance(offset, (list, tuple)) and len(offset) >= 2:
+        # Get pad offset - handle both 'offset' tuple and 'physical' dict formats
+        offset = pin.get('offset', None)
+        if offset is not None and isinstance(offset, (list, tuple)) and len(offset) >= 2:
             ox, oy = float(offset[0]), float(offset[1])
-        elif isinstance(offset, dict):
+        elif offset is not None and isinstance(offset, dict):
             ox = float(offset.get('x', 0))
             oy = float(offset.get('y', 0))
         else:
-            ox, oy = 0.0, 0.0
+            # Fallback: check 'physical' dict format (offset_x, offset_y)
+            physical = pin.get('physical', {})
+            if physical:
+                ox = float(physical.get('offset_x', 0))
+                oy = float(physical.get('offset_y', 0))
+            else:
+                ox, oy = 0.0, 0.0
 
-        # Get pad size
-        pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+        # Get pad size - prefer pin data, then FOOTPRINT_LIBRARY, then fallback
+        pad_size = pin.get('size', pin.get('pad_size', None))
+        if pad_size is None:
+            # Try FOOTPRINT_LIBRARY for accurate IPC pad sizes
+            fp_name = footprint_name or part.get('footprint', '')
+            fp_def = get_footprint_definition(fp_name)
+            pin_num = str(pin.get('number', pin.get('pin', '')))
+            if fp_def and fp_def.pad_positions:
+                for lib_pin_num, _, _, lib_pw, lib_ph in fp_def.pad_positions:
+                    if str(lib_pin_num) == pin_num:
+                        pad_size = (lib_pw, lib_ph)
+                        break
+            if pad_size is None:
+                pad_size = (1.0, 0.6)  # Last resort fallback
         if isinstance(pad_size, (list, tuple)) and len(pad_size) >= 2:
             pw, ph = float(pad_size[0]), float(pad_size[1])
         elif isinstance(pad_size, (int, float)):
@@ -706,7 +725,17 @@ def calculate_courtyard(
         min_y = min(min_y, oy - half_h)
         max_y = max(max_y, oy + half_h)
 
-    # If still no bounds, use body size from footprint
+    # Ensure bounds are at least as large as the body size from parts_db
+    body_size = part.get('size', None)
+    if body_size and isinstance(body_size, (list, tuple)) and len(body_size) >= 2:
+        body_half_w = float(body_size[0]) / 2
+        body_half_h = float(body_size[1]) / 2
+        min_x = min(min_x, -body_half_w)
+        max_x = max(max_x, body_half_w)
+        min_y = min(min_y, -body_half_h)
+        max_y = max(max_y, body_half_h)
+
+    # If still no bounds, use body size from footprint library
     if min_x == 0 and max_x == 0 and min_y == 0 and max_y == 0:
         fp_name = footprint_name or part.get('footprint', '')
         fp_def = get_footprint_definition(fp_name)
@@ -719,6 +748,16 @@ def calculate_courtyard(
             # Absolute fallback - 2mm x 2mm
             min_x, max_x = -1.0, 1.0
             min_y, max_y = -1.0, 1.0
+
+    # Apply rotation BEFORE adding margin
+    if rotation in (90, 270):
+        # Swap X and Y axes for 90/270 degree rotation
+        min_x, min_y = min_y, min_x
+        max_x, max_y = max_y, max_x
+    elif rotation == 180:
+        # Flip both axes for 180 degree rotation
+        min_x, max_x = -max_x, -min_x
+        min_y, max_y = -max_y, -min_y
 
     # Add IPC margin
     min_x -= margin

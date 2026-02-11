@@ -240,17 +240,23 @@ class PlacementEngine:
             return (str(pin_ref[0]), '')
         return ('', '')
 
-    def place(self, parts_db: Dict, graph: Dict) -> PlacementResult:
+    def place(self, parts_db: Dict, graph: Dict,
+              placement_hints: Dict = None) -> PlacementResult:
         """
         Run placement with configured algorithm.
 
         Args:
             parts_db: Parts database from collector
             graph: Connectivity graph
+            placement_hints: Optional hints from c_layout or CPU Lab
+                             Keys: proximity_groups, edge_components, keep_apart, zones
 
         Returns:
             PlacementResult with positions and metrics
         """
+        # Store placement hints for use by cost function
+        self._placement_hints = placement_hints or {}
+
         # Initialize state from parts database
         self._init_from_parts(parts_db, graph)
 
@@ -1770,9 +1776,10 @@ class PlacementEngine:
         overlap = self._calculate_overlap_area()
         pad_conflict = self._calculate_pad_conflict_penalty()
         oob = self._calculate_oob_penalty()
+        prox = self._calculate_proximity_cost()
 
         # Pad conflict has VERY HIGH weight because overlapping pads = guaranteed DRC fail
-        return wirelength + overlap * 1000 + pad_conflict * 5000 + oob * 500
+        return wirelength + overlap * 1000 + pad_conflict * 5000 + oob * 500 + prox * 50
 
     def _calculate_wirelength(self) -> float:
         """Calculate total estimated wire length using HPWL"""
@@ -1976,6 +1983,39 @@ class PlacementEngine:
                 total += min_y - comp.y
             if comp.y > max_y:
                 total += comp.y - max_y
+
+        return total
+
+    def _calculate_proximity_cost(self) -> float:
+        """
+        Calculate cost penalty for components that should be near each other
+        but are placed too far apart (from placement_hints proximity_groups).
+        """
+        hints = getattr(self, '_placement_hints', None)
+        if not hints:
+            return 0.0
+
+        groups = hints.get('proximity_groups', [])
+        if not groups:
+            return 0.0
+
+        total = 0.0
+        for group in groups:
+            components = group.get('components', [])
+            max_dist = group.get('max_distance', 10.0)
+            priority = group.get('priority', 1.0)
+
+            for i, ref_a in enumerate(components):
+                if ref_a not in self.components:
+                    continue
+                ca = self.components[ref_a]
+                for ref_b in components[i + 1:]:
+                    if ref_b not in self.components:
+                        continue
+                    cb = self.components[ref_b]
+                    dist = math.sqrt((ca.x - cb.x) ** 2 + (ca.y - cb.y) ** 2)
+                    if dist > max_dist:
+                        total += (dist - max_dist) * priority
 
         return total
 

@@ -48,9 +48,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
 try:
-    from .common_types import get_pins
+    from .common_types import get_pins, calculate_courtyard
 except ImportError:
-    from common_types import get_pins
+    from common_types import get_pins, calculate_courtyard
 
 # Import advanced ePlace analytical placement
 try:
@@ -307,17 +307,23 @@ class PlacementPiston:
     # MAIN ENTRY POINT
     # =========================================================================
 
-    def place(self, parts_db: Dict, graph: Dict = None) -> PlacementResult:
+    def place(self, parts_db: Dict, graph: Dict = None,
+              placement_hints: Dict = None) -> PlacementResult:
         """
         Run placement with configured algorithm.
 
         Args:
             parts_db: Parts database with component info
             graph: Connectivity graph (optional, will build if not provided)
+            placement_hints: Optional hints from c_layout or CPU Lab
+                             Keys: proximity_groups, edge_components, keep_apart, zones
 
         Returns:
             PlacementResult with positions and metrics
         """
+        # Store placement hints for use by cost function
+        self._placement_hints = placement_hints or {}
+
         # Initialize state
         self._init_from_parts(parts_db, graph or {})
 
@@ -378,17 +384,12 @@ class PlacementPiston:
         cy = self.config.origin_y + self.config.board_height / 2
 
         for idx, (ref, part) in enumerate(sorted(parts.items())):
-            size = part.get('size', part.get('body', {}).get('size', (2.0, 2.0)))
-            if isinstance(size, (list, tuple)):
-                width, height = size[0], size[1]
-            else:
-                width = height = float(size) if size else 2.0
-
-            body = part.get('body', {})
-            if 'width' in body:
-                width = body['width']
-            if 'height' in body:
-                height = body['height']
+            # Use calculate_courtyard() - the SINGLE SOURCE OF TRUTH for component dimensions
+            # This accounts for body size, pad extents, AND IPC-7351B margin
+            footprint = part.get('footprint', '')
+            courtyard = calculate_courtyard(part, footprint_name=footprint)
+            width = courtyard.width
+            height = courtyard.height
 
             # Initial position using golden angle spiral
             if ref == self.hub:
@@ -404,33 +405,12 @@ class PlacementPiston:
             used_pins = get_pins(part)
             pin_count = len(used_pins)
 
-            # Calculate actual footprint extent from pins (pad offset + pad size)
-            # This is more accurate than body size for placement overlap detection
-            max_x = max_y = 0
-            for pin in used_pins:
-                offset = pin.get('offset', (0, 0))
-                pad_size = pin.get('size', (0.5, 0.5))
-                if isinstance(offset, (list, tuple)):
-                    ox, oy = abs(offset[0]), abs(offset[1])
-                else:
-                    ox, oy = 0, 0
-                if isinstance(pad_size, (list, tuple)):
-                    pw, ph = pad_size[0] / 2, pad_size[1] / 2
-                else:
-                    pw = ph = 0.25
-                max_x = max(max_x, ox + pw)
-                max_y = max(max_y, oy + ph)
-
-            # Use larger of body or pad extent
-            actual_width = max(width, max_x * 2)
-            actual_height = max(height, max_y * 2)
-
             is_decap = self._is_decoupling_cap(ref, used_pins)
             is_power = any(self._is_power_net(pin.get('net', '')) for pin in used_pins)
 
             self.components[ref] = ComponentState(
                 ref=ref, x=x, y=y,
-                width=max(actual_width, 0.5), height=max(actual_height, 0.5),
+                width=max(width, 0.5), height=max(height, 0.5),
                 pin_count=pin_count,
                 is_decoupling_cap=is_decap,
                 is_power_component=is_power,
@@ -582,8 +562,9 @@ class PlacementPiston:
         wl = self._calculate_wirelength()
         overlap = self._calculate_overlap_area()
         oob = self._calculate_oob_penalty()
+        prox = self._calculate_proximity_cost()
 
-        return wl + overlap * 1000 + oob * 500
+        return wl + overlap * 1000 + oob * 500 + prox * 50
 
     def _calculate_wirelength(self) -> float:
         """Calculate HPWL (Half Perimeter Wire Length)"""
@@ -671,6 +652,43 @@ class PlacementPiston:
 
         return total
 
+    def _calculate_proximity_cost(self) -> float:
+        """
+        Calculate cost penalty for components that should be near each other
+        but are placed too far apart (from placement_hints proximity_groups).
+
+        Each proximity group has a list of components and a max_distance.
+        If any pair in the group exceeds max_distance, the excess is penalized.
+        """
+        hints = getattr(self, '_placement_hints', None)
+        if not hints:
+            return 0.0
+
+        groups = hints.get('proximity_groups', [])
+        if not groups:
+            return 0.0
+
+        total = 0.0
+        for group in groups:
+            components = group.get('components', [])
+            max_dist = group.get('max_distance', 10.0)  # mm
+            priority = group.get('priority', 1.0)
+
+            # Check all pairs in the group
+            for i, ref_a in enumerate(components):
+                if ref_a not in self.components:
+                    continue
+                ca = self.components[ref_a]
+                for ref_b in components[i + 1:]:
+                    if ref_b not in self.components:
+                        continue
+                    cb = self.components[ref_b]
+                    dist = math.sqrt((ca.x - cb.x) ** 2 + (ca.y - cb.y) ** 2)
+                    if dist > max_dist:
+                        total += (dist - max_dist) * priority
+
+        return total
+
     def _check_has_overlaps(self) -> bool:
         return self._calculate_overlap_area() > 0.01
 
@@ -715,29 +733,53 @@ class PlacementPiston:
     # =========================================================================
 
     def _legalize(self):
-        """Legalize placement: snap to grid and resolve overlaps"""
+        """Legalize placement: snap to grid and resolve overlaps.
+
+        IMPORTANT: Place large components first (by courtyard area, descending).
+        Small components spiral around the large ones, not the other way around.
+        This prevents small passives from getting trapped inside large IC courtyards.
+        """
         # Snap to grid
         for comp in self.components.values():
             comp.x, comp.y = self._snap_to_grid(comp.x, comp.y)
             comp.x, comp.y = self._clamp_to_board(comp)
 
+        # Sort by courtyard area (largest first) so big ICs get placed first
+        # Small passives will spiral around them
+        sorted_refs = sorted(
+            self.components.keys(),
+            key=lambda r: self.components[r].width * self.components[r].height,
+            reverse=True
+        )
+
         # Resolve overlaps
         placed = set()
-        for ref in sorted(self.components.keys()):
+        for ref in sorted_refs:
             self._resolve_overlap_spiral(ref, placed)
             placed.add(ref)
 
-    def _resolve_overlap_spiral(self, ref: str, placed: Set[str], max_attempts: int = 100):
-        """Resolve overlap using spiral search"""
+    def _resolve_overlap_spiral(self, ref: str, placed: Set[str], max_attempts: int = 200):
+        """Resolve overlap using spiral search.
+
+        The spiral radius must be large enough to escape the largest
+        component's courtyard. Uses adaptive step size based on
+        component dimensions.
+        """
         comp = self.components[ref]
         original_x, original_y = comp.x, comp.y
+
+        # Adaptive step: at least 1mm per ring, scaling with board size
+        # Must be able to reach board diagonal in max_attempts
+        max_dim = max(c.width for c in self.components.values())
+        step = max(1.0, max_dim / 4)  # Each ring moves by at least max_dim/4
 
         for attempt in range(max_attempts):
             if not self._has_overlap(ref, placed):
                 return
 
             angle = (attempt * 30) % 360
-            radius = self.config.grid_size * (1 + attempt // 12)
+            ring = 1 + attempt // 12
+            radius = step * ring
 
             comp.x = original_x + radius * math.cos(math.radians(angle))
             comp.y = original_y + radius * math.sin(math.radians(angle))

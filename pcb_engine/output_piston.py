@@ -25,7 +25,8 @@ from datetime import datetime
 # Import common types for consistent pin handling
 from .common_types import (
     get_pins, get_pin_net as common_get_pin_net, normalize_position, get_xy,
-    get_footprint_definition, FootprintDefinition, FOOTPRINT_LIBRARY, is_smd_footprint
+    get_footprint_definition, FootprintDefinition, FOOTPRINT_LIBRARY, is_smd_footprint,
+    calculate_courtyard
 )
 
 
@@ -946,16 +947,63 @@ class OutputPiston:
                                 continue
                             gnd_pad_positions.append((px, py))
 
+        # BUILD PAD OBSTACLE MAP for post-routing validation
+        # Each pad is stored as (net, cx, cy, half_w, half_h) for collision detection
+        pad_obstacles = []
+        for ref, pos in placement.items():
+            part = parts.get(ref, {})
+            cx = pos.x if hasattr(pos, 'x') else pos[0] if isinstance(pos, (list, tuple)) else 0
+            cy = pos.y if hasattr(pos, 'y') else pos[1] if isinstance(pos, (list, tuple)) else 0
+            fp_name = part.get('footprint', part.get('package', ''))
+            fp_def = get_footprint_definition(fp_name)
+            if fp_def and fp_def.pad_positions:
+                for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+                    pin_net = pin_to_net.get(ref, {}).get(str(pad_num), '')
+                    if pin_net:
+                        abs_x = cx + pad_x
+                        abs_y = cy + pad_y
+                        pad_obstacles.append((pin_net, abs_x, abs_y, pad_w / 2, pad_h / 2))
+
         for net_name, route in routes.items():
-            # BUG FIX: When GND pour is enabled, we STILL need ALL segments.
-            # The pour fills empty space but does NOT satisfy via_dangling checks.
-            # KiCad requires a track segment to terminate at each via on BOTH layers.
-            #
-            # Previous bug: Filtered to only F.Cu segments, leaving B.Cu vias dangling.
-            # The B.Cu segments connect vias to each other and must be kept.
-            #
-            # The pour provides a solid ground plane for EMI/return paths, but
-            # the routing traces are still needed for electrical connectivity.
+            # POST-ROUTING VALIDATION: Filter segments that pass through other-net pads
+            # This catches any violations the routing piston missed (edge cases, stub segments)
+            if hasattr(route, 'segments') and pad_obstacles:
+                clean_segments = []
+                removed = 0
+                for seg in route.segments:
+                    if hasattr(seg, 'start'):
+                        sx, sy, ex, ey = seg.start[0], seg.start[1], seg.end[0], seg.end[1]
+                    else:
+                        sx = seg.get('start', (0, 0))[0]
+                        sy = seg.get('start', (0, 0))[1]
+                        ex = seg.get('end', (0, 0))[0]
+                        ey = seg.get('end', (0, 0))[1]
+                    seg_w = (seg.width if hasattr(seg, 'width') else seg.get('width', 0.25)) / 2
+                    # Check if this segment passes through any other-net pad
+                    hits_pad = False
+                    for pad_net, px, py, phw, phh in pad_obstacles:
+                        if pad_net == net_name:
+                            continue  # Same net - OK
+                        # Expand pad by track half-width + clearance for proper check
+                        expand = seg_w + self.config.clearance
+                        pad_left = px - phw - expand
+                        pad_right = px + phw + expand
+                        pad_top = py - phh - expand
+                        pad_bottom = py + phh + expand
+                        # Check if segment intersects expanded pad rect
+                        if self._segment_intersects_rect(sx, sy, ex, ey, pad_left, pad_top, pad_right, pad_bottom):
+                            hits_pad = True
+                            break
+                    if hits_pad:
+                        removed += 1
+                    else:
+                        clean_segments.append(seg)
+                if removed > 0:
+                    print(f"  [OUTPUT] Removed {removed} segments from {net_name} (pad collision)")
+                    if hasattr(route, 'segments'):
+                        route.segments = clean_segments
+                    elif isinstance(route, dict):
+                        route['segments'] = clean_segments
 
             net_id = net_ids.get(net_name, 0)
             tracks_content = self._generate_tracks(route, net_id)
@@ -1165,6 +1213,15 @@ class OutputPiston:
         silk = self._get_footprint_silk(footprint_name)
         for line_str in silk:
             lines.append(f'    {line_str}')
+
+        # Add courtyard rectangle (F.CrtYd or B.CrtYd)
+        crtyd_layer = 'F.CrtYd' if layer == 'F.Cu' else 'B.CrtYd'
+        courtyard = calculate_courtyard(part, footprint_name=footprint_name)
+        cx1 = -courtyard.width / 2
+        cy1 = -courtyard.height / 2
+        cx2 = courtyard.width / 2
+        cy2 = courtyard.height / 2
+        lines.append(f'    (fp_rect (start {cx1:.3f} {cy1:.3f}) (end {cx2:.3f} {cy2:.3f}) (stroke (width 0.05) (type solid)) (layer "{crtyd_layer}") (fill none) (uuid "{uuid.uuid4()}"))')
 
         lines.append('  )')
 
@@ -1565,6 +1622,43 @@ class OutputPiston:
     (layers "F.Cu" "B.Cu")
     (net {net_id})
   )'''
+
+    @staticmethod
+    def _segment_intersects_rect(sx, sy, ex, ey, left, top, right, bottom) -> bool:
+        """Check if a line segment from (sx,sy) to (ex,ey) intersects an axis-aligned rectangle.
+        Uses Cohen-Sutherland-like clipping to detect intersection efficiently."""
+        # Quick reject: segment bounding box doesn't overlap rect
+        seg_left = min(sx, ex)
+        seg_right = max(sx, ex)
+        seg_top = min(sy, ey)
+        seg_bottom = max(sy, ey)
+        if seg_right < left or seg_left > right or seg_bottom < top or seg_top > bottom:
+            return False
+        # Check if either endpoint is inside rect
+        if left <= sx <= right and top <= sy <= bottom:
+            return True
+        if left <= ex <= right and top <= ey <= bottom:
+            return True
+        # Check segment against each edge of the rect using line intersection
+        dx = ex - sx
+        dy = ey - sy
+        edges = [
+            (left, top, left, bottom),     # Left edge
+            (right, top, right, bottom),   # Right edge
+            (left, top, right, top),       # Top edge
+            (left, bottom, right, bottom), # Bottom edge
+        ]
+        for rx1, ry1, rx2, ry2 in edges:
+            rdx = rx2 - rx1
+            rdy = ry2 - ry1
+            denom = dx * rdy - dy * rdx
+            if abs(denom) < 1e-10:
+                continue  # Parallel
+            t = ((rx1 - sx) * rdy - (ry1 - sy) * rdx) / denom
+            u = ((rx1 - sx) * dy - (ry1 - sy) * dx) / denom
+            if 0 <= t <= 1 and 0 <= u <= 1:
+                return True
+        return False
 
     def _generate_board_outline(self) -> str:
         """Generate board edge cuts"""

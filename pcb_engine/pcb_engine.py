@@ -780,6 +780,13 @@ class EngineState:
     placement_order: List = field(default_factory=list)
     net_order: List = field(default_factory=list)
     layer_assignments: Dict = field(default_factory=dict)
+    layer_directions: Dict = field(default_factory=dict)  # CPU Lab: layer -> preferred direction
+    net_specs: Dict = field(default_factory=dict)  # CPU Lab: net -> {trace_width_mm, clearance_mm, ...}
+    congestion: Dict = field(default_factory=dict)  # CPU Lab: congestion data
+    global_routing: Dict = field(default_factory=dict)  # CPU Lab: global routing hints (region assignments)
+    placement_hints: Dict = field(default_factory=dict)  # C_Layout: proximity groups, edge components, zones
+    routing_hints: Dict = field(default_factory=dict)  # C_Layout: priority nets, diff pairs, length match
+    design_rules: Dict = field(default_factory=dict)  # C_Layout: rule hierarchy (inviolable/recommended/optional)
     placement: Dict = field(default_factory=dict)
     routes: Dict = field(default_factory=dict)
     vias: List = field(default_factory=list)
@@ -1373,6 +1380,54 @@ class PCBEngine:
                     routable = [p for p in self._cpu_lab_result.net_priorities if p.priority < 100]
                     self.state.net_order = [p.net_name for p in routable]
                     self._log(f"  [CPU LAB] Net order updated: {len(self.state.net_order)} nets prioritized")
+
+                    # Store per-net routing specs (trace width, clearance, preferred layer)
+                    self.state.net_specs = {
+                        p.net_name: {
+                            'trace_width_mm': getattr(p, 'trace_width_mm', 0.25),
+                            'clearance_mm': getattr(p, 'clearance_mm', 0.15),
+                            'preferred_layer': getattr(p, 'preferred_layer', None),
+                            'max_length_mm': getattr(p, 'max_length_mm', None),
+                        } for p in routable
+                    }
+                    self._log(f"  [CPU LAB] Net specs stored: {len(self.state.net_specs)} nets with trace width/clearance")
+
+                # Store layer direction assignments (F.Cu=horizontal, B.Cu=vertical)
+                if self._cpu_lab_result.layer_assignments:
+                    self.state.layer_directions = {
+                        la.layer_name: la.preferred_direction.value
+                        if hasattr(la.preferred_direction, 'value') else str(la.preferred_direction)
+                        for la in self._cpu_lab_result.layer_assignments
+                    }
+                    self._log(f"  [CPU LAB] Layer directions: {self.state.layer_directions}")
+
+                # Store congestion data
+                if self._cpu_lab_result.congestion:
+                    cong = self._cpu_lab_result.congestion
+                    self.state.congestion = {
+                        'level': getattr(cong, 'overall_level', 'unknown'),
+                        'bottleneck_nets': getattr(cong, 'bottleneck_nets', []),
+                    }
+                    self._log(f"  [CPU LAB] Congestion: {self.state.congestion.get('level', 'unknown')}")
+
+                # Store global routing hints
+                if self._cpu_lab_result.global_routing:
+                    gr = self._cpu_lab_result.global_routing
+                    self.state.global_routing = {
+                        'region_size_mm': gr.region_size_mm,
+                        'grid_rows': gr.region_grid_rows,
+                        'grid_cols': gr.region_grid_cols,
+                        'net_routes': {
+                            name: {
+                                'regions': route.regions,
+                                'estimated_length_mm': route.estimated_length_mm,
+                                'estimated_vias': route.estimated_vias,
+                            }
+                            for name, route in gr.net_routes.items()
+                        },
+                    }
+                    self._log(f"  [CPU LAB] Global routing: {len(gr.net_routes)} nets planned, "
+                              f"grid={gr.region_grid_rows}x{gr.region_grid_cols}")
 
                 # Update parts_db with CPU Lab decisions
                 if self._cpu_lab_result.enhanced_parts_db:
@@ -2798,6 +2853,10 @@ class PCBEngine:
             self.state.drc_result = result
             self.state.stage_times['drc'] = time.time() - stage_start
 
+            # Classify violations by c_layout rule hierarchy (if available)
+            if self.state.design_rules and hasattr(result, 'violations'):
+                self._classify_drc_by_hierarchy(result)
+
             self._log(f"  Attempt {attempt + 1}: Errors={result.error_count}, Warnings={result.warning_count}")
             self._log(f"  Passed: {'YES' if result.passed else 'NO'}")
 
@@ -2970,6 +3029,73 @@ class PCBEngine:
 
         return modified
 
+    def _classify_drc_by_hierarchy(self, drc_result):
+        """
+        Classify DRC violations by c_layout rule hierarchy.
+
+        Violations matching inviolable rules remain as errors (must fix).
+        Violations matching recommended rules are logged as warnings.
+        Violations matching optional rules are logged as info only.
+
+        This allows the engine to distinguish between critical failures
+        and cosmetic issues when a Constitutional Layout is in use.
+        """
+        hierarchy = self.state.design_rules.get('hierarchy', {})
+        if not hierarchy:
+            return
+
+        violations = getattr(drc_result, 'violations', [])
+        if not violations:
+            return
+
+        # Map DRC violation types to rule IDs for classification
+        DRC_TYPE_TO_RULE_PREFIX = {
+            'clearance': 'clearance',
+            'track_width': 'trace_width',
+            'via_drill': 'via_drill',
+            'via_diameter': 'via_annular',
+            'unconnected': 'connectivity',
+            'shorting': 'short_circuit',
+            'silk': 'silkscreen',
+            'solder_mask': 'solder_mask',
+            'courtyard': 'courtyard',
+            'hole_clearance': 'hole_clearance',
+            'edge_clearance': 'edge_clearance',
+        }
+
+        inviolable_count = 0
+        recommended_count = 0
+        optional_count = 0
+
+        for v in violations:
+            v_type = v.get('type', '') if isinstance(v, dict) else str(v)
+            v_type_lower = v_type.lower()
+
+            # Find matching rule in hierarchy
+            matched_priority = None
+            for drc_prefix, rule_prefix in DRC_TYPE_TO_RULE_PREFIX.items():
+                if drc_prefix in v_type_lower:
+                    # Search hierarchy for matching rule
+                    for rule_id, rule_info in hierarchy.items():
+                        if rule_prefix in rule_id.lower():
+                            matched_priority = rule_info.get('priority', 'recommended')
+                            break
+                    break
+
+            # Tag the violation with its priority
+            if isinstance(v, dict):
+                v['hierarchy_priority'] = matched_priority or 'recommended'
+
+            if matched_priority == 'inviolable':
+                inviolable_count += 1
+            elif matched_priority == 'optional':
+                optional_count += 1
+            else:
+                recommended_count += 1
+
+        self._log(f"  [HIERARCHY] Violations: {inviolable_count} inviolable, "
+                  f"{recommended_count} recommended, {optional_count} optional")
+
     # =========================================================================
     # PISTON EXECUTION METHODS
     # =========================================================================
@@ -3115,7 +3241,10 @@ class PCBEngine:
                         adjacency[ref2][ref1] = adjacency[ref2].get(ref1, 0) + 1
             graph = {'adjacency': adjacency}
 
-        result = self._placement_piston.place(self.state.parts_db, graph)
+        result = self._placement_piston.place(
+            self.state.parts_db, graph,
+            placement_hints=self.state.placement_hints if self.state.placement_hints else None,
+        )
 
         # BUG-07 FIX: Validate result before assignment
         if result and hasattr(result, 'positions') and result.positions:
@@ -3155,6 +3284,37 @@ class PCBEngine:
             success=result.success if hasattr(result, 'success') else True,
             result=result
         )
+
+    def _apply_routing_hints_to_order(self, net_order: List) -> List:
+        """
+        Apply c_layout routing hints to net ordering.
+
+        Priority nets from routing_hints are moved to the front of the order,
+        and deprioritized nets are moved to the back. This ensures critical
+        signals (diff pairs, high-speed) get routed first with best paths.
+        """
+        if not self.state.routing_hints:
+            return net_order
+
+        priority_nets = self.state.routing_hints.get('priority_nets', [])
+        deprioritized = self.state.routing_hints.get('deprioritized_nets', [])
+
+        if not priority_nets and not deprioritized:
+            return net_order
+
+        # Split into priority, normal, and deprioritized
+        priority_set = set(priority_nets)
+        deprioritized_set = set(deprioritized)
+
+        front = [n for n in priority_nets if n in set(net_order)]
+        middle = [n for n in net_order if n not in priority_set and n not in deprioritized_set]
+        back = [n for n in net_order if n in deprioritized_set]
+
+        result = front + middle + back
+        if len(front) > 0 or len(back) > 0:
+            self._log(f"  [HINTS] Net order adjusted: {len(front)} priority first, "
+                      f"{len(back)} deprioritized last")
+        return result
 
     def _execute_routing(self, effort: PistonEffort) -> PistonReport:
         """Execute Routing Piston with SMART algorithm selection"""
@@ -3247,7 +3407,10 @@ class PCBEngine:
                 self.state.parts_db,
                 escapes,
                 self.state.placement,
-                self._learning_db
+                self._learning_db,
+                layer_directions=self.state.layer_directions,
+                net_specs=self.state.net_specs,
+                global_routing=self.state.global_routing,
             )
             self._log(f"  [SMART] Result: {result.routed_count}/{result.total_count} nets routed")
 
@@ -3270,11 +3433,17 @@ class PCBEngine:
             self._log(f"  Algorithm: {selected_algorithm} (AI: {work_order.ai_reasoning})")
             routing_config.algorithm = selected_algorithm
 
+            # Merge c_layout routing hints into net order (priority nets first)
+            effective_net_order = self._apply_routing_hints_to_order(self.state.net_order)
+
             result = self._routing_piston.route(
                 self.state.parts_db,
                 escapes,
                 self.state.placement,
-                self.state.net_order
+                effective_net_order,
+                layer_directions=self.state.layer_directions,
+                net_specs=self.state.net_specs,
+                global_routing=self.state.global_routing,
             )
 
         # === FALLBACK TO CASCADE IF SMART ROUTING DIDN'T GET 100% ===
@@ -4580,6 +4749,75 @@ class PCBEngine:
         This is the legacy method for backward compatibility.
         For the new AI-orchestrated flow, use run_orchestrated().
         """
+        return self.run_orchestrated(parts_db)
+
+    def run_from_clayout(self, clayout, progress_callback=None, validate_first=True) -> EngineResult:
+        """
+        Run the engine from a ConstitutionalLayout instead of raw parts_db.
+
+        This bridges the Constitutional Layout system with the PCB Engine by:
+        1. Validating the c_layout (if requested)
+        2. Converting c_layout to parts_db format via CLayoutConverter
+        3. Storing placement/routing hints and design rules for downstream pistons
+        4. Running the full engine pipeline
+
+        Args:
+            clayout: ConstitutionalLayout instance from circuit_intelligence
+            progress_callback: Optional callback for progress updates
+            validate_first: Whether to validate c_layout before running (default True)
+
+        Returns:
+            EngineResult with final status and generated files
+        """
+        from circuit_intelligence.clayout_bbl_adapter import CLayoutConverter
+        from circuit_intelligence.clayout_validator import validate_clayout
+
+        # Step 1: Validate c_layout
+        if validate_first:
+            validation = validate_clayout(clayout)
+            if not validation.valid:
+                self._log(f"  [C_LAYOUT] Validation FAILED: {validation.errors}")
+                return EngineResult(
+                    success=False,
+                    stage_reached=EngineStage.INIT,
+                    errors=validation.errors,
+                    warnings=getattr(validation, 'warnings', []),
+                )
+
+        # Step 2: Convert c_layout to parts_db
+        converter = CLayoutConverter()
+        parts_db = converter.convert(clayout)
+        self._log(f"  [C_LAYOUT] Converted: {len(parts_db.get('parts', {}))} components, "
+                  f"{len(parts_db.get('nets', {}))} nets")
+
+        # Step 3: Store hints and rules on engine state for downstream pistons
+        if parts_db.get('placement_hints'):
+            self.state.placement_hints = parts_db['placement_hints']
+            self._log(f"  [C_LAYOUT] Placement hints: "
+                      f"{len(parts_db['placement_hints'].get('proximity_groups', []))} proximity groups, "
+                      f"{len(parts_db['placement_hints'].get('edge_components', []))} edge components")
+
+        if parts_db.get('routing_hints'):
+            self.state.routing_hints = parts_db['routing_hints']
+            self._log(f"  [C_LAYOUT] Routing hints: "
+                      f"{len(parts_db['routing_hints'].get('priority_nets', []))} priority nets, "
+                      f"{len(parts_db['routing_hints'].get('diff_pairs', []))} diff pairs")
+
+        if parts_db.get('design_rules'):
+            self.state.design_rules = parts_db['design_rules']
+            hierarchy = parts_db['design_rules'].get('hierarchy', {})
+            self._log(f"  [C_LAYOUT] Design rules: {len(hierarchy)} rules in hierarchy")
+
+        # Step 4: Update board config from c_layout board specs
+        board = parts_db.get('board', {})
+        if board.get('width') and board.get('height'):
+            self.config.board_width = board['width']
+            self.config.board_height = board['height']
+        if board.get('layers'):
+            self.config.layer_count = board['layers']
+
+        # Step 5: Run the full engine pipeline
+        self._log(f"  [C_LAYOUT] Running engine pipeline...")
         return self.run_orchestrated(parts_db)
 
     # =========================================================================

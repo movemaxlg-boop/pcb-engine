@@ -617,7 +617,13 @@ class RoutingPiston:
         self.bcu_grid: List[List[Optional[str]]] = [[None] * self.grid_cols for _ in range(self.grid_rows)]
 
         # Clearance calculation for traces
-        self.clearance_radius = config.trace_width / 2 + config.clearance
+        # BUG FIX: Must account for BOTH track widths when checking track-to-track clearance.
+        # Two tracks each have width/2 extending from center, so center-to-center distance
+        # must be >= trace_width + clearance (not trace_width/2 + clearance).
+        # The old formula (trace_width/2 + clearance) only measured from one track center
+        # to the other track's EDGE, ignoring the first track's own width extension.
+        # This caused edge-to-edge gaps of only 0.05mm instead of the required 0.15mm.
+        self.clearance_radius = config.trace_width + config.clearance
         self.clearance_cells = max(1, int(math.ceil(self.clearance_radius / config.grid_size)))
         # Pre-compute squared clearance for circular check (faster than sqrt)
         self.clearance_cells_sq = self.clearance_cells * self.clearance_cells
@@ -636,9 +642,9 @@ class RoutingPiston:
                     self.clearance_offsets.append((dr, dc))
 
         # Clearance calculation for vias (larger than traces!)
-        # BUG FIX: Vias have diameter 0.8mm, not 0.25mm like traces
-        # Via placement must account for via_diameter/2 + clearance
-        self.via_clearance_radius = config.via_diameter / 2 + config.clearance
+        # Via edge to nearest track edge must be >= clearance.
+        # Center-to-center = via_diameter/2 + clearance + trace_width/2
+        self.via_clearance_radius = config.via_diameter / 2 + config.clearance + config.trace_width / 2
         self.via_clearance_cells = max(1, int(math.ceil(self.via_clearance_radius / config.grid_size)))
         # Pre-compute squared via clearance for circular check
         self.via_clearance_cells_sq = self.via_clearance_cells * self.via_clearance_cells
@@ -1750,7 +1756,10 @@ class RoutingPiston:
     # =========================================================================
 
     def route(self, parts_db: Dict, escapes: Dict, placement: Dict,
-              net_order: List[str]) -> RoutingResult:
+              net_order: List[str],
+              layer_directions: Dict = None,
+              net_specs: Dict = None,
+              global_routing: Dict = None) -> RoutingResult:
         """
         Route all nets using the configured algorithm.
 
@@ -1759,6 +1768,12 @@ class RoutingPiston:
             escapes: Escape routes {ref: {pin: EscapeRoute}}
             placement: Component placements {ref: Position}
             net_order: Order of nets to route
+            layer_directions: CPU Lab layer direction preferences
+                              e.g. {'F.Cu': 'horizontal', 'B.Cu': 'vertical'}
+            net_specs: CPU Lab per-net routing specs
+                       e.g. {'USB_DP': {'trace_width_mm': 0.25, 'clearance_mm': 0.15}}
+            global_routing: CPU Lab global routing hints (region assignments)
+                            e.g. {'region_size_mm': 5.0, 'net_routes': {'NET1': {'regions': [(0,1), (1,1)]}}}
 
         Returns:
             RoutingResult with all routes and statistics
@@ -1766,10 +1781,21 @@ class RoutingPiston:
         # Store for use by _get_escape_endpoints fallback
         self._placement = placement
         self._parts_db = parts_db
+        self._layer_directions = layer_directions or {}
+        self._net_specs = net_specs or {}
+        self._global_routing = global_routing or {}
 
         # CLASSIFY NETS - Determine per-net trace widths and clearances
         # This builds lookup tables for power/ground/signal/etc. net classes
         self._classify_nets(parts_db)
+
+        # OVERRIDE with CPU Lab per-net specs (more accurate than name-based classification)
+        if self._net_specs:
+            for net_name, specs in self._net_specs.items():
+                if 'trace_width_mm' in specs and specs['trace_width_mm']:
+                    self._net_trace_widths[net_name] = specs['trace_width_mm']
+                if 'clearance_mm' in specs and specs['clearance_mm']:
+                    self._net_clearances[net_name] = specs['clearance_mm']
 
         # DETECT TRUNK CHAINS - Identify parallel routing opportunities
         # This finds groups of nets that can share a routing corridor
@@ -1851,7 +1877,10 @@ class RoutingPiston:
 
     def route_with_plan(self, routing_plan: 'RoutingPlan',
                        parts_db: Dict, escapes: Dict, placement: Dict,
-                       learning_db: 'LearningDatabase' = None) -> 'RoutingResult':
+                       learning_db: 'LearningDatabase' = None,
+                       layer_directions: Dict = None,
+                       net_specs: Dict = None,
+                       global_routing: Dict = None) -> 'RoutingResult':
         """
         Route using a smart routing plan with per-net algorithm selection.
 
@@ -1865,6 +1894,9 @@ class RoutingPiston:
             escapes: Escape routes {ref: {pin: EscapeRoute}}
             placement: Component placements {ref: Position}
             learning_db: Optional learning database to record outcomes
+            layer_directions: CPU Lab layer direction preferences
+            net_specs: CPU Lab per-net routing specs
+            global_routing: CPU Lab global routing hints (region assignments)
 
         Returns:
             RoutingResult with all routes and statistics
@@ -1876,6 +1908,9 @@ class RoutingPiston:
         # Store for use by internal methods
         self._placement = placement
         self._parts_db = parts_db
+        self._layer_directions = layer_directions or {}
+        self._net_specs = net_specs or {}
+        self._global_routing = global_routing or {}
 
         # Initialize grids and spatial index (once for all nets)
         self._initialize_grids()
@@ -2298,14 +2333,14 @@ class RoutingPiston:
         """
         Lee wavefront that works on provided grid copies (thread-safe).
         """
-        # Convert to grid coordinates
-        start_col = int(start[0] / self.config.grid_size)
-        start_row = int(start[1] / self.config.grid_size)
+        # Convert to grid coordinates (use round() not int() to avoid truncation errors)
+        start_col = self._real_to_grid_col(start[0])
+        start_row = self._real_to_grid_row(start[1])
         start_layer = 0 if start[2] == 'F.Cu' else 1
 
         if target:
-            target_col = int(target[0] / self.config.grid_size)
-            target_row = int(target[1] / self.config.grid_size)
+            target_col = self._real_to_grid_col(target[0])
+            target_row = self._real_to_grid_row(target[1])
             target_layer = 0 if target[2] == 'F.Cu' else 1
 
         # BFS wavefront
@@ -2481,11 +2516,11 @@ class RoutingPiston:
     def _mark_route_on_grid(self, route: 'Route'):
         """Mark a route's segments on the main grid."""
         for seg in route.segments:
-            # Mark start and end points
-            start_col = int(seg.start[0] / self.config.grid_size)
-            start_row = int(seg.start[1] / self.config.grid_size)
-            end_col = int(seg.end[0] / self.config.grid_size)
-            end_row = int(seg.end[1] / self.config.grid_size)
+            # Mark start and end points (use round() not int() for accuracy)
+            start_col = self._real_to_grid_col(seg.start[0])
+            start_row = self._real_to_grid_row(seg.start[1])
+            end_col = self._real_to_grid_col(seg.end[0])
+            end_row = self._real_to_grid_row(seg.end[1])
 
             grid = self.fcu_grid if seg.layer == 'F.Cu' else self.bcu_grid
 
@@ -2962,7 +2997,10 @@ class RoutingPiston:
                         if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                             continue
 
-                new_dist = dist + move_cost  # Use actual move cost (1.0 for cardinal, 1.414 for diagonal)
+                # Apply CPU Lab layer direction + global routing preferences
+                dir_mult = self._direction_cost_multiplier(dr, dc, layer)
+                gr_mult = self._global_routing_cost(nr, nc, net_name)
+                new_dist = dist + move_cost * dir_mult * gr_mult
                 dist_grid[layer][nr][nc] = new_dist
                 parent[(layer, nr, nc)] = (layer, row, col)
                 queue.append((new_dist, layer, nr, nc))
@@ -3907,7 +3945,10 @@ class RoutingPiston:
                 if not self._is_cell_clear_for_net(grid, nr, nc, net_name):
                     continue
 
-                tentative_g = g + move_cost  # Use actual move cost
+                # Apply CPU Lab layer direction + global routing preferences
+                dir_mult = self._direction_cost_multiplier(dr, dc, layer)
+                gr_mult = self._global_routing_cost(nr, nc, net_name)
+                tentative_g = g + move_cost * dir_mult * gr_mult
 
                 if tentative_g < g_score.get((layer, nr, nc), float('inf')):
                     came_from[(layer, nr, nc)] = (layer, row, col)
@@ -4197,7 +4238,10 @@ class RoutingPiston:
                     continue
 
                 move_cost = cost(nr, nc, layer)
-                tentative_g = g + move_cost
+                # Apply CPU Lab layer direction + global routing preferences
+                dir_mult = self._direction_cost_multiplier(dr, dc, layer)
+                gr_mult = self._global_routing_cost(nr, nc, net_name)
+                tentative_g = g + move_cost * dir_mult * gr_mult
 
                 if tentative_g < g_score.get((layer, nr, nc), float('inf')):
                     came_from[(layer, nr, nc)] = (layer, row, col)
@@ -5136,8 +5180,12 @@ class RoutingPiston:
                     else:
                         continue  # Another net's trace - cannot pass (no shove in walkaround)
 
-                # Calculate cost including "hugging" penalty
+                # Calculate cost including "hugging" penalty, layer direction, and global routing
                 step_cost = move_cost
+                if nlayer == layer:  # Same-layer move (not a via)
+                    dir_dr, dir_dc = nr - row, nc - col
+                    step_cost *= self._direction_cost_multiplier(dir_dr, dir_dc, nlayer)
+                step_cost *= self._global_routing_cost(nr, nc, net_name)
 
                 # Check if near obstacle (within 1-2 cells) - add penalty
                 near_obstacle = False
@@ -5628,6 +5676,76 @@ class RoutingPiston:
     # =========================================================================
     # UTILITY METHODS
     # =========================================================================
+
+    def _direction_cost_multiplier(self, dr: int, dc: int, layer: int) -> float:
+        """
+        Apply CPU Lab layer direction preference as cost penalty.
+
+        If F.Cu prefers horizontal (dc moves), vertical moves (dr only) get 3.0x penalty.
+        If B.Cu prefers vertical (dr moves), horizontal moves (dc only) get 3.0x penalty.
+        Diagonal moves get 1.5x penalty (compromise).
+        """
+        if not getattr(self, '_layer_directions', None):
+            return 1.0
+
+        layer_name = 'F.Cu' if layer == 0 else 'B.Cu'
+        preferred = self._layer_directions.get(layer_name, '')
+        if isinstance(preferred, str):
+            preferred = preferred.lower()
+        else:
+            preferred = str(preferred).lower()
+
+        if 'horizontal' in preferred:
+            # Horizontal preferred = dc moves are cheap, dr-only moves are expensive
+            if dc == 0 and dr != 0:
+                return 3.0  # Pure vertical on horizontal-preferred layer
+            elif dr != 0 and dc != 0:
+                return 1.5  # Diagonal (partial penalty)
+        elif 'vertical' in preferred:
+            # Vertical preferred = dr moves are cheap, dc-only moves are expensive
+            if dr == 0 and dc != 0:
+                return 3.0  # Pure horizontal on vertical-preferred layer
+            elif dr != 0 and dc != 0:
+                return 1.5  # Diagonal (partial penalty)
+
+        return 1.0
+
+    def _global_routing_cost(self, row: int, col: int, net_name: str) -> float:
+        """
+        Apply CPU Lab global routing region preference as cost hint.
+
+        If a net has assigned regions from global routing, traces that stay
+        within their assigned regions get lower cost (1.0), while traces
+        that go outside their assigned regions get a mild penalty (1.5x).
+
+        This is a HINT, not a hard constraint — detailed routing can deviate
+        when necessary but prefers to follow the global plan.
+        """
+        gr = getattr(self, '_global_routing', None)
+        if not gr or not gr.get('net_routes'):
+            return 1.0
+
+        net_route = gr['net_routes'].get(net_name)
+        if not net_route:
+            return 1.0
+
+        regions = net_route.get('regions', [])
+        if not regions:
+            return 1.0
+
+        # Convert grid cell position to global routing region
+        region_size = gr.get('region_size_mm', 5.0)
+        grid_size = self.grid_size  # mm per grid cell
+        pos_x = col * grid_size
+        pos_y = row * grid_size
+        region_col = int(pos_x / region_size)
+        region_row = int(pos_y / region_size)
+
+        # Check if this cell is in one of the net's assigned regions
+        if (region_row, region_col) in regions:
+            return 1.0  # In assigned region — no penalty
+        else:
+            return 1.5  # Outside assigned region — mild penalty
 
     def _in_bounds(self, row: int, col: int) -> bool:
         """Check if grid coordinates are in bounds"""
@@ -6192,7 +6310,13 @@ class RoutingPiston:
             part = self._parts_db.get('parts', {}).get(comp, {})
             for p in get_pins(part):
                 if str(p.get('number', '')) == str(pin):
-                    offset = p.get('offset', (0, 0))
+                    offset = p.get('offset', None)
+                    if not offset or offset == (0, 0):
+                        physical = p.get('physical', {})
+                        if physical:
+                            offset = (physical.get('offset_x', 0), physical.get('offset_y', 0))
+                        else:
+                            offset = (0, 0)
                     pad_x = pos_x + float(offset[0])
                     pad_y = pos_y + float(offset[1])
 
