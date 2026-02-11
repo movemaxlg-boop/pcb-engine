@@ -71,6 +71,9 @@ class FootprintResolver:
         # Tier 4: Hardcoded library reference (imported lazily)
         self._hardcoded_lib: Optional[Dict[str, FootprintDefinition]] = None
 
+        # Provenance tracking: which tier resolved the last call
+        self._last_tier: str = ''
+
     @classmethod
     def get_instance(cls) -> 'FootprintResolver':
         """Get singleton instance."""
@@ -109,21 +112,27 @@ class FootprintResolver:
 
         # Tier 1: In-memory cache
         if canonical in self._memory_cache:
+            self._last_tier = 'memory_cache'
             return self._memory_cache[canonical]
 
         # Try resolution chain
-        # Tier 4 (hardcoded) runs BEFORE Tier 3 (KiCad search) because:
+        # Tier 4 (hardcoded) runs BEFORE Tier 3b (KiCad fuzzy search) because:
         # - Hardcoded values are manually verified against datasheets
         # - KiCad fuzzy search can return wrong matches (e.g., "0603" matching C_0201_0603Metric)
-        # - But Tier 3 with EXACT library:footprint reference runs before hardcoded
-        result = (
-            self._try_disk_cache(canonical)                              # Tier 2
-            or self._try_kicad_exact(kicad_lib, kicad_fp)               # Tier 3a (exact path only)
-            or self._try_hardcoded(footprint_name)                      # Tier 4
-            or self._try_kicad_search(kicad_fp or canonical)            # Tier 3b (fuzzy search)
-            or self._try_name_inference(kicad_fp or canonical)          # Tier 5
-            or self._default_footprint()                                # Tier 6
-        )
+        # - But Tier 3a with EXACT library:footprint reference runs before hardcoded
+        result = None
+        for tier_name, tier_fn in [
+            ('disk_cache',     lambda: self._try_disk_cache(canonical)),
+            ('kicad_exact',    lambda: self._try_kicad_exact(kicad_lib, kicad_fp)),
+            ('hardcoded',      lambda: self._try_hardcoded(footprint_name)),
+            ('kicad_search',   lambda: self._try_kicad_search(kicad_fp or canonical)),
+            ('name_inference', lambda: self._try_name_inference(kicad_fp or canonical)),
+            ('default',        lambda: self._default_footprint()),
+        ]:
+            result = tier_fn()
+            if result:
+                self._last_tier = tier_name
+                break
 
         # Cache the result (thread-safe)
         with self._lock:
