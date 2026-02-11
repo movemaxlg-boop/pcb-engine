@@ -19,7 +19,7 @@ from typing import Dict, List, Optional, Tuple
 from enum import Enum
 import math
 
-from .common_types import FOOTPRINT_LIBRARY, get_footprint_definition
+from .common_types import get_footprint_definition
 
 
 class FeasibilityStatus(Enum):
@@ -143,40 +143,11 @@ class FeasibilityConfig:
     min_routing_channels: int = 2       # Minimum channels between components
 
 
-# Extended courtyard sizes for packages NOT in FOOTPRINT_LIBRARY
-# FOOTPRINT_LIBRARY (common_types.py) is the primary source — these are supplements only
-_EXTENDED_COURTYARD_SIZES = {
-    '0201': (0.8, 0.5), '1210': (3.7, 3.0), '2010': (5.7, 3.0), '2512': (7.0, 3.7),
-    'SOT-23-6': (3.4, 1.8), 'SOT-89': (5.0, 2.5),
-    'TO-252': (7.5, 7.5), 'TO-263': (11.0, 10.0),
-    'SOIC-8': (6.0, 5.0), 'SOIC-14': (9.0, 5.0), 'SOIC-16': (10.5, 5.0),
-    'SSOP-20': (8.0, 4.0), 'TSSOP-14': (5.5, 3.5), 'TSSOP-16': (6.0, 3.5), 'TSSOP-20': (7.0, 3.5),
-    'QFP-32': (9.0, 9.0), 'QFP-44': (12.0, 12.0), 'QFP-64': (14.0, 14.0), 'QFP-100': (16.0, 16.0),
-    'QFN-16': (4.0, 4.0), 'QFN-20': (5.0, 5.0), 'QFN-24': (5.0, 5.0),
-    'QFN-32': (6.0, 6.0), 'QFN-48': (8.0, 8.0), 'QFN-64': (10.0, 10.0),
-    'USB-C': (10.0, 8.0), 'USB-MICRO': (8.0, 6.0),
-    'JST-SH-2': (5.0, 4.0), 'JST-SH-4': (7.0, 4.0), 'JST-PH-2': (6.5, 5.0),
-    'ESP32-WROOM': (26.0, 18.5), 'ESP32-S3-WROOM': (26.0, 18.5), 'ESP32-C3-MINI': (14.0, 13.0),
-}
-
-
 def _get_courtyard_size(footprint: str) -> Tuple[float, float]:
-    """Get courtyard size — FOOTPRINT_LIBRARY first, then extended, then default."""
-    # 1. Try FOOTPRINT_LIBRARY (single source of truth)
-    if footprint in FOOTPRINT_LIBRARY:
-        return FOOTPRINT_LIBRARY[footprint].courtyard_size
-    # 2. Try partial match in FOOTPRINT_LIBRARY
+    """Get courtyard size using FootprintResolver (resolves from KiCad .kicad_mod files)."""
     fp_def = get_footprint_definition(footprint)
     if fp_def.name != 'default':
         return fp_def.courtyard_size
-    # 3. Extended sizes for packages not in FOOTPRINT_LIBRARY
-    fp_upper = footprint.upper()
-    if fp_upper in _EXTENDED_COURTYARD_SIZES:
-        return _EXTENDED_COURTYARD_SIZES[fp_upper]
-    for key, size in _EXTENDED_COURTYARD_SIZES.items():
-        if key in fp_upper:
-            return size
-    # 4. Default
     return (3.0, 3.0)
 
 

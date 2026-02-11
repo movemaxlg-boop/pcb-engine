@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LFCSP-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LFCSP-24-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LFCSP-24-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -207,12 +207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Anpec",
+        "length": 1.76,
+        "width": 2.03,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-40-1EP",
+        "length": 6.7,
+        "width": 6.7,
         "height": 0.0,
         "pin_count": 41,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-20-1EP",
+        "length": 7.3,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-20-1EP",
+        "length": 7.3,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-20-1EP",
+        "length": 7.3,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -495,12 +495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VSON-10-1EP",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.14
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.5,
+        "width": 5.5,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-24-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.26,
+        "width": 4.26,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.25
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.5,
+        "width": 4.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.225
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-10-1EP",
+        "length": 2.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -999,12 +999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.26,
+        "width": 4.26,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.15
       },
       "alternatives": [],
       "design_notes": [],
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 4.0,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.025
       },
       "alternatives": [],
       "design_notes": [],
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.15
       },
       "alternatives": [],
       "design_notes": [],
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-6",
+        "length": 1.56,
+        "width": 1.56,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.5,
+        "width": 4.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -1359,12 +1359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 1.9,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -1395,12 +1395,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1431,12 +1431,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1467,12 +1467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-30",
+        "length": 7.2,
+        "width": 7.8,
         "height": 0.0,
         "pin_count": 30,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1503,12 +1503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-44",
+        "length": 4.4,
+        "width": 11.2,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1539,12 +1539,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-30",
+        "length": 7.2,
+        "width": 7.8,
         "height": 0.0,
         "pin_count": 30,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.565
       },
       "alternatives": [],
       "design_notes": [],
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WDFN-8-1EP",
+        "length": 4.7,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1755,12 +1755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-14-1EP",
+        "length": 4.0,
+        "width": 4.0,
         "height": 0.0,
         "pin_count": 15,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1791,12 +1791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-12-1EP",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.45
       },
       "alternatives": [],
       "design_notes": [],
@@ -1827,12 +1827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-12-1EP",
+        "length": 5.76,
+        "width": 4.04,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1863,12 +1863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-6-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1899,12 +1899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-10-1EP",
+        "length": 2.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1935,12 +1935,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -1971,12 +1971,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-28-1EP",
+        "length": 4.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2007,12 +2007,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2043,12 +2043,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-10-1EP",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2079,12 +2079,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2115,12 +2115,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-24",
+        "length": 3.9,
+        "width": 8.7,
         "height": 0.0,
         "pin_count": 24,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -2151,12 +2151,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-20-1EP",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2187,12 +2187,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2223,12 +2223,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-16-1EP",
+        "length": 3.0,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16-1EP",
+        "length": 4.4,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.123
       },
       "alternatives": [],
       "design_notes": [],
@@ -2331,12 +2331,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-12-1EP",
+        "length": 3.0,
+        "width": 4.0,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2367,12 +2367,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-28-1EP",
+        "length": 4.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2403,12 +2403,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-44",
+        "length": 5.3,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2439,12 +2439,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-44",
+        "length": 5.3,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2475,12 +2475,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-48",
+        "length": 8.9,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2511,12 +2511,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-20",
+        "length": 8.9,
+        "width": 7.2,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2547,12 +2547,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2563,7 +2563,7 @@
     {
       "part_number": "MAX17261xxTD",
       "manufacturer": "",
-      "description": "5.1\u03bcA Multi-Cell Fuel Gauge with ModelGauge m5 EZ, TDFN-14",
+      "description": "5.1μA Multi-Cell Fuel Gauge with ModelGauge m5 EZ, TDFN-14",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2583,12 +2583,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TDFN-14-1EP",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 15,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -2599,7 +2599,7 @@
     {
       "part_number": "MAX17261xxWL",
       "manufacturer": "",
-      "description": "5.1\u03bcA Multi-Cell Fuel Gauge with ModelGauge m5 EZ, WLP-9",
+      "description": "5.1μA Multi-Cell Fuel Gauge with ModelGauge m5 EZ, WLP-9",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2619,12 +2619,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 1.595,
+        "width": 1.415,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -2655,12 +2655,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-14-1EP",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 15,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -2691,12 +2691,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2727,12 +2727,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QSOP-16",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -2763,12 +2763,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2799,12 +2799,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2835,12 +2835,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2871,12 +2871,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2907,12 +2907,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2943,12 +2943,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2979,12 +2979,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3015,12 +3015,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -3051,12 +3051,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-10-1EP",
+        "length": 3.7,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3087,12 +3087,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3123,12 +3123,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3159,12 +3159,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3175,7 +3175,7 @@
     {
       "part_number": "TP4056-42-ESOP8",
       "manufacturer": "",
-      "description": "1A Standalone Linear Li-ion/LiPo single-cell battery charger, 4.2V \u00b11% charge voltage, VCC = 4.0..8.0V, SOIC-8 (SOP-8)",
+      "description": "1A Standalone Linear Li-ion/LiPo single-cell battery charger, 4.2V ±1% charge voltage, VCC = 4.0..8.0V, SOIC-8 (SOP-8)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -3195,12 +3195,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.565
       },
       "alternatives": [],
       "design_notes": [],
@@ -3231,12 +3231,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -3267,12 +3267,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3303,12 +3303,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3339,12 +3339,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3375,12 +3375,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-24-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3411,12 +3411,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -3447,12 +3447,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -3483,12 +3483,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -3519,12 +3519,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.0,
+        "width": 2.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.188
       },
       "alternatives": [],
       "design_notes": [],
@@ -3555,12 +3555,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.5,
+        "width": 4.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -3591,12 +3591,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 1.9,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -3627,12 +3627,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 1.9,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -3663,12 +3663,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-30",
+        "length": 7.2,
+        "width": 7.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3699,12 +3699,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.565
       },
       "alternatives": [],
       "design_notes": [],
@@ -3735,12 +3735,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.565
       },
       "alternatives": [],
       "design_notes": [],
@@ -3771,12 +3771,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.565
       },
       "alternatives": [],
       "design_notes": [],
@@ -3807,12 +3807,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WDFN-8-1EP",
+        "length": 4.7,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3843,12 +3843,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WDFN-8-1EP",
+        "length": 4.7,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3879,12 +3879,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WDFN-8-1EP",
+        "length": 4.7,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3915,12 +3915,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-12-1EP",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.45
       },
       "alternatives": [],
       "design_notes": [],
@@ -3951,12 +3951,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-12-1EP",
+        "length": 5.76,
+        "width": 4.04,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3987,12 +3987,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-6-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4023,12 +4023,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-28-1EP",
+        "length": 4.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4059,12 +4059,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-28-1EP",
+        "length": 4.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4095,12 +4095,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -4131,12 +4131,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-10-1EP",
+        "length": 3.0,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4167,12 +4167,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4203,12 +4203,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4239,12 +4239,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -4275,12 +4275,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QSOP-16",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -4311,12 +4311,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QSOP-16",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -4347,12 +4347,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4383,12 +4383,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4419,12 +4419,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4455,12 +4455,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4491,12 +4491,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4527,12 +4527,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4563,12 +4563,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4599,12 +4599,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4635,12 +4635,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4671,12 +4671,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4707,12 +4707,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4743,12 +4743,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4779,12 +4779,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4815,12 +4815,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4851,12 +4851,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4887,12 +4887,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4923,12 +4923,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -4959,12 +4959,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4995,12 +4995,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -5031,12 +5031,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5067,12 +5067,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -5103,12 +5103,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.7,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5139,12 +5139,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -5175,12 +5175,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5211,12 +5211,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5247,12 +5247,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5283,12 +5283,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5319,12 +5319,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5355,12 +5355,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5391,12 +5391,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5427,12 +5427,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5463,12 +5463,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5499,12 +5499,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],

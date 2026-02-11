@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-8",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LFCSP-WD-10-1EP",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -207,12 +207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -223,7 +223,7 @@
     {
       "part_number": "AD5290",
       "manufacturer": "",
-      "description": "Digital Potentiometer, 256 steps, SPI interface, +30V/\u00b115V supply, MSOP-10",
+      "description": "Digital Potentiometer, 256 steps, SPI interface, +30V/±15V supply, MSOP-10",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-14",
+        "length": 6.35,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16",
+        "length": 6.9,
+        "width": 9.9,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-8",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-363",
+        "length": 3.1,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-363",
+        "length": 3.1,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-353",
+        "length": 3.1,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-14",
+        "length": 6.35,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-14",
+        "length": 6.9,
+        "width": 8.66,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1159,7 +1159,7 @@
     {
       "part_number": "MCP4431-xxxx-ST",
       "manufacturer": "",
-      "description": "Quad 7 Bit Digital Potentiometer, I\u00b2C, Volatile Memory, TSSOP-20",
+      "description": "Quad 7 Bit Digital Potentiometer, I²C, Volatile Memory, TSSOP-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1195,7 +1195,7 @@
     {
       "part_number": "MCP45HV51-MQ",
       "manufacturer": "",
-      "description": "7/8-bit single +36V (\u00b118V) digital pot, I2C serial interface, volatile memory, QFN-20",
+      "description": "7/8-bit single +36V (±18V) digital pot, I2C serial interface, volatile memory, QFN-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1231,7 +1231,7 @@
     {
       "part_number": "MCP45HV51-ST",
       "manufacturer": "",
-      "description": "7/8-bit single +36V (\u00b118V) digital pot, I2C serial interface, volatile memory, TSSOP-14",
+      "description": "7/8-bit single +36V (±18V) digital pot, I2C serial interface, volatile memory, TSSOP-14",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 1.35,
+        "width": 2.2,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1431,12 +1431,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1467,12 +1467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LFCSP-WD-10-1EP",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1503,12 +1503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1555,7 +1555,7 @@
     {
       "part_number": "MCP4021-xxxxMS",
       "manufacturer": "",
-      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock\u2122 Technology, MSOP-8",
+      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock™ Technology, MSOP-8",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-8",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1591,7 +1591,7 @@
     {
       "part_number": "MCP4021-xxxxSN",
       "manufacturer": "",
-      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock\u2122 Technology, SOIC-8",
+      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock™ Technology, SOIC-8",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1627,7 +1627,7 @@
     {
       "part_number": "MCP4022-xxxxCH",
       "manufacturer": "",
-      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock\u2122 Technology, SOT-23-6",
+      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock™ Technology, SOT-23-6",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -1663,7 +1663,7 @@
     {
       "part_number": "MCP4023-xxxxCH",
       "manufacturer": "",
-      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock\u2122 Technology, SOT-23-6",
+      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock™ Technology, SOT-23-6",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -1699,7 +1699,7 @@
     {
       "part_number": "MCP4024-xxxxOT",
       "manufacturer": "",
-      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock\u2122 Technology, SOT-23-5",
+      "description": "Low-Cost 64-Step Digital Potentiometer with WiperLock™ Technology, SOT-23-5",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -1827,12 +1827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1863,12 +1863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1899,12 +1899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1935,12 +1935,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1971,12 +1971,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2007,12 +2007,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2095,7 +2095,7 @@
     {
       "part_number": "MCP4441-xxxx-ST",
       "manufacturer": "",
-      "description": "Quad 7 Bit Digital Potentiometer, I\u00b2C, Nonvolatile Memory, TSSOP-20",
+      "description": "Quad 7 Bit Digital Potentiometer, I²C, Nonvolatile Memory, TSSOP-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2115,12 +2115,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2131,7 +2131,7 @@
     {
       "part_number": "MCP4451-xxxx-ST",
       "manufacturer": "",
-      "description": "Quad 8 Bit Digital Potentiometer, I\u00b2C, Volatile Memory, TSSOP-20",
+      "description": "Quad 8 Bit Digital Potentiometer, I²C, Volatile Memory, TSSOP-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2151,12 +2151,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2167,7 +2167,7 @@
     {
       "part_number": "MCP4461-xxxx-ST",
       "manufacturer": "",
-      "description": "Quad 8 Bit Digital Potentiometer, I\u00b2C, Nonvolatile Memory, TSSOP-20",
+      "description": "Quad 8 Bit Digital Potentiometer, I²C, Nonvolatile Memory, TSSOP-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2187,12 +2187,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2203,7 +2203,7 @@
     {
       "part_number": "MCP45HV31-MQ",
       "manufacturer": "",
-      "description": "7/8-bit single +36V (\u00b118V) digital pot, I2C serial interface, volatile memory, QFN-20",
+      "description": "7/8-bit single +36V (±18V) digital pot, I2C serial interface, volatile memory, QFN-20",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2223,12 +2223,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-20-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2239,7 +2239,7 @@
     {
       "part_number": "MCP45HV31-ST",
       "manufacturer": "",
-      "description": "7/8-bit single +36V (\u00b118V) digital pot, I2C serial interface, volatile memory, TSSOP-14",
+      "description": "7/8-bit single +36V (±18V) digital pot, I2C serial interface, volatile memory, TSSOP-14",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-14",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 1.35,
+        "width": 2.2,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],

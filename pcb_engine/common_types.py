@@ -502,37 +502,51 @@ FOOTPRINT_LIBRARY: Dict[str, FootprintDefinition] = {
 
 def get_footprint_definition(footprint_name: str) -> FootprintDefinition:
     """
-    Get footprint definition from library, with fallback matching.
+    Get footprint definition with multi-tier resolution.
+
+    Resolution order:
+    1. In-memory cache (instant)
+    2. Pre-parsed JSON cache (footprint_cache.json)
+    3a. Exact KiCad .kicad_mod file (from library:footprint path)
+    4. Hardcoded FOOTPRINT_LIBRARY (7 verified entries)
+    3b. Fuzzy KiCad .kicad_mod search
+    5. Name-based inference (parse dimensions from name string)
+    6. Default 2-pad fallback
 
     Args:
-        footprint_name: Footprint name (e.g., 'R_0805', '0805', 'C_0603')
+        footprint_name: Any footprint name format:
+            - Simple: '0805', 'SOT-23', 'SOIC-8'
+            - Prefixed: 'R_0805', 'C_0603'
+            - KiCad: 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'
 
     Returns:
-        FootprintDefinition, or a default if not found
+        FootprintDefinition (never None)
     """
-    # Direct match
-    if footprint_name in FOOTPRINT_LIBRARY:
-        return FOOTPRINT_LIBRARY[footprint_name]
+    try:
+        from .footprint_resolver import FootprintResolver
+        return FootprintResolver.get_instance().resolve(footprint_name)
+    except ImportError:
+        # Fallback if resolver not available (backward compat)
+        if footprint_name in FOOTPRINT_LIBRARY:
+            return FOOTPRINT_LIBRARY[footprint_name]
 
-    # Try extracting size code from name like 'R_0805', 'C_0603'
-    fp_lower = footprint_name.lower()
-    for size in ['0402', '0603', '0805', '1206', 'sot-23-5', 'sot-23']:
-        if size in fp_lower:
-            key = size.upper() if 'sot' in size else size
-            if key in FOOTPRINT_LIBRARY:
-                return FOOTPRINT_LIBRARY[key]
+        fp_lower = (footprint_name or '').lower()
+        for size in ['0402', '0603', '0805', '1206', 'sot-23-5', 'sot-23']:
+            if size in fp_lower:
+                key = size.upper() if 'sot' in size else size
+                if key in FOOTPRINT_LIBRARY:
+                    return FOOTPRINT_LIBRARY[key]
 
-    # Default 2-pin SMD component
-    return FootprintDefinition(
-        name='default',
-        body_width=2.0,
-        body_height=1.0,
-        pad_positions=[
-            ('1', -0.95, 0.0, 0.9, 1.25),
-            ('2', 0.95, 0.0, 0.9, 1.25),
-        ],
-        is_smd=True
-    )
+        return FootprintDefinition(
+            name='default',
+            body_width=2.0,
+            body_height=1.0,
+            pad_positions=[
+                ('1', -0.95, 0.0, 0.9, 1.25),
+                ('2', 0.95, 0.0, 0.9, 1.25),
+            ],
+            is_smd=True
+        )
 
 
 def is_smd_footprint(footprint_name: str) -> bool:

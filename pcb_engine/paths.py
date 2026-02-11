@@ -45,6 +45,12 @@ LEARNING_DB = ENGINE_ROOT / 'drc_learning_db.json'
 # BBL history
 BBL_HISTORY = ENGINE_ROOT / 'bbl_history.json'
 
+# KiCad 9.0 footprint libraries (15,415 .kicad_mod files)
+KICAD_FOOTPRINT_BASE = Path(r'C:/Program Files/KiCad/9.0/share/kicad/footprints')
+
+# Pre-parsed footprint cache (built by scripts/prebuild_footprint_cache.py)
+FOOTPRINT_CACHE_FILE = ENGINE_ROOT / 'footprint_cache.json'
+
 # ============================================================================
 # PATH UTILITIES
 # ============================================================================

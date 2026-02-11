@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 10.16,
+        "width": 5.08,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 15.24,
+        "width": 15.24,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 3.81
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -207,12 +207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 24.13,
+        "width": 24.13,
         "height": 0.0,
         "pin_count": 7,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -495,12 +495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 5.25,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 2,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 10.16,
+        "width": 5.08,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 10.16,
+        "width": 5.08,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 10.16,
+        "width": 5.08,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Valve",
+        "length": 17.78,
+        "width": 17.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],

@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "AD-121F2",
+        "length": 35.5,
+        "width": 24.0,
         "height": 0.0,
         "pin_count": 22,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12CGKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12EWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SEKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SRWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -207,12 +207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SURKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SYKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12CGKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12EWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CC56-12GWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SEKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SRWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SURKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -495,12 +495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CA56-12SYKWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CC56-12YWA",
+        "length": 19.0,
+        "width": 50.3,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "D1X8K",
+        "length": 19.0,
+        "width": 12.5,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11CGKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11SEKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11SURKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11SYKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11CGKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SEKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SYKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11CGKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SEKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -999,12 +999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SYKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -1015,7 +1015,7 @@
     {
       "part_number": "DE113-XX-XX",
       "manufacturer": "",
-      "description": "3 and half digit 7 segment transmissive standard LCD with LO BAT, pin length 7.5mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "description": "3 and half digit 7 segment transmissive standard LCD with LO BAT, pin length 7.5mm, -20°C to +70°C, 3V-5V VDD",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DE113-XX-XX",
+        "length": 30.48,
+        "width": 50.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 33.02
       },
       "alternatives": [],
       "design_notes": [],
@@ -1051,7 +1051,7 @@
     {
       "part_number": "DE114-RS-20",
       "manufacturer": "",
-      "description": "3 and half digit 7 segment reflective standard LCD with ~~ and BAT, pin length 6.35mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "description": "3 and half digit 7 segment reflective standard LCD with ~~ and BAT, pin length 6.35mm, -20°C to +70°C, 3V-5V VDD",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DE114-RS-20",
+        "length": 30.48,
+        "width": 50.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 33.02
       },
       "alternatives": [],
       "design_notes": [],
@@ -1087,7 +1087,7 @@
     {
       "part_number": "DE122-XX-XX",
       "manufacturer": "",
-      "description": "6 digit 7 segment reflective standard LCD, pin length 6.35mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "description": "6 digit 7 segment reflective standard LCD, pin length 6.35mm, -20°C to +70°C, 3V-5V VDD",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DE122-XX-XX",
+        "length": 30.48,
+        "width": 63.5,
         "height": 0.0,
         "pin_count": 50,
-        "pin_pitch": 0.0
+        "pin_pitch": 33.02
       },
       "alternatives": [],
       "design_notes": [],
@@ -1123,7 +1123,7 @@
     {
       "part_number": "DE170-XX-XX",
       "manufacturer": "",
-      "description": "3 and half digit 7 segment reflective standard LCD with arrow, pin length 7.5mm, -20\u00b0C to +70\u00b0C, 3V-5V VDD",
+      "description": "3 and half digit 7 segment reflective standard LCD with arrow, pin length 7.5mm, -20°C to +70°C, 3V-5V VDD",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DE170-XX-XX",
+        "length": 30.48,
+        "width": 50.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 33.02
       },
       "alternatives": [],
       "design_notes": [],
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DL1416",
+        "length": 30.99,
+        "width": 25.15,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 27.94
       },
       "alternatives": [],
       "design_notes": [],
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 33.0,
+        "width": 46.95,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "ELD",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSM-441B",
+        "length": 15.0,
+        "width": 19.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSM-441B",
+        "length": 15.0,
+        "width": 19.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1359,12 +1359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSM-441B",
+        "length": 15.0,
+        "width": 19.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1395,12 +1395,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSM-541B",
+        "length": 19.0,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1431,12 +1431,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7401",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1467,12 +1467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7401",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1503,12 +1503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7507",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1539,12 +1539,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7507",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7801",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7801",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7807",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-7807",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A151",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1755,12 +1755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A151",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1791,12 +1791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A401",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1827,12 +1827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A401",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -1863,12 +1863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HY1602E",
+        "length": 122.0,
+        "width": 44.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1899,12 +1899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-105",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -1935,12 +1935,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-106",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -1971,12 +1971,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-107",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2007,12 +2007,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-123",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2043,12 +2043,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-136",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2079,12 +2079,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-105",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2115,12 +2115,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-106",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2151,12 +2151,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-107",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2187,12 +2187,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-123",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2223,12 +2223,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "KCSC02-136",
+        "length": 10.0,
+        "width": 6.9,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.44
       },
       "alternatives": [],
       "design_notes": [],
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LCD-016N002L",
+        "length": 122.0,
+        "width": 44.0,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 4.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LM16255",
+        "length": 84.0,
+        "width": 44.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -2331,12 +2331,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -2367,12 +2367,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "7SegmentLED",
+        "length": 19.05,
+        "width": 12.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -2403,12 +2403,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "7SegmentLED",
+        "length": 19.05,
+        "width": 12.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -2439,12 +2439,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3410A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2475,12 +2475,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3420A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2511,12 +2511,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3410A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2547,12 +2547,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3610A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2583,12 +2583,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3620A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2619,12 +2619,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3630A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2655,12 +2655,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3610A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2691,12 +2691,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3810A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2727,12 +2727,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3820A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2763,12 +2763,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN3810A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2799,12 +2799,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN71A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2835,12 +2835,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN72A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2871,12 +2871,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN73A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2907,12 +2907,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MAN71A",
+        "length": 9.8,
+        "width": 18.75,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2943,12 +2943,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "NHD-0420H1Z",
+        "length": 79.0,
+        "width": 36.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 75.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -2979,12 +2979,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "NHD-C0220BiZ",
+        "length": 75.7,
+        "width": 33.1,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 8.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3015,12 +3015,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "NHD-C0220BiZ-FSRGB",
+        "length": 75.7,
+        "width": 33.1,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 3.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -3051,12 +3051,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "RC1602A",
+        "length": 84.0,
+        "width": 44.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.535
       },
       "alternatives": [],
       "design_notes": [],
@@ -3087,12 +3087,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "RC1602A",
+        "length": 84.0,
+        "width": 44.0,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.535
       },
       "alternatives": [],
       "design_notes": [],
@@ -3123,12 +3123,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SA15-11xxx",
+        "length": 47.0,
+        "width": 33.15,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 40.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3159,12 +3159,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3195,12 +3195,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3231,12 +3231,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SBC18-11SURKCGKWA",
+        "length": 56.0,
+        "width": 38.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 48.26
       },
       "alternatives": [],
       "design_notes": [],
@@ -3267,12 +3267,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3303,12 +3303,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3339,12 +3339,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "7SegmentLED",
+        "length": 19.05,
+        "width": 12.6,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3375,12 +3375,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WC1602A",
+        "length": 80.0,
+        "width": 36.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -3411,12 +3411,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "D1X8K",
+        "length": 19.0,
+        "width": 12.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3447,12 +3447,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "D1X8K",
+        "length": 19.0,
+        "width": 12.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3483,12 +3483,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "D1X8K",
+        "length": 19.0,
+        "width": 12.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3519,12 +3519,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11SURKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -3555,12 +3555,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11CGKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -3591,12 +3591,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA04-11SURKWA",
+        "length": 16.0,
+        "width": 20.2,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -3627,12 +3627,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3663,12 +3663,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11CGKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3699,12 +3699,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3735,12 +3735,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SYKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3771,12 +3771,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3807,12 +3807,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11CGKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3843,12 +3843,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SURKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3879,12 +3879,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DA56-11SYKWA",
+        "length": 19.05,
+        "width": 25.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3915,12 +3915,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A151",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -3951,12 +3951,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HDSP-A151",
+        "length": 7.3,
+        "width": 12.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 5.08
       },
       "alternatives": [],
       "design_notes": [],
@@ -3987,12 +3987,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -4023,12 +4023,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -4059,12 +4059,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -4095,12 +4095,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -4131,12 +4131,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LTC-4627Jx",
+        "length": 12.8,
+        "width": 40.18,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 10.16
       },
       "alternatives": [],
       "design_notes": [],
@@ -4167,12 +4167,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SA15-11xxx",
+        "length": 47.0,
+        "width": 33.15,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 40.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4203,12 +4203,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SA15-11xxx",
+        "length": 47.0,
+        "width": 33.15,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 40.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4239,12 +4239,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4275,12 +4275,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4311,12 +4311,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4347,12 +4347,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4383,12 +4383,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4419,12 +4419,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4455,12 +4455,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SBC18-11SURKCGKWA",
+        "length": 56.0,
+        "width": 38.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 48.26
       },
       "alternatives": [],
       "design_notes": [],
@@ -4491,12 +4491,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4527,12 +4527,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4563,12 +4563,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4599,12 +4599,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4635,12 +4635,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4671,12 +4671,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Sx39-1xxxxx",
+        "length": 10.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -4707,12 +4707,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "AG12864E",
+        "length": 52.7,
+        "width": 75.0,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -4743,12 +4743,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 47.96,
+        "width": 68.6,
         "height": 0.0,
         "pin_count": 26,
-        "pin_pitch": 0.0
+        "pin_pitch": 48.26
       },
       "alternatives": [],
       "design_notes": [],
@@ -4779,12 +4779,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 43.0,
+        "width": 55.8,
         "height": 0.0,
         "pin_count": 26,
-        "pin_pitch": 0.0
+        "pin_pitch": 43.18
       },
       "alternatives": [],
       "design_notes": [],
@@ -4815,12 +4815,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 25.1,
+        "width": 36.0,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 25.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -4851,12 +4851,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 60.66,
+        "width": 78.0,
         "height": 0.0,
         "pin_count": 22,
-        "pin_pitch": 0.0
+        "pin_pitch": 60.96
       },
       "alternatives": [],
       "design_notes": [],
@@ -4887,12 +4887,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA-eDIP128B-XXX",
+        "length": 54.6,
+        "width": 71.4,
         "height": 0.0,
         "pin_count": 31,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -4923,12 +4923,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 67.5,
+        "width": 81.5,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -4959,12 +4959,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -4995,12 +4995,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5031,12 +5031,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 60.5,
+        "width": 82.0,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5067,12 +5067,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 71.0,
+        "width": 106.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5103,12 +5103,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 92.0,
+        "width": 120.0,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5139,12 +5139,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 107.2,
+        "width": 146.4,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5175,12 +5175,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 112.0,
+        "width": 170.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5211,12 +5211,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 132.0,
+        "width": 193.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5247,12 +5247,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "ERM19264",
+        "length": 130.0,
+        "width": 65.0,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5283,12 +5283,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "NHD-C12832A1Z-FSRGB",
+        "length": 41.4,
+        "width": 24.3,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -5319,12 +5319,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "OLED-128O064D",
+        "length": 22.0,
+        "width": 6.887,
         "height": 0.0,
         "pin_count": 30,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -5355,12 +5355,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA-eDIP128B-XXX",
+        "length": 54.6,
+        "width": 71.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5391,12 +5391,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA-eDIP128B-XXX",
+        "length": 54.6,
+        "width": 71.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5427,12 +5427,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA-eDIP128B-XXX",
+        "length": 54.6,
+        "width": 71.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5463,12 +5463,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 67.5,
+        "width": 81.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5499,12 +5499,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 67.5,
+        "width": 81.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5535,12 +5535,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 67.5,
+        "width": 81.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5571,12 +5571,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5607,12 +5607,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5643,12 +5643,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5679,12 +5679,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5715,12 +5715,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 70.0,
+        "width": 113.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5751,12 +5751,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5787,12 +5787,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5823,12 +5823,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5859,12 +5859,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5895,12 +5895,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 105.3,
+        "width": 137.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5931,12 +5931,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 60.5,
+        "width": 82.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -5967,12 +5967,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 71.0,
+        "width": 106.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -6003,12 +6003,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 71.0,
+        "width": 106.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -6039,12 +6039,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 107.2,
+        "width": 146.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -6075,12 +6075,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "EA",
+        "length": 112.0,
+        "width": 170.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -6111,12 +6111,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-40",
+        "length": 14.73,
+        "width": 50.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -6147,12 +6147,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-16",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -6183,12 +6183,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-44",
+        "length": 17.65,
+        "width": 17.65,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6219,12 +6219,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-40",
+        "length": 14.73,
+        "width": 50.8,
         "height": 0.0,
         "pin_count": 40,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -6255,12 +6255,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "CR2013-MI2120",
+        "length": 67.2,
+        "width": 40.1,
         "height": 0.0,
         "pin_count": 14,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -6291,12 +6291,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Hitachi",
+        "length": 19.9,
+        "width": 25.9,
         "height": 0.0,
         "pin_count": 80,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -6327,12 +6327,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-44",
+        "length": 14.0,
+        "width": 14.0,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -6363,12 +6363,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -6399,12 +6399,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 2.11,
+        "width": 1.61,
         "height": 0.0,
         "pin_count": 12,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -6435,12 +6435,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -6471,12 +6471,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -6507,12 +6507,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-16",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -6543,12 +6543,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-16",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -6579,12 +6579,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-16",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],

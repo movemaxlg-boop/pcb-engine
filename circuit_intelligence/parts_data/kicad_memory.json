@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 5,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -999,12 +999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1359,12 +1359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1395,12 +1395,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1411,7 +1411,7 @@
     {
       "part_number": "DS2431",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TO-92",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TO-92",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1431,12 +1431,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
+        "package": "TO-92",
+        "length": 3.5,
         "width": 0.0,
         "height": 0.0,
         "pin_count": 3,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1447,7 +1447,7 @@
     {
       "part_number": "DS2431P",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TSOC-6",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TSOC-6",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1467,12 +1467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOC-6",
+        "length": 3.76,
+        "width": 3.94,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1483,7 +1483,7 @@
     {
       "part_number": "DS2431Q",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TDFN",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TDFN",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -1503,12 +1503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 7,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -1539,12 +1539,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WFDFPN-8-1EP",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1755,12 +1755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1791,12 +1791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1827,12 +1827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WDFN-8-1EP",
+        "length": 6.7,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WFDFPN-8-1EP",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2367,12 +2367,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2475,12 +2475,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-6",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2511,12 +2511,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2547,12 +2547,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -2583,12 +2583,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2619,12 +2619,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2655,12 +2655,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2691,12 +2691,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2727,12 +2727,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2763,12 +2763,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2799,12 +2799,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-23-5",
+        "length": 3.6,
+        "width": 2.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -2835,12 +2835,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2907,12 +2907,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2979,12 +2979,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3123,12 +3123,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-8-1EP",
+        "length": 3.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3139,7 +3139,7 @@
     {
       "part_number": "DS28E07",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TO-92",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TO-92",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -3159,12 +3159,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
+        "package": "TO-92",
+        "length": 3.5,
         "width": 0.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.796
       },
       "alternatives": [],
       "design_notes": [],
@@ -3175,7 +3175,7 @@
     {
       "part_number": "DS28E07P",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TSOC-6",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TSOC-6",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -3195,12 +3195,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOC-6",
+        "length": 3.76,
+        "width": 3.94,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3211,7 +3211,7 @@
     {
       "part_number": "DS28E07Q",
       "manufacturer": "",
-      "description": "1024-bit, 1-Wire\u00ae EEPROM chip, TDFN",
+      "description": "1024-bit, 1-Wire® EEPROM chip, TDFN",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -3231,12 +3231,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 3.76,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.95
       },
       "alternatives": [],
       "design_notes": [],
@@ -3267,12 +3267,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3303,12 +3303,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3339,12 +3339,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3375,12 +3375,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3411,12 +3411,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3447,12 +3447,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3483,12 +3483,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3519,12 +3519,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3555,12 +3555,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -3591,12 +3591,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3771,12 +3771,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3807,12 +3807,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3843,12 +3843,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3879,12 +3879,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-32",
+        "length": 11.43,
+        "width": 13.97,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3915,12 +3915,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3951,12 +3951,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -3987,12 +3987,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -4023,12 +4023,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -4059,12 +4059,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -4095,12 +4095,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PSOP-44",
+        "length": 16.9,
+        "width": 27.17,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4203,12 +4203,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-48",
+        "length": 20.96,
+        "width": 12.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4239,12 +4239,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-44",
+        "length": 17.0,
+        "width": 28.2,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4255,7 +4255,7 @@
     {
       "part_number": "AM29PDL128G",
       "manufacturer": "",
-      "description": "128 Megabit (8 M x 16-Bit/4 M x 32-Bit), Simultaneous Operation Flash Memory with VersatileIO\u2122 Control",
+      "description": "128 Megabit (8 M x 16-Bit/4 M x 32-Bit), Simultaneous Operation Flash Memory with VersatileIO™ Control",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -4311,12 +4311,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WLCSP-8",
+        "length": 1.575,
+        "width": 1.631,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -4347,12 +4347,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4383,12 +4383,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -4419,12 +4419,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WLCSP-8",
+        "length": 1.551,
+        "width": 2.284,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -4455,12 +4455,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-32",
+        "length": 11.43,
+        "width": 13.97,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4563,12 +4563,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4599,12 +4599,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4635,12 +4635,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 8.16,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4671,12 +4671,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16W",
+        "length": 11.36,
+        "width": 10.3,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4707,12 +4707,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DFN-S-8-1EP",
+        "length": 6.0,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.123
       },
       "alternatives": [],
       "design_notes": [],
@@ -4743,12 +4743,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4851,12 +4851,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "W-PDFN-8-1EP",
+        "length": 6.76,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4887,12 +4887,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-16W",
+        "length": 11.36,
+        "width": 10.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4923,12 +4923,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.1,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4959,12 +4959,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -4995,12 +4995,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5031,12 +5031,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5067,12 +5067,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5103,12 +5103,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.1,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5139,12 +5139,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.1,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5175,12 +5175,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5319,12 +5319,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5355,12 +5355,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.16,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5391,12 +5391,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.16,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5427,12 +5427,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5463,12 +5463,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LGA-8",
+        "length": 8.7,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5499,12 +5499,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-44",
+        "length": 17.0,
+        "width": 28.2,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5535,12 +5535,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5571,12 +5571,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -5751,12 +5751,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5787,12 +5787,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5823,12 +5823,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5859,12 +5859,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 8.16,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5895,12 +5895,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 6.16,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5931,12 +5931,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -5967,12 +5967,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6003,12 +6003,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6039,12 +6039,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 8.8,
+        "width": 5.3,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6075,12 +6075,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "JEITA",
+        "length": 6.8,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6111,12 +6111,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LGA-8",
+        "length": 8.7,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6147,12 +6147,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LGA-8",
+        "length": 8.7,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6183,12 +6183,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LGA-8",
+        "length": 8.7,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6235,7 +6235,7 @@
     {
       "part_number": "CY14B256LA-SP",
       "manufacturer": "",
-      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to \u201310% operation, 25/45ns, SSOP-48",
+      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to –10% operation, 25/45ns, SSOP-48",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -6255,12 +6255,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-48",
+        "length": 7.5,
+        "width": 15.9,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.634
       },
       "alternatives": [],
       "design_notes": [],
@@ -6291,12 +6291,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-44",
+        "length": 12.7,
+        "width": 18.42,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -6327,12 +6327,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Infineon",
+        "length": 6.0,
+        "width": 10.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.75
       },
       "alternatives": [],
       "design_notes": [],
@@ -6363,12 +6363,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-28W",
+        "length": 11.36,
+        "width": 17.9,
         "height": 0.0,
         "pin_count": 26,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6399,12 +6399,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-28W",
+        "length": 11.36,
+        "width": 17.9,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6435,12 +6435,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6471,12 +6471,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6703,7 +6703,7 @@
     {
       "part_number": "CY14B256LA-ZS",
       "manufacturer": "",
-      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to \u201310% operation, 25/45ns, TSOP-II-44",
+      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to –10% operation, 25/45ns, TSOP-II-44",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -6723,12 +6723,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-44",
+        "length": 12.7,
+        "width": 18.42,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -6759,12 +6759,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-32",
+        "length": 11.36,
+        "width": 20.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6795,12 +6795,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Infineon",
+        "length": 6.0,
+        "width": 10.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.75
       },
       "alternatives": [],
       "design_notes": [],
@@ -6831,12 +6831,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-28W",
+        "length": 11.36,
+        "width": 17.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6867,12 +6867,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-28W",
+        "length": 11.36,
+        "width": 17.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -6903,12 +6903,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -7263,12 +7263,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-32",
+        "length": 7.11,
+        "width": 40.64,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -7279,7 +7279,7 @@
     {
       "part_number": "CY14B256LA-SZ",
       "manufacturer": "",
-      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to \u201310% operation, 25/45ns, SOIC-32",
+      "description": "256-Kbit (32K x 8-bit) nvSRAM, single 3V +20% to –10% operation, 25/45ns, SOIC-32",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -7299,12 +7299,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-32",
+        "length": 11.36,
+        "width": 20.78,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -7335,12 +7335,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-32",
+        "length": 7.11,
+        "width": 40.64,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -7371,12 +7371,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -7407,12 +7407,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -7443,12 +7443,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Winbond",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -7479,12 +7479,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-96",
+        "length": 9.0,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 96,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -7495,7 +7495,7 @@
     {
       "part_number": "AS4C4M16SA",
       "manufacturer": "",
-      "description": "64M \u2013 (4M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "64M – (4M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -7515,12 +7515,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -7551,12 +7551,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Alliance",
+        "length": 6.0,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 36,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.75
       },
       "alternatives": [],
       "design_notes": [],
@@ -7587,12 +7587,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-32",
+        "length": 14.73,
+        "width": 40.64,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -7623,12 +7623,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -7659,12 +7659,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-48",
+        "length": 20.96,
+        "width": 12.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -7695,12 +7695,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-32",
+        "length": 14.73,
+        "width": 40.64,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -7767,12 +7767,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -7803,12 +7803,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "FBGA-78",
+        "length": 7.5,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 78,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -7819,7 +7819,7 @@
     {
       "part_number": "HM50256P",
       "manufacturer": "",
-      "description": "262144 x 1 bit Dynamic RAM, 120/150/200ns access time, single 5V \u00b110% power supply, TTL compatible inputs, DIP-16 (DP-16A package)",
+      "description": "262144 x 1 bit Dynamic RAM, 120/150/200ns access time, single 5V ±10% power supply, TTL compatible inputs, DIP-16 (DP-16A package)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -7839,12 +7839,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -7947,12 +7947,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -7983,12 +7983,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-64",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 64,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8163,12 +8163,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8199,12 +8199,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8235,12 +8235,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-200",
+        "length": 10.0,
+        "width": 14.5,
         "height": 0.0,
         "pin_count": 200,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -8271,12 +8271,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-36",
+        "length": 12.06,
+        "width": 23.5,
         "height": 0.0,
         "pin_count": 36,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -8307,12 +8307,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-44",
+        "length": 12.7,
+        "width": 18.42,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8343,12 +8343,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 14.4,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -8379,12 +8379,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-32",
+        "length": 15.16,
+        "width": 20.5,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -8415,12 +8415,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-28",
+        "length": 13.4,
+        "width": 18.16,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -8451,12 +8451,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -8467,7 +8467,7 @@
     {
       "part_number": "M48Tx2",
       "manufacturer": "",
-      "description": "5.0 V, 16 Kbit (2 Kb x 8) TIMEKEEPER\u00ae SRAM, DIP-24",
+      "description": "5.0 V, 16 Kbit (2 Kb x 8) TIMEKEEPER® SRAM, DIP-24",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8487,12 +8487,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-24",
+        "length": 14.73,
+        "width": 30.48,
         "height": 0.0,
         "pin_count": 24,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -8503,7 +8503,7 @@
     {
       "part_number": "MK4116N",
       "manufacturer": "",
-      "description": "16384 x 1 bit Dynamic RAM, 150/200/250ns access time, VBB -5V, VCC 5V, VDD 12V, \u00b110% tolerance on all power supplies, TTL compatible inputs, DIP-16 (Epoxy/Plastic package)",
+      "description": "16384 x 1 bit Dynamic RAM, 150/200/250ns access time, VBB -5V, VCC 5V, VDD 12V, ±10% tolerance on all power supplies, TTL compatible inputs, DIP-16 (Epoxy/Plastic package)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8523,12 +8523,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8539,7 +8539,7 @@
     {
       "part_number": "MK4164N",
       "manufacturer": "",
-      "description": "65536 x 1 bit Dynamic RAM, 120/150ns access time, single 5V \u00b110% power supply, TTL compatible inputs, DIP-16 (Epoxy/Plastic package)",
+      "description": "65536 x 1 bit Dynamic RAM, 120/150ns access time, single 5V ±10% power supply, TTL compatible inputs, DIP-16 (Epoxy/Plastic package)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8559,12 +8559,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8595,12 +8595,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Micron",
+        "length": 8.0,
+        "width": 14.0,
         "height": 0.0,
         "pin_count": 96,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8631,12 +8631,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Micron",
+        "length": 7.5,
+        "width": 13.5,
         "height": 0.0,
         "pin_count": 96,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8647,7 +8647,7 @@
     {
       "part_number": "MT48LC16M16A2TG",
       "manufacturer": "",
-      "description": "256M \u2013 (16M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (16M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8667,12 +8667,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8683,7 +8683,7 @@
     {
       "part_number": "MT48LC32M8A2TG",
       "manufacturer": "",
-      "description": "256M \u2013 (32M x 8 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (32M x 8 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8703,12 +8703,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8719,7 +8719,7 @@
     {
       "part_number": "MT48LC64M4A2TG",
       "manufacturer": "",
-      "description": "256M \u2013 (64M x 4 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (64M x 4 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8739,12 +8739,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8755,7 +8755,7 @@
     {
       "part_number": "TMM41256AP",
       "manufacturer": "",
-      "description": "262144 x 1 bit Dynamic RAM, 100/120/150ns access time, single 5V \u00b110% power supply, TTL compatible inputs, DIP-16",
+      "description": "262144 x 1 bit Dynamic RAM, 100/120/150ns access time, single 5V ±10% power supply, TTL compatible inputs, DIP-16",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8775,12 +8775,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8811,12 +8811,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 54,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -8827,7 +8827,7 @@
     {
       "part_number": "uPD4168C",
       "manufacturer": "",
-      "description": "8192 x 8-bit Static NMOS XRAM, 120/150/200ns access time, 5V \u00b110% supply, DIP-28 (600 mil)",
+      "description": "8192 x 8-bit Static NMOS XRAM, 120/150/200ns access time, 5V ±10% supply, DIP-28 (600 mil)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8847,12 +8847,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -8863,7 +8863,7 @@
     {
       "part_number": "uPD4364CX",
       "manufacturer": "",
-      "description": "8192 x 8-bit Static CMOS RAM, 100/120/150ns access time, 5V \u00b110% supply, DIP-28 (300 mil)",
+      "description": "8192 x 8-bit Static CMOS RAM, 100/120/150ns access time, 5V ±10% supply, DIP-28 (300 mil)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -8883,12 +8883,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8919,12 +8919,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-8",
+        "length": 6.35,
+        "width": 10.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -8955,12 +8955,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-8",
+        "length": 7.2,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -8991,12 +8991,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9027,12 +9027,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Winbond",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9063,12 +9063,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9099,12 +9099,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Winbond",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9135,12 +9135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-32",
+        "length": 15.16,
+        "width": 20.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9171,12 +9171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 14.4,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9207,12 +9207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 12.06,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9243,12 +9243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9279,12 +9279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 12.06,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9315,12 +9315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9351,12 +9351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-32",
+        "length": 15.16,
+        "width": 20.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9387,12 +9387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9423,12 +9423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-32",
+        "length": 15.16,
+        "width": 20.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9459,12 +9459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -9495,12 +9495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -9531,12 +9531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "FBGA-96",
+        "length": 7.5,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -9547,7 +9547,7 @@
     {
       "part_number": "HM62256BLP",
       "manufacturer": "",
-      "description": "32,768-word \u00d7 8-bit High Speed CMOS Static RAM, 70ns, DIP-28",
+      "description": "32,768-word × 8-bit High Speed CMOS Static RAM, 70ns, DIP-28",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -9567,12 +9567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 14.73,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -9675,12 +9675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-28",
+        "length": 13.4,
+        "width": 18.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -9747,12 +9747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -9783,12 +9783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -9819,12 +9819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -9855,12 +9855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -9891,12 +9891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-28",
+        "length": 6.35,
+        "width": 35.56,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -9927,12 +9927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -9963,12 +9963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-200",
+        "length": 10.0,
+        "width": 14.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -9999,12 +9999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-32",
+        "length": 10.1,
+        "width": 20.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.25
       },
       "alternatives": [],
       "design_notes": [],
@@ -10035,12 +10035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-44",
+        "length": 12.7,
+        "width": 18.42,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10071,12 +10071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-36",
+        "length": 12.06,
+        "width": 23.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10107,12 +10107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOP-28",
+        "length": 13.4,
+        "width": 18.16,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10123,7 +10123,7 @@
     {
       "part_number": "IS6xC1024AL-xxJ",
       "manufacturer": "",
-      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V \u00b110%, 12/15ns, SOJ-32 (300 mil)",
+      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V ±10%, 12/15ns, SOJ-32 (300 mil)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10143,12 +10143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 9.3,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10159,7 +10159,7 @@
     {
       "part_number": "IS6xC1024AL-xxT",
       "manufacturer": "",
-      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V \u00b110%, 12/15ns, TSOP-I-32",
+      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V ±10%, 12/15ns, TSOP-I-32",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10179,12 +10179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -10195,7 +10195,7 @@
     {
       "part_number": "M48Zx2",
       "manufacturer": "",
-      "description": "5 V, 16 kbit (2 Kb x 8) ZEROPOWER\u00ae SRAM, DIP-24",
+      "description": "5 V, 16 kbit (2 Kb x 8) ZEROPOWER® SRAM, DIP-24",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10215,12 +10215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-24",
+        "length": 14.73,
+        "width": 30.48,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 15.24
       },
       "alternatives": [],
       "design_notes": [],
@@ -10251,12 +10251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Micron",
+        "length": 7.5,
+        "width": 13.5,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10287,12 +10287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "FBGA-96",
+        "length": 7.5,
+        "width": 13.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10323,12 +10323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Micron",
+        "length": 9.0,
+        "width": 14.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10359,12 +10359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Micron",
+        "length": 8.0,
+        "width": 14.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10375,7 +10375,7 @@
     {
       "part_number": "MT48LC16M16A2P",
       "manufacturer": "",
-      "description": "256M \u2013 (16M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (16M x 16 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10395,12 +10395,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10411,7 +10411,7 @@
     {
       "part_number": "MT48LC32M8A2P",
       "manufacturer": "",
-      "description": "256M \u2013 (32M x 8 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (32M x 8 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10431,12 +10431,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10447,7 +10447,7 @@
     {
       "part_number": "MT48LC64M4A2P",
       "manufacturer": "",
-      "description": "256M \u2013 (64M x 4 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
+      "description": "256M – (64M x 4 bit) Synchronous DRAM (SDRAM), TSOP-II-54",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10467,12 +10467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10503,12 +10503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 20.96,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -10539,12 +10539,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Renesas",
+        "length": 15.1,
+        "width": 20.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10575,12 +10575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10611,12 +10611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10647,12 +10647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-II-54",
+        "length": 10.16,
+        "width": 22.22,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -10683,12 +10683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10719,12 +10719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Winbond",
+        "length": 3.76,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -10755,12 +10755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 9.3,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10791,12 +10791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 14.4,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -10827,12 +10827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 9.3,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -10843,7 +10843,7 @@
     {
       "part_number": "IS6xC1024AL-xxH",
       "manufacturer": "",
-      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V \u00b110%, 12/15ns, TSOP-I-32",
+      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V ±10%, 12/15ns, TSOP-I-32",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10863,12 +10863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOP-I-32",
+        "length": 14.4,
+        "width": 8.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -10879,7 +10879,7 @@
     {
       "part_number": "IS6xC1024AL-xxK",
       "manufacturer": "",
-      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V \u00b110%, 12/15ns, SOJ-32 (400 mil)",
+      "description": "128K x 8-bit High-Speed CMOS Static RAM, IS61C1024AL (commercial and industrial) / IS64C1024AL (automotive), VDD = 5V ±10%, 12/15ns, SOJ-32 (400 mil)",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -10899,12 +10899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOJ-32",
+        "length": 12.06,
+        "width": 20.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -11007,12 +11007,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSOC-6",
+        "length": 3.76,
+        "width": 3.94,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -11043,12 +11043,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-223",
+        "length": 3.7,
+        "width": 6.7,
         "height": 0.0,
         "pin_count": 4,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.3
       },
       "alternatives": [],
       "design_notes": [],

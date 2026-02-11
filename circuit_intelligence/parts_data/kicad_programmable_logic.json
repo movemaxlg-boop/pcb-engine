@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-20",
+        "length": 6.35,
+        "width": 25.4,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 256,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 11.0,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 256,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 256,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-324",
+        "length": 19.0,
+        "width": 19.0,
         "height": 0.0,
         "pin_count": 324,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 11.0,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 6.0,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -495,12 +495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 6.0,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-68",
+        "length": 5.0,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 68,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 11.0,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 204,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 6.0,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 11.0,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 204,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-100",
+        "length": 6.0,
+        "width": 6.0,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-144",
+        "length": 7.0,
+        "width": 7.0,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-256",
+        "length": 11.0,
+        "width": 11.0,
         "height": 0.0,
         "pin_count": 204,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-20",
+        "length": 6.35,
+        "width": 25.4,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -999,12 +999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-84",
+        "length": 29.312,
+        "width": 29.312,
         "height": 0.0,
         "pin_count": 84,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Renesas",
+        "length": 2.7,
+        "width": 3.7,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.037
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Renesas",
+        "length": 2.7,
+        "width": 3.7,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.037
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Renesas",
+        "length": 2.7,
+        "width": 3.7,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.037
       },
       "alternatives": [],
       "design_notes": [],
@@ -1359,12 +1359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-20",
+        "length": 7.2,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1539,12 +1539,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Xilinx",
+        "length": 7.0,
+        "width": 7.0,
         "height": 0.0,
         "pin_count": 48,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-44",
+        "length": 16.586,
+        "width": 16.586,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1755,12 +1755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-64",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 64,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1791,12 +1791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 84,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1827,12 +1827,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1863,12 +1863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1899,12 +1899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1935,12 +1935,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-44",
+        "length": 16.586,
+        "width": 16.586,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1971,12 +1971,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2007,12 +2007,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-64",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2043,12 +2043,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2079,12 +2079,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2115,12 +2115,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2151,12 +2151,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2187,12 +2187,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-324",
+        "length": 15.0,
+        "width": 15.0,
         "height": 0.0,
         "pin_count": 324,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2223,12 +2223,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2331,12 +2331,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-121",
+        "length": 9.0,
+        "width": 9.0,
         "height": 0.0,
         "pin_count": 121,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2367,12 +2367,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WLCSP-16",
+        "length": 1.409,
+        "width": 1.409,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.35
       },
       "alternatives": [],
       "design_notes": [],
@@ -2403,12 +2403,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-48-1EP",
+        "length": 7.76,
+        "width": 7.76,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2439,12 +2439,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 381,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2475,12 +2475,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 756,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2511,12 +2511,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 381,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2547,12 +2547,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 756,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2583,12 +2583,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2619,12 +2619,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-121",
+        "length": 9.0,
+        "width": 9.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2655,12 +2655,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-48-1EP",
+        "length": 7.76,
+        "width": 7.76,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2691,12 +2691,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2727,12 +2727,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2763,12 +2763,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2799,12 +2799,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2835,12 +2835,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2871,12 +2871,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2907,12 +2907,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2943,12 +2943,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2979,12 +2979,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 17.0,
+        "width": 17.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -3015,12 +3015,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Lattice",
+        "length": 27.0,
+        "width": 27.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -3051,12 +3051,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3087,12 +3087,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3123,12 +3123,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3159,12 +3159,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3195,12 +3195,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 207,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3231,12 +3231,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 183,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3267,12 +3267,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3303,12 +3303,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 201,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3339,12 +3339,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3375,12 +3375,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 203,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3411,12 +3411,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 207,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3447,12 +3447,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-44",
+        "length": 16.586,
+        "width": 16.586,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3483,12 +3483,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-68",
+        "length": 24.232,
+        "width": 24.232,
         "height": 0.0,
         "pin_count": 68,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3519,12 +3519,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PLCC-84",
+        "length": 29.312,
+        "width": 29.312,
         "height": 0.0,
         "pin_count": 84,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3555,12 +3555,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 87,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3591,12 +3591,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-64",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 64,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3627,12 +3627,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 98,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3663,12 +3663,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-64",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 59,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3699,12 +3699,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-100",
+        "length": 16.96,
+        "width": 16.96,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3735,12 +3735,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "BGA-484",
+        "length": 23.0,
+        "width": 23.0,
         "height": 0.0,
         "pin_count": 484,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -3843,12 +3843,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-144",
+        "length": 22.8,
+        "width": 22.8,
         "height": 0.0,
         "pin_count": 144,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3879,12 +3879,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-100",
+        "length": 16.8,
+        "width": 16.8,
         "height": 0.0,
         "pin_count": 100,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],

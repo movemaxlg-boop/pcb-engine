@@ -27,12 +27,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -63,12 +63,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10-1EP",
+        "length": 5.8,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 11,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -99,12 +99,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16-1EP",
+        "length": 7.3,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -135,12 +135,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-48-1EP",
+        "length": 7.76,
+        "width": 7.76,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.075
       },
       "alternatives": [],
       "design_notes": [],
@@ -171,12 +171,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SO-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -207,12 +207,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOT-563",
+        "length": 1.9,
+        "width": 1.4,
         "height": 0.0,
         "pin_count": 6,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -243,12 +243,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -279,12 +279,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -315,12 +315,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 6.76,
+        "width": 6.76,
         "height": 0.0,
         "pin_count": 41,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -351,12 +351,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.4,
+        "width": 3.4,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.265
       },
       "alternatives": [],
       "design_notes": [],
@@ -387,12 +387,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.4,
+        "width": 3.4,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.265
       },
       "alternatives": [],
       "design_notes": [],
@@ -423,12 +423,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.4,
+        "width": 3.4,
         "height": 0.0,
         "pin_count": 25,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.265
       },
       "alternatives": [],
       "design_notes": [],
@@ -459,12 +459,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-44-1EP",
+        "length": 9.0,
+        "width": 14.0,
         "height": 0.0,
         "pin_count": 45,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.027
       },
       "alternatives": [],
       "design_notes": [],
@@ -495,12 +495,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HSOP-36-1EP",
+        "length": 11.0,
+        "width": 15.9,
         "height": 0.0,
         "pin_count": 36,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -531,12 +531,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.4,
+        "width": 6.5,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -567,12 +567,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.1
       },
       "alternatives": [],
       "design_notes": [],
@@ -603,12 +603,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-16-1EP",
+        "length": 4.4,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.075
       },
       "alternatives": [],
       "design_notes": [],
@@ -639,12 +639,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -675,12 +675,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-16-1EP",
+        "length": 4.4,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.075
       },
       "alternatives": [],
       "design_notes": [],
@@ -711,12 +711,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -747,12 +747,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -783,12 +783,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-16-1EP",
+        "length": 7.3,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -819,12 +819,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -855,12 +855,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -891,12 +891,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -927,12 +927,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-16-1EP",
+        "length": 7.3,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -963,12 +963,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -999,12 +999,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.15
       },
       "alternatives": [],
       "design_notes": [],
@@ -1035,12 +1035,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16",
+        "length": 7.2,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1071,12 +1071,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TSSOP-16-1EP",
+        "length": 4.4,
+        "width": 5.0,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.123
       },
       "alternatives": [],
       "design_notes": [],
@@ -1107,12 +1107,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.605
       },
       "alternatives": [],
       "design_notes": [],
@@ -1143,12 +1143,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.605
       },
       "alternatives": [],
       "design_notes": [],
@@ -1179,12 +1179,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.605
       },
       "alternatives": [],
       "design_notes": [],
@@ -1215,12 +1215,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-8",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -1251,12 +1251,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "MSOP-10",
+        "length": 5.86,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 10,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -1287,12 +1287,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-12-1EP",
+        "length": 4.7,
+        "width": 4.7,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -1323,12 +1323,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Texas",
+        "length": 4.76,
+        "width": 4.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.175
       },
       "alternatives": [],
       "design_notes": [],
@@ -1359,12 +1359,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1395,12 +1395,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-20",
+        "length": 6.35,
+        "width": 25.4,
         "height": 0.0,
         "pin_count": 20,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -1467,12 +1467,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TO-220-15",
+        "length": 20.2,
+        "width": 23.34,
         "height": 0.0,
         "pin_count": 15,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -1503,12 +1503,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HSOP-20-1EP",
+        "length": 11.0,
+        "width": 15.9,
         "height": 0.0,
         "pin_count": 21,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -1575,12 +1575,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 3.04,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.2
       },
       "alternatives": [],
       "design_notes": [],
@@ -1611,12 +1611,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 3.04,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.2
       },
       "alternatives": [],
       "design_notes": [],
@@ -1647,12 +1647,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Maxim",
+        "length": 3.04,
+        "width": 3.0,
         "height": 0.0,
         "pin_count": 13,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.2
       },
       "alternatives": [],
       "design_notes": [],
@@ -1683,12 +1683,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WQFN-38-1EP",
+        "length": 5.7,
+        "width": 7.7,
         "height": 0.0,
         "pin_count": 39,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.1
       },
       "alternatives": [],
       "design_notes": [],
@@ -1719,12 +1719,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-38-1EP",
+        "length": 7.2,
+        "width": 9.7,
         "height": 0.0,
         "pin_count": 39,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.1
       },
       "alternatives": [],
       "design_notes": [],
@@ -1755,12 +1755,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-40-1EP",
+        "length": 5.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 41,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.05
       },
       "alternatives": [],
       "design_notes": [],
@@ -1791,12 +1791,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Qorvo",
+        "length": 6.7,
+        "width": 6.7,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.4
       },
       "alternatives": [],
       "design_notes": [],
@@ -1863,12 +1863,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Pololu",
+        "length": 15.24,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -1899,12 +1899,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Pololu",
+        "length": 15.24,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 12.7
       },
       "alternatives": [],
       "design_notes": [],
@@ -1935,12 +1935,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SLA704XM",
+        "length": 30.7,
+        "width": 4.6,
         "height": 0.0,
         "pin_count": 18,
-        "pin_pitch": 0.0
+        "pin_pitch": 3.36
       },
       "alternatives": [],
       "design_notes": [],
@@ -2043,12 +2043,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 16,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -2079,12 +2079,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "STK672-040-E",
+        "length": 53.0,
+        "width": 9.0,
         "height": 0.0,
         "pin_count": 22,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -2115,12 +2115,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "STK672-080-E",
+        "length": 46.6,
+        "width": 8.5,
         "height": 0.0,
         "pin_count": 15,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -2131,7 +2131,7 @@
     {
       "part_number": "STSPIN220",
       "manufacturer": "",
-      "description": "Low voltage stepper motor driver, 1.8V to 10V input, 1.3Arms output, 0.4\u03a9 Rdson per phase (typical), QFN-16 package",
+      "description": "Low voltage stepper motor driver, 1.8V to 10V input, 1.3Arms output, 0.4Ω Rdson per phase (typical), QFN-16 package",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2151,12 +2151,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2167,7 +2167,7 @@
     {
       "part_number": "STSPIN230",
       "manufacturer": "",
-      "description": "Low voltage triple half-bridge motor driver, 1.8V to 10V input, 1.3Arms output, 0.4\u03a9 Rdson per phase (typical), QFN-16 package",
+      "description": "Low voltage triple half-bridge motor driver, 1.8V to 10V input, 1.3Arms output, 0.4Ω Rdson per phase (typical), QFN-16 package",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2187,12 +2187,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2203,7 +2203,7 @@
     {
       "part_number": "STSPIN233",
       "manufacturer": "",
-      "description": "Low voltage three phase and three sense motor driver, 1.8V to 10V input, 1.3Arms output, 0.4\u03a9 Rdson per phase (typical), QFN-16 package",
+      "description": "Low voltage three phase and three sense motor driver, 1.8V to 10V input, 1.3Arms output, 0.4Ω Rdson per phase (typical), QFN-16 package",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2223,12 +2223,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2239,7 +2239,7 @@
     {
       "part_number": "STSPIN240",
       "manufacturer": "",
-      "description": "Low voltage dual brush DC motor driver, 1.8V to 10V input, 1.3Arms output, 0.4\u03a9 Rdson per phase (typical), QFN-16 package",
+      "description": "Low voltage dual brush DC motor driver, 1.8V to 10V input, 1.3Arms output, 0.4Ω Rdson per phase (typical), QFN-16 package",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2259,12 +2259,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2295,12 +2295,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-48-1EP",
+        "length": 7.76,
+        "width": 7.76,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2331,12 +2331,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SSOP-24",
+        "length": 8.9,
+        "width": 8.2,
         "height": 0.0,
         "pin_count": 24,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.65
       },
       "alternatives": [],
       "design_notes": [],
@@ -2367,12 +2367,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-16-1EP",
+        "length": 3.76,
+        "width": 3.76,
         "height": 0.0,
         "pin_count": 17,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2403,12 +2403,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-48-1EP",
+        "length": 7.7,
+        "width": 7.7,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.05
       },
       "alternatives": [],
       "design_notes": [],
@@ -2439,12 +2439,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-36-1EP",
+        "length": 5.76,
+        "width": 6.76,
         "height": 0.0,
         "pin_count": 37,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.05
       },
       "alternatives": [],
       "design_notes": [],
@@ -2475,12 +2475,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-48-1EP",
+        "length": 9.8,
+        "width": 9.8,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.125
       },
       "alternatives": [],
       "design_notes": [],
@@ -2511,12 +2511,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-36-1EP",
+        "length": 5.76,
+        "width": 6.76,
         "height": 0.0,
         "pin_count": 37,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2547,12 +2547,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-48-1EP",
+        "length": 9.8,
+        "width": 9.8,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2583,12 +2583,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-48-1EP",
+        "length": 9.8,
+        "width": 9.8,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2599,7 +2599,7 @@
     {
       "part_number": "TMC2202-WA",
       "manufacturer": "",
-      "description": "Standalone driver for two-phase bipolar stepper motor, 2A, 4.75\u2026 36V, UART, internal FETs, QFN32",
+      "description": "Standalone driver for two-phase bipolar stepper motor, 2A, 4.75… 36V, UART, internal FETs, QFN32",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2619,12 +2619,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFN-32-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 32,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.2
       },
       "alternatives": [],
       "design_notes": [],
@@ -2655,12 +2655,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-28-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.05
       },
       "alternatives": [],
       "design_notes": [],
@@ -2671,7 +2671,7 @@
     {
       "part_number": "TMC2209-LA",
       "manufacturer": "",
-      "description": "2-phase stepper motor driver, 256 \u00b5Steps, 2.8A peak, 2.0A RMS, VS = 4.75..29V, STEP/DIR and UART interface, VQFN-28",
+      "description": "2-phase stepper motor driver, 256 µSteps, 2.8A peak, 2.0A RMS, VS = 4.75..29V, STEP/DIR and UART interface, VQFN-28",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2691,12 +2691,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "VQFN-28-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2707,7 +2707,7 @@
     {
       "part_number": "TMC2224-LA",
       "manufacturer": "",
-      "description": "Standalone driver for two-phase bipolar stepper motor, 2A, 4.75\u2026 36V, UART, internal FETs, QFN28",
+      "description": "Standalone driver for two-phase bipolar stepper motor, 2A, 4.75… 36V, UART, internal FETs, QFN28",
       "category": "IC",
       "subcategory": "",
       "thermal": {
@@ -2727,12 +2727,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFN-32-1EP",
+        "length": 5.7,
+        "width": 5.7,
         "height": 0.0,
         "pin_count": 28,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.2
       },
       "alternatives": [],
       "design_notes": [],
@@ -2763,12 +2763,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "HTSSOP-28-1EP",
+        "length": 7.3,
+        "width": 9.7,
         "height": 0.0,
         "pin_count": 29,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.042
       },
       "alternatives": [],
       "design_notes": [],
@@ -2799,12 +2799,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "QFN-32-1EP",
+        "length": 5.76,
+        "width": 5.76,
         "height": 0.0,
         "pin_count": 33,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -2835,12 +2835,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "LQFP-44",
+        "length": 12.8,
+        "width": 12.8,
         "height": 0.0,
         "pin_count": 44,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.8
       },
       "alternatives": [],
       "design_notes": [],
@@ -2871,12 +2871,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-48-1EP",
+        "length": 9.8,
+        "width": 9.8,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.125
       },
       "alternatives": [],
       "design_notes": [],
@@ -2907,12 +2907,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TQFP-48-1EP",
+        "length": 9.8,
+        "width": 9.8,
         "height": 0.0,
         "pin_count": 49,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.125
       },
       "alternatives": [],
       "design_notes": [],
@@ -2943,12 +2943,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "ST",
+        "length": 16.0,
+        "width": 17.2,
         "height": 0.0,
         "pin_count": 33,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -2979,12 +2979,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "ST",
+        "length": 16.0,
+        "width": 17.2,
         "height": 0.0,
         "pin_count": 33,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.0
       },
       "alternatives": [],
       "design_notes": [],
@@ -3015,12 +3015,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 8,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3051,12 +3051,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "Diodes",
+        "length": 3.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 9,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3087,12 +3087,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3123,12 +3123,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SOIC-8-1EP",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3159,12 +3159,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SO-8",
+        "length": 6.9,
+        "width": 4.9,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 1.27
       },
       "alternatives": [],
       "design_notes": [],
@@ -3195,12 +3195,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3231,12 +3231,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "WSON-8-1EP",
+        "length": 2.0,
+        "width": 2.0,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
@@ -3267,12 +3267,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "DIP-16",
+        "length": 6.35,
+        "width": 20.32,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 7.62
       },
       "alternatives": [],
       "design_notes": [],
@@ -3303,12 +3303,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "TO-220-15",
+        "length": 20.2,
+        "width": 9.58,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 2.54
       },
       "alternatives": [],
       "design_notes": [],
@@ -3339,12 +3339,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "SLA704XM",
+        "length": 30.7,
+        "width": 4.6,
         "height": 0.0,
         "pin_count": 0,
-        "pin_pitch": 0.0
+        "pin_pitch": 3.36
       },
       "alternatives": [],
       "design_notes": [],
@@ -3591,12 +3591,12 @@
         "output_current": 0.0
       },
       "mechanical": {
-        "package": "",
-        "length": 0.0,
-        "width": 0.0,
+        "package": "PQFP-208",
+        "length": 31.4,
+        "width": 31.4,
         "height": 0.0,
         "pin_count": 200,
-        "pin_pitch": 0.0
+        "pin_pitch": 0.5
       },
       "alternatives": [],
       "design_notes": [],
