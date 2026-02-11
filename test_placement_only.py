@@ -392,7 +392,8 @@ def generate_bare_kicad(parts_db, positions, output_path, prov: ProvenanceCollec
     lines.append(f'  (gr_rect (start 0 0) (end {bw} {bh}) (stroke (width 0.15) (type default)) (fill none) (layer "Edge.Cuts") (uuid "board-outline"))')
     lines.append('')
 
-    # Footprints
+    # Footprints — use REAL pad positions/sizes from FootprintResolver
+    resolver = FootprintResolver.get_instance()
     fp_count = 0
     for ref, pos in sorted(positions.items()):
         part = parts_db['parts'].get(ref)
@@ -408,53 +409,48 @@ def generate_bare_kicad(parts_db, positions, output_path, prov: ProvenanceCollec
 
         fp_name = part.get('footprint', 'unknown')
         name = part.get('name', ref)
-        size = part.get('size', (1.0, 0.5))
-        body_w, body_h = size[0], size[1]
 
-        margin = 0.5 if max(body_w, body_h) > 3 else 0.25
-        cw = body_w + 2 * margin
-        ch = body_h + 2 * margin
+        # Get REAL footprint definition from resolver
+        fp_def = resolver.resolve(fp_name)
+        body_w = fp_def.body_width
+        body_h = fp_def.body_height
+        is_smd = fp_def.is_smd
+
+        # Courtyard from resolver
+        court_w, court_h = fp_def.courtyard_size
 
         lines.append(f'  (footprint "{fp_name}" (layer "F.Cu")')
         lines.append(f'    (at {cx:.4f} {cy:.4f})')
-        lines.append(f'    (property "Reference" "{ref}" (at 0 {-ch/2 - 0.8:.2f}) (layer "F.SilkS") (uuid "ref-{ref}")')
+        lines.append(f'    (property "Reference" "{ref}" (at 0 {-court_h/2 - 0.8:.2f}) (layer "F.SilkS") (uuid "ref-{ref}")')
         lines.append(f'      (effects (font (size 1 1) (thickness 0.15))))')
-        lines.append(f'    (property "Value" "{name}" (at 0 {ch/2 + 0.8:.2f}) (layer "F.Fab") (uuid "val-{ref}")')
+        lines.append(f'    (property "Value" "{name}" (at 0 {court_h/2 + 0.8:.2f}) (layer "F.Fab") (uuid "val-{ref}")')
         lines.append(f'      (effects (font (size 0.8 0.8) (thickness 0.12))))')
 
-        lines.append(f'    (fp_rect (start {-cw/2:.4f} {-ch/2:.4f}) (end {cw/2:.4f} {ch/2:.4f})')
+        # F.CrtYd rectangle (courtyard)
+        lines.append(f'    (fp_rect (start {-court_w/2:.4f} {-court_h/2:.4f}) (end {court_w/2:.4f} {court_h/2:.4f})')
         lines.append(f'      (stroke (width 0.05) (type default)) (fill none) (layer "F.CrtYd") (uuid "crtyd-{ref}"))')
 
+        # F.Fab rectangle (component body)
         lines.append(f'    (fp_rect (start {-body_w/2:.4f} {-body_h/2:.4f}) (end {body_w/2:.4f} {body_h/2:.4f})')
         lines.append(f'      (stroke (width 0.1) (type default)) (fill none) (layer "F.Fab") (uuid "fab-{ref}"))')
 
-        pins = part.get('pins', [])
-        for pin in pins:
-            pnum = pin.get('number', '?')
+        # Build net mapping: pin_number -> net_name from parts_db
+        pin_nets = {}
+        for pin in part.get('pins', []):
+            pnum = str(pin.get('number', ''))
             net = pin.get('net', '')
-            phys = pin.get('physical', {})
-            ox = phys.get('offset_x', 0)
-            oy = phys.get('offset_y', 0)
+            if pnum and net:
+                pin_nets[pnum] = net
+
+        # Use REAL pad positions and sizes from FootprintResolver
+        pad_type = 'smd' if is_smd else 'thru_hole'
+        layers = '"F.Cu" "F.Mask"' if is_smd else '"*.Cu" "*.Mask"'
+        for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+            pnum = str(pad_num)
+            net = pin_nets.get(pnum, '')
             net_id = net_ids.get(net, 0)
 
-            if '0402' in fp_name:
-                pw, ph = 0.6, 0.5
-            elif '0603' in fp_name:
-                pw, ph = 0.8, 0.75
-            elif '0805' in fp_name:
-                pw, ph = 1.0, 1.0
-            elif 'SOT-23' in fp_name or 'SOT-223' in fp_name:
-                pw, ph = 1.0, 0.7
-            elif 'QFN' in fp_name or 'QFP' in fp_name or 'SOIC' in fp_name:
-                pw, ph = 0.6, 0.3
-            elif 'USB' in fp_name:
-                pw, ph = 0.6, 1.2
-            elif 'LGA' in fp_name:
-                pw, ph = 0.5, 0.35
-            else:
-                pw, ph = 0.8, 0.8
-
-            lines.append(f'    (pad "{pnum}" smd rect (at {ox:.4f} {oy:.4f}) (size {pw} {ph}) (layers "F.Cu" "F.Mask")')
+            lines.append(f'    (pad "{pnum}" {pad_type} roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers {layers}) (roundrect_rratio 0.25)')
             if net:
                 lines.append(f'      (net {net_id} "{net}")')
             lines.append(f'    )')
@@ -482,8 +478,9 @@ def generate_bare_kicad(parts_db, positions, output_path, prov: ProvenanceCollec
 
 
 def check_overlaps(parts_db, positions, prov: ProvenanceCollector):
-    """Check courtyard overlaps and record to provenance."""
+    """Check courtyard overlaps using real footprint data from resolver."""
     t0 = time.time()
+    resolver = FootprintResolver.get_instance()
     print()
     print("OVERLAP CHECK:")
 
@@ -491,21 +488,21 @@ def check_overlaps(parts_db, positions, prov: ProvenanceCollector):
     for i in range(len(pos_list)):
         ref1, p1 = pos_list[i]
         part1 = parts_db['parts'].get(ref1, {})
-        s1 = part1.get('size', (0, 0))
-        m1 = 0.5 if max(s1) > 3 else 0.25
+        fp1 = resolver.resolve(part1.get('footprint', 'unknown'))
+        cw1, ch1 = fp1.courtyard_size
         x1, y1 = (p1[0], p1[1]) if isinstance(p1, (list, tuple)) else p1
 
         for j in range(i+1, len(pos_list)):
             ref2, p2 = pos_list[j]
             part2 = parts_db['parts'].get(ref2, {})
-            s2 = part2.get('size', (0, 0))
-            m2 = 0.5 if max(s2) > 3 else 0.25
+            fp2 = resolver.resolve(part2.get('footprint', 'unknown'))
+            cw2, ch2 = fp2.courtyard_size
             x2, y2 = (p2[0], p2[1]) if isinstance(p2, (list, tuple)) else p2
 
             dx = abs(x1 - x2)
             dy = abs(y1 - y2)
-            min_dx = (s1[0] + 2*m1 + s2[0] + 2*m2) / 2
-            min_dy = (s1[1] + 2*m1 + s2[1] + 2*m2) / 2
+            min_dx = (cw1 + cw2) / 2
+            min_dy = (ch1 + ch2) / 2
 
             if dx < min_dx and dy < min_dy:
                 prov.overlaps.append((ref1, ref2, dx, min_dx, dy, min_dy))
@@ -520,8 +517,9 @@ def check_overlaps(parts_db, positions, prov: ProvenanceCollector):
 
 
 def check_boundaries(parts_db, positions, prov: ProvenanceCollector):
-    """Check boundary violations and record to provenance."""
+    """Check boundary violations using real courtyard data from resolver."""
     t0 = time.time()
+    resolver = FootprintResolver.get_instance()
     board = parts_db.get('board', {})
     bw, bh = board['width'], board['height']
 
@@ -530,10 +528,8 @@ def check_boundaries(parts_db, positions, prov: ProvenanceCollector):
 
     for ref, pos in positions.items():
         part = parts_db['parts'].get(ref, {})
-        size = part.get('size', (0, 0))
-        margin = 0.5 if max(size) > 3 else 0.25
-        cw = size[0] + 2 * margin
-        ch = size[1] + 2 * margin
+        fp = resolver.resolve(part.get('footprint', 'unknown'))
+        cw, ch = fp.courtyard_size
         x, y = (pos[0], pos[1]) if isinstance(pos, (list, tuple)) else pos
 
         if x - cw/2 < 0 or x + cw/2 > bw or y - ch/2 < 0 or y + ch/2 > bh:
@@ -581,19 +577,21 @@ def main():
     # Run placement
     positions = run_placement(parts_db, prov)
 
-    # Print component table
+    # Print component table (using real footprint data from resolver)
+    resolver = FootprintResolver.get_instance()
     print()
-    print(f"{'Ref':<8} {'Name':<15} {'FP':<12} {'X':>7} {'Y':>7} {'Body':>10} {'Court':>10}")
-    print("-" * 75)
+    print(f"{'Ref':<8} {'Name':<15} {'FP':<12} {'X':>7} {'Y':>7} {'Body':>10} {'Court':>10} {'Pads':>5}")
+    print("-" * 80)
     for ref, pos in sorted(positions.items()):
         part = parts_db['parts'].get(ref, {})
-        size = part.get('size', (0, 0))
-        margin = 0.5 if max(size) > 3 else 0.25
+        fp_def = resolver.resolve(part.get('footprint', 'unknown'))
+        court_w, court_h = fp_def.courtyard_size
         x, y = (pos[0], pos[1]) if isinstance(pos, (list, tuple)) else pos
         print(f"{ref:<8} {part.get('name','?'):<15} {part.get('footprint','?'):<12} "
               f"{x:7.2f} {y:7.2f} "
-              f"{size[0]:.1f}x{size[1]:.1f}{'':>3} "
-              f"{size[0]+2*margin:.1f}x{size[1]+2*margin:.1f}")
+              f"{fp_def.body_width:.1f}x{fp_def.body_height:.1f}{'':>3} "
+              f"{court_w:.1f}x{court_h:.1f}"
+              f"{len(fp_def.pad_positions):>5}")
 
     # Generate KiCad file
     out_dir = os.path.join(OUTPUT_DIR, 'placement_only')
