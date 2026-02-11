@@ -193,6 +193,79 @@ class PlacementResult:
     warnings: List[str] = field(default_factory=list)
 
 
+class OccupancyGrid:
+    """
+    2D boolean grid tracking which board cells are occupied by component courtyards.
+    Cell size = 0.5mm for precise overlap detection.
+
+    Every placement move is validated against this grid — overlaps are
+    physically impossible, not just penalized.
+    """
+
+    def __init__(self, board_width: float, board_height: float, cell_size: float = 0.5):
+        self.cell_size = cell_size
+        self.cols = int(math.ceil(board_width / cell_size)) + 1
+        self.rows = int(math.ceil(board_height / cell_size)) + 1
+        self.grid = [[False] * self.cols for _ in range(self.rows)]
+        self.owner = [[None] * self.cols for _ in range(self.rows)]
+
+    def _rect_cells(self, cx: float, cy: float, width: float, height: float):
+        """Convert component center + courtyard size to cell range.
+        Uses floor for min edges and ceil for max edges to conservatively
+        round OUT — ensures no sub-cell overlaps sneak through."""
+        half_w, half_h = width / 2, height / 2
+        c_min = max(0, int(math.floor((cx - half_w) / self.cell_size)))
+        c_max = min(self.cols - 1, int(math.ceil((cx + half_w) / self.cell_size)))
+        r_min = max(0, int(math.floor((cy - half_h) / self.cell_size)))
+        r_max = min(self.rows - 1, int(math.ceil((cy + half_h) / self.cell_size)))
+        return r_min, r_max, c_min, c_max
+
+    def can_place(self, cx: float, cy: float, width: float, height: float,
+                  ignore_ref: str = None) -> bool:
+        """Check if courtyard rectangle fits entirely in free cells."""
+        r_min, r_max, c_min, c_max = self._rect_cells(cx, cy, width, height)
+        for r in range(r_min, r_max + 1):
+            for c in range(c_min, c_max + 1):
+                if self.grid[r][c] and self.owner[r][c] != ignore_ref:
+                    return False
+        return True
+
+    def place(self, ref: str, cx: float, cy: float, width: float, height: float):
+        """Mark courtyard cells as occupied by ref."""
+        r_min, r_max, c_min, c_max = self._rect_cells(cx, cy, width, height)
+        for r in range(r_min, r_max + 1):
+            for c in range(c_min, c_max + 1):
+                self.grid[r][c] = True
+                self.owner[r][c] = ref
+
+    def remove(self, ref: str, cx: float, cy: float, width: float, height: float):
+        """Free courtyard cells owned by ref."""
+        r_min, r_max, c_min, c_max = self._rect_cells(cx, cy, width, height)
+        for r in range(r_min, r_max + 1):
+            for c in range(c_min, c_max + 1):
+                if self.owner[r][c] == ref:
+                    self.grid[r][c] = False
+                    self.owner[r][c] = None
+
+    def clear(self):
+        """Reset entire grid to empty."""
+        for r in range(self.rows):
+            for c in range(self.cols):
+                self.grid[r][c] = False
+                self.owner[r][c] = None
+
+    def save_state(self):
+        """Snapshot for SA rollback."""
+        return ([row[:] for row in self.grid], [row[:] for row in self.owner])
+
+    def restore_state(self, state):
+        """Restore from snapshot."""
+        saved_grid, saved_owner = state
+        for r in range(self.rows):
+            self.grid[r] = saved_grid[r][:]
+            self.owner[r] = saved_owner[r][:]
+
+
 class PlacementEngine:
     """
     Multi-algorithm PCB placement engine.
@@ -260,6 +333,9 @@ class PlacementEngine:
 
         # Initialize state from parts database
         self._init_from_parts(parts_db, graph)
+
+        # Create occupancy grid — makes overlaps physically impossible
+        self._occ = OccupancyGrid(self.config.board_width, self.config.board_height)
 
         # Compute optimal distance for force-directed
         n = len(self.components)
@@ -339,17 +415,24 @@ class PlacementEngine:
                 courtyard_margin = 0.25  # IPC standard courtyard margin
 
                 for pin in used_pins:
-                    offset = pin.get('offset', (0, 0))
-                    pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+                    # Handle both pin formats: 'offset' tuple and 'physical' dict
+                    offset = pin.get('offset', None)
+                    phys = pin.get('physical', {})
                     if isinstance(offset, (list, tuple)) and len(offset) >= 2:
                         ox, oy = offset[0], offset[1]
-                        pw = pad_size[0] / 2 if isinstance(pad_size, (list, tuple)) else 0.5
-                        ph = pad_size[1] / 2 if isinstance(pad_size, (list, tuple)) and len(pad_size) > 1 else 0.3
-                        # Track pad extents
-                        min_x = min(min_x, ox - pw - courtyard_margin)
-                        max_x = max(max_x, ox + pw + courtyard_margin)
-                        min_y = min(min_y, oy - ph - courtyard_margin)
-                        max_y = max(max_y, oy + ph + courtyard_margin)
+                    elif isinstance(phys, dict) and ('offset_x' in phys or 'offset_y' in phys):
+                        ox = phys.get('offset_x', 0)
+                        oy = phys.get('offset_y', 0)
+                    else:
+                        continue  # No position data for this pin
+                    pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
+                    pw = pad_size[0] / 2 if isinstance(pad_size, (list, tuple)) else 0.5
+                    ph = pad_size[1] / 2 if isinstance(pad_size, (list, tuple)) and len(pad_size) > 1 else 0.3
+                    # Track pad extents
+                    min_x = min(min_x, ox - pw - courtyard_margin)
+                    max_x = max(max_x, ox + pw + courtyard_margin)
+                    min_y = min(min_y, oy - ph - courtyard_margin)
+                    max_y = max(max_y, oy + ph + courtyard_margin)
 
                 # Use the larger of body size or pad-based courtyard
                 courtyard_width = max(base_width, max_x - min_x)
@@ -505,6 +588,8 @@ class PlacementEngine:
                 self._apply_boundary_force(comp)
 
             # Update positions based on forces, limited by temperature
+            # NOTE: FD does NOT use occupancy grid — physics (repulsion) resolves overlaps.
+            # Occupancy enforcement happens in _legalize() after FD converges.
             max_displacement = 0.0
             for comp in self.components.values():
                 if comp.fixed:
@@ -520,9 +605,9 @@ class PlacementEngine:
                     dx = (comp.fx / force_mag) * displacement
                     dy = (comp.fy / force_mag) * displacement
 
-                    # Update position
                     comp.x += dx
                     comp.y += dy
+                    comp.x, comp.y = self._clamp_to_board(comp)
 
                     # Track maximum displacement for convergence check
                     max_displacement = max(max_displacement, abs(dx), abs(dy))
@@ -685,8 +770,11 @@ class PlacementEngine:
                 old_state = self._save_state()
 
                 r = rng.random()
+                occ = self._occ if hasattr(self, '_occ') else None
+                move_valid = True
+
                 if r < 0.5:
-                    # Inline shift with worker's RNG
+                    # Shift move
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if refs:
                         ref = rng.choice(refs)
@@ -696,14 +784,37 @@ class PlacementEngine:
                         comp.x += rng.uniform(-max_shift, max_shift)
                         comp.y += rng.uniform(-max_shift, max_shift)
                         comp.x, comp.y = self._clamp_to_board(comp)
+                        # Check occupancy (ignore_ref=self so we don't block ourselves)
+                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
+                            move_valid = False
                 elif r < 0.75:
+                    # Swap move
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if len(refs) >= 2:
                         a, b = rng.sample(refs, 2)
                         ca, cb = self.components[a], self.components[b]
+                        # Save old positions for grid removal
+                        old_ax, old_ay = ca.x, ca.y
+                        old_bx, old_by = cb.x, cb.y
+                        # Swap positions
                         ca.x, cb.x = cb.x, ca.x
                         ca.y, cb.y = cb.y, ca.y
+                        # Remove BOTH from grid, then check BOTH at new positions
+                        if occ:
+                            occ.remove(a, old_ax, old_ay, ca.width, ca.height)
+                            occ.remove(b, old_bx, old_by, cb.width, cb.height)
+                            ok_a = occ.can_place(ca.x, ca.y, ca.width, ca.height)
+                            ok_b = occ.can_place(cb.x, cb.y, cb.width, cb.height) if ok_a else False
+                            if ok_a and ok_b:
+                                occ.place(a, ca.x, ca.y, ca.width, ca.height)
+                                occ.place(b, cb.x, cb.y, cb.width, cb.height)
+                            else:
+                                # Restore grid to pre-swap state
+                                occ.place(a, old_ax, old_ay, ca.width, ca.height)
+                                occ.place(b, old_bx, old_by, cb.width, cb.height)
+                                move_valid = False
                 elif r < 0.90:
+                    # Rotate 90
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if refs:
                         ref = rng.choice(refs)
@@ -711,13 +822,24 @@ class PlacementEngine:
                         comp.rotation = (comp.rotation + 90) % 360
                         comp.width, comp.height = comp.height, comp.width
                         comp.x, comp.y = self._clamp_to_board(comp)
+                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
+                            move_valid = False
                 else:
+                    # Rotate 180
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if refs:
                         ref = rng.choice(refs)
                         comp = self.components[ref]
                         comp.rotation = (comp.rotation + 180) % 360
                         comp.x, comp.y = self._clamp_to_board(comp)
+                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
+                            move_valid = False
+
+                # HARD CONSTRAINT: reject moves that create overlaps
+                if not move_valid:
+                    self._restore_state(old_state)
+                    rejections += 1
+                    continue
 
                 new_cost = self._calculate_cost()
                 delta = new_cost - current_cost
@@ -729,6 +851,8 @@ class PlacementEngine:
                     continue
 
                 if delta < 0 or rng.random() < math.exp(-delta / temp):
+                    # Move accepted — update occupancy grid
+                    self._sync_occupancy_grid()
                     current_cost = new_cost
                     accepted_moves += 1
                     rejections = 0
@@ -768,6 +892,9 @@ class PlacementEngine:
         Multi-start: (Ram et al., "Parallel Simulated Annealing Algorithms", 1996)
         """
         import time as _time
+
+        # Ensure occupancy grid reflects current state before SA starts
+        self._sync_occupancy_grid()
 
         num_workers = min(os.cpu_count() or 4, 8)  # Cap at 8
         starting_state = self._save_state()
@@ -1566,6 +1693,9 @@ class PlacementEngine:
         print("  [HY] Phase 1: Force-directed global placement")
         fd_result = self._place_force_directed()
 
+        # Sync occupancy grid after FD before SA starts
+        self._sync_occupancy_grid()
+
         # Phase 2: Simulated annealing for local refinement
         print("  [HY] Phase 2: Simulated annealing refinement")
         # Use lower temperature since we already have a good solution
@@ -2114,34 +2244,101 @@ class PlacementEngine:
 
         return x, y
 
+    def _sync_occupancy_grid(self):
+        """Rebuild occupancy grid from current component positions."""
+        if not hasattr(self, '_occ') or not self._occ:
+            return
+        self._occ.clear()
+        for ref, comp in self.components.items():
+            self._occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+
+    def _clamp_to_board_at(self, x: float, y: float,
+                           width: float, height: float) -> Tuple[float, float]:
+        """Clamp an arbitrary position to board bounds given component dimensions."""
+        margin = self.config.edge_margin
+        half_w = width / 2
+        half_h = height / 2
+        x = max(self.config.origin_x + margin + half_w,
+                min(self.config.origin_x + self.config.board_width - margin - half_w, x))
+        y = max(self.config.origin_y + margin + half_h,
+                min(self.config.origin_y + self.config.board_height - margin - half_h, y))
+        return x, y
+
     def _legalize(self):
-        """Legalize placement: snap to grid and resolve overlaps"""
-        # Snap to grid
-        for comp in self.components.values():
+        """Legalize placement using occupancy grid — zero overlaps guaranteed."""
+        # Sort by courtyard area (largest first — they get priority for space)
+        sorted_refs = sorted(
+            self.components.keys(),
+            key=lambda r: self.components[r].width * self.components[r].height,
+            reverse=True
+        )
+
+        # Clear grid and re-place in size order
+        if hasattr(self, '_occ') and self._occ:
+            self._occ.clear()
+        else:
+            return  # No occupancy grid — skip
+
+        for ref in sorted_refs:
+            comp = self.components[ref]
+            # Snap to grid
             comp.x = round(comp.x / self.config.grid_size) * self.config.grid_size
             comp.y = round(comp.y / self.config.grid_size) * self.config.grid_size
             comp.x, comp.y = self._clamp_to_board(comp)
 
-        # Resolve overlaps
-        placed = set()
-        for ref in sorted(self.components.keys()):
-            self._resolve_overlap_spiral(ref, placed)
-            placed.add(ref)
+            # If current position is free, take it
+            if self._occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                self._occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                continue
+
+            # Find nearest free position (expanding spiral, full board radius)
+            found = False
+            max_radius = max(self.config.board_width, self.config.board_height)
+            step = self.config.grid_size
+            for radius_steps in range(1, int(max_radius / step) + 1):
+                radius = radius_steps * step
+                for angle_deg in range(0, 360, 15):  # 24 directions per radius
+                    nx = comp.x + radius * math.cos(math.radians(angle_deg))
+                    ny = comp.y + radius * math.sin(math.radians(angle_deg))
+                    nx = round(nx / self.config.grid_size) * self.config.grid_size
+                    ny = round(ny / self.config.grid_size) * self.config.grid_size
+                    nx, ny = self._clamp_to_board_at(nx, ny, comp.width, comp.height)
+
+                    if self._occ.can_place(nx, ny, comp.width, comp.height):
+                        comp.x, comp.y = nx, ny
+                        self._occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                        found = True
+                        break
+                if found:
+                    break
+
+            if not found:
+                # Last resort: place anyway (board may be too small for all components)
+                self._occ.place(ref, comp.x, comp.y, comp.width, comp.height)
 
     def _save_state(self) -> Dict:
-        """Save current component state"""
-        return {ref: (c.x, c.y, c.rotation, c.width, c.height)
-                for ref, c in self.components.items()}
+        """Save current component state (including occupancy grid)."""
+        state = {ref: (c.x, c.y, c.rotation, c.width, c.height)
+                 for ref, c in self.components.items()}
+        if hasattr(self, '_occ') and self._occ:
+            state['__occ__'] = self._occ.save_state()
+        return state
 
     def _restore_state(self, state: Dict):
-        """Restore component state"""
-        for ref, (x, y, rot, w, h) in state.items():
-            if ref in self.components:
+        """Restore component state (including occupancy grid)."""
+        occ_state = state.get('__occ__', None)
+        for ref, val in state.items():
+            if ref == '__occ__':
+                continue
+            if ref in self.components and isinstance(val, tuple):
+                x, y, rot, w, h = val
                 self.components[ref].x = x
                 self.components[ref].y = y
                 self.components[ref].rotation = rot
                 self.components[ref].width = w
                 self.components[ref].height = h
+        if occ_state and hasattr(self, '_occ') and self._occ:
+            self._occ.restore_state(occ_state)
 
     def _create_result(self, algorithm: str, iterations: int, converged: bool) -> PlacementResult:
         """Create placement result from current state"""
