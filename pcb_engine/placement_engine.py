@@ -81,6 +81,7 @@ class PlacementConfig:
     # Board parameters
     board_width: float = 50.0
     board_height: float = 40.0
+    auto_board_size: bool = False  # Auto-calculate from component area
     origin_x: float = 0.0  # Board starts at origin (was 100.0 which caused out-of-bounds)
     origin_y: float = 0.0
     grid_size: float = 0.5
@@ -191,6 +192,8 @@ class PlacementResult:
     success: bool = True  # For compatibility with engine
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+    board_width: float = 0.0   # Final board width (after auto-sizing/shrink)
+    board_height: float = 0.0  # Final board height (after auto-sizing/shrink)
 
 
 class OccupancyGrid:
@@ -331,6 +334,17 @@ class PlacementEngine:
         # Store placement hints for use by cost function
         self._placement_hints = placement_hints or {}
 
+        # Auto-calculate board size when flagged and no explicit dims
+        if self.config.auto_board_size:
+            try:
+                from .common_types import calculate_board_size
+            except ImportError:
+                from common_types import calculate_board_size
+            auto_w, auto_h = calculate_board_size(parts_db)
+            self.config.board_width = auto_w
+            self.config.board_height = auto_h
+            print(f"  [PLACEMENT] Board AUTO-SIZED: {auto_w}x{auto_h}mm")
+
         # Auto-detect proximity groups from net connections (before placement)
         self._build_proximity_from_nets(parts_db)
 
@@ -350,23 +364,31 @@ class PlacementEngine:
         algo = PlacementAlgorithm(self.config.algorithm)
 
         if algo == PlacementAlgorithm.FORCE_DIRECTED:
-            return self._place_force_directed()
+            result = self._place_force_directed()
         elif algo == PlacementAlgorithm.SIMULATED_ANNEALING:
-            return self._place_simulated_annealing()
+            result = self._place_simulated_annealing()
         elif algo == PlacementAlgorithm.GENETIC:
-            return self._place_genetic()
+            result = self._place_genetic()
         elif algo == PlacementAlgorithm.ANALYTICAL:
-            return self._place_analytical()
+            result = self._place_analytical()
         elif algo == PlacementAlgorithm.HUMAN:
-            return self._place_human_like()
+            result = self._place_human_like()
         elif algo == PlacementAlgorithm.HYBRID:
-            return self._place_hybrid()
+            result = self._place_hybrid()
         elif algo == PlacementAlgorithm.AUTO:
-            return self._place_auto()
+            result = self._place_auto()
         elif algo == PlacementAlgorithm.PARALLEL:
-            return self._place_parallel()
+            result = self._place_parallel()
         else:
             raise ValueError(f"Unknown algorithm: {self.config.algorithm}")
+
+        # Post-placement: shrink board to fit when auto-sizing
+        if self.config.auto_board_size and self.components:
+            self._shrink_board_to_fit()
+            # Rebuild result with updated positions and board dims
+            result = self._create_result(result.algorithm_used, result.iterations, result.converged)
+
+        return result
 
     def _build_proximity_from_nets(self, parts_db: Dict):
         """Auto-detect proximity groups from net connections (pre-placement).
@@ -1816,15 +1838,10 @@ class PlacementEngine:
         self.config.sa_initial_temp = original_temp
         self.config.sa_final_temp = original_final
 
-        return PlacementResult(
-            positions={ref: (c.x, c.y) for ref, c in self.components.items()},
-            rotations={ref: c.rotation for ref, c in self.components.items()},
-            cost=sa_result.cost,
-            algorithm_used='hybrid (fd+sa)',
-            iterations=fd_result.iterations + sa_result.iterations,
-            converged=True,
-            wirelength=self._calculate_wirelength(),
-            overlap_area=self._calculate_overlap_area()
+        return self._create_result(
+            'hybrid (fd+sa)',
+            fd_result.iterations + sa_result.iterations,
+            True,
         )
 
     # =========================================================================
@@ -1922,13 +1939,10 @@ class PlacementEngine:
             self._restore_state(best_positions)
             print(f"\n  [AUTO] Selected: {best_result.algorithm_used} (cost={best_result.cost:.2f})")
 
-            return PlacementResult(
-                positions={ref: (c.x, c.y) for ref, c in self.components.items()},
-                rotations={ref: c.rotation for ref, c in self.components.items()},
-                cost=best_result.cost,
-                algorithm_used=f"auto ({best_result.algorithm_used})",
-                iterations=sum(r.iterations for _, r, _ in results),
-                converged=True
+            return self._create_result(
+                f"auto ({best_result.algorithm_used})",
+                sum(r.iterations for _, r, _ in results),
+                True,
             )
         else:
             print("  [AUTO] WARNING: All algorithms failed")
@@ -2042,13 +2056,10 @@ class PlacementEngine:
                 if ref in self.components:
                     self.components[ref].rotation = rot
 
-            return PlacementResult(
-                positions=best_data['positions'],
-                rotations=best_data['rotations'],
-                cost=best_data['result'].cost,
-                algorithm_used=f"parallel ({best_algo})",
-                iterations=sum(d['result'].iterations for d in results.values()),
-                converged=True
+            return self._create_result(
+                f"parallel ({best_algo})",
+                sum(d['result'].iterations for d in results.values()),
+                True,
             )
         else:
             print("  [PARALLEL] WARNING: All algorithms failed!")
@@ -2502,8 +2513,54 @@ class PlacementEngine:
             iterations=iterations,
             converged=converged,
             wirelength=self._calculate_wirelength(),
-            overlap_area=self._calculate_overlap_area()
+            overlap_area=self._calculate_overlap_area(),
+            board_width=self.config.board_width,
+            board_height=self.config.board_height,
         )
+
+    def _shrink_board_to_fit(self):
+        """Shrink board to tightly fit placed components + routing margin.
+
+        Called after placement when auto_board_size is True. Finds the actual
+        bounding box of all components (including courtyards) and sets the
+        board size to that + edge margin, rounded to 0.5mm.
+        """
+        margin = max(self.config.edge_margin, 1.0)
+        min_x = float('inf')
+        max_x = float('-inf')
+        min_y = float('inf')
+        max_y = float('-inf')
+
+        for comp in self.components.values():
+            half_w = comp.width / 2
+            half_h = comp.height / 2
+            min_x = min(min_x, comp.x - half_w)
+            max_x = max(max_x, comp.x + half_w)
+            min_y = min(min_y, comp.y - half_h)
+            max_y = max(max_y, comp.y + half_h)
+
+        if min_x == float('inf'):
+            return  # No components
+
+        # Board size = bounding box + margin on each side, rounded up to 0.5mm
+        raw_w = (max_x - min_x) + 2 * margin
+        raw_h = (max_y - min_y) + 2 * margin
+        increment = 0.5
+        new_w = math.ceil(raw_w / increment) * increment
+        new_h = math.ceil(raw_h / increment) * increment
+
+        # Shift all components so the board starts at origin
+        shift_x = margin - min_x
+        shift_y = margin - min_y
+        for comp in self.components.values():
+            comp.x += shift_x
+            comp.y += shift_y
+
+        self.config.board_width = new_w
+        self.config.board_height = new_h
+        self.config.origin_x = 0.0
+        self.config.origin_y = 0.0
+        print(f"  [PLACEMENT] Board SHRUNK to fit: {new_w}x{new_h}mm")
 
 
 # =============================================================================

@@ -6,6 +6,7 @@ Shared type definitions used across the PCB engine.
 This module provides canonical types to prevent mismatches between pistons.
 """
 
+import math
 from dataclasses import dataclass
 from typing import Tuple, Dict, List, Any, Union, Iterator
 
@@ -823,3 +824,83 @@ def get_component_courtyard(
     part = parts.get(ref, {})
     footprint = part.get('footprint', '')
     return calculate_courtyard(part, margin, footprint)
+
+
+def calculate_board_size(
+    parts_db: Dict,
+    utilization_target: float = 0.40,
+    edge_clearance: float = 1.0,
+    round_increment: float = 0.5,
+    min_size: float = 10.0,
+) -> Tuple[float, float]:
+    """Auto-calculate board dimensions from total component courtyard area.
+
+    Uses calculate_courtyard() as the single source of truth for component
+    dimensions. Produces a rectangular board with golden-ratio aspect and
+    sufficient routing space.
+
+    Args:
+        parts_db: Parts database with 'parts' dict
+        utilization_target: Component fill ratio (0.40 = 40% fill, 60% routing)
+        edge_clearance: Board edge clearance in mm (added to each side)
+        round_increment: Round dimensions up to this increment (mm)
+        min_size: Minimum board dimension in mm
+
+    Returns:
+        (board_width, board_height) in mm
+    """
+    parts = parts_db.get('parts', {})
+    if not parts:
+        return (min_size, min_size)
+
+    # Step 1: Sum courtyard areas + inter-component spacing
+    total_area = 0.0
+    max_single_w = 0.0
+    max_single_h = 0.0
+    spacing = 0.5  # mm between components
+
+    for ref, part in parts.items():
+        footprint = part.get('footprint', '')
+        courtyard = calculate_courtyard(part, margin=COURTYARD_MARGIN_NOMINAL,
+                                        footprint_name=footprint)
+        eff_w = courtyard.width + spacing
+        eff_h = courtyard.height + spacing
+        total_area += eff_w * eff_h
+        max_single_w = max(max_single_w, courtyard.width)
+        max_single_h = max(max_single_h, courtyard.height)
+
+    # Step 2: Required area from utilization target
+    utilization_target = max(0.15, min(utilization_target, 0.80))
+    required_area = total_area / utilization_target
+
+    # Step 3: Golden ratio dimensions (1.618:1)
+    golden = 1.618
+    raw_h = math.sqrt(required_area / golden)
+    raw_w = raw_h * golden
+
+    # Step 4: Add edge clearance (both sides)
+    raw_w += 2 * edge_clearance
+    raw_h += 2 * edge_clearance
+
+    # Step 5: Must fit largest single component
+    min_w = max_single_w + 2 * edge_clearance + 2 * spacing
+    min_h = max_single_h + 2 * edge_clearance + 2 * spacing
+    raw_w = max(raw_w, min_w)
+    raw_h = max(raw_h, min_h)
+
+    # Step 6: Clamp aspect ratio (0.6 – 1.67)
+    ar = raw_w / raw_h if raw_h > 0 else 1.0
+    if ar < 0.6:
+        raw_w = raw_h * 0.6
+    elif ar > 1.67:
+        raw_h = raw_w / 1.67
+
+    # Step 7: Round up
+    width = math.ceil(raw_w / round_increment) * round_increment
+    height = math.ceil(raw_h / round_increment) * round_increment
+
+    # Step 8: Enforce minimum
+    width = max(width, min_size)
+    height = max(height, min_size)
+
+    return (width, height)

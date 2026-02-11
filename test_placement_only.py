@@ -16,12 +16,14 @@ OUTPUT_NAME = 'placement_only'
 def run_placement(parts_db):
     """Run just the placement engine and return positions."""
     board = parts_db.get('board', {})
-    bw = board.get('width', 50)
-    bh = board.get('height', 40)
+    bw = board.get('width', 0)
+    bh = board.get('height', 0)
+    auto = (bw == 0 or bh == 0)
 
     config = PlacementConfig(
-        board_width=float(bw),
-        board_height=float(bh),
+        board_width=float(bw) if not auto else 80.0,  # generous initial for FD
+        board_height=float(bh) if not auto else 60.0,
+        auto_board_size=auto,
         origin_x=0.0,
         origin_y=0.0,
         algorithm='hybrid',
@@ -56,9 +58,16 @@ def run_placement(parts_db):
 
     print(f"Placement: {len(result.positions)} components in {elapsed:.1f}s")
     print(f"  Algorithm: {result.algorithm_used}")
+    print(f"  Board: {result.board_width}x{result.board_height}mm" +
+          (" (auto-sized)" if auto else ""))
     print(f"  Cost: {result.cost:.1f}")
     print(f"  Wirelength: {result.wirelength:.1f}mm")
     print(f"  Overlaps: {result.overlap_area:.2f}")
+
+    # Update parts_db board size for downstream (KiCad output)
+    if result.board_width > 0 and result.board_height > 0:
+        parts_db.setdefault('board', {})['width'] = result.board_width
+        parts_db.setdefault('board', {})['height'] = result.board_height
 
     return result.positions
 
@@ -203,9 +212,16 @@ def generate_bare_kicad(parts_db, positions, output_path):
 def main():
     parts_db = TestBoards.medium_20_parts()
     board = parts_db.get('board', {})
+    bw_initial = board.get('width', 0)
+    bh_initial = board.get('height', 0)
+
+    if bw_initial and bh_initial:
+        board_str = f"{bw_initial}x{bh_initial}mm"
+    else:
+        board_str = "AUTO (will be calculated from components)"
 
     print("=" * 70)
-    print(f"PLACEMENT-ONLY — {len(parts_db['parts'])} components, {board['width']}x{board['height']}mm")
+    print(f"PLACEMENT-ONLY — {len(parts_db['parts'])} components, {board_str}")
     print("  Board outline + component courtyards + pads ONLY")
     print("  No traces, no pours, no silkscreen")
     print("=" * 70)

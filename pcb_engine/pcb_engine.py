@@ -698,6 +698,7 @@ class EngineConfig:
     board_name: str = 'pcb'
     board_width: float = 100.0
     board_height: float = 100.0
+    auto_board_size: bool = False  # Auto-calculate board size from component area
     board_origin_x: float = 0.0
     board_origin_y: float = 0.0
     layer_count: int = 2
@@ -1314,7 +1315,21 @@ class PCBEngine:
         # Reset per-run flags (smart routing runs once per engine run)
         self._smart_routing_attempted = False
 
-        # Update design profile for cascade optimization
+        # === AUTO BOARD SIZE ===
+        board_info = parts_db.get('board', {})
+        if board_info.get('width') and board_info.get('height'):
+            self.config.board_width = float(board_info['width'])
+            self.config.board_height = float(board_info['height'])
+        elif self.config.auto_board_size:
+            from .common_types import calculate_board_size
+            auto_w, auto_h = calculate_board_size(parts_db)
+            self.config.board_width = auto_w
+            self.config.board_height = auto_h
+            self._log(f"  Board AUTO-SIZED: {auto_w}x{auto_h}mm")
+        if board_info.get('layers'):
+            self.config.layer_count = int(board_info['layers'])
+
+        # Update design profile AFTER board size is known
         self._update_design_profile(parts_db)
 
         # Initialize workflow reporter for comprehensive logging
@@ -3281,6 +3296,13 @@ class PCBEngine:
         # BUG-07 FIX: Validate result before assignment
         if result and hasattr(result, 'positions') and result.positions:
             self.state.placement = result.positions
+            # Update engine board size if placement auto-sized it
+            if result.board_width > 0 and result.board_height > 0:
+                if self.config.auto_board_size:
+                    self.config.board_width = result.board_width
+                    self.config.board_height = result.board_height
+                    self._log(f"  [ENGINE] Board size updated from placement: "
+                              f"{result.board_width}x{result.board_height}mm")
         else:
             self._log("WARNING: Placement piston returned no positions")
             # Keep existing placement (empty dict from initialization)
@@ -4840,6 +4862,9 @@ class PCBEngine:
         if board.get('width') and board.get('height'):
             self.config.board_width = board['width']
             self.config.board_height = board['height']
+            self.config.auto_board_size = False
+        else:
+            self.config.auto_board_size = True
         if board.get('layers'):
             self.config.layer_count = board['layers']
 
