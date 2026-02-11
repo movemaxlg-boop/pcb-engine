@@ -249,6 +249,36 @@ class QuadTree:
 
 
 # =============================================================================
+# GLOBAL SPATIAL INDEX CACHE - Shared across all RoutingPiston instances
+# =============================================================================
+# When the cascade creates multiple RoutingPiston instances (one per algorithm),
+# they all share the same placement/parts_db, so the spatial index is identical.
+# This module-level cache avoids rebuilding the ~100ms bitmap on every attempt.
+#
+# Key: placement_hash (MD5 of component positions + parts_db pads)
+# Value: dict with spatial_index, courtyard_tree, fcu_grid, bcu_grid
+_GLOBAL_INDEX_CACHE: Dict[str, Dict] = {}
+
+
+def _global_cache_get(placement_hash: str):
+    """Get cached index data from global cache. Returns None if miss."""
+    return _GLOBAL_INDEX_CACHE.get(placement_hash)
+
+
+def _global_cache_set(placement_hash: str, spatial_index, courtyard_tree,
+                      fcu_grid: List, bcu_grid: List):
+    """Save index data to global cache (replaces any existing entry)."""
+    # Keep only 1 entry to avoid unbounded memory growth
+    _GLOBAL_INDEX_CACHE.clear()
+    _GLOBAL_INDEX_CACHE[placement_hash] = {
+        'spatial_index': spatial_index,
+        'courtyard_tree': courtyard_tree,
+        'fcu_grid': [row[:] for row in fcu_grid],  # Deep copy
+        'bcu_grid': [row[:] for row in bcu_grid],
+    }
+
+
+# =============================================================================
 # SPATIAL INDEX - O(1) OBSTACLE LOOKUPS (Grid-based)
 # =============================================================================
 # Concept borrowed from database query indexing: pre-compute everything once,
@@ -788,31 +818,54 @@ class RoutingPiston:
         """
         Try to use cached index if placement hasn't changed.
         Returns True if cache hit (index restored), False if cache miss.
+
+        Checks TWO caches:
+        1. Instance cache (self._cached_*) — same piston, fastest
+        2. Global module cache (_GLOBAL_INDEX_CACHE) — shared across piston instances
         """
         current_hash = self._compute_placement_hash(placement, parts_db)
 
+        # Check 1: Instance cache (same piston reused)
         if (self._cached_placement_hash == current_hash and
             self._cached_spatial_index is not None):
-            # CACHE HIT - restore from cache
             self.spatial_index = self._cached_spatial_index
             self.courtyard_tree = self._cached_courtyard_tree
-            # Deep copy grids (routing modifies them)
             self.fcu_grid = [row[:] for row in self._cached_fcu_grid]
             self.bcu_grid = [row[:] for row in self._cached_bcu_grid]
-            print("    [INDEX] Cache HIT - reusing cached index (0ms)")
+            print("    [INDEX] Cache HIT (instance) - reusing cached index (0ms)")
+            return True
+
+        # Check 2: Global cache (different piston instance, same placement)
+        global_cached = _global_cache_get(current_hash)
+        if global_cached is not None:
+            self.spatial_index = global_cached['spatial_index']
+            self.courtyard_tree = global_cached['courtyard_tree']
+            self.fcu_grid = [row[:] for row in global_cached['fcu_grid']]
+            self.bcu_grid = [row[:] for row in global_cached['bcu_grid']]
+            # Also populate instance cache for next time
+            self._cached_placement_hash = current_hash
+            self._cached_spatial_index = self.spatial_index
+            self._cached_courtyard_tree = self.courtyard_tree
+            self._cached_fcu_grid = [row[:] for row in self.fcu_grid]
+            self._cached_bcu_grid = [row[:] for row in self.bcu_grid]
+            print("    [INDEX] Cache HIT (global) - reusing cached index (0ms)")
             return True
 
         # CACHE MISS - need to rebuild
         return False
 
     def _cache_index(self, placement: Dict, parts_db: Dict):
-        """Save current index to cache for future reuse."""
-        self._cached_placement_hash = self._compute_placement_hash(placement, parts_db)
+        """Save current index to both instance cache and global cache."""
+        current_hash = self._compute_placement_hash(placement, parts_db)
+        # Instance cache
+        self._cached_placement_hash = current_hash
         self._cached_spatial_index = self.spatial_index
         self._cached_courtyard_tree = self.courtyard_tree
-        # Deep copy grids (so cached version isn't modified by routing)
         self._cached_fcu_grid = [row[:] for row in self.fcu_grid]
         self._cached_bcu_grid = [row[:] for row in self.bcu_grid]
+        # Global cache (shared across all RoutingPiston instances)
+        _global_cache_set(current_hash, self.spatial_index, self.courtyard_tree,
+                          self.fcu_grid, self.bcu_grid)
 
     # =========================================================================
     # VIA DEDUPLICATION AND SPACING HELPER
@@ -4013,6 +4066,9 @@ class RoutingPiston:
 
         best_result = None
         penalty_factor = 1.0
+        prev_overlaps = -1
+        stall_count = 0
+        max_stall = 5  # Exit if overlaps unchanged for 5 consecutive iterations
 
         for iteration in range(self.config.pathfinder_max_iterations):
             # Clear present congestion for this iteration
@@ -4060,7 +4116,6 @@ class RoutingPiston:
 
             if overlaps == 0:
                 print(f"    [PATHFINDER] Converged in {iteration + 1} iterations!")
-                # Update best_result with final converged state (0 overlaps)
                 best_result = RoutingResult(
                     routes=dict(all_routes),
                     success=routed == len(net_order),
@@ -4072,6 +4127,17 @@ class RoutingPiston:
                 )
                 return best_result
 
+            # Stall detection: if overlaps haven't changed, count it
+            if overlaps == prev_overlaps:
+                stall_count += 1
+            else:
+                stall_count = 0
+            prev_overlaps = overlaps
+
+            if stall_count >= max_stall:
+                print(f"    [PATHFINDER] Stall detected: {overlaps} overlaps unchanged for {max_stall} iterations, stopping early")
+                break
+
             # Update history costs for contested cells
             self._update_pathfinder_history(fcu_present, fcu_history)
             self._update_pathfinder_history(bcu_present, bcu_history)
@@ -4081,7 +4147,8 @@ class RoutingPiston:
 
             print(f"    [PATHFINDER] Iteration {iteration + 1}: {overlaps} overlaps, penalty={penalty_factor:.2f}")
 
-        print(f"    [PATHFINDER] Max iterations reached")
+        if stall_count < max_stall:
+            print(f"    [PATHFINDER] Max iterations reached")
         return best_result or RoutingResult(
             routes=self.routes,
             success=False,
@@ -5735,7 +5802,7 @@ class RoutingPiston:
 
         # Convert grid cell position to global routing region
         region_size = gr.get('region_size_mm', 5.0)
-        grid_size = self.grid_size  # mm per grid cell
+        grid_size = self.config.grid_size  # mm per grid cell
         pos_x = col * grid_size
         pos_y = row * grid_size
         region_col = int(pos_x / region_size)
@@ -7070,7 +7137,9 @@ def create_routing_piston(board_width: float, board_height: float,
 
 def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
                        net_order: List[str], board_width: float, board_height: float,
-                       config: RoutingConfig = None) -> 'RoutingResult':
+                       config: RoutingConfig = None,
+                       layer_directions: Dict = None, net_specs: Dict = None,
+                       global_routing: Dict = None) -> 'RoutingResult':
     """
     ENGINE COMMAND: Try multiple routing algorithms until one succeeds.
 
@@ -7089,6 +7158,9 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
         board_width: Board width in mm
         board_height: Board height in mm
         config: Optional base config to modify
+        layer_directions: CPU Lab layer direction assignments (e.g. {'F.Cu': 'horizontal'})
+        net_specs: CPU Lab per-net routing specs (trace width, clearance, etc.)
+        global_routing: CPU Lab global routing region hints
 
     Returns:
         Best RoutingResult achieved
@@ -7148,7 +7220,10 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
         # Reuse same piston - just change algorithm
         # .route() will get a cache HIT on the spatial index
         piston.config.algorithm = algo
-        result = piston.route(parts_db, escapes, placement, net_order)
+        result = piston.route(parts_db, escapes, placement, net_order,
+                              layer_directions=layer_directions,
+                              net_specs=net_specs,
+                              global_routing=global_routing)
 
         algo_time = time_module.time() - algo_start
         print(f"    [CASCADE] {algo}: {result.routed_count}/{result.total_count} nets routed ({algo_time:.1f}s)")
@@ -7188,7 +7263,10 @@ def route_with_cascade(parts_db: Dict, escapes: Dict, placement: Dict,
     piston.config.clearance = piston.config.clearance * 0.8  # Reduce clearance 20%
     piston.config.via_cost = piston.config.via_cost * 0.5    # Make vias cheaper
 
-    result = piston.route(parts_db, escapes, placement, net_order)
+    result = piston.route(parts_db, escapes, placement, net_order,
+                          layer_directions=layer_directions,
+                          net_specs=net_specs,
+                          global_routing=global_routing)
 
     if result.routed_count > best_routed:
         best_result = result

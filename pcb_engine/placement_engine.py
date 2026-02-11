@@ -50,6 +50,7 @@ Usage:
 import math
 import random
 import copy
+import os
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Any
 from enum import Enum
@@ -660,95 +661,134 @@ class PlacementEngine:
     # SIMULATED ANNEALING PLACEMENT
     # =========================================================================
 
-    def _place_simulated_annealing(self) -> PlacementResult:
-        """
-        Simulated annealing placement with adaptive cooling.
+    def _run_sa_single(self, seed: int, initial_temp: float, moves_per_temp: int,
+                       starting_state: Dict) -> Tuple[float, Dict, int, int]:
+        """Run a single SA pass with given seed and params. Returns (cost, state, iters, accepted)."""
+        rng = random.Random(seed)
+        self._restore_state(starting_state)
 
-        This metaheuristic algorithm:
-        - Starts with high temperature allowing exploration
-        - Makes random moves (shift, swap, rotate, flip)
-        - Accepts worse solutions with probability e^(-delta/T)
-        - Gradually cools to converge to local optimum
-        - Reheats when stuck to escape local minima
-        """
-        print("  [SA] Running simulated annealing placement...")
-
-        # Calculate initial cost
         current_cost = self._calculate_cost()
         best_cost = current_cost
         best_state = self._save_state()
 
-        # Temperature schedule
-        temp = self.config.sa_initial_temp
+        temp = initial_temp
         rejections = 0
         total_iterations = 0
         accepted_moves = 0
 
         while temp > self.config.sa_final_temp:
-            for _ in range(self.config.sa_moves_per_temp):
+            for _ in range(moves_per_temp):
                 total_iterations += 1
-
-                # Save current state
                 old_state = self._save_state()
 
-                # Select and apply random move operator
-                r = random.random()
+                r = rng.random()
                 if r < 0.5:
-                    self._move_shift(temp)       # 50% shift moves
+                    # Inline shift with worker's RNG
+                    refs = [ref for ref, c in self.components.items() if not c.fixed]
+                    if refs:
+                        ref = rng.choice(refs)
+                        comp = self.components[ref]
+                        max_shift = (temp / initial_temp) * self.config.board_width * 0.3
+                        max_shift = max(max_shift, self.config.grid_size)
+                        comp.x += rng.uniform(-max_shift, max_shift)
+                        comp.y += rng.uniform(-max_shift, max_shift)
+                        comp.x, comp.y = self._clamp_to_board(comp)
                 elif r < 0.75:
-                    self._move_swap()            # 25% swap moves
+                    refs = [ref for ref, c in self.components.items() if not c.fixed]
+                    if len(refs) >= 2:
+                        a, b = rng.sample(refs, 2)
+                        ca, cb = self.components[a], self.components[b]
+                        ca.x, cb.x = cb.x, ca.x
+                        ca.y, cb.y = cb.y, ca.y
                 elif r < 0.90:
-                    self._move_rotate()          # 15% rotate moves
+                    refs = [ref for ref, c in self.components.items() if not c.fixed]
+                    if refs:
+                        ref = rng.choice(refs)
+                        comp = self.components[ref]
+                        comp.rotation = (comp.rotation + 90) % 360
+                        comp.width, comp.height = comp.height, comp.width
+                        comp.x, comp.y = self._clamp_to_board(comp)
                 else:
-                    self._move_flip()            # 10% flip moves
+                    refs = [ref for ref, c in self.components.items() if not c.fixed]
+                    if refs:
+                        ref = rng.choice(refs)
+                        comp = self.components[ref]
+                        comp.rotation = (comp.rotation + 180) % 360
+                        comp.x, comp.y = self._clamp_to_board(comp)
 
-                # Calculate new cost
                 new_cost = self._calculate_cost()
                 delta = new_cost - current_cost
 
-                # HARD CONSTRAINT: Never accept positions with pad conflicts
-                # Pad conflicts = guaranteed DRC failure, no trade-off allowed
                 pad_conflict = self._calculate_pad_conflict_penalty()
-                if pad_conflict > 0.01:  # Any significant pad conflict
-                    # Reject: restore old state
+                if pad_conflict > 0.01:
                     self._restore_state(old_state)
                     rejections += 1
                     continue
 
-                # Metropolis criterion: accept if better or with probability
-                if delta < 0 or random.random() < math.exp(-delta / temp):
+                if delta < 0 or rng.random() < math.exp(-delta / temp):
                     current_cost = new_cost
                     accepted_moves += 1
                     rejections = 0
-
-                    # Update best if improved
                     if new_cost < best_cost:
                         best_cost = new_cost
                         best_state = self._save_state()
                 else:
-                    # Reject: restore old state
                     self._restore_state(old_state)
                     rejections += 1
-
-                    # Reheat if stuck
                     if rejections > self.config.sa_reheat_threshold:
                         temp *= self.config.sa_reheat_factor
                         rejections = 0
-                        print(f"  [SA] Reheating to T={temp:.2f}")
 
-            # Cool down
             temp *= self.config.sa_cooling_rate
 
-        # Restore best solution
-        self._restore_state(best_state)
+        return best_cost, best_state, total_iterations, accepted_moves
 
-        # Final legalization
+    def _place_simulated_annealing(self) -> PlacementResult:
+        """
+        Multi-start simulated annealing placement.
+
+        Runs multiple SA passes with different random seeds and initial temperatures,
+        each exploring a different region of the solution space. The best result
+        across all workers is selected.
+
+        Reference: "Optimization by Simulated Annealing" (Kirkpatrick, 1983)
+        Multi-start: (Ram et al., "Parallel Simulated Annealing Algorithms", 1996)
+        """
+        import time as _time
+
+        num_workers = min(os.cpu_count() or 4, 8)  # Cap at 8
+        starting_state = self._save_state()
+        base_temp = self.config.sa_initial_temp
+
+        # Reduce moves per worker so total time stays similar
+        moves_per_temp = max(self.config.sa_moves_per_temp // num_workers, 20)
+
+        print(f"  [SA] Running multi-start simulated annealing ({num_workers} starts)...")
+        sa_start = _time.time()
+
+        results = []
+        for i in range(num_workers):
+            seed = 42 + i * 1000
+            temp_factor = 0.7 + (i / max(num_workers - 1, 1)) * 0.6  # 0.7x to 1.3x
+            temp = base_temp * temp_factor
+
+            self._restore_state(starting_state)
+            cost, state, iters, acc = self._run_sa_single(seed, temp, moves_per_temp, starting_state)
+            results.append((cost, state, iters, acc, temp))
+
+        # Pick best
+        results.sort(key=lambda r: r[0])
+        best_cost, best_state, best_iters, best_acc, best_temp = results[0]
+
+        self._restore_state(best_state)
         self._legalize()
 
-        acceptance_rate = accepted_moves / total_iterations if total_iterations > 0 else 0
+        sa_elapsed = _time.time() - sa_start
+        acceptance_rate = best_acc / best_iters if best_iters > 0 else 0
         print(f"  [SA] Final cost: {best_cost:.2f}, acceptance rate: {acceptance_rate:.2%}")
+        print(f"  [SA] {num_workers} starts in {sa_elapsed:.1f}s, best temp={best_temp:.1f}")
 
-        return self._create_result('simulated_annealing', total_iterations, True)
+        return self._create_result('simulated_annealing', best_iters, True)
 
     def _move_shift(self, temp: float):
         """Shift a random component by an amount proportional to temperature"""

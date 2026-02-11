@@ -41,6 +41,7 @@ The Main Engine (PCBEngine) is responsible for:
 import math
 import random
 import copy
+import os
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple, Set, Any
 from enum import Enum
@@ -112,6 +113,7 @@ class PlacementConfig:
     sa_cooling_rate: float = 0.97  # Alpha in T(k+1) = alpha * T(k)
     sa_reheat_threshold: int = 50
     sa_reheat_factor: float = 1.5
+    sa_parallel_workers: int = 0  # 0 = auto (cpu_count), 1 = sequential (no parallelism)
 
     # Genetic algorithm parameters (SOGA)
     ga_population_size: int = 100
@@ -983,32 +985,21 @@ class PlacementPiston:
     # ALGORITHM 2: SIMULATED ANNEALING (Kirkpatrick 1983)
     # =========================================================================
 
-    def _place_simulated_annealing(self) -> PlacementResult:
+    def _run_sa_worker(self, seed: int, initial_temp: float, starting_state: Dict) -> Tuple[float, Dict, int, int]:
+        """Run a single SA worker with given seed and initial temperature.
+
+        Returns (best_cost, best_state, total_iterations, accepted_count).
+        This method is thread-safe — it operates on a copy of components.
         """
-        Simulated Annealing placement.
+        rng = random.Random(seed)
 
-        Reference: "Optimization by Simulated Annealing" (Kirkpatrick, 1983)
-        Also: OpenROAD SA-PCB project
-
-        Metropolis criterion:
-            P(accept) = 1             if deltaC < 0
-            P(accept) = exp(-dC/T)    if deltaC >= 0
-
-        Cooling schedule: T(k+1) = alpha * T(k)
-
-        Move operators:
-        - Shift: move component randomly
-        - Swap: exchange two components
-        - Rotate: rotate 90 degrees
-        - Flip: rotate 180 degrees
-        """
-        print("  [SA] Running simulated annealing placement (Kirkpatrick 1983)...")
-
+        # Restore starting state
+        self._restore_state(starting_state)
         current_cost = self._calculate_cost()
         best_cost = current_cost
         best_state = self._save_state()
 
-        temp = self.config.sa_initial_temp
+        temp = initial_temp
         rejections = 0
         total_iterations = 0
         accepted = 0
@@ -1016,51 +1007,150 @@ class PlacementPiston:
         while temp > self.config.sa_final_temp:
             for _ in range(self.config.sa_moves_per_temp):
                 total_iterations += 1
-
                 old_state = self._save_state()
 
-                # Select move operator randomly (as in SA-PCB)
-                r = random.random()
+                r = rng.random()
                 if r < 0.5:
-                    self._sa_move_shift(temp)
+                    # Inline shift with this worker's RNG
+                    refs = [r2 for r2, c in self.components.items() if not c.fixed]
+                    if refs:
+                        ref = rng.choice(refs)
+                        comp = self.components[ref]
+                        max_shift = (temp / initial_temp) * self.config.board_width * 0.3
+                        max_shift = max(max_shift, self.config.grid_size)
+                        comp.x += rng.uniform(-max_shift, max_shift)
+                        comp.y += rng.uniform(-max_shift, max_shift)
+                        comp.x, comp.y = self._clamp_to_board(comp)
                 elif r < 0.75:
-                    self._sa_move_swap()
+                    self._sa_move_swap_rng(rng)
                 elif r < 0.90:
-                    self._sa_move_rotate()
+                    self._sa_move_rotate_rng(rng)
                 else:
-                    self._sa_move_flip()
+                    self._sa_move_flip_rng(rng)
 
                 new_cost = self._calculate_cost()
                 delta = new_cost - current_cost
 
-                # Metropolis criterion: P = exp(-delta/T)
-                if delta < 0 or random.random() < math.exp(-delta / temp):
+                if delta < 0 or rng.random() < math.exp(-delta / temp):
                     current_cost = new_cost
                     accepted += 1
                     rejections = 0
-
                     if new_cost < best_cost:
                         best_cost = new_cost
                         best_state = self._save_state()
                 else:
                     self._restore_state(old_state)
                     rejections += 1
-
-                    # Reheat if stuck (adaptive SA)
                     if rejections > self.config.sa_reheat_threshold:
                         temp *= self.config.sa_reheat_factor
                         rejections = 0
 
-            # Cooling: T(k+1) = alpha * T(k)
             temp *= self.config.sa_cooling_rate
+
+        return best_cost, best_state, total_iterations, accepted
+
+    def _sa_move_swap_rng(self, rng: random.Random):
+        """Swap two random components using provided RNG."""
+        refs = [r for r, c in self.components.items() if not c.fixed]
+        if len(refs) < 2:
+            return
+        a, b = rng.sample(refs, 2)
+        ca, cb = self.components[a], self.components[b]
+        ca.x, cb.x = cb.x, ca.x
+        ca.y, cb.y = cb.y, ca.y
+
+    def _sa_move_rotate_rng(self, rng: random.Random):
+        """Rotate random component by 90 degrees using provided RNG."""
+        refs = [r for r, c in self.components.items() if not c.fixed]
+        if not refs:
+            return
+        ref = rng.choice(refs)
+        comp = self.components[ref]
+        comp.rotation = (comp.rotation + 90) % 360
+        comp.width, comp.height = comp.height, comp.width
+        comp.x, comp.y = self._clamp_to_board(comp)
+
+    def _sa_move_flip_rng(self, rng: random.Random):
+        """Flip random component (180 degrees) using provided RNG."""
+        refs = [r for r, c in self.components.items() if not c.fixed]
+        if not refs:
+            return
+        ref = rng.choice(refs)
+        comp = self.components[ref]
+        comp.rotation = (comp.rotation + 180) % 360
+        comp.x, comp.y = self._clamp_to_board(comp)
+
+    def _place_simulated_annealing(self) -> PlacementResult:
+        """
+        Parallel Simulated Annealing placement.
+
+        Runs multiple SA workers with different random seeds in parallel,
+        each exploring a different region of the solution space.
+        The best result across all workers is selected.
+
+        Reference: "Optimization by Simulated Annealing" (Kirkpatrick, 1983)
+        Also: OpenROAD SA-PCB project, parallel SA (Ram et al., 1996)
+        """
+        num_workers = self.config.sa_parallel_workers
+        if num_workers <= 0:
+            num_workers = min(os.cpu_count() or 4, 8)  # Cap at 8 to avoid diminishing returns
+
+        starting_state = self._save_state()
+
+        if num_workers == 1:
+            # Sequential path (same as original)
+            print("  [SA] Running simulated annealing placement...")
+            best_cost, best_state, total_iters, accepted = self._run_sa_worker(
+                seed=42, initial_temp=self.config.sa_initial_temp,
+                starting_state=starting_state
+            )
+            self._restore_state(best_state)
+            self._legalize()
+            acceptance_rate = accepted / total_iters if total_iters > 0 else 0
+            print(f"  [SA] Final cost: {best_cost:.2f}, acceptance rate: {acceptance_rate:.1%}")
+            return self._create_result('simulated_annealing', total_iters, True)
+
+        # Multi-start SA: run N workers sequentially with different seeds/temps.
+        # Each worker gets reduced moves_per_temp so total time stays similar.
+        # This explores more of the solution space than a single long run.
+        print(f"  [SA] Running multi-start simulated annealing ({num_workers} starts)...")
+
+        import time as _time
+        sa_start = _time.time()
+
+        # Save original moves_per_temp, then reduce for each worker
+        original_moves = self.config.sa_moves_per_temp
+        self.config.sa_moves_per_temp = max(original_moves // num_workers, 20)
+
+        base_temp = self.config.sa_initial_temp
+        results = []
+
+        for i in range(num_workers):
+            seed = 42 + i * 1000
+            # Vary initial temp: 0.7x to 1.3x for diversity
+            temp_factor = 0.7 + (i / max(num_workers - 1, 1)) * 0.6
+            temp = base_temp * temp_factor
+
+            self._restore_state(starting_state)
+            cost, state, iters, acc = self._run_sa_worker(seed, temp, starting_state)
+            results.append((cost, state, iters, acc, temp))
+
+        # Restore original config
+        self.config.sa_moves_per_temp = original_moves
+
+        # Pick best result
+        results.sort(key=lambda r: r[0])  # Sort by cost (lowest = best)
+        best_cost, best_state, best_iters, best_acc, best_temp = results[0]
 
         self._restore_state(best_state)
         self._legalize()
 
-        acceptance_rate = accepted / total_iterations if total_iterations > 0 else 0
-        print(f"  [SA] Final cost: {best_cost:.2f}, acceptance: {acceptance_rate:.1%}")
+        sa_elapsed = _time.time() - sa_start
+        acceptance_rate = best_acc / best_iters if best_iters > 0 else 0
+        print(f"  [SA] Final cost: {best_cost:.2f}, acceptance rate: {acceptance_rate:.1%}")
+        print(f"  [SA] {num_workers} starts in {sa_elapsed:.1f}s, best temp={best_temp:.1f}")
 
-        return self._create_result('simulated_annealing', total_iterations, True)
+        return self._create_result('simulated_annealing', best_iters, True)
 
     def _sa_move_shift(self, temp: float):
         """Shift random component - distance proportional to temperature"""

@@ -1312,6 +1312,9 @@ class PCBEngine:
         self.state.parts_db = parts_db
         self.state.circuit_ai_result = circuit_ai_result
 
+        # Reset per-run flags (smart routing runs once per engine run)
+        self._smart_routing_attempted = False
+
         # Update design profile for cascade optimization
         self._update_design_profile(parts_db)
 
@@ -2004,6 +2007,15 @@ class PCBEngine:
             total = metrics.get('total_count', 1)
             completion = routed / max(total, 1) * 30  # Up to 30 bonus for completion
             score += completion
+
+            # Tiebreaker metrics: prevent false plateaus when two algorithms
+            # route the SAME number of nets but differ in quality
+            via_count = metrics.get('via_count', 0)
+            wirelength = metrics.get('total_wirelength', 0.0)
+            if via_count > 0:
+                score -= min(via_count * 0.5, 5)  # Up to -5 for excessive vias
+            if wirelength > 0:
+                score += max(0, 5 - wirelength / 100)  # Up to +5 for short traces
 
         elif piston_name == 'placement':
             metrics = report.metrics or {}
@@ -3377,9 +3389,13 @@ class PCBEngine:
             algo_dist = routing_plan.get_algorithm_distribution()
             self._log(f"  [SMART] Algorithms: {', '.join(f'{a}:{c}' for a,c in algo_dist.items())}")
 
-        # Create routing config for fallback
+        # Create routing config and piston ONCE (reuse across cascade attempts)
+        # The outer cascade calls _execute_routing() multiple times with different
+        # algorithms. Creating a new RoutingPiston each time wastes ~100ms on index
+        # rebuild. Instead, reuse the same piston — the global index cache handles
+        # the rest, and we just update config.algorithm for each attempt.
         routing_config = RoutingConfig(
-            algorithm='hybrid',  # Default, will be overridden by plan
+            algorithm='hybrid',  # Default, will be overridden by cascade
             board_width=self.config.board_width,
             board_height=self.config.board_height,
             grid_size=grid_size,
@@ -3389,19 +3405,34 @@ class PCBEngine:
             via_drill=self.config.via_drill,
             max_ripup_iterations=int(self.config.max_routing_iterations * params['iterations_multiplier'])
         )
-        self._routing_piston = RoutingPiston(routing_config)
+        if self._routing_piston is None:
+            self._routing_piston = RoutingPiston(routing_config)
+        else:
+            # Reuse existing piston, just update config
+            self._routing_piston.config = routing_config
 
         escapes = self._build_simple_escapes()
 
-        # === ROUTE WITH SMART PLAN OR FALLBACK ===
-        if use_smart_routing and routing_plan:
+        # === UNIFIED SINGLE-LEVEL CASCADE ===
+        # The outer cascade (_run_piston_with_drc) iterates over algorithms from
+        # PISTON_CASCADES['routing'], passing each via self._current_algorithm.
+        # This function now RESPECTS that algorithm selection instead of ignoring it.
+        # Smart Routing runs ONCE (first cascade attempt only), then each subsequent
+        # attempt uses the outer cascade's algorithm WITH CPU Lab hints.
+
+        result = None
+        cascade_algorithm = getattr(self, '_current_algorithm', '') or 'hybrid'
+        smart_already_tried = getattr(self, '_smart_routing_attempted', False)
+
+        # === STEP 1: Smart Routing (ONCE only, on first cascade attempt) ===
+        if use_smart_routing and routing_plan and not smart_already_tried:
+            self._smart_routing_attempted = True
+
             # Filter routing plan to only include CPU-Lab-filtered nets
-            # CPU Lab removes GND/3V3 (handled by pour), Smart Router must respect this
             if self.state.net_order:
                 allowed_nets = set(self.state.net_order)
                 routing_plan.routing_order = [n for n in routing_plan.routing_order if n in allowed_nets]
 
-            # Use smart routing with per-net strategies
             result = self._routing_piston.route_with_plan(
                 routing_plan,
                 self.state.parts_db,
@@ -3414,29 +3445,20 @@ class PCBEngine:
             )
             self._log(f"  [SMART] Result: {result.routed_count}/{result.total_count} nets routed")
 
-            # Log algorithm usage from metadata
             if hasattr(result, 'metadata') and 'algorithm_usage' in result.metadata:
                 usage = result.metadata['algorithm_usage']
                 self._log(f"  [SMART] Usage: {', '.join(f'{a}:{c}' for a,c in usage.items())}")
-        else:
-            # Fallback to legacy algorithm selection
-            work_order = self._request_algorithm_selection('routing', {
-                'effort': effort.value,
-                'grid_size': grid_size,
-                'density': len(self.state.parts_db.get('nets', {})) / (self.config.board_width * self.config.board_height),
-            })
 
-            selected_algorithm = work_order.algorithm or self.config.routing_algorithm
-            if params['algorithms'] == 'all':
-                selected_algorithm = 'hybrid'
+        # === STEP 2: Use outer cascade algorithm WITH CPU Lab hints ===
+        # Reuse the SAME RoutingPiston instance — just update its algorithm config.
+        # This avoids object creation overhead and leverages the global index cache.
+        if result is None or not result.success:
+            self._log(f"  [CASCADE] Trying algorithm: {cascade_algorithm}")
+            self._routing_piston.config.algorithm = cascade_algorithm
 
-            self._log(f"  Algorithm: {selected_algorithm} (AI: {work_order.ai_reasoning})")
-            routing_config.algorithm = selected_algorithm
-
-            # Merge c_layout routing hints into net order (priority nets first)
             effective_net_order = self._apply_routing_hints_to_order(self.state.net_order)
 
-            result = self._routing_piston.route(
+            cascade_result = self._routing_piston.route(
                 self.state.parts_db,
                 escapes,
                 self.state.placement,
@@ -3445,28 +3467,11 @@ class PCBEngine:
                 net_specs=self.state.net_specs,
                 global_routing=self.state.global_routing,
             )
+            self._log(f"  [CASCADE] {cascade_algorithm}: {cascade_result.routed_count}/{cascade_result.total_count} nets routed")
 
-        # === FALLBACK TO CASCADE IF SMART ROUTING DIDN'T GET 100% ===
-        if not result.success:
-            self._log(f"  [ENGINE] Routing incomplete ({result.routed_count}/{result.total_count})")
-            self._log(f"  [ENGINE] Ordering CASCADE: try remaining algorithms...")
-
-            try:
-                cascade_result = route_with_cascade(
-                    parts_db=self.state.parts_db,
-                    escapes=escapes,
-                    placement=self.state.placement,
-                    net_order=self.state.net_order,
-                    board_width=self.config.board_width,
-                    board_height=self.config.board_height,
-                    config=routing_config
-                )
-
-                if cascade_result.routed_count > result.routed_count:
-                    result = cascade_result
-                    self._log(f"  [ENGINE] CASCADE improved: {result.routed_count}/{result.total_count}")
-            except Exception as e:
-                self._log(f"  [ENGINE] CASCADE failed: {e}")
+            # Use cascade result if better than smart routing result
+            if result is None or cascade_result.routed_count > result.routed_count:
+                result = cascade_result
 
         self.state.routes = result.routes
         self.state.vias = []
@@ -3488,6 +3493,8 @@ class PCBEngine:
                 'total_count': result.total_count,
                 'algorithm': result.algorithm_used,
                 'smart_routing': use_smart_routing,
+                'via_count': getattr(result, 'via_count', 0),
+                'total_wirelength': getattr(result, 'total_wirelength', 0.0),
             }
         )
 
