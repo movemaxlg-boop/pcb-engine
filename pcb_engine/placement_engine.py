@@ -331,6 +331,9 @@ class PlacementEngine:
         # Store placement hints for use by cost function
         self._placement_hints = placement_hints or {}
 
+        # Auto-detect proximity groups from net connections (before placement)
+        self._build_proximity_from_nets(parts_db)
+
         # Initialize state from parts database
         self._init_from_parts(parts_db, graph)
 
@@ -364,6 +367,86 @@ class PlacementEngine:
             return self._place_parallel()
         else:
             raise ValueError(f"Unknown algorithm: {self.config.algorithm}")
+
+    def _build_proximity_from_nets(self, parts_db: Dict):
+        """Auto-detect proximity groups from net connections (pre-placement).
+
+        Detects three patterns:
+        1. Decoupling caps: Capacitor sharing power+GND nets with an IC → group within 5mm
+        2. Connector edge placement: Parts with USB/CONN/J prefix → edge_components
+        3. I2C pullup groups: Resistors on SDA/SCL nets → group within 8mm
+        """
+        parts = parts_db.get('parts', {})
+        nets = parts_db.get('nets', {})
+        groups = list(self._placement_hints.get('proximity_groups', []))
+        edge = list(self._placement_hints.get('edge_components', []))
+
+        # Helper to get net names for a part's pins
+        def _part_nets(part):
+            return {pin.get('net', '') for pin in get_pins(part) if pin.get('net', '')}
+
+        # 1. Decoupling caps: cap on same power+GND net as an IC (8+ pins)
+        power_nets = set()
+        for n, info in nets.items():
+            if isinstance(info, dict) and info.get('type') == 'power':
+                power_nets.add(n)
+        # Also detect power nets by name
+        for n in nets:
+            if self._is_power_net(n):
+                power_nets.add(n)
+
+        ic_refs = {r for r, p in parts.items() if len(get_pins(p)) >= 8}
+        cap_refs = {r for r, p in parts.items() if r.startswith('C')}
+
+        # Track caps already grouped to avoid duplicates
+        grouped_caps = set()
+        for ic_ref in sorted(ic_refs):
+            ic_nets = _part_nets(parts[ic_ref])
+            decaps = []
+            for cap_ref in sorted(cap_refs):
+                if cap_ref in grouped_caps:
+                    continue
+                cap_nets = _part_nets(parts[cap_ref])
+                shared_power = ic_nets & cap_nets & power_nets
+                if shared_power:
+                    decaps.append(cap_ref)
+            if decaps:
+                for c in decaps:
+                    grouped_caps.add(c)
+                groups.append({
+                    'components': [ic_ref] + decaps,
+                    'max_distance': 5.0,
+                    'priority': 2.0,
+                    'reason': f'Decoupling for {ic_ref}',
+                })
+
+        # 2. Connector edge placement
+        for ref in sorted(parts):
+            fp = parts[ref].get('footprint', '')
+            if ref.startswith('J') or 'USB' in fp.upper() or 'CONN' in fp.upper():
+                if ref not in edge:
+                    edge.append(ref)
+
+        # 3. I2C pullup groups (resistors on SDA/SCL nets)
+        i2c_nets = {n for n in nets if 'SDA' in n.upper() or 'SCL' in n.upper()
+                    or 'I2C' in n.upper()}
+        if i2c_nets:
+            i2c_resistors = []
+            for ref in sorted(parts):
+                if ref.startswith('R'):
+                    pin_nets = _part_nets(parts[ref])
+                    if pin_nets & i2c_nets:
+                        i2c_resistors.append(ref)
+            if len(i2c_resistors) >= 2:
+                groups.append({
+                    'components': i2c_resistors,
+                    'max_distance': 8.0,
+                    'priority': 1.5,
+                    'reason': 'I2C pullup resistors',
+                })
+
+        self._placement_hints['proximity_groups'] = groups
+        self._placement_hints['edge_components'] = edge
 
     def _init_from_parts(self, parts_db: Dict, graph: Dict):
         """Initialize placement state from parts database"""
@@ -497,6 +580,18 @@ class PlacementEngine:
                 # Store net for conflict detection
                 self.pin_nets[ref][pin_num] = pin.get('net', '')
 
+        # Apply fixed positions/rotations from placement hints
+        fixed_pos = self._placement_hints.get('fixed_positions', {})
+        fixed_rot = self._placement_hints.get('fixed_rotations', {})
+        for ref, pos in fixed_pos.items():
+            if ref in self.components:
+                self.components[ref].x = pos[0]
+                self.components[ref].y = pos[1]
+                self.components[ref].fixed = True
+        for ref, rot in fixed_rot.items():
+            if ref in self.components:
+                self.components[ref].rotation = rot
+
     def _process_nets(self, raw_nets: Dict):
         """Process nets and assign weights based on type"""
         self.nets = {}
@@ -582,6 +677,17 @@ class PlacementEngine:
                     for comp_b in components_in_net[i + 1:]:
                         if comp_a in self.components and comp_b in self.components:
                             self._apply_attractive_force(comp_a, comp_b, k, weight)
+
+            # Extra attraction for proximity_groups (electrical hints)
+            hints = getattr(self, '_placement_hints', None)
+            if hints:
+                for group in hints.get('proximity_groups', []):
+                    components = group.get('components', [])
+                    priority = group.get('priority', 1.0)
+                    for i, ref_a in enumerate(components):
+                        for ref_b in components[i + 1:]:
+                            if ref_a in self.components and ref_b in self.components:
+                                self._apply_attractive_force(ref_a, ref_b, k, priority * 2.0)
 
             # Apply boundary forces to keep components inside board
             for comp in self.components.values():
@@ -1971,19 +2077,26 @@ class PlacementEngine:
         """
         Calculate placement cost (lower is better).
 
-        Cost = Wire Length + Overlap Penalty + Pad Conflict Penalty + OOB Penalty
-
-        Pad Conflict Penalty is CRITICAL - it prevents placing components such that
-        pads from different nets overlap, which causes DRC failures and unroutable nets.
+        Cost components (weight rationale):
+        - Physical constraints (must-fix): pad_conflict*5000, overlap*1000, oob*500
+        - Electrical hints (guide): keep_apart*200, edge*100, proximity*50
+        - Optimization: wirelength*1
         """
         wirelength = self._calculate_wirelength()
         overlap = self._calculate_overlap_area()
         pad_conflict = self._calculate_pad_conflict_penalty()
         oob = self._calculate_oob_penalty()
         prox = self._calculate_proximity_cost()
+        edge = self._calculate_edge_cost()
+        keep_apart = self._calculate_keep_apart_cost()
 
-        # Pad conflict has VERY HIGH weight because overlapping pads = guaranteed DRC fail
-        return wirelength + overlap * 1000 + pad_conflict * 5000 + oob * 500 + prox * 50
+        return (wirelength +
+                overlap * 1000 +
+                pad_conflict * 5000 +
+                oob * 500 +
+                prox * 50 +
+                edge * 100 +
+                keep_apart * 200)
 
     def _calculate_wirelength(self) -> float:
         """Calculate total estimated wire length using HPWL"""
@@ -2221,6 +2334,45 @@ class PlacementEngine:
                     if dist > max_dist:
                         total += (dist - max_dist) * priority
 
+        return total
+
+    def _calculate_edge_cost(self) -> float:
+        """Penalty when edge_components are far from board edges."""
+        hints = getattr(self, '_placement_hints', None)
+        if not hints:
+            return 0.0
+        edge_refs = hints.get('edge_components', [])
+        if not edge_refs:
+            return 0.0
+        total = 0.0
+        margin = 2.0  # Target: within 2mm of edge
+        bw, bh = self.config.board_width, self.config.board_height
+        ox, oy = self.config.origin_x, self.config.origin_y
+        for ref in edge_refs:
+            if ref not in self.components:
+                continue
+            c = self.components[ref]
+            nearest = min(c.x - ox, ox + bw - c.x, c.y - oy, oy + bh - c.y)
+            if nearest > margin:
+                total += nearest - margin
+        return total
+
+    def _calculate_keep_apart_cost(self) -> float:
+        """Penalty when keep_apart pairs are too close."""
+        hints = getattr(self, '_placement_hints', None)
+        if not hints:
+            return 0.0
+        pairs = hints.get('keep_apart', [])
+        total = 0.0
+        for pair in pairs:
+            a, b = pair.get('a'), pair.get('b')
+            min_dist = pair.get('min_distance', 10.0)
+            if a not in self.components or b not in self.components:
+                continue
+            ca, cb = self.components[a], self.components[b]
+            dist = math.sqrt((ca.x - cb.x)**2 + (ca.y - cb.y)**2)
+            if dist < min_dist:
+                total += (min_dist - dist) * 2.0
         return total
 
     def _check_has_overlaps(self) -> bool:

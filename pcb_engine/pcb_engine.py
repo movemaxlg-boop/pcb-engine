@@ -1436,6 +1436,27 @@ class PCBEngine:
                     self.state.parts_db = self._cpu_lab_result.enhanced_parts_db
                     self._log(f"  [CPU LAB] parts_db enhanced with CPU Lab decisions")
 
+                # Convert CPU Lab ComponentGroups to placement_hints for BBL retry
+                if self._cpu_lab_result.component_groups:
+                    cpu_groups = []
+                    for g in self._cpu_lab_result.component_groups:
+                        name = g.name if hasattr(g, 'name') else str(g)
+                        max_d = 5.0 if ('DECOUPLING' in name or 'LDO' in name) else 10.0
+                        prio = 2.0 if 'DECOUPLING' in name else 1.0
+                        desc = g.description if hasattr(g, 'description') else name
+                        comps = g.components if hasattr(g, 'components') else []
+                        cpu_groups.append({
+                            'components': comps,
+                            'max_distance': max_d,
+                            'priority': prio,
+                            'reason': desc,
+                        })
+                    existing = self.state.parts_db.get('placement_hints', {})
+                    existing_pg = existing.get('proximity_groups', [])
+                    self.state.parts_db.setdefault('placement_hints', {})['proximity_groups'] = existing_pg + cpu_groups
+                    self.state.placement_hints = self.state.parts_db['placement_hints']
+                    self._log(f"  [CPU LAB] Stored {len(cpu_groups)} component groups as placement_hints for BBL retry")
+
             # === STAGE 4.6: POUR (Ground plane BEFORE routing) ===
             # GND should ALWAYS use copper pour on 2-layer boards (never traces).
             # Running pour BEFORE routing removes GND from the routing queue.
