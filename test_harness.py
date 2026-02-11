@@ -34,7 +34,7 @@ from typing import Dict, List, Optional, Any, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from pcb_engine.placement_piston import PlacementPiston, PlacementConfig
+from pcb_engine.placement_engine import PlacementEngine, PlacementConfig
 from pcb_engine.common_types import calculate_courtyard, get_pins, get_footprint_definition
 
 
@@ -433,10 +433,11 @@ class PistonTester:
             board_height=self.board_h,
             algorithm=algorithm,
         )
-        piston = PlacementPiston(config)
+        piston = PlacementEngine(config)
 
         t0 = time.time()
-        result = piston.place(self.parts_db)
+        graph = self.parts_db.get('nets', {})
+        result = piston.place(self.parts_db, graph)
         elapsed = time.time() - t0
         self._log(f"  Placement completed in {elapsed:.1f}s")
         self._log(f"  Algorithm: {result.algorithm_used}, Converged: {result.converged}")

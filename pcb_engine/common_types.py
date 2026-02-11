@@ -386,6 +386,28 @@ class FootprintDefinition:
                 return (w, h)
         return (1.0, 1.0)
 
+    @property
+    def courtyard_size(self) -> Tuple[float, float]:
+        """Courtyard size (body + 0.25mm margin each side for passives, 0.5mm for ICs)."""
+        margin = 0.25 if max(self.body_width, self.body_height) < 5.0 else 0.5
+        return (self.body_width + 2 * margin, self.body_height + 2 * margin)
+
+    @property
+    def pitch(self) -> float:
+        """Minimum pad pitch (center-to-center distance between adjacent pads)."""
+        if len(self.pad_positions) < 2:
+            return self.body_width
+        positions = [(x, y) for _, x, y, _, _ in self.pad_positions]
+        min_pitch = float('inf')
+        for i in range(len(positions)):
+            for j in range(i + 1, len(positions)):
+                dx = positions[i][0] - positions[j][0]
+                dy = positions[i][1] - positions[j][1]
+                dist = (dx**2 + dy**2) ** 0.5
+                if dist < min_pitch:
+                    min_pitch = dist
+        return min_pitch if min_pitch < float('inf') else self.body_width
+
 
 # Standard footprint library - THE source of truth
 FOOTPRINT_LIBRARY: Dict[str, FootprintDefinition] = {

@@ -19,6 +19,8 @@ from typing import Dict, List, Optional, Tuple
 from enum import Enum
 import math
 
+from .common_types import FOOTPRINT_LIBRARY, get_footprint_definition
+
 
 class FeasibilityStatus(Enum):
     """Overall feasibility determination"""
@@ -141,61 +143,41 @@ class FeasibilityConfig:
     min_routing_channels: int = 2       # Minimum channels between components
 
 
-# Standard footprint sizes (courtyard dimensions in mm)
-FOOTPRINT_SIZES = {
-    # Passives
-    '0201': (0.8, 0.5),
-    '0402': (1.5, 1.0),
-    '0603': (2.1, 1.3),
-    '0805': (2.5, 1.75),
-    '1206': (3.7, 2.1),
-    '1210': (3.7, 3.0),
-    '2010': (5.7, 3.0),
-    '2512': (7.0, 3.7),
-
-    # Discretes
-    'SOT-23': (3.4, 1.8),
-    'SOT-23-5': (3.4, 1.8),
-    'SOT-23-6': (3.4, 1.8),
-    'SOT-223': (7.5, 4.0),
-    'SOT-89': (5.0, 2.5),
-    'TO-252': (7.5, 7.5),
-    'TO-263': (11.0, 10.0),
-
-    # ICs
-    'SOIC-8': (6.0, 5.0),
-    'SOIC-14': (9.0, 5.0),
-    'SOIC-16': (10.5, 5.0),
-    'SSOP-20': (8.0, 4.0),
-    'TSSOP-14': (5.5, 3.5),
-    'TSSOP-16': (6.0, 3.5),
-    'TSSOP-20': (7.0, 3.5),
-    'QFP-32': (9.0, 9.0),
-    'QFP-44': (12.0, 12.0),
-    'QFP-64': (14.0, 14.0),
-    'QFP-100': (16.0, 16.0),
-    'QFN-16': (4.0, 4.0),
-    'QFN-20': (5.0, 5.0),
-    'QFN-24': (5.0, 5.0),
-    'QFN-32': (6.0, 6.0),
-    'QFN-48': (8.0, 8.0),
-    'QFN-64': (10.0, 10.0),
-
-    # Connectors
-    'USB-C': (10.0, 8.0),
-    'USB-MICRO': (8.0, 6.0),
-    'JST-SH-2': (5.0, 4.0),
-    'JST-SH-4': (7.0, 4.0),
-    'JST-PH-2': (6.5, 5.0),
-
-    # Modules
-    'ESP32-WROOM': (26.0, 18.5),
-    'ESP32-S3-WROOM': (26.0, 18.5),
-    'ESP32-C3-MINI': (14.0, 13.0),
-
-    # Default for unknown
-    'DEFAULT': (3.0, 3.0),
+# Extended courtyard sizes for packages NOT in FOOTPRINT_LIBRARY
+# FOOTPRINT_LIBRARY (common_types.py) is the primary source — these are supplements only
+_EXTENDED_COURTYARD_SIZES = {
+    '0201': (0.8, 0.5), '1210': (3.7, 3.0), '2010': (5.7, 3.0), '2512': (7.0, 3.7),
+    'SOT-23-6': (3.4, 1.8), 'SOT-89': (5.0, 2.5),
+    'TO-252': (7.5, 7.5), 'TO-263': (11.0, 10.0),
+    'SOIC-8': (6.0, 5.0), 'SOIC-14': (9.0, 5.0), 'SOIC-16': (10.5, 5.0),
+    'SSOP-20': (8.0, 4.0), 'TSSOP-14': (5.5, 3.5), 'TSSOP-16': (6.0, 3.5), 'TSSOP-20': (7.0, 3.5),
+    'QFP-32': (9.0, 9.0), 'QFP-44': (12.0, 12.0), 'QFP-64': (14.0, 14.0), 'QFP-100': (16.0, 16.0),
+    'QFN-16': (4.0, 4.0), 'QFN-20': (5.0, 5.0), 'QFN-24': (5.0, 5.0),
+    'QFN-32': (6.0, 6.0), 'QFN-48': (8.0, 8.0), 'QFN-64': (10.0, 10.0),
+    'USB-C': (10.0, 8.0), 'USB-MICRO': (8.0, 6.0),
+    'JST-SH-2': (5.0, 4.0), 'JST-SH-4': (7.0, 4.0), 'JST-PH-2': (6.5, 5.0),
+    'ESP32-WROOM': (26.0, 18.5), 'ESP32-S3-WROOM': (26.0, 18.5), 'ESP32-C3-MINI': (14.0, 13.0),
 }
+
+
+def _get_courtyard_size(footprint: str) -> Tuple[float, float]:
+    """Get courtyard size — FOOTPRINT_LIBRARY first, then extended, then default."""
+    # 1. Try FOOTPRINT_LIBRARY (single source of truth)
+    if footprint in FOOTPRINT_LIBRARY:
+        return FOOTPRINT_LIBRARY[footprint].courtyard_size
+    # 2. Try partial match in FOOTPRINT_LIBRARY
+    fp_def = get_footprint_definition(footprint)
+    if fp_def.name != 'default':
+        return fp_def.courtyard_size
+    # 3. Extended sizes for packages not in FOOTPRINT_LIBRARY
+    fp_upper = footprint.upper()
+    if fp_upper in _EXTENDED_COURTYARD_SIZES:
+        return _EXTENDED_COURTYARD_SIZES[fp_upper]
+    for key, size in _EXTENDED_COURTYARD_SIZES.items():
+        if key in fp_upper:
+            return size
+    # 4. Default
+    return (3.0, 3.0)
 
 
 class FeasibilityPiston:
@@ -244,19 +226,15 @@ class FeasibilityPiston:
 
         return result
 
-    def _get_footprint_size(self, footprint: str) -> Tuple[float, float]:
-        """Get courtyard size for a footprint"""
-        # Try exact match
-        if footprint in FOOTPRINT_SIZES:
-            return FOOTPRINT_SIZES[footprint]
-
-        # Try partial match (e.g., "0805" in "C_0805")
-        for key, size in FOOTPRINT_SIZES.items():
-            if key in footprint.upper():
-                return size
-
-        # Default
-        return FOOTPRINT_SIZES['DEFAULT']
+    def _get_footprint_size(self, footprint: str, part: Dict = None) -> Tuple[float, float]:
+        """Get courtyard size — parts_db 'size' first, then FOOTPRINT_LIBRARY, then extended."""
+        # Priority 1: parts_db 'size' field (single source of truth)
+        if part and 'size' in part:
+            s = part['size']
+            margin = 0.25 if max(s[0], s[1]) < 5.0 else 0.5
+            return (s[0] + 2 * margin, s[1] + 2 * margin)
+        # Priority 2+: Unified lookup
+        return _get_courtyard_size(footprint)
 
     def _check_component_area(self, parts_db: Dict, result: FeasibilityResult):
         """Calculate minimum board area needed for all components"""
@@ -267,7 +245,7 @@ class FeasibilityPiston:
 
         for ref, part in parts.items():
             footprint = part.get('footprint', 'DEFAULT')
-            w, h = self._get_footprint_size(footprint)
+            w, h = self._get_footprint_size(footprint, part)
 
             # Add spacing around each component
             w += self.config.component_spacing * 2

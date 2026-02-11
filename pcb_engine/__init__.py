@@ -62,13 +62,15 @@ from .pcb_engine import PCBEngine, EngineConfig, EngineResult, EngineState, Engi
 from .parts_piston import PartsPiston, PartsConfig, PartsResult
 from .order_piston import OrderPiston, OrderConfig, OrderResult
 from .placement_engine import PlacementEngine, PlacementConfig
-from .placement_piston import PlacementPiston
+# PlacementPiston is DEPRECATED - engine uses PlacementEngine exclusively
+# from .placement_piston import PlacementPiston
 from .routing_types import (
     TrackSegment, Via, Route, RoutingAlgorithm,
     RoutingConfig, RoutingResult, create_track_segment, create_via
 )
 from .routing_piston import RoutingPiston, route_with_cascade, ROUTING_ALGORITHMS
-from .routing_engine import RoutingEngine
+# RoutingEngine is DEPRECATED - engine uses RoutingPiston exclusively (moved to old/)
+# from .routing_engine import RoutingEngine
 from .escape_piston import EscapePiston, EscapeConfig, EscapeResult
 from .optimization_piston import OptimizationPiston, OptimizationConfig, OptimizationResult
 from .polish_piston import PolishPiston, PolishConfig, PolishResult, PolishLevel, DynamicViaCostConfig, get_dynamic_via_cost
@@ -158,10 +160,10 @@ __all__ = [
     'PartsPiston', 'PartsConfig', 'PartsResult',
     'OrderPiston', 'OrderConfig', 'OrderResult',
     'PlacementEngine', 'PlacementConfig',
-    'PlacementPiston',
+    # 'PlacementPiston',  # DEPRECATED
     'TrackSegment', 'Via', 'Route', 'RoutingAlgorithm',
     'RoutingConfig', 'RoutingResult', 'create_track_segment', 'create_via',
-    'RoutingPiston', 'RoutingEngine', 'route_with_cascade', 'ROUTING_ALGORITHMS',
+    'RoutingPiston', 'route_with_cascade', 'ROUTING_ALGORITHMS',  # RoutingEngine DEPRECATED
     'EscapePiston', 'EscapeConfig', 'EscapeResult',
     'OptimizationPiston', 'OptimizationConfig', 'OptimizationResult',
     'PolishPiston', 'PolishConfig', 'PolishResult', 'PolishLevel',

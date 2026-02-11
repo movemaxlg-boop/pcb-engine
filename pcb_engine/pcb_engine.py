@@ -154,11 +154,10 @@ except ImportError:
     PlacementEngine = None
     PlacementEngineConfig = None
 
-try:
-    from .placement_piston import PlacementPiston, PlacementConfig as PlacementPistonConfig
-except ImportError:
-    PlacementPiston = None
-    PlacementPistonConfig = None
+# PlacementPiston is DEPRECATED — engine uses PlacementEngine exclusively
+# PlacementPiston kept in codebase for external test compatibility only
+PlacementPiston = None
+PlacementPistonConfig = None
 
 # Import routing types from unified module
 try:

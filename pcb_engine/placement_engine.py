@@ -675,8 +675,11 @@ class PlacementEngine:
         rejections = 0
         total_iterations = 0
         accepted_moves = 0
+        stall_count = 0  # Temp steps without improvement
+        max_stall = 10   # Exit early if no improvement for 10 temp steps
 
         while temp > self.config.sa_final_temp:
+            prev_best = best_cost
             for _ in range(moves_per_temp):
                 total_iterations += 1
                 old_state = self._save_state()
@@ -741,15 +744,25 @@ class PlacementEngine:
 
             temp *= self.config.sa_cooling_rate
 
+            # Early exit: stall detection
+            if best_cost < prev_best:
+                stall_count = 0
+            else:
+                stall_count += 1
+                if stall_count >= max_stall:
+                    break  # No improvement for max_stall temp steps — converged
+
         return best_cost, best_state, total_iterations, accepted_moves
 
     def _place_simulated_annealing(self) -> PlacementResult:
         """
         Multi-start simulated annealing placement.
 
-        Runs multiple SA passes with different random seeds and initial temperatures,
-        each exploring a different region of the solution space. The best result
-        across all workers is selected.
+        Runs multiple SA passes IN PARALLEL with different random seeds and
+        initial temperatures, each exploring a different region of the solution
+        space. The best result across all workers is selected.
+
+        Each worker gets a deep copy of the engine to avoid shared-state conflicts.
 
         Reference: "Optimization by Simulated Annealing" (Kirkpatrick, 1983)
         Multi-start: (Ram et al., "Parallel Simulated Annealing Algorithms", 1996)
@@ -763,18 +776,39 @@ class PlacementEngine:
         # Reduce moves per worker so total time stays similar
         moves_per_temp = max(self.config.sa_moves_per_temp // num_workers, 20)
 
-        print(f"  [SA] Running multi-start simulated annealing ({num_workers} starts)...")
+        print(f"  [SA] Running multi-start simulated annealing ({num_workers} starts, parallel)...")
         sa_start = _time.time()
 
-        results = []
+        def _sa_worker(worker_id, seed, temp, mpt, state):
+            """Run one SA pass on a deep copy of the engine."""
+            worker = copy.deepcopy(self)
+            worker._restore_state(state)
+            cost, best_state, iters, acc = worker._run_sa_single(seed, temp, mpt, state)
+            return (cost, best_state, iters, acc, temp)
+
+        # Build worker params
+        worker_args = []
         for i in range(num_workers):
             seed = 42 + i * 1000
             temp_factor = 0.7 + (i / max(num_workers - 1, 1)) * 0.6  # 0.7x to 1.3x
             temp = base_temp * temp_factor
+            worker_args.append((i, seed, temp, moves_per_temp, starting_state))
 
+        # Run all workers in parallel
+        results = []
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
+            futures = {executor.submit(_sa_worker, *args): args[0] for args in worker_args}
+            for future in as_completed(futures):
+                try:
+                    results.append(future.result())
+                except Exception as e:
+                    print(f"  [SA] Worker {futures[future]} failed: {e}")
+
+        if not results:
+            # All workers failed — fall back to sequential single run
             self._restore_state(starting_state)
-            cost, state, iters, acc = self._run_sa_single(seed, temp, moves_per_temp, starting_state)
-            results.append((cost, state, iters, acc, temp))
+            cost, state, iters, acc = self._run_sa_single(42, base_temp, self.config.sa_moves_per_temp, starting_state)
+            results.append((cost, state, iters, acc, base_temp))
 
         # Pick best
         results.sort(key=lambda r: r[0])
@@ -786,7 +820,7 @@ class PlacementEngine:
         sa_elapsed = _time.time() - sa_start
         acceptance_rate = best_acc / best_iters if best_iters > 0 else 0
         print(f"  [SA] Final cost: {best_cost:.2f}, acceptance rate: {acceptance_rate:.2%}")
-        print(f"  [SA] {num_workers} starts in {sa_elapsed:.1f}s, best temp={best_temp:.1f}")
+        print(f"  [SA] {num_workers} parallel starts in {sa_elapsed:.1f}s, best temp={best_temp:.1f}")
 
         return self._create_result('simulated_annealing', best_iters, True)
 

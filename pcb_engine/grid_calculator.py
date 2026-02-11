@@ -53,6 +53,8 @@ from typing import Dict, List, Tuple, Optional
 from enum import Enum
 import math
 
+from .common_types import FOOTPRINT_LIBRARY, get_footprint_definition
+
 
 class PerformanceTier(Enum):
     """Grid performance/accuracy tradeoff tiers"""
@@ -63,7 +65,8 @@ class PerformanceTier(Enum):
     AUTO = 'auto'           # Calculate based on components
 
 
-# Known footprint pitches (center-to-center distance between adjacent pads)
+# Extended footprint pitches for packages NOT in FOOTPRINT_LIBRARY
+# FOOTPRINT_LIBRARY (common_types.py) is the primary source — these are supplements
 FOOTPRINT_PITCHES = {
     # Passives (2-pin)
     '0201': 0.3,
@@ -142,7 +145,7 @@ def get_footprint_pitch(footprint_name: str) -> Optional[float]:
     """
     Get known pitch for a footprint name.
 
-    Matches partial footprint names (e.g., 'SOT-23-5' matches 'SOT-23-5').
+    Priority: FOOTPRINT_LIBRARY.pitch > FOOTPRINT_PITCHES fallback
 
     Args:
         footprint_name: Footprint name (e.g., 'C_0603_1608Metric')
@@ -153,14 +156,17 @@ def get_footprint_pitch(footprint_name: str) -> Optional[float]:
     if not footprint_name:
         return None
 
-    name_upper = footprint_name.upper()
+    # Priority 1: FOOTPRINT_LIBRARY (single source of truth)
+    fp_def = get_footprint_definition(footprint_name)
+    if fp_def.name != 'default' and len(fp_def.pad_positions) >= 2:
+        return fp_def.pitch
 
-    # Check exact matches first
+    # Priority 2: Extended FOOTPRINT_PITCHES for packages not in FOOTPRINT_LIBRARY
+    name_upper = footprint_name.upper()
     for pattern, pitch in FOOTPRINT_PITCHES.items():
         if pattern.upper() in name_upper:
             return pitch
 
-    # Check for package size patterns like "0603", "0805"
     for size in ['0201', '0402', '0603', '0805', '1206', '1210', '2512']:
         if size in name_upper:
             return FOOTPRINT_PITCHES.get(size)

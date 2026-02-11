@@ -836,7 +836,7 @@ class OutputPiston:
             ref_bboxes[ref] = (cx - half_w, ry - half_h, cx + half_w, ry + half_h)
 
         # Build list of ALL pad mask openings (absolute positions)
-        # Uses FOOTPRINT_LIBRARY as source of truth for pad positions
+        # Priority: parts_db pins first (single source of truth), FOOTPRINT_LIBRARY fallback
         mask_expansion = 0.15  # Same as pad_to_mask_clearance
         pad_mask_rects = []  # (min_x, min_y, max_x, max_y) of mask openings
         import math
@@ -853,21 +853,16 @@ class OutputPiston:
             cos_a = math.cos(angle_rad)
             sin_a = math.sin(angle_rad)
 
-            # Use FOOTPRINT_LIBRARY for accurate pad positions
-            fp_name = part.get('footprint', '')
-            fp_def = get_footprint_definition(fp_name)
-            if fp_def and fp_def.pad_positions:
-                for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
-                    # Rotate pad offset
-                    ox = pad_x * cos_a - pad_y * sin_a
-                    oy = pad_x * sin_a + pad_y * cos_a
-                    px, py = cx + ox, cy + oy
-                    hw = pad_w / 2 + mask_expansion
-                    hh = pad_h / 2 + mask_expansion
-                    pad_mask_rects.append((px - hw, py - hh, px + hw, py + hh))
-            else:
-                # Fallback: use pins from parts_db
-                for pin in get_pins(part):
+            # Priority 1: parts_db pins with physical data (SINGLE SOURCE OF TRUTH)
+            pins = get_pins(part)
+            has_physical = any(
+                pin.get('physical', {}).get('offset_x') is not None or
+                pin.get('offset', (0, 0)) != (0, 0)
+                for pin in pins
+            ) if pins else False
+
+            if has_physical:
+                for pin in pins:
                     offset = pin.get('offset', (0, 0))
                     if not offset or offset == (0, 0):
                         phys = pin.get('physical', {})
@@ -881,6 +876,18 @@ class OutputPiston:
                     hw = pad_size[0] / 2 + mask_expansion
                     hh = pad_size[1] / 2 + mask_expansion
                     pad_mask_rects.append((px - hw, py - hh, px + hw, py + hh))
+            else:
+                # Priority 2: FOOTPRINT_LIBRARY fallback
+                fp_name = part.get('footprint', '')
+                fp_def = get_footprint_definition(fp_name)
+                if fp_def and fp_def.pad_positions:
+                    for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
+                        ox = pad_x * cos_a - pad_y * sin_a
+                        oy = pad_x * sin_a + pad_y * cos_a
+                        px, py = cx + ox, cy + oy
+                        hw = pad_w / 2 + mask_expansion
+                        hh = pad_h / 2 + mask_expansion
+                        pad_mask_rects.append((px - hw, py - hh, px + hw, py + hh))
 
         # Detect overlapping refs: check against other refs AND pad mask openings
         hidden_refs = set()

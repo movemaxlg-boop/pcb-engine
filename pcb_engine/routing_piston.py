@@ -1965,13 +1965,24 @@ class RoutingPiston:
         self._net_specs = net_specs or {}
         self._global_routing = global_routing or {}
 
-        # Initialize grids and spatial index (once for all nets)
-        self._initialize_grids()
-        self._register_components(placement, parts_db)
-        self._register_escapes(escapes)
-
+        # TRY CACHE FIRST — same optimization as route()
+        cache_hit = False
         if self.use_spatial_index:
-            self._build_spatial_index()
+            cache_hit = self._try_use_cached_index(placement, parts_db)
+
+        if not cache_hit:
+            # CACHE MISS — build from scratch
+            self._initialize_grids()
+            self._register_components(placement, parts_db)
+            self._register_escapes(escapes)
+            if self.use_spatial_index:
+                self._build_spatial_index()
+                self._cache_index(placement, parts_db)
+        else:
+            # Cache hit — still need escapes registered
+            self._register_escapes(escapes)
+
+        self._save_grid_snapshot()
 
         # Build ground plane map if needed
         if routing_plan.enable_return_path_check:
@@ -6822,75 +6833,10 @@ class RoutingPiston:
         self.routes = {}
         self.failed = []
 
-    def _get_component_body_size(self, footprint: str) -> tuple:
-        """Get component body size (width, height) in mm based on footprint.
-
-        This is used to register the component body as an obstacle for routing.
-        Tracks must go around component bodies, not through them.
-        """
-        fp_lower = (footprint or '').lower()
-
-        # ESP32 modules - very large
-        if 'esp32-wroom' in fp_lower or 'esp32-wrover' in fp_lower:
-            return (25.5, 18.0)
-        if 'esp32' in fp_lower:
-            return (20.0, 15.0)
-
-        # USB connectors
-        if 'usb_c' in fp_lower or 'usb-c' in fp_lower:
-            return (9.0, 7.5)
-        if 'usb' in fp_lower:
-            return (8.0, 6.0)
-
-        # IC packages
-        # BUGFIX: SOIC/SOP body sizes were massively oversized, blocking routing
-        # Real SOIC-8: body 5mm x 4mm, SOIC-16: body 10mm x 4mm
-        if 'qfp' in fp_lower or 'tqfp' in fp_lower:
-            return (12.0, 12.0)
-        if 'qfn' in fp_lower:
-            return (6.0, 6.0)
-        # SOIC/SOP: Use BODY size only (not including leads)
-        # Leads extend beyond body and are where pads connect
-        # SOIC-8: body 3.9mm x 4.9mm, lead span 5.4mm
-        # SOIC-16: body 3.9mm x 9.9mm, lead span 5.4mm
-        if 'soic-16' in fp_lower or 'sop-16' in fp_lower:
-            return (3.9, 10.0)
-        if 'soic-8' in fp_lower or 'sop-8' in fp_lower:
-            return (3.9, 5.0)
-        if 'soic' in fp_lower or 'sop' in fp_lower:
-            return (3.9, 5.0)  # Default to SOIC-8 size
-        # SOT packages - listed from largest to smallest to catch specific sizes first
-        if 'sot-223' in fp_lower or 'sot223' in fp_lower:
-            return (6.5, 3.5)  # SOT-223 is larger than SOT-23
-        if 'sot-23-5' in fp_lower or 'sot23-5' in fp_lower:
-            return (3.0, 3.0)
-        if 'sot-23' in fp_lower or 'sot23' in fp_lower:
-            return (3.0, 2.5)
-        if 'sot' in fp_lower:
-            return (3.0, 2.5)  # Default to SOT-23 size
-
-        # Capacitors and resistors - imperial footprints
-        if '0201' in fp_lower:
-            return (1.0, 0.6)
-        if '0402' in fp_lower:
-            return (1.5, 1.0)
-        if '0603' in fp_lower:
-            return (2.0, 1.2)
-        if '0805' in fp_lower:
-            return (2.5, 1.5)
-        if '1206' in fp_lower:
-            return (3.5, 2.0)
-        if '1210' in fp_lower:
-            return (4.0, 2.8)
-        if '2512' in fp_lower:
-            return (7.0, 3.5)
-
-        # LED
-        if 'led' in fp_lower:
-            return (3.0, 1.5)
-
-        # Default small component
-        return (2.0, 1.5)
+    # NOTE: _get_component_body_size() was REMOVED — it was dead code.
+    # _register_components() now uses calculate_courtyard(part) from common_types
+    # which calculates body size from actual pin positions in parts_db (the single
+    # source of truth), not a hardcoded lookup table.
 
     def _register_components(self, placement: Dict, parts_db: Dict):
         """Register component pads and bodies as obstacles.
