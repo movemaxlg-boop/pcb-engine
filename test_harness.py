@@ -36,6 +36,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pcb_engine.placement_engine import PlacementEngine, PlacementConfig
 from pcb_engine.common_types import calculate_courtyard, get_pins, get_footprint_definition
+from pcb_engine.footprint_resolver import FootprintResolver
 
 
 # =============================================================================
@@ -61,48 +62,30 @@ class TestBoards:
     @staticmethod
     def simple_5_parts():
         """Minimal board: 5 passives, 3 nets. Should always succeed."""
+        resolver = FootprintResolver.get_instance()
+
+        def _passive(ref, fp, val, net1, net2):
+            fp_def = resolver.resolve(fp)
+            ox1 = fp_def.pad_positions[0][1] if fp_def.pad_positions else -0.48
+            oy1 = fp_def.pad_positions[0][2] if fp_def.pad_positions else 0
+            ox2 = fp_def.pad_positions[1][1] if len(fp_def.pad_positions) > 1 else 0.48
+            oy2 = fp_def.pad_positions[1][2] if len(fp_def.pad_positions) > 1 else 0
+            return {
+                'name': ref, 'footprint': fp, 'value': val,
+                'size': (fp_def.body_width, fp_def.body_height),
+                'pins': [
+                    {'number': '1', 'net': net1, 'physical': {'offset_x': round(ox1, 4), 'offset_y': round(oy1, 4)}},
+                    {'number': '2', 'net': net2, 'physical': {'offset_x': round(ox2, 4), 'offset_y': round(oy2, 4)}},
+                ]
+            }
+
         return {
             'parts': {
-                'R1': {
-                    'name': 'R1', 'footprint': '0402', 'value': '10K',
-                    'size': (1.0, 0.5),
-                    'pins': [
-                        {'number': '1', 'net': 'VCC', 'physical': {'offset_x': -0.48, 'offset_y': 0}},
-                        {'number': '2', 'net': 'SIG1', 'physical': {'offset_x': 0.48, 'offset_y': 0}},
-                    ]
-                },
-                'R2': {
-                    'name': 'R2', 'footprint': '0402', 'value': '10K',
-                    'size': (1.0, 0.5),
-                    'pins': [
-                        {'number': '1', 'net': 'VCC', 'physical': {'offset_x': -0.48, 'offset_y': 0}},
-                        {'number': '2', 'net': 'SIG2', 'physical': {'offset_x': 0.48, 'offset_y': 0}},
-                    ]
-                },
-                'C1': {
-                    'name': 'C1', 'footprint': '0402', 'value': '100nF',
-                    'size': (1.0, 0.5),
-                    'pins': [
-                        {'number': '1', 'net': 'VCC', 'physical': {'offset_x': -0.48, 'offset_y': 0}},
-                        {'number': '2', 'net': 'GND', 'physical': {'offset_x': 0.48, 'offset_y': 0}},
-                    ]
-                },
-                'C2': {
-                    'name': 'C2', 'footprint': '0603', 'value': '10uF',
-                    'size': (1.6, 0.8),
-                    'pins': [
-                        {'number': '1', 'net': 'VCC', 'physical': {'offset_x': -0.775, 'offset_y': 0}},
-                        {'number': '2', 'net': 'GND', 'physical': {'offset_x': 0.775, 'offset_y': 0}},
-                    ]
-                },
-                'R3': {
-                    'name': 'R3', 'footprint': '0805', 'value': '100R',
-                    'size': (2.0, 1.25),
-                    'pins': [
-                        {'number': '1', 'net': 'SIG1', 'physical': {'offset_x': -0.95, 'offset_y': 0}},
-                        {'number': '2', 'net': 'SIG2', 'physical': {'offset_x': 0.95, 'offset_y': 0}},
-                    ]
-                },
+                'R1': _passive('R1', '0402', '10K', 'VCC', 'SIG1'),
+                'R2': _passive('R2', '0402', '10K', 'VCC', 'SIG2'),
+                'C1': _passive('C1', '0402', '100nF', 'VCC', 'GND'),
+                'C2': _passive('C2', '0603', '10uF', 'VCC', 'GND'),
+                'R3': _passive('R3', '0805', '100R', 'SIG1', 'SIG2'),
             },
             'nets': {
                 'VCC': {'type': 'power', 'pins': ['R1.1', 'R2.1', 'C1.1', 'C2.1']},
@@ -114,121 +97,106 @@ class TestBoards:
         }
 
     @staticmethod
+    def _resolve_ic(footprint: str, name: str, value: str, pin_nets: list) -> dict:
+        """Build a parts_db entry for an IC using FootprintResolver for real geometry.
+
+        Args:
+            footprint: Footprint name (e.g., 'QFN-32', 'SOT-223')
+            name: Component name (e.g., 'ESP32')
+            value: Component value (e.g., 'ESP32-WROOM-32')
+            pin_nets: List of (pin_number, pin_name, net, extras) tuples.
+                      extras is a dict of optional keys like 'type'.
+        """
+        resolver = FootprintResolver.get_instance()
+        fp_def = resolver.resolve(footprint)
+
+        # Build pad offset lookup from resolver
+        pad_offsets = {str(p[0]): (p[1], p[2]) for p in fp_def.pad_positions}
+
+        pins = []
+        for pin_num, pin_name, net, extras in pin_nets:
+            pnum = str(pin_num)
+            ox, oy = pad_offsets.get(pnum, (0.0, 0.0))
+            pin = {
+                'number': pnum, 'name': pin_name, 'net': net,
+                'physical': {'offset_x': round(ox, 4), 'offset_y': round(oy, 4)},
+            }
+            if extras:
+                pin.update(extras)
+            pins.append(pin)
+
+        return {
+            'name': name, 'footprint': footprint, 'value': value,
+            'size': (fp_def.body_width, fp_def.body_height),
+            'pins': pins,
+        }
+
+    @staticmethod
     def medium_20_parts():
         """Realistic ESP32 sensor board. The standard benchmark."""
-        # Same 18-component board from test_real_20_component_board.py
+        resolve = TestBoards._resolve_ic
+
         parts_db = {
             'parts': {
-                'U1': {
-                    'name': 'ESP32', 'footprint': 'QFN-32', 'value': 'ESP32-WROOM-32',
-                    'size': (18.0, 25.5),
-                    'pins': [
-                        {'number': '1', 'name': 'GND', 'type': 'power_in', 'net': 'GND',
-                         'physical': {'offset_x': -8.5, 'offset_y': -10.0}},
-                        {'number': '2', 'name': 'VCC', 'type': 'power_in', 'net': '3V3',
-                         'physical': {'offset_x': -8.5, 'offset_y': -7.5}},
-                        {'number': '3', 'name': 'EN', 'type': 'input', 'net': 'EN',
-                         'physical': {'offset_x': -8.5, 'offset_y': -5.0}},
-                        {'number': '4', 'name': 'IO0', 'type': 'bidirectional', 'net': 'BOOT',
-                         'physical': {'offset_x': -8.5, 'offset_y': -2.5}},
-                        {'number': '5', 'name': 'IO2', 'type': 'bidirectional', 'net': 'LED1_CTRL',
-                         'physical': {'offset_x': -8.5, 'offset_y': 0.0}},
-                        {'number': '6', 'name': 'IO4', 'type': 'bidirectional', 'net': 'LED2_CTRL',
-                         'physical': {'offset_x': -8.5, 'offset_y': 2.5}},
-                        {'number': '7', 'name': 'IO18', 'type': 'bidirectional', 'net': 'USB_DN',
-                         'physical': {'offset_x': -8.5, 'offset_y': 5.0}},
-                        {'number': '8', 'name': 'IO19', 'type': 'bidirectional', 'net': 'USB_DP',
-                         'physical': {'offset_x': -8.5, 'offset_y': 7.5}},
-                        {'number': '9', 'name': 'IO21', 'type': 'bidirectional', 'net': 'I2C_SDA',
-                         'physical': {'offset_x': 8.5, 'offset_y': -10.0}},
-                        {'number': '10', 'name': 'IO22', 'type': 'bidirectional', 'net': 'I2C_SCL',
-                         'physical': {'offset_x': 8.5, 'offset_y': -7.5}},
-                        {'number': '11', 'name': 'IO23', 'type': 'bidirectional', 'net': 'BME_CS',
-                         'physical': {'offset_x': 8.5, 'offset_y': -5.0}},
-                        {'number': '12', 'name': 'IO25', 'type': 'bidirectional', 'net': 'CC1',
-                         'physical': {'offset_x': 8.5, 'offset_y': -2.5}},
-                        {'number': '13', 'name': 'GND2', 'type': 'power_in', 'net': 'GND',
-                         'physical': {'offset_x': 8.5, 'offset_y': 0.0}},
-                        {'number': '14', 'name': '3V3_2', 'type': 'power_in', 'net': '3V3',
-                         'physical': {'offset_x': 8.5, 'offset_y': 2.5}},
-                        {'number': '15', 'name': 'VBUS', 'type': 'power_in', 'net': 'VBUS',
-                         'physical': {'offset_x': 8.5, 'offset_y': 5.0}},
-                        {'number': '16', 'name': 'GND3', 'type': 'power_in', 'net': 'GND',
-                         'physical': {'offset_x': 8.5, 'offset_y': 7.5}},
-                    ]
-                },
-                'U2': {
-                    'name': 'LDO', 'footprint': 'SOT-223', 'value': 'AMS1117-3.3',
-                    'size': (6.5, 3.5),
-                    'pins': [
-                        {'number': '1', 'name': 'VIN', 'net': 'VBUS',
-                         'physical': {'offset_x': -2.3, 'offset_y': 0.0}},
-                        {'number': '2', 'name': 'GND', 'net': 'GND',
-                         'physical': {'offset_x': 0.0, 'offset_y': 0.0}},
-                        {'number': '3', 'name': 'VOUT', 'net': '3V3',
-                         'physical': {'offset_x': 2.3, 'offset_y': 0.0}},
-                        {'number': '4', 'name': 'TAB', 'net': '3V3',
-                         'physical': {'offset_x': 0.0, 'offset_y': 3.25}},
-                    ]
-                },
-                'U3': {
-                    'name': 'ESD', 'footprint': 'SOT-23-6', 'value': 'USBLC6-2SC6',
-                    'size': (2.9, 1.6),
-                    'pins': [
-                        {'number': '1', 'name': 'IO1', 'net': 'USB_DP',
-                         'physical': {'offset_x': -0.95, 'offset_y': -0.8}},
-                        {'number': '2', 'name': 'GND', 'net': 'GND',
-                         'physical': {'offset_x': 0.0, 'offset_y': -0.8}},
-                        {'number': '3', 'name': 'IO2', 'net': 'USB_DN',
-                         'physical': {'offset_x': 0.95, 'offset_y': -0.8}},
-                        {'number': '4', 'name': 'IO3', 'net': 'USB_DN',
-                         'physical': {'offset_x': 0.95, 'offset_y': 0.8}},
-                        {'number': '5', 'name': 'VBUS', 'net': 'VBUS',
-                         'physical': {'offset_x': 0.0, 'offset_y': 0.8}},
-                        {'number': '6', 'name': 'IO4', 'net': 'USB_DP',
-                         'physical': {'offset_x': -0.95, 'offset_y': 0.8}},
-                    ]
-                },
-                'U4': {
-                    'name': 'BME280', 'footprint': 'LGA-8', 'value': 'BME280',
-                    'size': (2.5, 2.5),
-                    'pins': [
-                        {'number': '1', 'name': 'VDD', 'net': '3V3',
-                         'physical': {'offset_x': -0.975, 'offset_y': -0.65}},
-                        {'number': '2', 'name': 'GND', 'net': 'GND',
-                         'physical': {'offset_x': -0.975, 'offset_y': 0.0}},
-                        {'number': '3', 'name': 'SDI', 'net': 'I2C_SDA',
-                         'physical': {'offset_x': -0.975, 'offset_y': 0.65}},
-                        {'number': '4', 'name': 'SCK', 'net': 'I2C_SCL',
-                         'physical': {'offset_x': 0.975, 'offset_y': 0.65}},
-                        {'number': '5', 'name': 'SDO', 'net': 'GND',
-                         'physical': {'offset_x': 0.975, 'offset_y': 0.0}},
-                        {'number': '6', 'name': 'CSB', 'net': 'BME_CS',
-                         'physical': {'offset_x': 0.975, 'offset_y': -0.65}},
-                    ]
-                },
-                'J1': {
-                    'name': 'USB-C', 'footprint': 'USB-C-16P', 'value': 'USB-C',
-                    'size': (9.0, 7.5),
-                    'pins': [
-                        {'number': '1', 'name': 'VBUS', 'net': 'VBUS',
-                         'physical': {'offset_x': -3.25, 'offset_y': -2.5}},
-                        {'number': '2', 'name': 'D-', 'net': 'USB_DN',
-                         'physical': {'offset_x': -1.0, 'offset_y': -2.5}},
-                        {'number': '3', 'name': 'D+', 'net': 'USB_DP',
-                         'physical': {'offset_x': 1.0, 'offset_y': -2.5}},
-                        {'number': '4', 'name': 'CC1', 'net': 'CC1',
-                         'physical': {'offset_x': 3.25, 'offset_y': -2.5}},
-                        {'number': '5', 'name': 'GND1', 'net': 'GND',
-                         'physical': {'offset_x': -3.75, 'offset_y': 2.5}},
-                        {'number': '6', 'name': 'VBUS2', 'net': 'VBUS',
-                         'physical': {'offset_x': 3.25, 'offset_y': -2.5}},
-                        {'number': '7', 'name': 'GND2', 'net': 'GND',
-                         'physical': {'offset_x': 3.75, 'offset_y': 2.5}},
-                        {'number': '8', 'name': 'SHIELD', 'net': 'GND',
-                         'physical': {'offset_x': 0, 'offset_y': 3.0}},
-                    ]
-                },
+                # U1: ESP32 QFN-32 — sizes & pin offsets from FootprintResolver
+                'U1': resolve('QFN-32', 'ESP32', 'ESP32-WROOM-32', [
+                    ('1', 'GND',   'GND',       {'type': 'power_in'}),
+                    ('2', 'VCC',   '3V3',       {'type': 'power_in'}),
+                    ('3', 'EN',    'EN',        {'type': 'input'}),
+                    ('4', 'IO0',   'BOOT',      {'type': 'bidirectional'}),
+                    ('5', 'IO2',   'LED1_CTRL', {'type': 'bidirectional'}),
+                    ('6', 'IO4',   'LED2_CTRL', {'type': 'bidirectional'}),
+                    ('7', 'IO18',  'USB_DN',    {'type': 'bidirectional'}),
+                    ('8', 'IO19',  'USB_DP',    {'type': 'bidirectional'}),
+                    ('9', 'IO21',  'I2C_SDA',   {'type': 'bidirectional'}),
+                    ('10', 'IO22', 'I2C_SCL',   {'type': 'bidirectional'}),
+                    ('11', 'IO23', 'BME_CS',    {'type': 'bidirectional'}),
+                    ('12', 'IO25', 'CC1',       {'type': 'bidirectional'}),
+                    ('13', 'GND2', 'GND',       {'type': 'power_in'}),
+                    ('14', '3V3_2','3V3',       {'type': 'power_in'}),
+                    ('15', 'VBUS', 'VBUS',      {'type': 'power_in'}),
+                    ('16', 'GND3', 'GND',       {'type': 'power_in'}),
+                ]),
+
+                # U2: LDO SOT-223
+                'U2': resolve('SOT-223', 'LDO', 'AMS1117-3.3', [
+                    ('1', 'VIN',  'VBUS', {}),
+                    ('2', 'GND',  'GND',  {}),
+                    ('3', 'VOUT', '3V3',  {}),
+                    ('4', 'TAB',  '3V3',  {}),
+                ]),
+
+                # U3: ESD SOT-23-6
+                'U3': resolve('SOT-23-6', 'ESD', 'USBLC6-2SC6', [
+                    ('1', 'IO1',  'USB_DP', {}),
+                    ('2', 'GND',  'GND',    {}),
+                    ('3', 'IO2',  'USB_DN', {}),
+                    ('4', 'IO3',  'USB_DN', {}),
+                    ('5', 'VBUS', 'VBUS',   {}),
+                    ('6', 'IO4',  'USB_DP', {}),
+                ]),
+
+                # U4: BME280 LGA-8
+                'U4': resolve('LGA-8', 'BME280', 'BME280', [
+                    ('1', 'VDD', '3V3',    {}),
+                    ('2', 'GND', 'GND',    {}),
+                    ('3', 'SDI', 'I2C_SDA',{}),
+                    ('4', 'SCK', 'I2C_SCL',{}),
+                    ('5', 'SDO', 'GND',    {}),
+                    ('6', 'CSB', 'BME_CS', {}),
+                ]),
+
+                # J1: USB-C connector
+                'J1': resolve('USB-C-16P', 'USB-C', 'USB-C', [
+                    ('1', 'VBUS',   'VBUS',  {}),
+                    ('2', 'D-',     'USB_DN',{}),
+                    ('3', 'D+',     'USB_DP',{}),
+                    ('4', 'CC1',    'CC1',   {}),
+                    ('5', 'GND1',   'GND',   {}),
+                    ('6', 'VBUS2',  'VBUS',  {}),
+                    ('7', 'GND2',   'GND',   {}),
+                    ('8', 'SHIELD', 'GND',   {}),
+                ]),
             },
             'nets': {},
             'board': {'width': 50, 'height': 40, 'layers': 2},
@@ -251,21 +219,22 @@ class TestBoards:
             ('LED1', '0402', 'Red', 'LED1_A', 'GND'),
             ('LED2', '0402', 'Green', 'LED2_A', 'GND'),
         ]
+        resolver = FootprintResolver.get_instance()
         for ref, fp, val, net1, net2 in passives:
-            fp_def = get_footprint_definition(fp)
-            if fp_def and fp_def.pad_positions:
+            fp_def = resolver.resolve(fp)
+            if fp_def.pad_positions:
                 ox1 = fp_def.pad_positions[0][1]
+                oy1 = fp_def.pad_positions[0][2]
                 ox2 = fp_def.pad_positions[1][1]
+                oy2 = fp_def.pad_positions[1][2]
             else:
-                ox1, ox2 = -0.48, 0.48
-            bw = fp_def.body_width if fp_def else 1.0
-            bh = fp_def.body_height if fp_def else 0.5
+                ox1, oy1, ox2, oy2 = -0.48, 0, 0.48, 0
             parts_db['parts'][ref] = {
                 'name': ref, 'footprint': fp, 'value': val,
-                'size': (bw, bh),
+                'size': (fp_def.body_width, fp_def.body_height),
                 'pins': [
-                    {'number': '1', 'net': net1, 'physical': {'offset_x': ox1, 'offset_y': 0}},
-                    {'number': '2', 'net': net2, 'physical': {'offset_x': ox2, 'offset_y': 0}},
+                    {'number': '1', 'net': net1, 'physical': {'offset_x': round(ox1, 4), 'offset_y': round(oy1, 4)}},
+                    {'number': '2', 'net': net2, 'physical': {'offset_x': round(ox2, 4), 'offset_y': round(oy2, 4)}},
                 ]
             }
 
