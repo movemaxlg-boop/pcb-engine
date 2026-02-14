@@ -11,6 +11,11 @@ Level 2 (Fine):   Place real components within each cluster's region
 Reuses PlacementEngine as a black box at both levels — no modifications
 to the existing engine.
 
+Expected to outperform flat placement on boards with 50+ components
+where the flat SA search space is too large. On small boards (< 25 parts),
+the flat engine's global optimization typically wins because there are
+fewer components and the SA can explore effectively.
+
 Classes:
     ComponentCluster     - A group of functionally-related components
     ClusterBuilder       - Forms clusters from functional role analysis
@@ -74,6 +79,7 @@ class ClusterBuilder:
 
     PACKING_OVERHEAD = 2.0   # 100% extra area for routing + spacing within cluster
     MIN_CLUSTER_DIM = 3.0    # Minimum cluster dimension (mm)
+    MAX_CLUSTER_SIZE = 5     # Max members per cluster (owner + 4 passives)
 
     def __init__(self, parts_db: Dict, graph: Dict, functional_roles: Dict[str, Dict]):
         self.parts_db = parts_db
@@ -86,10 +92,12 @@ class ClusterBuilder:
         Main clustering algorithm.
 
         1. Group components by owner from functional_roles
-        2. Create single-member clusters for orphans
-        3. Calculate cluster geometry
-        4. Build inter-cluster connectivity
-        5. Classify cluster roles
+        2. Split oversized clusters (keep highest-priority members)
+        3. Redistribute evicted members to alternative clusters
+        4. Create single-member clusters for orphans
+        5. Calculate cluster geometry
+        6. Build inter-cluster connectivity
+        7. Classify cluster roles
         """
         clusters = []
         assigned = set()
@@ -102,6 +110,88 @@ class ClusterBuilder:
                 owner_groups[owner].append(ref)
                 assigned.add(ref)
 
+        # Step 2: Split oversized clusters
+        # Priority: DECOUPLING(3.0) > ESD(2.5) > LED_DRIVER(2.0) > PULLUP/DOWN(1.5)
+        evicted: List[str] = []
+        for owner in list(owner_groups.keys()):
+            members = owner_groups[owner]
+            if len(members) + 1 > self.MAX_CLUSTER_SIZE:
+                # Sort by priority (highest first), keep top MAX-1
+                members_with_priority = [
+                    (ref, self.functional_roles[ref].get('priority', 0))
+                    for ref in members
+                ]
+                members_with_priority.sort(key=lambda x: x[1], reverse=True)
+                keep = [m[0] for m in members_with_priority[:self.MAX_CLUSTER_SIZE - 1]]
+                evict = [m[0] for m in members_with_priority[self.MAX_CLUSTER_SIZE - 1:]]
+                owner_groups[owner] = keep
+                evicted.extend(evict)
+
+        # Step 3: Redistribute evicted members to alternative IC/regulator clusters
+        # Build net-to-component lookup
+        net_to_refs = {}
+        for ref, part in self.parts_db['parts'].items():
+            for pin in get_pins(part):
+                net = pin.get('net', '')
+                if net:
+                    net_to_refs.setdefault(net, set()).add(ref)
+
+        # Identify all ICs in the design (multi-pin active components)
+        all_ics = set()
+        for ref, part in self.parts_db['parts'].items():
+            pin_count = len(get_pins(part))
+            fp = part.get('footprint', '').upper()
+            if (pin_count >= 3 or ref.startswith('U') or ref.startswith('J') or
+                    any(pkg in fp for pkg in ['QFN', 'QFP', 'SOT', 'SOIC', 'LGA', 'BGA'])):
+                all_ics.add(ref)
+
+        for ref in evicted:
+            assigned.discard(ref)
+            role_data = self.functional_roles.get(ref, {})
+            original_owner = role_data.get('owner', '')
+            part = self.parts_db['parts'].get(ref, {})
+
+            # Find alternative owner: prefer ICs sharing a signal net
+            # Can create NEW owner_groups entries for ICs not yet in the map
+            candidates = []
+            for pin in get_pins(part):
+                net = pin.get('net', '')
+                if not net or net == 'GND':
+                    continue
+                for other_ref in net_to_refs.get(net, set()):
+                    if other_ref == ref or other_ref == original_owner:
+                        continue
+                    # Check if this is a valid target
+                    if other_ref in owner_groups:
+                        current_size = len(owner_groups[other_ref]) + 1  # +1 for owner
+                    elif other_ref in all_ics and other_ref not in assigned:
+                        current_size = 1  # New group with just the IC
+                    elif other_ref in all_ics:
+                        # IC already assigned as member of another cluster — skip
+                        continue
+                    else:
+                        continue
+
+                    if current_size >= self.MAX_CLUSTER_SIZE:
+                        continue
+
+                    # Score: ICs > passives, signal nets > power nets
+                    is_ic = 1 if other_ref in all_ics else 0
+                    is_signal = 1 if net not in ('GND', '3V3', 'VBUS') else 0
+                    score = is_ic * 10 + is_signal * 5
+                    candidates.append((other_ref, score))
+
+            if candidates:
+                # Pick highest-scoring alternative
+                candidates.sort(key=lambda x: x[1], reverse=True)
+                best_alt = candidates[0][0]
+                if best_alt not in owner_groups:
+                    # Create new owner group for this IC
+                    owner_groups[best_alt] = []
+                owner_groups[best_alt].append(ref)
+                assigned.add(ref)
+            # else: stays evicted, becomes orphan cluster
+
         # Create clusters from owner groups
         for owner, members in owner_groups.items():
             all_members = [owner] + sorted(members)
@@ -113,7 +203,7 @@ class ClusterBuilder:
             clusters.append(cluster)
             assigned.add(owner)
 
-        # Step 2: Orphan clusters (components with no owner relationship)
+        # Step 4: Orphan clusters (components with no owner relationship)
         for ref in sorted(self.parts_db.get('parts', {}).keys()):
             if ref not in assigned:
                 cluster = ComponentCluster(
@@ -200,17 +290,19 @@ class ClusterBuilder:
 
     def _build_inter_cluster_edges(self, clusters: List[ComponentCluster]):
         """Build connectivity graph between clusters from shared nets."""
-        # Build ref → cluster index
+        # Build ref -> cluster lookup
         ref_to_cluster_id: Dict[str, str] = {}
         for cluster in clusters:
             for ref in cluster.members:
                 ref_to_cluster_id[ref] = cluster.id
 
+        # Build cluster_id -> cluster lookup for fast access
+        id_to_cluster: Dict[str, ComponentCluster] = {c.id: c for c in clusters}
+
         # Process each net
         nets = self.parts_db.get('nets', {})
         for net_name, net_data in nets.items():
             pins = net_data.get('pins', [])
-            # Find which clusters this net touches
             clusters_on_net = set()
             for pin_ref in pins:
                 comp_ref = pin_ref.split('.')[0] if '.' in pin_ref else pin_ref
@@ -218,21 +310,21 @@ class ClusterBuilder:
                 if cid:
                     clusters_on_net.add(cid)
 
-            # Skip power/GND nets for inter-cluster weighting (handled by pour)
-            net_type = net_data.get('type', 'signal')
-            if net_type == 'power':
+            if len(clusters_on_net) < 2:
                 continue
+
+            # Signal nets have higher weight than power nets
+            net_type = net_data.get('type', 'signal')
+            weight = 2 if net_type == 'signal' else 1
 
             # Increment pairwise connections
             cluster_list = sorted(clusters_on_net)
             for i, c1 in enumerate(cluster_list):
                 for c2 in cluster_list[i + 1:]:
-                    # Find cluster objects
-                    for cluster in clusters:
-                        if cluster.id == c1:
-                            cluster.net_connections[c2] = cluster.net_connections.get(c2, 0) + 1
-                        elif cluster.id == c2:
-                            cluster.net_connections[c1] = cluster.net_connections.get(c1, 0) + 1
+                    id_to_cluster[c1].net_connections[c2] = (
+                        id_to_cluster[c1].net_connections.get(c2, 0) + weight)
+                    id_to_cluster[c2].net_connections[c1] = (
+                        id_to_cluster[c2].net_connections.get(c1, 0) + weight)
 
     def _classify_roles(self, clusters: List[ComponentCluster]):
         """Classify each cluster's role from owner properties."""
@@ -379,9 +471,20 @@ class HierarchicalPlacementEngine:
 
     def _place_coarse(self, parts_db: Dict) -> PlacementResult:
         """Place clusters as pseudo-components on the board."""
-        # Build synthetic parts_db for clusters
-        pseudo_parts = {}
+        # Build ref -> cluster_id mapping
+        ref_to_cluster = {}
         for cluster in self.clusters:
+            for ref in cluster.members:
+                ref_to_cluster[ref] = cluster.id
+
+        # Build synthetic parts_db for clusters, including synthetic pins/nets
+        # so the placement engine can compute wirelength properly
+        pseudo_parts = {}
+        pseudo_nets = {}
+        pin_counter = {}  # cluster_id -> next pin number
+
+        for cluster in self.clusters:
+            pin_counter[cluster.id] = 1
             pseudo_parts[cluster.id] = {
                 'name': cluster.id,
                 'footprint': 'pseudo_cluster',
@@ -393,9 +496,40 @@ class HierarchicalPlacementEngine:
                 },
             }
 
+        # Create synthetic nets from real nets that span multiple clusters
+        for net_name, net_data in parts_db.get('nets', {}).items():
+            pins = net_data.get('pins', [])
+            # Find which clusters this net touches
+            clusters_on_net = set()
+            for pin_ref in pins:
+                comp_ref = pin_ref.split('.')[0] if '.' in pin_ref else pin_ref
+                cid = ref_to_cluster.get(comp_ref)
+                if cid:
+                    clusters_on_net.add(cid)
+
+            if len(clusters_on_net) < 2:
+                continue  # Net is entirely within one cluster
+
+            # Create synthetic net with one pin per cluster
+            synth_net_name = f"synth_{net_name}"
+            synth_pins = []
+            for cid in sorted(clusters_on_net):
+                pnum = pin_counter[cid]
+                pin_counter[cid] += 1
+                pseudo_parts[cid]['pins'].append({
+                    'number': str(pnum),
+                    'net': synth_net_name,
+                })
+                synth_pins.append(f"{cid}.{pnum}")
+
+            pseudo_nets[synth_net_name] = {
+                'type': net_data.get('type', 'signal'),
+                'pins': synth_pins,
+            }
+
         pseudo_parts_db = {
             'parts': pseudo_parts,
-            'nets': {},  # Connectivity via graph adjacency
+            'nets': pseudo_nets,
             'board': parts_db.get('board', {'width': 50, 'height': 40, 'layers': 2}),
         }
 
@@ -616,18 +750,19 @@ class HierarchicalPlacementEngine:
         placement_hints: Dict = None,
     ) -> Tuple[Dict[str, Tuple[float, float]], Dict[str, float], float]:
         """
-        Light SA pass across ALL components to smooth cluster boundaries.
+        Legalize hierarchical placement: fix overlaps and boundary violations.
 
-        Uses low temperature so it only makes small adjustments.
+        Does NOT run SA or FD — both destroy the hierarchical structure:
+        - SA move distance is proportional to board size, scattering clusters
+        - FD ignores initial positions and computes its own layout from scratch
+
+        The hierarchical structure already provides good relative positions.
+        Legalization resolves physical conflicts without changing topology.
         """
         refine_config = PlacementConfig(
             board_width=self.config.board_width,
             board_height=self.config.board_height,
-            algorithm='sa',
-            sa_initial_temp=30.0,   # Low temp — just smooth, don't scatter
-            sa_final_temp=0.1,
-            sa_moves_per_temp=60,
-            sa_cooling_rate=0.93,
+            algorithm='sa',  # Needed for engine init
             min_spacing=0.5,
             edge_margin=2.0,
             seed=self.config.seed,
@@ -656,17 +791,11 @@ class HierarchicalPlacementEngine:
             area = self.config.board_width * self.config.board_height
             engine._optimal_dist = math.sqrt(area / n) * 0.8
 
-        # First: legalize to resolve overlaps from cluster-to-cluster stacking
-        # This preserves cluster grouping while fixing physical conflicts
-        engine._legalize()
-
+        # Compute preferred orientations for passives
         engine._compute_preferred_orientation()
         initial_cost = engine._calculate_cost()
 
-        # Then: light SA to smooth inter-cluster connections
-        result = engine._place_simulated_annealing()
-
-        # Final legalization
+        # Legalize: fix overlaps and boundary violations
         engine._legalize()
 
         # Extract final positions
@@ -679,7 +808,7 @@ class HierarchicalPlacementEngine:
         final_cost = engine._calculate_cost()
         improvement = initial_cost - final_cost
 
-        print(f"  Refinement: cost {initial_cost:.1f} -> {final_cost:.1f} "
+        print(f"  Legalization: cost {initial_cost:.1f} -> {final_cost:.1f} "
               f"(delta={improvement:.1f})")
 
         return final_positions, final_rotations, improvement
