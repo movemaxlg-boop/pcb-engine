@@ -520,10 +520,10 @@ class PlacementEngine:
             if ref == self.hub:
                 x, y = cx, cy
             else:
-                # Golden angle spiral for initial spread
+                # Golden angle spiral for initial spread (use 45% of board for wider coverage)
                 golden_angle = 137.508 * math.pi / 180
                 angle = idx * golden_angle
-                r = self.config.board_width * 0.3 * math.sqrt(idx + 1) / math.sqrt(len(parts) + 1)
+                r = min(self.config.board_width, self.config.board_height) * 0.45 * math.sqrt(idx + 1) / math.sqrt(len(parts) + 1)
                 x = cx + r * math.cos(angle)
                 y = cy + r * math.sin(angle)
 
@@ -680,6 +680,10 @@ class PlacementEngine:
                         for ref_b in components[i + 1:]:
                             if ref_a in self.components and ref_b in self.components:
                                 self._apply_attractive_force(ref_a, ref_b, k, priority * 2.0)
+
+            # Spreading force: push components away from center of mass
+            # This prevents clustering and encourages full board utilization
+            self._apply_spreading_force(k)
 
             # Apply boundary forces to keep components inside board
             for comp in self.components.values():
@@ -858,6 +862,49 @@ class PlacementEngine:
         # Bottom boundary
         if comp.y > max_y:
             comp.fy -= boundary_force * (comp.y - max_y)
+
+    def _apply_spreading_force(self, k: float):
+        """Push components away from center of mass to use full board area.
+
+        Prevents the common FD failure mode where net attraction pulls
+        everything into a tight cluster, leaving most of the board empty.
+        Force is proportional to how close the component is to the centroid.
+        """
+        if len(self.components) < 2:
+            return
+
+        # Compute centroid of all movable components
+        movable = [c for c in self.components.values() if not c.fixed]
+        if not movable:
+            return
+
+        cx = sum(c.x for c in movable) / len(movable)
+        cy = sum(c.y for c in movable) / len(movable)
+
+        # Board center
+        board_cx = self.config.origin_x + self.config.board_width / 2
+        board_cy = self.config.origin_y + self.config.board_height / 2
+
+        # Spreading strength: proportional to k, mild enough not to fight real nets
+        spread_k = k * 0.3
+
+        for comp in movable:
+            dx = comp.x - cx
+            dy = comp.y - cy
+            dist = math.sqrt(dx * dx + dy * dy)
+
+            if dist < 0.1:
+                # At centroid — push toward board center
+                dx = board_cx - comp.x
+                dy = board_cy - comp.y
+                dist = math.sqrt(dx * dx + dy * dy)
+                if dist < 0.1:
+                    continue
+
+            # Push away from centroid (proportional force)
+            force = spread_k
+            comp.fx += force * dx / dist
+            comp.fy += force * dy / dist
 
     # =========================================================================
     # SIMULATED ANNEALING PLACEMENT
