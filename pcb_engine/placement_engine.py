@@ -60,8 +60,10 @@ import threading
 # Import common helpers for consistent pin access (BUG FIX: use get_pins instead of .get('used_pins'))
 try:
     from .common_types import get_pins
+    from .footprint_resolver import FootprintResolver
 except ImportError:
     from common_types import get_pins
+    from footprint_resolver import FootprintResolver
 
 
 class PlacementAlgorithm(Enum):
@@ -507,43 +509,11 @@ class PlacementEngine:
                 else:
                     width, height = 2.0, 2.0
             else:
-                # Fallback: Calculate courtyard from pad positions
-                # This ensures placement accounts for pads that extend beyond body
-                # (e.g., SOT-223 tab pad extends 3.25mm above center)
-                size = part.get('size', (2.0, 2.0))
-                base_width = size[0] if isinstance(size, (list, tuple)) else 2.0
-                base_height = size[1] if isinstance(size, (list, tuple)) else 2.0
-
-                # Calculate actual courtyard bounds from pad positions
-                used_pins = get_pins(part)
-                min_x, max_x, min_y, max_y = 0, 0, 0, 0
-                courtyard_margin = 0.25  # IPC standard courtyard margin
-
-                for pin in used_pins:
-                    # Handle both pin formats: 'offset' tuple and 'physical' dict
-                    offset = pin.get('offset', None)
-                    phys = pin.get('physical', {})
-                    if isinstance(offset, (list, tuple)) and len(offset) >= 2:
-                        ox, oy = offset[0], offset[1]
-                    elif isinstance(phys, dict) and ('offset_x' in phys or 'offset_y' in phys):
-                        ox = phys.get('offset_x', 0)
-                        oy = phys.get('offset_y', 0)
-                    else:
-                        continue  # No position data for this pin
-                    pad_size = pin.get('size', pin.get('pad_size', (1.0, 0.6)))
-                    pw = pad_size[0] / 2 if isinstance(pad_size, (list, tuple)) else 0.5
-                    ph = pad_size[1] / 2 if isinstance(pad_size, (list, tuple)) and len(pad_size) > 1 else 0.3
-                    # Track pad extents
-                    min_x = min(min_x, ox - pw - courtyard_margin)
-                    max_x = max(max_x, ox + pw + courtyard_margin)
-                    min_y = min(min_y, oy - ph - courtyard_margin)
-                    max_y = max(max_y, oy + ph + courtyard_margin)
-
-                # Use the larger of body size or pad-based courtyard
-                courtyard_width = max(base_width, max_x - min_x)
-                courtyard_height = max(base_height, max_y - min_y)
-                width = courtyard_width
-                height = courtyard_height
+                # Use FootprintResolver courtyard — same source as output & overlap check
+                fp_name = part.get('footprint', 'unknown')
+                resolver = FootprintResolver.get_instance()
+                fp_def = resolver.resolve(fp_name)
+                width, height = fp_def.courtyard_size
 
             # Initial position: spread around center using golden angle
             idx = len(self.components)
@@ -907,14 +877,20 @@ class PlacementEngine:
                     if refs:
                         ref = rng.choice(refs)
                         comp = self.components[ref]
+                        old_cx, old_cy = comp.x, comp.y
                         max_shift = (temp / initial_temp) * self.config.board_width * 0.3
                         max_shift = max(max_shift, self.config.grid_size)
                         comp.x += rng.uniform(-max_shift, max_shift)
                         comp.y += rng.uniform(-max_shift, max_shift)
                         comp.x, comp.y = self._clamp_to_board(comp)
-                        # Check occupancy (ignore_ref=self so we don't block ourselves)
-                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
-                            move_valid = False
+                        # Remove from grid, check new position, re-place
+                        if occ:
+                            occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
+                            if occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                                occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                            else:
+                                occ.place(ref, old_cx, old_cy, comp.width, comp.height)
+                                move_valid = False
                 elif r < 0.75:
                     # Swap move
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
@@ -947,21 +923,34 @@ class PlacementEngine:
                     if refs:
                         ref = rng.choice(refs)
                         comp = self.components[ref]
+                        old_cx, old_cy = comp.x, comp.y
+                        old_w, old_h = comp.width, comp.height
                         comp.rotation = (comp.rotation + 90) % 360
                         comp.width, comp.height = comp.height, comp.width
                         comp.x, comp.y = self._clamp_to_board(comp)
-                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
-                            move_valid = False
+                        if occ:
+                            occ.remove(ref, old_cx, old_cy, old_w, old_h)
+                            if occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                                occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                            else:
+                                occ.place(ref, old_cx, old_cy, old_w, old_h)
+                                move_valid = False
                 else:
                     # Rotate 180
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if refs:
                         ref = rng.choice(refs)
                         comp = self.components[ref]
+                        old_cx, old_cy = comp.x, comp.y
                         comp.rotation = (comp.rotation + 180) % 360
                         comp.x, comp.y = self._clamp_to_board(comp)
-                        if occ and not occ.can_place(comp.x, comp.y, comp.width, comp.height, ignore_ref=ref):
-                            move_valid = False
+                        if occ:
+                            occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
+                            if occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                                occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                            else:
+                                occ.place(ref, old_cx, old_cy, comp.width, comp.height)
+                                move_valid = False
 
                 # HARD CONSTRAINT: reject moves that create overlaps
                 if not move_valid:

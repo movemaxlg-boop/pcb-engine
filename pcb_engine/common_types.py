@@ -389,9 +389,24 @@ class FootprintDefinition:
 
     @property
     def courtyard_size(self) -> Tuple[float, float]:
-        """Courtyard size (body + 0.25mm margin each side for passives, 0.5mm for ICs)."""
-        margin = 0.25 if max(self.body_width, self.body_height) < 5.0 else 0.5
-        return (self.body_width + 2 * margin, self.body_height + 2 * margin)
+        """Courtyard size — encloses body AND all pads, plus margin.
+
+        For ICs like QFN, pads extend beyond the body, so the courtyard must
+        cover the full pad bounding box, not just the body.
+        """
+        # Start with body dimensions
+        extent_w = self.body_width
+        extent_h = self.body_height
+
+        # Expand to include pad bounding box (pad center + half pad size)
+        if self.pad_positions:
+            max_x = max(abs(px) + pw / 2 for _, px, _, pw, _ in self.pad_positions)
+            max_y = max(abs(py) + ph / 2 for _, _, py, _, ph in self.pad_positions)
+            extent_w = max(extent_w, max_x * 2)
+            extent_h = max(extent_h, max_y * 2)
+
+        margin = 0.25 if max(extent_w, extent_h) < 5.0 else 0.5
+        return (round(extent_w + 2 * margin, 2), round(extent_h + 2 * margin, 2))
 
     @property
     def pitch(self) -> float:
