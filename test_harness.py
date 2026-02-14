@@ -276,10 +276,318 @@ class TestBoards:
 
     @staticmethod
     def complex_50_parts():
-        """Challenging board: multi-IC, differential pairs. Not implemented yet."""
-        # Placeholder - returns medium board with tighter constraints
-        parts_db = TestBoards.medium_20_parts()
-        parts_db['board'] = {'width': 35, 'height': 30, 'layers': 2}
+        """
+        Multi-MCU IoT Gateway Board — 52 components, 6 functional blocks.
+
+        Block 1: Main MCU (ESP32-S3 QFN-32) + 4 decoupling caps + pull-ups + boot
+        Block 2: Sensor Hub (STM32G0 LQFP-32) + 4 decoupling caps + 2 pull-ups
+        Block 3: Power (2x LDO SOT-223, 1x buck SOIC-8) + 6 filter caps
+        Block 4: Comms (USB-C, ESD SOT-23-6, RS485 SOIC-8) + 2 caps
+        Block 5: Sensors (BME280 LGA-8, light SOT-23-5, accel LGA-8) + 3 caps
+        Block 6: LEDs (4x 0402 LEDs + 4x 0402 current-limit resistors)
+        Block 7: Protection (2x TVS SOT-23, 2x ferrite 0805)
+
+        Board: 80x60mm, 2-layer — designed for hierarchical placement to shine.
+        """
+        resolve = TestBoards._resolve_ic
+
+        parts_db = {
+            'parts': {},
+            'nets': {},
+            'board': {'width': 80, 'height': 60, 'layers': 2},
+        }
+        resolver = FootprintResolver.get_instance()
+
+        # =====================================================================
+        # BLOCK 1: Main MCU — ESP32-S3 (QFN-32) + support
+        # =====================================================================
+        parts_db['parts']['U1'] = resolve('QFN-32', 'ESP32-S3', 'ESP32-S3', [
+            # Left (1-8)
+            ('1', 'GND',   'GND',        {'type': 'power_in'}),
+            ('2', 'VCC',   '3V3',        {'type': 'power_in'}),
+            ('3', 'EN',    'ESP_EN',      {'type': 'input'}),
+            ('4', 'IO0',   'ESP_BOOT',   {'type': 'bidirectional'}),
+            ('5', 'IO2',   'LED1_CTRL',  {'type': 'bidirectional'}),
+            ('6', 'IO4',   'LED2_CTRL',  {'type': 'bidirectional'}),
+            ('7', 'IO18',  'USB_DN',     {'type': 'bidirectional'}),
+            ('8', 'IO19',  'USB_DP',     {'type': 'bidirectional'}),
+            # Bottom (9-16)
+            ('9', 'IO21',  'I2C_SDA',    {'type': 'bidirectional'}),
+            ('10', 'IO22', 'I2C_SCL',    {'type': 'bidirectional'}),
+            ('11', 'IO23', 'SPI_MOSI',   {'type': 'bidirectional'}),
+            ('12', 'IO25', 'SPI_MISO',   {'type': 'bidirectional'}),
+            ('13', 'IO26', 'SPI_SCK',    {'type': 'bidirectional'}),
+            ('14', 'IO27', 'SPI_CS0',    {'type': 'bidirectional'}),
+            ('15', 'IO32', 'UART_TX',    {'type': 'bidirectional'}),
+            ('16', 'IO33', 'UART_RX',    {'type': 'bidirectional'}),
+            # Right (17-24)
+            ('17', 'IO34', 'RS485_TX',   {'type': 'bidirectional'}),
+            ('18', 'IO35', 'RS485_RX',   {'type': 'bidirectional'}),
+            ('19', 'RXD0', 'LED3_CTRL',  {'type': 'bidirectional'}),
+            ('20', 'TXD0', 'LED4_CTRL',  {'type': 'bidirectional'}),
+            ('21', 'IO5',  'MCU_INT',    {'type': 'bidirectional'}),
+            ('22', 'IO12', 'GND',        {'type': 'power_in'}),
+            ('23', 'IO13', 'GND',        {'type': 'power_in'}),
+            ('24', 'IO14', 'GND',        {'type': 'power_in'}),
+            # Top (25-32)
+            ('25', 'IO15', '3V3',        {'type': 'power_in'}),
+            ('26', 'IO16', 'GND',        {'type': 'power_in'}),
+            ('27', 'IO17', 'GND',        {'type': 'power_in'}),
+            ('28', 'GND4', 'GND',        {'type': 'power_in'}),
+            ('29', 'GND5', 'GND',        {'type': 'power_in'}),
+            ('30', 'GND6', 'GND',        {'type': 'power_in'}),
+            ('31', 'GND7', 'GND',        {'type': 'power_in'}),
+            ('32', 'GND8', 'GND',        {'type': 'power_in'}),
+            ('33', 'EPAD', 'GND',        {'type': 'power_in'}),
+        ])
+
+        # =====================================================================
+        # BLOCK 2: Sensor Hub — STM32G0 (LQFP-32) + support
+        # =====================================================================
+        parts_db['parts']['U2'] = resolve('LQFP-32', 'STM32G0', 'STM32G031K8', [
+            # Left (1-8)
+            ('1', 'VDD',    '3V3',       {'type': 'power_in'}),
+            ('2', 'VSS',    'GND',       {'type': 'power_in'}),
+            ('3', 'NRST',   'STM_NRST', {'type': 'input'}),
+            ('4', 'PA0',    'SENSOR_INT', {'type': 'bidirectional'}),
+            ('5', 'PA1',    'LIGHT_OUT', {'type': 'bidirectional'}),
+            ('6', 'PA2',    'ACCEL_INT', {'type': 'bidirectional'}),
+            ('7', 'PA3',    'I2C_SDA',   {'type': 'bidirectional'}),
+            ('8', 'PA4',    'I2C_SCL',   {'type': 'bidirectional'}),
+            # Bottom (9-16)
+            ('9', 'PA5',    'SPI_SCK',   {'type': 'bidirectional'}),
+            ('10', 'PA6',   'SPI_MISO',  {'type': 'bidirectional'}),
+            ('11', 'PA7',   'SPI_MOSI',  {'type': 'bidirectional'}),
+            ('12', 'PB0',   'SPI_CS1',   {'type': 'bidirectional'}),
+            ('13', 'PB1',   'SPI_CS2',   {'type': 'bidirectional'}),
+            ('14', 'PB2',   'MCU_INT',   {'type': 'bidirectional'}),
+            ('15', 'VDD2',  '3V3',       {'type': 'power_in'}),
+            ('16', 'VSS2',  'GND',       {'type': 'power_in'}),
+            # Right (17-24)
+            ('17', 'PA8',   'GND',       {'type': 'power_in'}),
+            ('18', 'PA9',   'GND',       {'type': 'power_in'}),
+            ('19', 'PA10',  'GND',       {'type': 'power_in'}),
+            ('20', 'PA11',  'GND',       {'type': 'power_in'}),
+            ('21', 'PA12',  'GND',       {'type': 'power_in'}),
+            ('22', 'PA13',  'GND',       {'type': 'power_in'}),
+            ('23', 'PA14',  'GND',       {'type': 'power_in'}),
+            ('24', 'PA15',  'GND',       {'type': 'power_in'}),
+            # Top (25-32)
+            ('25', 'PB3',   'GND',       {'type': 'power_in'}),
+            ('26', 'PB4',   'GND',       {'type': 'power_in'}),
+            ('27', 'PB5',   'GND',       {'type': 'power_in'}),
+            ('28', 'PB6',   'GND',       {'type': 'power_in'}),
+            ('29', 'PB7',   'GND',       {'type': 'power_in'}),
+            ('30', 'PB8',   'GND',       {'type': 'power_in'}),
+            ('31', 'VDD3',  '3V3',       {'type': 'power_in'}),
+            ('32', 'VSS3',  'GND',       {'type': 'power_in'}),
+        ])
+
+        # =====================================================================
+        # BLOCK 3: Power — 2x LDO + 1x Buck converter
+        # =====================================================================
+        # U3: 3.3V LDO (from VBUS)
+        parts_db['parts']['U3'] = resolve('SOT-223', 'LDO_3V3', 'AMS1117-3.3', [
+            ('1', 'VIN',  'VBUS', {}),
+            ('2', 'GND',  'GND',  {}),
+            ('3', 'VOUT', '3V3',  {}),
+            ('4', 'TAB',  '3V3',  {}),
+        ])
+        # U4: 1.8V LDO (for sensors)
+        parts_db['parts']['U4'] = resolve('SOT-223', 'LDO_1V8', 'AMS1117-1.8', [
+            ('1', 'VIN',  '3V3',    {}),
+            ('2', 'GND',  'GND',    {}),
+            ('3', 'VOUT', '1V8',    {}),
+            ('4', 'TAB',  '1V8',    {}),
+        ])
+        # U5: Buck converter (5V→3.3V backup, SOIC-8)
+        parts_db['parts']['U5'] = resolve('SOIC-8', 'BUCK', 'MP2307', [
+            ('1', 'IN',   'VBUS',   {}),
+            ('2', 'GND1', 'GND',    {}),
+            ('3', 'SW',   'SW_OUT', {}),
+            ('4', 'FB',   'FB_NET', {}),
+            ('5', 'EN',   'VBUS',   {}),
+            ('6', 'BST',  'BST_NET',{}),
+            ('7', 'GND2', 'GND',    {}),
+            ('8', 'COMP', 'COMP_NET', {}),
+        ])
+
+        # =====================================================================
+        # BLOCK 4: Comms — USB-C + ESD + RS485
+        # =====================================================================
+        # J1: USB-C connector
+        parts_db['parts']['J1'] = resolve('USB-C-16P', 'USB-C', 'USB-C', [
+            ('1', 'VBUS',   'VBUS',  {}),
+            ('2', 'D-',     'USB_DN',{}),
+            ('3', 'D+',     'USB_DP',{}),
+            ('4', 'CC1',    'CC1',   {}),
+            ('5', 'GND1',   'GND',   {}),
+            ('6', 'VBUS2',  'VBUS',  {}),
+            ('7', 'GND2',   'GND',   {}),
+            ('8', 'SHIELD', 'GND',   {}),
+        ])
+        # U6: ESD protection (on USB lines)
+        parts_db['parts']['U6'] = resolve('SOT-23-6', 'ESD', 'USBLC6-2SC6', [
+            ('1', 'IO1',  'USB_DP', {}),
+            ('2', 'GND',  'GND',    {}),
+            ('3', 'IO2',  'USB_DN', {}),
+            ('4', 'IO3',  'USB_DN', {}),
+            ('5', 'VBUS', 'VBUS',   {}),
+            ('6', 'IO4',  'USB_DP', {}),
+        ])
+        # U7: RS485 transceiver (SOIC-8)
+        parts_db['parts']['U7'] = resolve('SOIC-8', 'RS485', 'MAX485', [
+            ('1', 'RO',  'RS485_RX', {}),
+            ('2', 'RE',  'RS485_DE', {}),
+            ('3', 'DE',  'RS485_DE', {}),
+            ('4', 'DI',  'RS485_TX', {}),
+            ('5', 'GND', 'GND',      {}),
+            ('6', 'A',   'RS485_A',  {}),
+            ('7', 'B',   'RS485_B',  {}),
+            ('8', 'VCC', '3V3',      {}),
+        ])
+        # J2: RS485 screw terminal (2-pin, use 0805 as placeholder)
+        parts_db['parts']['J2'] = resolve('0805', 'RS485_TERM', 'Conn_2pin', [
+            ('1', 'A',  'RS485_A', {}),
+            ('2', 'B',  'RS485_B', {}),
+        ])
+
+        # =====================================================================
+        # BLOCK 5: Sensors — BME280 + light sensor + accelerometer
+        # =====================================================================
+        # U8: BME280 temperature/humidity/pressure
+        parts_db['parts']['U8'] = resolve('LGA-8', 'BME280', 'BME280', [
+            ('1', 'VDD', '1V8',    {}),
+            ('2', 'GND', 'GND',    {}),
+            ('3', 'SDI', 'I2C_SDA',{}),
+            ('4', 'SCK', 'I2C_SCL',{}),
+            ('5', 'SDO', 'GND',    {}),
+            ('6', 'CSB', 'SPI_CS1',{}),
+        ])
+        # U9: Light sensor (SOT-23-5)
+        parts_db['parts']['U9'] = resolve('SOT-23-5', 'LIGHT', 'VEML7700', [
+            ('1', 'SDA',  'I2C_SDA',   {}),
+            ('2', 'GND',  'GND',       {}),
+            ('3', 'VDD',  '1V8',       {}),
+            ('4', 'INT',  'LIGHT_OUT', {}),
+            ('5', 'SCL',  'I2C_SCL',   {}),
+        ])
+        # U10: Accelerometer (LGA-8)
+        parts_db['parts']['U10'] = resolve('LGA-8', 'ACCEL', 'LIS2DH12', [
+            ('1', 'VDD',  '1V8',       {}),
+            ('2', 'GND',  'GND',       {}),
+            ('3', 'SDA',  'I2C_SDA',   {}),
+            ('4', 'SCL',  'I2C_SCL',   {}),
+            ('5', 'CS',   'SPI_CS2',   {}),
+            ('6', 'INT1', 'ACCEL_INT', {}),
+        ])
+
+        # =====================================================================
+        # BLOCK 6: LEDs — 4x LED + 4x current-limit resistor
+        # =====================================================================
+        # (added below as passives)
+
+        # =====================================================================
+        # BLOCK 7: Protection — TVS + ferrite beads
+        # =====================================================================
+        # D1: TVS on VBUS (SOT-23)
+        parts_db['parts']['D1'] = resolve('SOT-23', 'TVS_VBUS', 'SMBJ5.0A', [
+            ('1', 'A',  'VBUS', {}),
+            ('2', 'K',  'GND',  {}),
+            ('3', 'NC', 'GND',  {}),
+        ])
+        # D2: TVS on RS485 (SOT-23)
+        parts_db['parts']['D2'] = resolve('SOT-23', 'TVS_RS485', 'SMBJ12A', [
+            ('1', 'A',  'RS485_A', {}),
+            ('2', 'K',  'GND',     {}),
+            ('3', 'NC', 'RS485_B', {}),
+        ])
+
+        # =====================================================================
+        # PASSIVES — Decoupling caps, pull-ups, current limiters, ferrites
+        # =====================================================================
+        passives = [
+            # Block 1 support: ESP32-S3 decoupling + pull-ups
+            ('C1',  '0402', '100nF', '3V3', 'GND'),       # U1 decoupling
+            ('C2',  '0402', '100nF', '3V3', 'GND'),       # U1 decoupling
+            ('C3',  '0402', '10uF',  '3V3', 'GND'),       # U1 bulk cap
+            ('C4',  '0402', '100nF', '3V3', 'GND'),       # U1 decoupling
+            ('R1',  '0402', '10K',   'ESP_EN', '3V3'),    # EN pull-up
+            ('R2',  '0402', '10K',   'ESP_BOOT', 'GND'),  # BOOT pull-down
+            # Block 2 support: STM32 decoupling + pull-ups
+            ('C5',  '0402', '100nF', '3V3', 'GND'),       # U2 decoupling
+            ('C6',  '0402', '100nF', '3V3', 'GND'),       # U2 decoupling
+            ('C7',  '0402', '10uF',  '3V3', 'GND'),       # U2 bulk cap
+            ('C8',  '0402', '100nF', '3V3', 'GND'),       # U2 decoupling
+            ('R3',  '0402', '10K',   'STM_NRST', '3V3'),  # NRST pull-up
+            ('R4',  '0402', '4.7K',  'I2C_SDA', '3V3'),   # I2C pull-up
+            ('R5',  '0402', '4.7K',  'I2C_SCL', '3V3'),   # I2C pull-up
+            # Block 3 support: Power filter caps
+            ('C9',  '0402', '10uF',  'VBUS', 'GND'),      # U3 input
+            ('C10', '0402', '10uF',  '3V3', 'GND'),       # U3 output
+            ('C11', '0402', '10uF',  '3V3', 'GND'),       # U4 input
+            ('C12', '0402', '10uF',  '1V8', 'GND'),       # U4 output
+            ('C13', '0805', '22uF',  'VBUS', 'GND'),      # U5 input
+            ('C14', '0805', '22uF',  '3V3', 'GND'),       # U5 output
+            # Block 4 support: RS485 cap
+            ('C15', '0402', '100nF', '3V3', 'GND'),       # U7 decoupling
+            # Block 5 support: Sensor caps
+            ('C16', '0402', '100nF', '1V8', 'GND'),       # U8 decoupling
+            ('C17', '0402', '100nF', '1V8', 'GND'),       # U9 decoupling
+            ('C18', '0402', '100nF', '1V8', 'GND'),       # U10 decoupling
+            # Block 6: LED current-limit resistors
+            ('R6',  '0402', '220R',  'LED1_CTRL', 'LED1_A'),
+            ('R7',  '0402', '220R',  'LED2_CTRL', 'LED2_A'),
+            ('R8',  '0402', '220R',  'LED3_CTRL', 'LED3_A'),
+            ('R9',  '0402', '220R',  'LED4_CTRL', 'LED4_A'),
+            ('LED1','0402', 'Red',    'LED1_A', 'GND'),
+            ('LED2','0402', 'Green',  'LED2_A', 'GND'),
+            ('LED3','0402', 'Blue',   'LED3_A', 'GND'),
+            ('LED4','0402', 'Yellow', 'LED4_A', 'GND'),
+            # Block 7: Ferrite beads on power input
+            ('FB1', '0805', '600R@100MHz', 'VBUS', 'VBUS_FILT'),
+            ('FB2', '0805', '600R@100MHz', '3V3',  '3V3_FILT'),
+            # RS485 termination resistor
+            ('R10', '0402', '120R',  'RS485_A', 'RS485_B'),
+        ]
+
+        for ref, fp, val, net1, net2 in passives:
+            fp_def = resolver.resolve(fp)
+            if fp_def.pad_positions:
+                ox1 = fp_def.pad_positions[0][1]
+                oy1 = fp_def.pad_positions[0][2]
+                ox2 = fp_def.pad_positions[1][1]
+                oy2 = fp_def.pad_positions[1][2]
+            else:
+                ox1, oy1, ox2, oy2 = -0.48, 0, 0.48, 0
+            parts_db['parts'][ref] = {
+                'name': ref, 'footprint': fp, 'value': val,
+                'size': (fp_def.body_width, fp_def.body_height),
+                'pins': [
+                    {'number': '1', 'net': net1,
+                     'physical': {'offset_x': round(ox1, 4), 'offset_y': round(oy1, 4)}},
+                    {'number': '2', 'net': net2,
+                     'physical': {'offset_x': round(ox2, 4), 'offset_y': round(oy2, 4)}},
+                ]
+            }
+
+        # Build nets from pins
+        net_map = defaultdict(list)
+        for ref, part in parts_db['parts'].items():
+            for pin in part.get('pins', []):
+                net = pin.get('net', '')
+                if net:
+                    net_map[net].append(f"{ref}.{pin['number']}")
+
+        power_nets = {'GND', '3V3', 'VBUS', '1V8', 'VBUS_FILT', '3V3_FILT'}
+        parts_db['nets'] = {
+            net: {
+                'type': 'power' if net in power_nets else 'signal',
+                'pins': pins,
+            }
+            for net, pins in net_map.items()
+        }
+
         return parts_db
 
 

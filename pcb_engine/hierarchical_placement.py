@@ -79,7 +79,8 @@ class ClusterBuilder:
 
     PACKING_OVERHEAD = 2.0   # 100% extra area for routing + spacing within cluster
     MIN_CLUSTER_DIM = 3.0    # Minimum cluster dimension (mm)
-    MAX_CLUSTER_SIZE = 5     # Max members per cluster (owner + 4 passives)
+    MAX_CLUSTER_SIZE_SMALL = 5   # Max for boards < 30 parts
+    MAX_CLUSTER_SIZE_LARGE = 7   # Max for boards >= 30 parts
 
     def __init__(self, parts_db: Dict, graph: Dict, functional_roles: Dict[str, Dict]):
         self.parts_db = parts_db
@@ -87,20 +88,44 @@ class ClusterBuilder:
         self.functional_roles = functional_roles
         self._resolver = FootprintResolver.get_instance()
 
+        # Scale MAX_CLUSTER_SIZE with board complexity
+        n_parts = len(parts_db.get('parts', {}))
+        self.MAX_CLUSTER_SIZE = (self.MAX_CLUSTER_SIZE_LARGE if n_parts >= 30
+                                 else self.MAX_CLUSTER_SIZE_SMALL)
+
     def build_clusters(self) -> List[ComponentCluster]:
         """
         Main clustering algorithm.
 
         1. Group components by owner from functional_roles
+        1b. Balance decoupling caps across ICs (multi-IC boards)
         2. Split oversized clusters (keep highest-priority members)
         3. Redistribute evicted members to alternative clusters
-        4. Create single-member clusters for orphans
-        5. Calculate cluster geometry
-        6. Build inter-cluster connectivity
-        7. Classify cluster roles
+        4. Absorb orphan passives into nearest IC cluster
+        5. Create single-member clusters for remaining orphans
+        6. Calculate cluster geometry
+        7. Build inter-cluster connectivity
+        8. Classify cluster roles
         """
         clusters = []
         assigned = set()
+
+        # Build net-to-component lookup (used throughout)
+        net_to_refs = {}
+        for ref, part in self.parts_db['parts'].items():
+            for pin in get_pins(part):
+                net = pin.get('net', '')
+                if net:
+                    net_to_refs.setdefault(net, set()).add(ref)
+
+        # Identify all ICs in the design (multi-pin active components)
+        all_ics = set()
+        for ref, part in self.parts_db['parts'].items():
+            pin_count = len(get_pins(part))
+            fp = part.get('footprint', '').upper()
+            if (pin_count >= 3 or ref.startswith('U') or ref.startswith('J') or
+                    any(pkg in fp for pkg in ['QFN', 'QFP', 'SOT', 'SOIC', 'LGA', 'BGA'])):
+                all_ics.add(ref)
 
         # Step 1: Group passives/ESD by owner
         owner_groups: Dict[str, List[str]] = defaultdict(list)
@@ -109,6 +134,12 @@ class ClusterBuilder:
             if owner and owner in self.parts_db.get('parts', {}):
                 owner_groups[owner].append(ref)
                 assigned.add(ref)
+
+        # Step 1b: Balance decoupling caps across ICs
+        # On multi-IC boards, _build_placement_constraints assigns all caps on
+        # a shared power net to the IC with the most pins. Redistribute excess
+        # to other ICs that share the same power net but got zero caps.
+        self._balance_decoupling_caps(owner_groups, assigned, net_to_refs, all_ics)
 
         # Step 2: Split oversized clusters
         # Priority: DECOUPLING(3.0) > ESD(2.5) > LED_DRIVER(2.0) > PULLUP/DOWN(1.5)
@@ -128,23 +159,6 @@ class ClusterBuilder:
                 evicted.extend(evict)
 
         # Step 3: Redistribute evicted members to alternative IC/regulator clusters
-        # Build net-to-component lookup
-        net_to_refs = {}
-        for ref, part in self.parts_db['parts'].items():
-            for pin in get_pins(part):
-                net = pin.get('net', '')
-                if net:
-                    net_to_refs.setdefault(net, set()).add(ref)
-
-        # Identify all ICs in the design (multi-pin active components)
-        all_ics = set()
-        for ref, part in self.parts_db['parts'].items():
-            pin_count = len(get_pins(part))
-            fp = part.get('footprint', '').upper()
-            if (pin_count >= 3 or ref.startswith('U') or ref.startswith('J') or
-                    any(pkg in fp for pkg in ['QFN', 'QFP', 'SOT', 'SOIC', 'LGA', 'BGA'])):
-                all_ics.add(ref)
-
         for ref in evicted:
             assigned.discard(ref)
             role_data = self.functional_roles.get(ref, {})
@@ -203,7 +217,14 @@ class ClusterBuilder:
             clusters.append(cluster)
             assigned.add(owner)
 
-        # Step 4: Orphan clusters (components with no owner relationship)
+        # Step 4: Absorb orphan components into nearest IC cluster
+        self._absorb_orphan_passives(clusters, assigned, net_to_refs, all_ics)
+
+        # Step 5: Group remaining orphans by net affinity
+        # Orphans sharing signal nets should form clusters together
+        self._group_remaining_orphans(clusters, assigned, net_to_refs)
+
+        # Step 5b: Any truly isolated components become single-member clusters
         for ref in sorted(self.parts_db.get('parts', {}).keys()):
             if ref not in assigned:
                 cluster = ComponentCluster(
@@ -213,17 +234,290 @@ class ClusterBuilder:
                 )
                 clusters.append(cluster)
 
-        # Step 3: Calculate geometry for each cluster
+        # Step 6: Calculate geometry for each cluster
         for cluster in clusters:
             self._calculate_geometry(cluster)
 
-        # Step 4: Build inter-cluster connectivity
+        # Step 7: Build inter-cluster connectivity
         self._build_inter_cluster_edges(clusters)
 
-        # Step 5: Classify roles
+        # Step 8: Classify roles
         self._classify_roles(clusters)
 
         return clusters
+
+    def _balance_decoupling_caps(
+        self,
+        owner_groups: Dict[str, List[str]],
+        assigned: set,
+        net_to_refs: Dict[str, set],
+        all_ics: set,
+    ):
+        """
+        Balance decoupling cap assignment across ICs on multi-IC boards.
+
+        Problem: _build_placement_constraints assigns ALL caps on a shared
+        power net (e.g. 3V3) to the IC with the most pins on that net.
+        On multi-IC boards, one IC gets all the caps while others get none.
+
+        Solution: For each IC with excess caps, redistribute to ICs that:
+        1. Share the same power net but have no caps yet
+        2. Prefer ICs sharing signal nets with the cap (secondary affinity)
+        3. Balance so each IC gets proportional share
+        """
+        # Identify ICs that have caps and those that don't
+        ic_cap_counts = defaultdict(int)
+        ic_caps = defaultdict(list)  # ic_ref -> [cap_refs]
+
+        for owner, members in owner_groups.items():
+            if owner not in all_ics:
+                continue
+            caps = [m for m in members
+                    if self.functional_roles.get(m, {}).get('role') == 'DECOUPLING']
+            ic_cap_counts[owner] = len(caps)
+            ic_caps[owner] = caps
+
+        # Find ICs with NO caps that are on shared power nets
+        # IMPORTANT: Skip ICs already assigned as members of other clusters
+        # (e.g., U6 is in cluster_J1 as ESD protection — don't create cluster_U6)
+        ics_needing_caps = set()
+        for ic in all_ics:
+            if ic in assigned:
+                continue  # Already a member of another cluster — skip
+            if ic not in owner_groups or ic_cap_counts[ic] == 0:
+                # Check if this IC uses a power net
+                part = self.parts_db['parts'].get(ic, {})
+                for pin in get_pins(part):
+                    net = pin.get('net', '')
+                    if net and net not in ('GND',) and self._is_power_net(net):
+                        ics_needing_caps.add(ic)
+                        break
+
+        if not ics_needing_caps:
+            return
+
+        # For each IC with excess caps, try to redistribute
+        for donor_ic in list(ic_caps.keys()):
+            caps = ic_caps[donor_ic]
+            if len(caps) <= 1:
+                continue  # Keep at least 1 cap per IC
+
+            # Sort caps by how well they match alternative ICs
+            for cap_ref in list(caps):
+                if len(ic_caps[donor_ic]) <= 1:
+                    break  # Keep at least 1
+
+                cap_part = self.parts_db['parts'].get(cap_ref, {})
+                cap_nets = {pin.get('net', '') for pin in get_pins(cap_part)
+                            if pin.get('net', '')}
+                cap_power_nets = {n for n in cap_nets
+                                  if n not in ('GND',) and self._is_power_net(n)}
+
+                # Find best alternative IC for this cap
+                best_alt = None
+                best_score = -1
+
+                for alt_ic in ics_needing_caps:
+                    if alt_ic == donor_ic:
+                        continue
+                    if alt_ic in assigned:
+                        continue  # Already in another cluster
+
+                    alt_part = self.parts_db['parts'].get(alt_ic, {})
+                    alt_nets = {pin.get('net', '') for pin in get_pins(alt_part)
+                                if pin.get('net', '')}
+
+                    # Must share the same power net
+                    shared_power = cap_power_nets & alt_nets
+                    if not shared_power:
+                        continue
+
+                    # Check cluster size limit
+                    alt_size = len(owner_groups.get(alt_ic, [])) + 1
+                    if alt_size >= self.MAX_CLUSTER_SIZE:
+                        continue
+
+                    # Score: signal net affinity + fewer existing caps = better
+                    signal_affinity = len(cap_nets & alt_nets - {'GND'} - cap_power_nets)
+                    existing_caps = ic_cap_counts.get(alt_ic, 0)
+                    score = signal_affinity * 5 + (10 - existing_caps)
+
+                    if score > best_score:
+                        best_score = score
+                        best_alt = alt_ic
+
+                if best_alt:
+                    # Move cap from donor to alt
+                    owner_groups[donor_ic].remove(cap_ref)
+                    ic_caps[donor_ic].remove(cap_ref)
+
+                    if best_alt not in owner_groups:
+                        owner_groups[best_alt] = []
+                    owner_groups[best_alt].append(cap_ref)
+
+                    ic_cap_counts[donor_ic] -= 1
+                    ic_cap_counts[best_alt] = ic_cap_counts.get(best_alt, 0) + 1
+                    ic_caps[best_alt] = ic_caps.get(best_alt, []) + [cap_ref]
+
+                    # Update assigned set (the IC itself, not just the cap)
+                    assigned.add(best_alt)
+
+                    # If this IC now has caps, remove from needing list
+                    if ic_cap_counts[best_alt] >= 1:
+                        ics_needing_caps.discard(best_alt)
+
+    def _is_power_net(self, net: str) -> bool:
+        """Check if a net is a power net (from parts_db or by name pattern)."""
+        nets = self.parts_db.get('nets', {})
+        if net in nets and nets[net].get('type') == 'power':
+            return True
+        upper = net.upper()
+        return any(p in upper for p in
+                   ['VCC', 'VDD', 'V3', '3V3', '5V', '1V8', '2V5', 'VBUS',
+                    'AVDD', 'DVDD', 'VREF', 'VIN', 'VOUT', 'VCCA', 'VCCB'])
+
+    def _absorb_orphan_passives(
+        self,
+        clusters: List[ComponentCluster],
+        assigned: set,
+        net_to_refs: Dict[str, set],
+        all_ics: set,
+    ):
+        """
+        Absorb unassigned components into existing IC clusters.
+
+        Handles both passives (caps, resistors) and small ICs (sensors)
+        that didn't get assigned during the main clustering phase.
+
+        For each unassigned component, find the cluster that shares the most
+        signal nets with it and absorb it (if cluster size allows).
+        """
+        parts = self.parts_db.get('parts', {})
+
+        # Collect all unassigned components (passives, small ICs, diodes, etc.)
+        unassigned = []
+        for ref in sorted(parts.keys()):
+            if ref in assigned:
+                continue
+            unassigned.append(ref)
+
+        for ref in unassigned:
+            part = parts[ref]
+            part_nets = {pin.get('net', '') for pin in get_pins(part)
+                         if pin.get('net', '')}
+            part_signal_nets = {n for n in part_nets
+                                if n not in ('GND',) and not self._is_power_net(n)}
+            part_power_nets = {n for n in part_nets
+                               if n not in ('GND',) and self._is_power_net(n)}
+
+            # Find best cluster to join
+            best_cluster = None
+            best_score = -1
+
+            for cluster in clusters:
+                if len(cluster.members) >= self.MAX_CLUSTER_SIZE:
+                    continue
+
+                # Collect all nets in this cluster
+                cluster_nets = set()
+                for member_ref in cluster.members:
+                    member_part = parts.get(member_ref, {})
+                    for pin in get_pins(member_part):
+                        net = pin.get('net', '')
+                        if net:
+                            cluster_nets.add(net)
+
+                # Score: signal net overlap heavily weighted
+                signal_overlap = len(part_signal_nets & cluster_nets)
+                power_overlap = len(part_power_nets & cluster_nets)
+
+                # Must share at least one non-GND net
+                if signal_overlap == 0 and power_overlap == 0:
+                    continue
+
+                # IC-owned clusters preferred
+                is_ic_cluster = 1 if cluster.owner in all_ics else 0
+
+                score = signal_overlap * 10 + power_overlap * 3 + is_ic_cluster * 2
+
+                if score > best_score:
+                    best_score = score
+                    best_cluster = cluster
+
+            if best_cluster and best_score >= 2:
+                best_cluster.members.append(ref)
+                assigned.add(ref)
+
+    def _group_remaining_orphans(
+        self,
+        clusters: List[ComponentCluster],
+        assigned: set,
+        net_to_refs: Dict[str, set],
+    ):
+        """
+        Group remaining unassigned components by signal-net affinity.
+
+        Orphans sharing >=2 signal nets get grouped into new clusters.
+        This handles cases like multiple sensors on the same I2C bus
+        that couldn't be absorbed into full clusters.
+        """
+        parts = self.parts_db.get('parts', {})
+
+        # Collect remaining unassigned components
+        unassigned = [ref for ref in sorted(parts.keys()) if ref not in assigned]
+        if len(unassigned) <= 1:
+            return
+
+        # Build signal-net sets for each unassigned component
+        ref_signal_nets = {}
+        for ref in unassigned:
+            part = parts[ref]
+            ref_signal_nets[ref] = {
+                pin.get('net', '') for pin in get_pins(part)
+                if pin.get('net', '') and pin.get('net', '') not in ('GND',)
+                and not self._is_power_net(pin.get('net', ''))
+            }
+
+        # Greedy clustering: pair orphans with most shared signal nets
+        used = set()
+        for i, ref1 in enumerate(unassigned):
+            if ref1 in used:
+                continue
+
+            group = [ref1]
+            nets1 = ref_signal_nets.get(ref1, set())
+
+            for ref2 in unassigned[i + 1:]:
+                if ref2 in used:
+                    continue
+                if len(group) >= self.MAX_CLUSTER_SIZE:
+                    break
+
+                nets2 = ref_signal_nets.get(ref2, set())
+                shared = nets1 & nets2
+
+                if len(shared) >= 1:  # At least 1 shared signal net
+                    group.append(ref2)
+                    nets1 = nets1 | nets2  # Expand net set for transitive grouping
+
+            if len(group) >= 2:
+                # Pick the IC (or largest component) as owner
+                owner = group[0]
+                for ref in group:
+                    pin_count = len(get_pins(parts.get(ref, {})))
+                    owner_pins = len(get_pins(parts.get(owner, {})))
+                    if pin_count > owner_pins:
+                        owner = ref
+
+                cluster = ComponentCluster(
+                    id=f"cluster_{owner}",
+                    owner=owner,
+                    members=sorted(group),
+                )
+                clusters.append(cluster)
+                for ref in group:
+                    assigned.add(ref)
+                    used.add(ref)
 
     def _get_courtyard(self, ref: str) -> Tuple[float, float]:
         """Get courtyard dimensions for a component."""

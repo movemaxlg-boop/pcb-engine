@@ -6,7 +6,9 @@ Runs both Engine A (flat PlacementEngine) and Engine B (HierarchicalPlacementEng
 on the same test board, compares results, and generates KiCad PCB files for both.
 
 Usage:
-    python test_hierarchical_placement.py
+    python test_hierarchical_placement.py              # medium (19 parts)
+    python test_hierarchical_placement.py complex      # complex (52 parts)
+    python test_hierarchical_placement.py both         # run both boards
 """
 import sys
 import os
@@ -195,8 +197,8 @@ def print_positions(label, positions, parts_db):
               f"{x:7.2f} {y:7.2f} {court_w:.1f}x{court_h:.1f}")
 
 
-def main():
-    parts_db = TestBoards.medium_20_parts()
+def run_test(board_name, parts_db):
+    """Run flat vs hierarchical comparison on a single board."""
     graph = build_graph(parts_db)
 
     board = parts_db.get('board', {})
@@ -206,7 +208,7 @@ def main():
     n_nets = len(parts_db.get('nets', {}))
 
     print("=" * 70)
-    print(f"  HIERARCHICAL vs FLAT PLACEMENT TEST")
+    print(f"  HIERARCHICAL vs FLAT PLACEMENT TEST — {board_name.upper()}")
     print(f"  {n_parts} components, {n_nets} nets, {bw}x{bh}mm board")
     print("=" * 70)
 
@@ -226,21 +228,55 @@ def main():
     print_positions("HIERARCHICAL", result.hier_result.positions, parts_db)
 
     # Generate KiCad outputs for visual comparison
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    board_dir = os.path.join(OUTPUT_DIR, board_name)
+    os.makedirs(board_dir, exist_ok=True)
 
     print("\nGenerating KiCad outputs...")
-    flat_path = os.path.join(OUTPUT_DIR, 'flat.kicad_pcb')
-    hier_path = os.path.join(OUTPUT_DIR, 'hierarchical.kicad_pcb')
+    flat_path = os.path.join(board_dir, 'flat.kicad_pcb')
+    hier_path = os.path.join(board_dir, 'hierarchical.kicad_pcb')
 
     generate_bare_kicad(parts_db, result.flat_result.positions,
-                        flat_path, 'flat')
+                        flat_path, f'{board_name}_flat')
     generate_bare_kicad(parts_db, result.hier_result.positions,
-                        hier_path, 'hierarchical')
+                        hier_path, f'{board_name}_hier')
 
     print(f"\nTotal time: {elapsed:.1f}s")
     print(f"\nOpen both in KiCad to visually compare:")
     print(f"  Flat:         {flat_path}")
     print(f"  Hierarchical: {hier_path}")
+
+    return result
+
+
+def main():
+    mode = sys.argv[1] if len(sys.argv) > 1 else 'medium'
+
+    if mode == 'both':
+        boards = [('medium', TestBoards.medium_20_parts()),
+                  ('complex', TestBoards.complex_50_parts())]
+    elif mode == 'complex':
+        boards = [('complex', TestBoards.complex_50_parts())]
+    else:
+        boards = [('medium', TestBoards.medium_20_parts())]
+
+    results = {}
+    for board_name, parts_db in boards:
+        results[board_name] = run_test(board_name, parts_db)
+        print("\n")
+
+    # Summary if multiple boards
+    if len(results) > 1:
+        print("\n" + "=" * 70)
+        print("  MULTI-BOARD SUMMARY")
+        print("=" * 70)
+        for name, res in results.items():
+            flat_wl = res.flat_result.wirelength
+            hier_wl = res.hier_result.wirelength
+            diff_pct = (hier_wl - flat_wl) / flat_wl * 100 if flat_wl > 0 else 0
+            n_parts = len(res.flat_result.positions)
+            print(f"  {name:<12} {n_parts:>3} parts  "
+                  f"flat={flat_wl:7.1f}mm  hier={hier_wl:7.1f}mm  "
+                  f"diff={diff_pct:+6.1f}%  winner={res.winner}")
 
 
 if __name__ == '__main__':
