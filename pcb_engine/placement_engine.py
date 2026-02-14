@@ -307,6 +307,11 @@ class PlacementEngine:
         # Optimal distance for force-directed (computed from board size)
         self._optimal_dist = 0.0
 
+        # Functional roles and orientation (computed during placement)
+        self._functional_roles: Dict[str, Dict] = {}
+        self._preferred_passive_orientation: Optional[float] = None
+        self._small_passive_refs: set = set()
+
     @staticmethod
     def _parse_pin_ref(pin_ref) -> Tuple[str, str]:
         """Parse pin reference to (component, pin) tuple."""
@@ -347,8 +352,8 @@ class PlacementEngine:
             self.config.board_height = auto_h
             print(f"  [PLACEMENT] Board AUTO-SIZED: {auto_w}x{auto_h}mm")
 
-        # Auto-detect proximity groups from net connections (before placement)
-        self._build_proximity_from_nets(parts_db)
+        # Infer functional roles and build placement constraints (before placement)
+        self._build_placement_constraints(parts_db)
 
         # Initialize state from parts database
         self._init_from_parts(parts_db, graph)
@@ -392,85 +397,212 @@ class PlacementEngine:
 
         return result
 
-    def _build_proximity_from_nets(self, parts_db: Dict):
-        """Auto-detect proximity groups from net connections (pre-placement).
+    def _build_placement_constraints(self, parts_db: Dict):
+        """Infer functional roles from net topology and build placement constraints.
 
-        Detects three patterns:
-        1. Decoupling caps: Capacitor sharing power+GND nets with an IC → group within 5mm
-        2. Connector edge placement: Parts with USB/CONN/J prefix → edge_components
-        3. I2C pullup groups: Resistors on SDA/SCL nets → group within 8mm
+        General-purpose algorithm — works for ANY board by analyzing what
+        each component DOES in the circuit (decoupling, pull-up, ESD, etc.)
+        rather than matching hardcoded ref prefixes.
         """
         parts = parts_db.get('parts', {})
         nets = parts_db.get('nets', {})
         groups = list(self._placement_hints.get('proximity_groups', []))
         edge = list(self._placement_hints.get('edge_components', []))
 
-        # Helper to get net names for a part's pins
+        # --- Helpers ---
         def _part_nets(part):
             return {pin.get('net', '') for pin in get_pins(part) if pin.get('net', '')}
 
-        # 1. Decoupling caps: cap on same power+GND net as an IC (8+ pins)
-        power_nets = set()
-        for n, info in nets.items():
-            if isinstance(info, dict) and info.get('type') == 'power':
-                power_nets.add(n)
-        # Also detect power nets by name
-        for n in nets:
-            if self._is_power_net(n):
-                power_nets.add(n)
+        def _signal_nets(part):
+            return {n for n in _part_nets(part) if not self._is_power_net(n) and n != 'GND'}
 
-        ic_refs = {r for r, p in parts.items() if len(get_pins(p)) >= 8}
-        cap_refs = {r for r, p in parts.items() if r.startswith('C')}
+        def _is_ground(net):
+            return net.upper() in ('GND', 'AGND', 'DGND', 'PGND', 'VSS', 'AVSS')
 
-        # Track caps already grouped to avoid duplicates
-        grouped_caps = set()
-        for ic_ref in sorted(ic_refs):
-            ic_nets = _part_nets(parts[ic_ref])
-            decaps = []
-            for cap_ref in sorted(cap_refs):
-                if cap_ref in grouped_caps:
+        def _is_power(net):
+            return self._is_power_net(net) and not _is_ground(net)
+
+        # --- Classify components ---
+        ic_refs = set()       # multi-pin ICs (8+ pins)
+        passive_refs = set()  # 2-pin passives (R, C, L)
+        connector_refs = set()
+        led_refs = set()
+
+        for ref, part in parts.items():
+            pin_count = len(get_pins(part))
+            fp = part.get('footprint', '').upper()
+            name = part.get('name', '').upper()
+
+            if ref.startswith('J') or 'USB' in fp or 'CONN' in fp or 'HDR' in fp:
+                connector_refs.add(ref)
+            elif ref.startswith('LED') or 'LED' in name:
+                led_refs.add(ref)
+            elif pin_count >= 6 and ref.startswith('U'):
+                ic_refs.add(ref)
+            elif pin_count <= 2 and ref[0] in ('R', 'C', 'L'):
+                passive_refs.add(ref)
+
+        # --- Build net → component index ---
+        net_to_refs = {}  # net_name -> set of refs on that net
+        for ref, part in parts.items():
+            for net in _part_nets(part):
+                if net:
+                    net_to_refs.setdefault(net, set()).add(ref)
+
+        # --- Infer functional roles for each passive ---
+        roles = {}  # ref -> {role, owner, distance, priority, reason}
+
+        for ref in sorted(passive_refs):
+            part = parts[ref]
+            pins = get_pins(part)
+            if len(pins) < 2:
+                continue
+
+            net1 = pins[0].get('net', '')
+            net2 = pins[1].get('net', '')
+            if not net1 or not net2:
+                continue
+
+            # --- DECOUPLING CAP: power + GND ---
+            if ref.startswith('C'):
+                power_pin = None
+                gnd_pin = None
+                if _is_power(net1) and _is_ground(net2):
+                    power_pin, gnd_pin = net1, net2
+                elif _is_power(net2) and _is_ground(net1):
+                    power_pin, gnd_pin = net2, net1
+
+                if power_pin and gnd_pin:
+                    # Find IC with most pins on this power net
+                    best_ic = None
+                    best_count = 0
+                    for ic in ic_refs:
+                        ic_part_nets = _part_nets(parts[ic])
+                        if power_pin in ic_part_nets:
+                            count = sum(1 for p in get_pins(parts[ic])
+                                        if p.get('net', '') == power_pin)
+                            if count > best_count:
+                                best_count = count
+                                best_ic = ic
+                    if best_ic:
+                        roles[ref] = {'role': 'DECOUPLING', 'owner': best_ic,
+                                      'distance': 3.0, 'priority': 3.0,
+                                      'reason': f'Decoupling cap for {best_ic} ({power_pin})'}
                     continue
-                cap_nets = _part_nets(parts[cap_ref])
-                shared_power = ic_nets & cap_nets & power_nets
-                if shared_power:
-                    decaps.append(cap_ref)
-            if decaps:
-                for c in decaps:
-                    grouped_caps.add(c)
-                groups.append({
-                    'components': [ic_ref] + decaps,
-                    'max_distance': 5.0,
-                    'priority': 2.0,
-                    'reason': f'Decoupling for {ic_ref}',
-                })
 
-        # 2. Connector edge placement
-        for ref in sorted(parts):
-            fp = parts[ref].get('footprint', '')
-            if ref.startswith('J') or 'USB' in fp.upper() or 'CONN' in fp.upper():
-                if ref not in edge:
-                    edge.append(ref)
+            # --- PULL-UP: power + signal ---
+            if ref.startswith('R'):
+                power_net = None
+                signal_net = None
+                if _is_power(net1) and not _is_ground(net2) and not _is_power(net2):
+                    power_net, signal_net = net1, net2
+                elif _is_power(net2) and not _is_ground(net1) and not _is_power(net1):
+                    power_net, signal_net = net2, net1
 
-        # 3. I2C pullup groups (resistors on SDA/SCL nets)
-        i2c_nets = {n for n in nets if 'SDA' in n.upper() or 'SCL' in n.upper()
-                    or 'I2C' in n.upper()}
-        if i2c_nets:
-            i2c_resistors = []
-            for ref in sorted(parts):
-                if ref.startswith('R'):
-                    pin_nets = _part_nets(parts[ref])
-                    if pin_nets & i2c_nets:
-                        i2c_resistors.append(ref)
-            if len(i2c_resistors) >= 2:
-                groups.append({
-                    'components': i2c_resistors,
-                    'max_distance': 8.0,
-                    'priority': 1.5,
-                    'reason': 'I2C pullup resistors',
-                })
+                if power_net and signal_net:
+                    # Find which IC uses this signal
+                    owner_ic = None
+                    for ic in ic_refs:
+                        if signal_net in _part_nets(parts[ic]):
+                            owner_ic = ic
+                            break
+                    if owner_ic:
+                        roles[ref] = {'role': 'PULLUP', 'owner': owner_ic,
+                                      'distance': 8.0, 'priority': 1.5,
+                                      'reason': f'Pull-up for {owner_ic}.{signal_net}'}
+                    continue
+
+                # --- PULL-DOWN: GND + signal ---
+                gnd_net = None
+                signal_net = None
+                if _is_ground(net1) and not _is_power(net2):
+                    gnd_net, signal_net = net1, net2
+                elif _is_ground(net2) and not _is_power(net1):
+                    gnd_net, signal_net = net2, net1
+
+                if gnd_net and signal_net:
+                    owner_ic = None
+                    for ic in ic_refs:
+                        if signal_net in _part_nets(parts[ic]):
+                            owner_ic = ic
+                            break
+                    if owner_ic:
+                        roles[ref] = {'role': 'PULLDOWN', 'owner': owner_ic,
+                                      'distance': 8.0, 'priority': 1.5,
+                                      'reason': f'Pull-down for {owner_ic}.{signal_net}'}
+                    continue
+
+            # --- LED DRIVER: signal → LED ---
+            if ref.startswith('R'):
+                # Check if one net connects to an IC and the other to an LED
+                refs_on_net1 = net_to_refs.get(net1, set())
+                refs_on_net2 = net_to_refs.get(net2, set())
+                ic_on_1 = refs_on_net1 & ic_refs
+                ic_on_2 = refs_on_net2 & ic_refs
+                led_on_1 = refs_on_net1 & led_refs
+                led_on_2 = refs_on_net2 & led_refs
+
+                if ic_on_1 and led_on_2:
+                    led = sorted(led_on_2)[0]
+                    roles[ref] = {'role': 'LED_DRIVER', 'owner': led,
+                                  'distance': 5.0, 'priority': 2.0,
+                                  'reason': f'Current limiter for {led}'}
+                    continue
+                elif ic_on_2 and led_on_1:
+                    led = sorted(led_on_1)[0]
+                    roles[ref] = {'role': 'LED_DRIVER', 'owner': led,
+                                  'distance': 5.0, 'priority': 2.0,
+                                  'reason': f'Current limiter for {led}'}
+                    continue
+
+        # --- ESD PROTECTION: IC sharing signal nets with connector AND another IC ---
+        for ic in sorted(ic_refs):
+            ic_signals = _signal_nets(parts[ic])
+            if not ic_signals:
+                continue
+
+            shared_with_connector = set()
+            shared_with_other_ic = set()
+
+            for conn in connector_refs:
+                shared = ic_signals & _signal_nets(parts[conn])
+                if shared:
+                    shared_with_connector.add(conn)
+
+            for other_ic in ic_refs:
+                if other_ic == ic:
+                    continue
+                shared = ic_signals & _signal_nets(parts[other_ic])
+                if shared:
+                    shared_with_other_ic.add(other_ic)
+
+            # Small IC (< 8 pins) that bridges connector and main IC → ESD
+            pin_count = len(get_pins(parts[ic]))
+            if shared_with_connector and shared_with_other_ic and pin_count <= 8:
+                conn = sorted(shared_with_connector)[0]
+                roles[ic] = {'role': 'ESD_PROTECTION', 'owner': conn,
+                             'distance': 5.0, 'priority': 2.5,
+                             'reason': f'ESD protection near {conn}',
+                             'between': (conn, sorted(shared_with_other_ic)[0])}
+
+        # --- Convert roles to proximity_groups ---
+        for ref, role in roles.items():
+            owner = role['owner']
+            groups.append({
+                'components': [owner, ref],
+                'max_distance': role['distance'],
+                'priority': role['priority'],
+                'reason': role['reason'],
+            })
+
+        # --- Edge components (connectors) ---
+        for ref in sorted(connector_refs):
+            if ref not in edge:
+                edge.append(ref)
 
         self._placement_hints['proximity_groups'] = groups
         self._placement_hints['edge_components'] = edge
+        self._functional_roles = roles
 
     def _init_from_parts(self, parts_db: Dict, graph: Dict):
         """Initialize placement state from parts database"""
@@ -689,6 +821,9 @@ class PlacementEngine:
             for comp in self.components.values():
                 self._apply_boundary_force(comp)
 
+            # Push connectors toward board edges
+            self._apply_edge_force()
+
             # Update positions based on forces, limited by temperature
             # NOTE: FD does NOT use occupancy grid — physics (repulsion) resolves overlaps.
             # Occupancy enforcement happens in _legalize() after FD converges.
@@ -863,6 +998,57 @@ class PlacementEngine:
         if comp.y > max_y:
             comp.fy -= boundary_force * (comp.y - max_y)
 
+    def _apply_edge_force(self):
+        """Push connectors toward nearest board edge with strong directional force.
+
+        Applies force only along the edge-normal axis (perpendicular to edge),
+        leaving the parallel axis free for net-based optimization.
+        """
+        hints = getattr(self, '_placement_hints', None)
+        if not hints:
+            return
+        edge_refs = hints.get('edge_components', [])
+        if not edge_refs:
+            return
+
+        ox = self.config.origin_x
+        oy = self.config.origin_y
+        bw = self.config.board_width
+        bh = self.config.board_height
+        edge_force = 20.0  # Strong pull toward edge
+
+        for ref in edge_refs:
+            if ref not in self.components:
+                continue
+            comp = self.components[ref]
+            if comp.fixed:
+                continue
+
+            half_w = comp.width / 2
+            half_h = comp.height / 2
+
+            # Distance to each edge (from courtyard boundary, not center)
+            d_left = comp.x - half_w - ox
+            d_right = (ox + bw) - (comp.x + half_w)
+            d_top = comp.y - half_h - oy
+            d_bottom = (oy + bh) - (comp.y + half_h)
+
+            # Find nearest edge
+            nearest = min(d_left, d_right, d_top, d_bottom)
+
+            if nearest <= 0.5:
+                continue  # Already at edge
+
+            # Push toward nearest edge (only along normal axis)
+            if nearest == d_left:
+                comp.fx -= edge_force * d_left
+            elif nearest == d_right:
+                comp.fx += edge_force * d_right
+            elif nearest == d_top:
+                comp.fy -= edge_force * d_top
+            else:
+                comp.fy += edge_force * d_bottom
+
     def _compute_density_grid(self):
         """Compute NxM density grid from current component positions.
 
@@ -980,6 +1166,76 @@ class PlacementEngine:
                     force = strength * excess * 0.5
                     comp.fx += force * dx / dist
                     comp.fy += force * dy / dist
+
+    def _compute_preferred_orientation(self):
+        """Determine consistent orientation for small passives.
+
+        Groups all small 2-pin passives (body < 3mm in both dimensions),
+        evaluates wirelength at 0 deg vs 90 deg for each, then picks the
+        orientation preferred by the majority. This biases SA toward
+        consistent orientation without forcing it.
+        """
+        small_passive_refs = []
+        for ref, comp in self.components.items():
+            if ref[0] not in ('R', 'C', 'L'):
+                continue
+            if comp.width >= 3.0 or comp.height >= 3.0:
+                continue
+            if comp.pin_count > 2:
+                continue
+            small_passive_refs.append(ref)
+
+        if len(small_passive_refs) < 2:
+            self._preferred_passive_orientation = None
+            return
+
+        # Count how many passives prefer 0 deg vs 90 deg based on net wirelength
+        votes_0 = 0
+        votes_90 = 0
+
+        for ref in small_passive_refs:
+            comp = self.components[ref]
+            # Get nets this passive connects to
+            pin_data = self.pin_nets.get(ref, {})
+            net_names = [n for n in pin_data.values() if n]
+
+            if len(net_names) < 2:
+                votes_0 += 1  # default
+                continue
+
+            # Find center of mass of other components on each net
+            net_centers = []
+            for net_name in net_names[:2]:
+                net_info = self.nets.get(net_name, {})
+                pins = net_info.get('pins', [])
+                other_refs = set()
+                for p in pins:
+                    if isinstance(p, str) and '.' in p:
+                        r = p.split('.')[0]
+                        if r != ref and r in self.components:
+                            other_refs.add(r)
+                if other_refs:
+                    cx = sum(self.components[r].x for r in other_refs) / len(other_refs)
+                    cy = sum(self.components[r].y for r in other_refs) / len(other_refs)
+                    net_centers.append((cx, cy))
+
+            if len(net_centers) < 2:
+                votes_0 += 1
+                continue
+
+            # Direction of net pull
+            dx = abs(net_centers[0][0] - net_centers[1][0])
+            dy = abs(net_centers[0][1] - net_centers[1][1])
+
+            # 0 deg = pads along X axis, 90 deg = pads along Y axis
+            # Prefer orientation that aligns pads with the net direction
+            if dx >= dy:
+                votes_0 += 1  # horizontal net pull → horizontal pads
+            else:
+                votes_90 += 1  # vertical net pull → vertical pads
+
+        self._preferred_passive_orientation = 0.0 if votes_0 >= votes_90 else 90.0
+        self._small_passive_refs = set(small_passive_refs)
 
     # =========================================================================
     # SIMULATED ANNEALING PLACEMENT
@@ -1954,6 +2210,9 @@ class PlacementEngine:
         # Sync occupancy grid after FD before SA starts
         self._sync_occupancy_grid()
 
+        # Compute preferred passive orientation from FD result
+        self._compute_preferred_orientation()
+
         # Phase 2: Simulated annealing for local refinement
         print("  [HY] Phase 2: Simulated annealing refinement")
         # Use lower temperature since we already have a good solution
@@ -2221,7 +2480,7 @@ class PlacementEngine:
         Cost components (weight rationale):
         - Physical constraints (must-fix): pad_conflict*5000, overlap*1000, oob*500
         - Electrical hints (guide): keep_apart*200, edge*100, proximity*50
-        - Optimization: wirelength*1
+        - Optimization: wirelength*1, orientation*5
         """
         wirelength = self._calculate_wirelength()
         overlap = self._calculate_overlap_area()
@@ -2230,6 +2489,7 @@ class PlacementEngine:
         prox = self._calculate_proximity_cost()
         edge = self._calculate_edge_cost()
         keep_apart = self._calculate_keep_apart_cost()
+        orientation = self._calculate_orientation_cost()
 
         return (wirelength +
                 overlap * 1000 +
@@ -2237,7 +2497,8 @@ class PlacementEngine:
                 oob * 500 +
                 prox * 50 +
                 edge * 100 +
-                keep_apart * 200)
+                keep_apart * 200 +
+                orientation * 5)
 
     def _calculate_wirelength(self) -> float:
         """Calculate total estimated wire length using HPWL"""
@@ -2478,7 +2739,12 @@ class PlacementEngine:
         return total
 
     def _calculate_edge_cost(self) -> float:
-        """Penalty when edge_components are far from board edges."""
+        """Quadratic penalty when edge_components are far from board edges.
+
+        Connectors should be flush with board edge. Quadratic scaling
+        makes the penalty grow fast with distance, strongly discouraging
+        connectors in the middle of the board.
+        """
         hints = getattr(self, '_placement_hints', None)
         if not hints:
             return 0.0
@@ -2486,16 +2752,22 @@ class PlacementEngine:
         if not edge_refs:
             return 0.0
         total = 0.0
-        margin = 2.0  # Target: within 2mm of edge
         bw, bh = self.config.board_width, self.config.board_height
         ox, oy = self.config.origin_x, self.config.origin_y
         for ref in edge_refs:
             if ref not in self.components:
                 continue
             c = self.components[ref]
-            nearest = min(c.x - ox, ox + bw - c.x, c.y - oy, oy + bh - c.y)
-            if nearest > margin:
-                total += nearest - margin
+            half_w = c.width / 2
+            half_h = c.height / 2
+            # Distance from courtyard edge to board edge
+            d_left = c.x - half_w - ox
+            d_right = (ox + bw) - (c.x + half_w)
+            d_top = c.y - half_h - oy
+            d_bottom = (oy + bh) - (c.y + half_h)
+            nearest = max(0, min(d_left, d_right, d_top, d_bottom))
+            # Quadratic penalty — grows fast with distance
+            total += nearest * nearest * 5.0
         return total
 
     def _calculate_keep_apart_cost(self) -> float:
@@ -2515,6 +2787,30 @@ class PlacementEngine:
             if dist < min_dist:
                 total += (min_dist - dist) * 2.0
         return total
+
+    def _calculate_orientation_cost(self) -> float:
+        """Penalty for inconsistent passive orientation.
+
+        After FD determines the preferred orientation (0 or 90 deg),
+        each small passive at a non-preferred angle adds a penalty.
+        This biases SA toward consistent orientation.
+        """
+        preferred = getattr(self, '_preferred_passive_orientation', None)
+        if preferred is None:
+            return 0.0
+        refs = getattr(self, '_small_passive_refs', set())
+        if not refs:
+            return 0.0
+
+        count_wrong = 0
+        for ref in refs:
+            if ref not in self.components:
+                continue
+            rot = self.components[ref].rotation % 180  # 0/180 same, 90/270 same
+            if abs(rot - (preferred % 180)) > 1.0:
+                count_wrong += 1
+
+        return float(count_wrong)
 
     def _check_has_overlaps(self) -> bool:
         """Check if any components overlap"""
@@ -2559,12 +2855,55 @@ class PlacementEngine:
 
     def _legalize(self):
         """Legalize placement using occupancy grid — zero overlaps guaranteed."""
-        # Sort by courtyard area (largest first — they get priority for space)
-        sorted_refs = sorted(
-            self.components.keys(),
-            key=lambda r: self.components[r].width * self.components[r].height,
-            reverse=True
-        )
+        # Snap connectors to board edge FIRST (they get priority)
+        edge_refs = set()
+        hints = getattr(self, '_placement_hints', None)
+        if hints:
+            edge_refs = set(hints.get('edge_components', []))
+
+        # Sort: edge components first (by area desc), then others (by area desc)
+        all_refs = list(self.components.keys())
+        edge_sorted = sorted([r for r in all_refs if r in edge_refs],
+                             key=lambda r: self.components[r].width * self.components[r].height,
+                             reverse=True)
+        other_sorted = sorted([r for r in all_refs if r not in edge_refs],
+                              key=lambda r: self.components[r].width * self.components[r].height,
+                              reverse=True)
+        sorted_refs = edge_sorted + other_sorted
+
+        # Snap connectors to nearest board edge
+        ox = self.config.origin_x
+        oy = self.config.origin_y
+        bw = self.config.board_width
+        bh = self.config.board_height
+
+        for ref in edge_refs:
+            if ref not in self.components:
+                continue
+            comp = self.components[ref]
+            if comp.fixed:
+                continue
+
+            half_w = comp.width / 2
+            half_h = comp.height / 2
+
+            # Distance to each edge
+            d_left = comp.x - ox
+            d_right = (ox + bw) - comp.x
+            d_top = comp.y - oy
+            d_bottom = (oy + bh) - comp.y
+
+            nearest = min(d_left, d_right, d_top, d_bottom)
+
+            # Snap to the nearest edge (courtyard flush with board boundary)
+            if nearest == d_left:
+                comp.x = ox + half_w
+            elif nearest == d_right:
+                comp.x = ox + bw - half_w
+            elif nearest == d_top:
+                comp.y = oy + half_h
+            else:
+                comp.y = oy + bh - half_h
 
         # Clear grid and re-place in size order
         if hasattr(self, '_occ') and self._occ:
