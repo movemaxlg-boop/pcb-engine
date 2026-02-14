@@ -1007,7 +1007,7 @@ class HierarchicalPlacementEngine:
             cluster.center_x = new_x
             cluster.center_y = new_y
 
-        print(f"  Centroid balance: offset {offset_dist:.1f}mm → nudged "
+        print(f"  Centroid balance: offset {offset_dist:.1f}mm -> nudged "
               f"{len(movable_clusters)} clusters by ({nudge_x:.1f}, {nudge_y:.1f})mm")
 
     # -------------------------------------------------------------------------
@@ -1172,6 +1172,7 @@ class HierarchicalPlacementEngine:
             min_spacing=0.5,
             edge_margin=2.0,
             seed=self.config.seed,
+            fusion_enabled=False,  # Fusion already happened in fine placement
         )
 
         engine = PlacementEngine(refine_config)

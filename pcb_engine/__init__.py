@@ -62,6 +62,7 @@ from .pcb_engine import PCBEngine, EngineConfig, EngineResult, EngineState, Engi
 from .parts_piston import PartsPiston, PartsConfig, PartsResult
 from .order_piston import OrderPiston, OrderConfig, OrderResult
 from .placement_engine import PlacementEngine, PlacementConfig
+from .component_fusion import ComponentFusion, FusedComponent
 # PlacementPiston is DEPRECATED - engine uses PlacementEngine exclusively
 # from .placement_piston import PlacementPiston
 from .routing_types import (
@@ -160,6 +161,7 @@ __all__ = [
     'PartsPiston', 'PartsConfig', 'PartsResult',
     'OrderPiston', 'OrderConfig', 'OrderResult',
     'PlacementEngine', 'PlacementConfig',
+    'ComponentFusion', 'FusedComponent',
     # 'PlacementPiston',  # DEPRECATED
     'TrackSegment', 'Via', 'Route', 'RoutingAlgorithm',
     'RoutingConfig', 'RoutingResult', 'create_track_segment', 'create_via',

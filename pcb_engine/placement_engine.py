@@ -137,6 +137,11 @@ class PlacementConfig:
     power_net_weight: float = 0.05    # Power nets connected by pour, not traces — minimal attraction
     critical_net_weight: float = 3.0  # Weight for critical signal nets
 
+    # Component Fusion — absorb functional passives into owner IC before placement
+    fusion_enabled: bool = True          # Fuse caps/passives onto their owner IC
+    fusion_priority_threshold: float = 1.5  # Min functional priority to fuse (DECOUPLING=3, ESD=2.5, PULLUP=1.5)
+    fusion_max_per_owner: int = 6        # Max passives fused per IC (excess stay independent)
+
 
 @dataclass
 class ComponentState:
@@ -312,6 +317,9 @@ class PlacementEngine:
         self._preferred_passive_orientation: Optional[float] = None
         self._small_passive_refs: set = set()
 
+        # Component fusion state (set during place() if fusion_enabled)
+        self._fusion = None
+
     @staticmethod
     def _parse_pin_ref(pin_ref) -> Tuple[str, str]:
         """Parse pin reference to (component, pin) tuple."""
@@ -361,6 +369,15 @@ class PlacementEngine:
         # Create occupancy grid — makes overlaps physically impossible
         self._occ = OccupancyGrid(self.config.board_width, self.config.board_height)
 
+        # --- FUSE: Absorb functional passives into their owner IC ---
+        self._fusion = None
+        if self.config.fusion_enabled and self._functional_roles:
+            from .component_fusion import ComponentFusion
+            self._fusion = ComponentFusion(
+                self.config.fusion_priority_threshold,
+                self.config.fusion_max_per_owner)
+            self._fusion.fuse(self)
+
         # Compute optimal distance for force-directed
         n = len(self.components)
         if n > 0:
@@ -388,6 +405,15 @@ class PlacementEngine:
             result = self._place_parallel()
         else:
             raise ValueError(f"Unknown algorithm: {self.config.algorithm}")
+
+        # --- UNFUSE: Restore passives as independent components on IC perimeter ---
+        if self._fusion and self._fusion.fused_components:
+            self._fusion.unfuse(self)
+            # NOTE: Do NOT call _legalize() here — it would re-sort by size and
+            # spiral-search all components, destroying the carefully computed
+            # perimeter positions. unfuse() already handles its own occupancy
+            # placement with spiral fallback.
+            result = self._create_result(result.algorithm_used, result.iterations, result.converged)
 
         # Post-placement: shrink board to fit when auto-sizing
         if self.config.auto_board_size and self.components:
