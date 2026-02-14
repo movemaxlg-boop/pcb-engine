@@ -516,6 +516,21 @@ class PlacementEngine:
         # --- Infer functional roles for each passive ---
         roles = {}  # ref -> {role, owner, distance, priority, reason}
 
+        # Pre-index: which ICs/regulators are on each power rail?
+        # Include all U-prefixed parts (not just ic_refs) since regulators (SOT-223,
+        # SOT-23-5) with 3-5 pins also need decoupling caps on their power rails.
+        _all_u_refs = {ref for ref in parts if ref.startswith('U')}
+        _ics_on_rail: Dict[str, List[str]] = {}  # power_net -> sorted list of IC refs
+        for ic in sorted(_all_u_refs):
+            for net in _part_nets(parts[ic]):
+                if _is_power(net):
+                    _ics_on_rail.setdefault(net, [])
+                    if ic not in _ics_on_rail[net]:
+                        _ics_on_rail[net].append(ic)
+
+        # Collect decoupling caps per power rail, then distribute round-robin
+        _pending_decoupling: Dict[str, List[str]] = {}  # power_net -> [cap_refs]
+
         for ref in sorted(passive_refs):
             part = parts[ref]
             pins = get_pins(part)
@@ -537,22 +552,8 @@ class PlacementEngine:
                     power_pin, gnd_pin = net2, net1
 
                 if power_pin and gnd_pin:
-                    # Find IC with most pins on this power net
-                    best_ic = None
-                    best_count = 0
-                    for ic in ic_refs:
-                        ic_part_nets = _part_nets(parts[ic])
-                        if power_pin in ic_part_nets:
-                            count = sum(1 for p in get_pins(parts[ic])
-                                        if p.get('net', '') == power_pin)
-                            if count > best_count:
-                                best_count = count
-                                best_ic = ic
-                    if best_ic:
-                        min_dist = _min_proximity(ref, best_ic)
-                        roles[ref] = {'role': 'DECOUPLING', 'owner': best_ic,
-                                      'distance': min_dist, 'priority': 3.0,
-                                      'reason': f'Decoupling cap for {best_ic} ({power_pin})'}
+                    # Collect as pending — distribute after all caps identified
+                    _pending_decoupling.setdefault(power_pin, []).append(ref)
                     continue
 
             # --- PULL-UP: power + signal ---
@@ -621,6 +622,73 @@ class PlacementEngine:
                                   'distance': 5.0, 'priority': 2.0,
                                   'reason': f'Current limiter for {led}'}
                     continue
+
+        # --- DISTRIBUTE DECOUPLING CAPS proportionally across ICs on same power rail ---
+        # Each IC gets caps proportional to how many power pins it has on the rail.
+        # An MCU with 3 VDD pins needs more decoupling than a SOIC-8 with 1 VCC pin.
+        # Small ICs (1 power pin) get at most 1 cap per rail.
+        _ic_cap_count: Dict[str, int] = {}  # IC ref -> total caps assigned so far
+        for power_net, cap_refs in sorted(_pending_decoupling.items()):
+            ics = _ics_on_rail.get(power_net, [])
+            if not ics:
+                continue
+
+            # Count power pins per IC on this rail
+            ic_pin_counts = {}
+            for ic in ics:
+                ic_pin_counts[ic] = sum(
+                    1 for p in get_pins(parts[ic])
+                    if p.get('net', '') == power_net)
+
+            # Target allocation: proportional to total pin count (not just power pins).
+            # An MCU with 32 pins draws more current and needs more decoupling
+            # than an SOIC-8 with 8 pins, even if both have 1 VDD pin.
+            total_pins = sum(len(get_pins(parts[ic])) for ic in ics)
+            n_caps = len(cap_refs)
+            ic_target: Dict[str, int] = {}
+            for ic in ics:
+                total_ic_pins = len(get_pins(parts[ic]))
+                share = round(n_caps * total_ic_pins / total_pins)
+                ic_target[ic] = max(1, share)
+
+            # Adjust: trim or add to match n_caps exactly
+            total_alloc = sum(ic_target.values())
+            while total_alloc > n_caps:
+                # Trim from IC with fewest total pins first
+                for ic in sorted(ics, key=lambda i: len(get_pins(parts[i]))):
+                    if ic_target[ic] > 1:
+                        ic_target[ic] -= 1
+                        total_alloc -= 1
+                        if total_alloc <= n_caps:
+                            break
+                else:
+                    break
+            while total_alloc < n_caps:
+                # Give extras to ICs with most total pins
+                for ic in sorted(ics, key=lambda i: -len(get_pins(parts[i]))):
+                    ic_target[ic] += 1
+                    total_alloc += 1
+                    if total_alloc >= n_caps:
+                        break
+
+            # Assign caps: fill each IC up to its target
+            ic_assigned: Dict[str, int] = {ic: 0 for ic in ics}
+            for cap_ref in cap_refs:
+                # Pick IC that is furthest below its target
+                # Among ties, prefer IC with more power pins (needs more decoupling)
+                best_ic = min(ics, key=lambda ic: (
+                    ic_assigned[ic] - ic_target[ic],   # deficit first
+                    -ic_pin_counts[ic],                 # prefer more pins
+                    _ic_cap_count.get(ic, 0),           # global balance last
+                ))
+                min_dist = _min_proximity(cap_ref, best_ic)
+                roles[cap_ref] = {
+                    'role': 'DECOUPLING', 'owner': best_ic,
+                    'distance': min_dist, 'priority': 3.0,
+                    'reason': f'Decoupling cap for {best_ic} ({power_net})',
+                }
+                ic_assigned[best_ic] = ic_assigned.get(best_ic, 0) + 1
+                _ic_cap_count[best_ic] = _ic_cap_count.get(best_ic, 0) + 1
 
         # --- ESD PROTECTION: IC sharing signal nets with connector AND another IC ---
         for ic in sorted(ic_refs):
@@ -812,8 +880,20 @@ class PlacementEngine:
 
     def _is_power_net(self, net_name: str) -> bool:
         """Check if net is a power net"""
-        power_names = ['GND', 'VCC', 'VDD', '3V3', '5V', 'VBUS', '12V', 'AVCC', 'AGND']
-        return net_name.upper() in power_names or net_name.upper().startswith('V')
+        n = net_name.upper()
+        power_names = {'GND', 'VCC', 'VDD', '3V3', '5V', 'VBUS', '12V',
+                       'AVCC', 'AGND', 'DVCC', 'DVDD', '1V8', '1V2',
+                       '2V5', '0V9', 'VBAT', 'VSYS', 'VIN', 'VOUT'}
+        if n in power_names:
+            return True
+        # Matches patterns like V3V3, VREF, etc.
+        if n.startswith('V'):
+            return True
+        # Matches voltage patterns like 1V8, 3V3, 1V2, 5V0
+        import re
+        if re.match(r'^\d+V\d*$', n):
+            return True
+        return False
 
     def _is_critical_net(self, net_name: str) -> bool:
         """Check if net is a critical signal net"""

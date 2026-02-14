@@ -100,6 +100,23 @@ class ComponentFusion:
 
         total_fused = 0
 
+        # Prevent cascading fusion: if a component is BOTH a passive (has owner)
+        # AND an owner (has its own passives), do NOT fuse it into its owner.
+        # Example: U6 (ESD) is both:
+        #   - a passive of J1 (ESD_PROTECTION, fuses into J1)
+        #   - an owner of C9 (DECOUPLING, C9 fuses into U6)
+        # If we fuse U6 into J1, then U6 is gone, and C9 can't fuse into U6.
+        # Solution: skip fusing components that are themselves owners.
+        owner_set = set(owner_groups.keys())
+        for owner_ref in list(owner_groups.keys()):
+            passive_list = owner_groups[owner_ref]
+            # Remove passives that are themselves owners (prevent cascading)
+            filtered = [(ref, role) for ref, role in passive_list
+                        if ref not in owner_set]
+            if filtered != passive_list:
+                skipped = [ref for ref, _ in passive_list if ref in owner_set]
+                owner_groups[owner_ref] = filtered
+
         for owner_ref, passive_list in sorted(owner_groups.items()):
             # Skip if owner was itself fused into another IC in a prior iteration
             if owner_ref not in engine.components:
