@@ -316,7 +316,7 @@ class FootprintResolver:
     # =========================================================================
 
     def _try_hardcoded(self, original_name: str) -> Optional[FootprintDefinition]:
-        """Try the hardcoded FOOTPRINT_LIBRARY (7 entries)."""
+        """Try the hardcoded FOOTPRINT_LIBRARY (8 entries)."""
         if self._hardcoded_lib is None:
             from .common_types import FOOTPRINT_LIBRARY
             self._hardcoded_lib = FOOTPRINT_LIBRARY
@@ -327,11 +327,16 @@ class FootprintResolver:
 
         # Fuzzy: extract size code from name
         name_lower = original_name.lower()
-        for size in ['0402', '0603', '0805', '1206', 'sot-23-5', 'sot-23', 'sot-223']:
+        for size in ['0402', '0603', '0805', '1206', 'sot-23-5', 'sot-23', 'sot-223', 'usb-c-16p']:
             if size in name_lower:
-                key = size.upper() if 'sot' in size else size
+                key = size.upper() if 'sot' in size else ('USB-C-16P' if 'usb' in size else size)
                 if key in self._hardcoded_lib:
                     return self._hardcoded_lib[key]
+
+        # USB-C variants
+        if 'usb' in name_lower and ('type-c' in name_lower or 'usb_c' in name_lower or 'usb-c' in name_lower):
+            if 'USB-C-16P' in self._hardcoded_lib:
+                return self._hardcoded_lib['USB-C-16P']
 
         return None
 

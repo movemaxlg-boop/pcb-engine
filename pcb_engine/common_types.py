@@ -512,6 +512,35 @@ FOOTPRINT_LIBRARY: Dict[str, FootprintDefinition] = {
         ],
         is_smd=True
     ),
+    # USB-C 16-Pin Receptacle (mid-mount, e.g. GCT USB4105)
+    # Body: 8.94 x 7.3mm. 16 pads: A1,A4,A5-A8,A9,A12 + B1,B4,B5-B8,B9,B12
+    # + 4 shield tabs. Pad pitch 0.5mm in rows.
+    'USB-C-16P': FootprintDefinition(
+        name='USB-C-16P',
+        body_width=8.94,
+        body_height=7.3,
+        pad_positions=[
+            # Top row (A-side) — left to right
+            ('A1',  -3.25, -2.75, 0.30, 1.00),   # GND
+            ('A4',  -2.25, -2.75, 0.30, 1.00),   # VBUS
+            ('A5',  -1.25, -2.75, 0.30, 1.00),   # CC1
+            ('A6',  -0.25, -2.75, 0.30, 1.00),   # D+
+            ('A7',   0.25, -2.75, 0.30, 1.00),   # D-
+            ('A8',   1.25, -2.75, 0.30, 1.00),   # SBU1
+            ('A9',   2.25, -2.75, 0.30, 1.00),   # VBUS
+            ('A12',  3.25, -2.75, 0.30, 1.00),   # GND
+            # Bottom row (B-side) — left to right
+            ('B1',  -3.25,  2.75, 0.30, 1.00),   # GND
+            ('B4',  -2.25,  2.75, 0.30, 1.00),   # VBUS
+            ('B5',  -1.25,  2.75, 0.30, 1.00),   # CC2
+            ('B6',  -0.25,  2.75, 0.30, 1.00),   # D-
+            ('B7',   0.25,  2.75, 0.30, 1.00),   # D+
+            ('B8',   1.25,  2.75, 0.30, 1.00),   # SBU2
+            ('B9',   2.25,  2.75, 0.30, 1.00),   # VBUS
+            ('B12',  3.25,  2.75, 0.30, 1.00),   # GND
+        ],
+        is_smd=True
+    ),
 }
 
 

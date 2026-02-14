@@ -134,7 +134,7 @@ class PlacementConfig:
     parallel_timeout: float = 120.0   # Timeout per algorithm in seconds
 
     # Net weights for prioritization
-    power_net_weight: float = 2.0     # Weight for power nets (GND, VCC, etc.)
+    power_net_weight: float = 0.05    # Power nets connected by pour, not traces — minimal attraction
     critical_net_weight: float = 3.0  # Weight for critical signal nets
 
 
@@ -751,32 +751,51 @@ class PlacementEngine:
         """
         Apply repulsive force between two components (Coulomb's law).
 
-        Force magnitude: f_r = k^2 / d
-        Direction: Away from each other
+        Treats component courtyards as indivisible blocks: if courtyard
+        rectangles overlap (or nearly touch), apply very strong repulsion
+        to push them apart. Force direction is axis-aligned to the smallest
+        overlap axis for faster separation.
         """
         ca = self.components[ref_a]
         cb = self.components[ref_b]
 
         dx = ca.x - cb.x
         dy = ca.y - cb.y
-        dist = math.sqrt(dx ** 2 + dy ** 2)
 
         # Avoid division by zero
+        if abs(dx) < 0.01 and abs(dy) < 0.01:
+            dx = random.uniform(-0.5, 0.5)
+            dy = random.uniform(-0.5, 0.5)
+
+        dist = math.sqrt(dx ** 2 + dy ** 2)
         if dist < 0.01:
             dist = 0.01
-            dx = random.uniform(-0.01, 0.01)
-            dy = random.uniform(-0.01, 0.01)
 
-        # Repulsive force (stronger when close)
-        # Include component size in calculation
-        min_dist = (ca.width + cb.width) / 2 + self.config.min_spacing
-        effective_k = k * (1 + min_dist / k)
+        # Courtyard-aware: minimum separation along each axis
+        min_sep_x = (ca.width + cb.width) / 2 + self.config.min_spacing
+        min_sep_y = (ca.height + cb.height) / 2 + self.config.min_spacing
 
-        force = (effective_k ** 2) / dist
+        # How much do courtyards overlap (or nearly overlap) on each axis?
+        overlap_x = min_sep_x - abs(dx)
+        overlap_y = min_sep_y - abs(dy)
 
-        # Apply force in direction away from each other
-        fx = force * dx / dist
-        fy = force * dy / dist
+        if overlap_x > 0 and overlap_y > 0:
+            # Courtyards are overlapping — STRONG repulsion proportional to overlap
+            # Push along the axis with smaller overlap (easier to resolve)
+            force_scale = 50.0  # Strong push when overlapping
+            if overlap_x < overlap_y:
+                fx = force_scale * overlap_x * (1 if dx >= 0 else -1)
+                fy = force_scale * overlap_y * 0.3 * (1 if dy >= 0 else -1)
+            else:
+                fx = force_scale * overlap_x * 0.3 * (1 if dx >= 0 else -1)
+                fy = force_scale * overlap_y * (1 if dy >= 0 else -1)
+        else:
+            # No overlap — standard Coulomb repulsion with courtyard-scaled k
+            min_dist = max(min_sep_x, min_sep_y)
+            effective_k = k * (1 + min_dist / k)
+            force = (effective_k ** 2) / dist
+            fx = force * dx / dist
+            fy = force * dy / dist
 
         if not ca.fixed:
             ca.fx += fx
