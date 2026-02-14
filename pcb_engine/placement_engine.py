@@ -604,6 +604,13 @@ class PlacementEngine:
         self._placement_hints['edge_components'] = edge
         self._functional_roles = roles
 
+        # Build owner lookup for group-aware SA moves: passive_ref → owner_ref
+        self._owner_of: Dict[str, str] = {}
+        for ref, role in roles.items():
+            owner = role.get('owner')
+            if owner:
+                self._owner_of[ref] = owner
+
     def _init_from_parts(self, parts_db: Dict, graph: Dict):
         """Initialize placement state from parts database"""
         parts = parts_db.get('parts', {})
@@ -1267,9 +1274,10 @@ class PlacementEngine:
                 r = rng.random()
                 occ = self._occ if hasattr(self, '_occ') else None
                 move_valid = True
+                owner_map = getattr(self, '_owner_of', {})
 
-                if r < 0.5:
-                    # Shift move
+                if r < 0.40:
+                    # Shift move (random direction)
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
                     if refs:
                         ref = rng.choice(refs)
@@ -1288,6 +1296,38 @@ class PlacementEngine:
                             else:
                                 occ.place(ref, old_cx, old_cy, comp.width, comp.height)
                                 move_valid = False
+                elif r < 0.55 and owner_map:
+                    # Group-aware shift: bias a passive toward its owner IC
+                    # Generalized — works for any functional role, not just caps
+                    owned_refs = [ref for ref in owner_map
+                                  if ref in self.components and not self.components[ref].fixed]
+                    if owned_refs:
+                        ref = rng.choice(owned_refs)
+                        comp = self.components[ref]
+                        owner_ref = owner_map[ref]
+                        if owner_ref in self.components:
+                            owner = self.components[owner_ref]
+                            old_cx, old_cy = comp.x, comp.y
+                            # Move toward owner with temperature-scaled step
+                            dx = owner.x - comp.x
+                            dy = owner.y - comp.y
+                            dist = math.sqrt(dx * dx + dy * dy)
+                            if dist > 0.1:
+                                # Step fraction: at high temp, take big steps;
+                                # at low temp, fine-tune position near owner
+                                step_frac = rng.uniform(0.1, 0.6) * (temp / initial_temp + 0.3)
+                                # Add some random jitter to avoid deterministic paths
+                                jitter = rng.uniform(-1.0, 1.0)
+                                comp.x += dx * step_frac + jitter
+                                comp.y += dy * step_frac + jitter
+                                comp.x, comp.y = self._clamp_to_board(comp)
+                                if occ:
+                                    occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
+                                    if occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                                        occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                                    else:
+                                        occ.place(ref, old_cx, old_cy, comp.width, comp.height)
+                                        move_valid = False
                 elif r < 0.75:
                     # Swap move
                     refs = [ref for ref, c in self.components.items() if not c.fixed]
@@ -2479,7 +2519,7 @@ class PlacementEngine:
 
         Cost components (weight rationale):
         - Physical constraints (must-fix): pad_conflict*5000, overlap*1000, oob*500
-        - Electrical hints (guide): keep_apart*200, edge*100, proximity*50
+        - Electrical hints (guide): keep_apart*200, proximity*150, edge*100
         - Optimization: wirelength*1, orientation*5
         """
         wirelength = self._calculate_wirelength()
@@ -2495,7 +2535,7 @@ class PlacementEngine:
                 overlap * 1000 +
                 pad_conflict * 5000 +
                 oob * 500 +
-                prox * 50 +
+                prox * 150 +
                 edge * 100 +
                 keep_apart * 200 +
                 orientation * 5)
@@ -2707,8 +2747,17 @@ class PlacementEngine:
 
     def _calculate_proximity_cost(self) -> float:
         """
-        Calculate cost penalty for components that should be near each other
-        but are placed too far apart (from placement_hints proximity_groups).
+        Continuous proximity penalty for functionally-related components.
+
+        Unlike a simple threshold penalty, this provides gradient at ALL
+        distances — components always feel a pull toward their functional
+        partner.  The penalty is quadratic beyond target distance (strong
+        repulsion from bad placements) and linear below it (gentle pull
+        toward optimal placement).
+
+        Generalized: works for ANY functional role (decoupling caps,
+        pull-ups, LED drivers, ESD, etc.) using the priority and
+        distance fields already inferred by _build_placement_constraints().
         """
         hints = getattr(self, '_placement_hints', None)
         if not hints:
@@ -2721,7 +2770,7 @@ class PlacementEngine:
         total = 0.0
         for group in groups:
             components = group.get('components', [])
-            max_dist = group.get('max_distance', 10.0)
+            target_dist = group.get('max_distance', 10.0)
             priority = group.get('priority', 1.0)
 
             for i, ref_a in enumerate(components):
@@ -2733,8 +2782,16 @@ class PlacementEngine:
                         continue
                     cb = self.components[ref_b]
                     dist = math.sqrt((ca.x - cb.x) ** 2 + (ca.y - cb.y) ** 2)
-                    if dist > max_dist:
-                        total += (dist - max_dist) * priority
+
+                    if dist <= target_dist:
+                        # Within target: gentle linear pull (still want closer)
+                        # Normalized so cost=0 at dist=0, cost=priority at dist=target
+                        total += (dist / target_dist) * priority
+                    else:
+                        # Beyond target: quadratic penalty (grows fast)
+                        # Continuous at boundary: priority + priority*(excess/target)^2
+                        excess = dist - target_dist
+                        total += priority + priority * (excess / target_dist) ** 2
 
         return total
 

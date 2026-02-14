@@ -77,7 +77,6 @@ class ClusterBuilder:
     they serve), then calculates courtyard dimensions for each cluster.
     """
 
-    PACKING_OVERHEAD = 2.0   # 100% extra area for routing + spacing within cluster
     MIN_CLUSTER_DIM = 3.0    # Minimum cluster dimension (mm)
     MAX_CLUSTER_SIZE_SMALL = 5   # Max for boards < 30 parts
     MAX_CLUSTER_SIZE_LARGE = 7   # Max for boards >= 30 parts
@@ -536,19 +535,40 @@ class ClusterBuilder:
         fp_def = self._resolver.resolve(fp_name)
         return fp_def.courtyard_size
 
+    @staticmethod
+    def _packing_overhead(n_members: int) -> float:
+        """Adaptive packing overhead based on cluster member count.
+
+        Small clusters (1-2) need less overhead — just the component
+        plus some routing margin. Large clusters (5+) need more overhead
+        for internal routing channels between tightly packed parts.
+
+        Returns multiplier for total area.
+        """
+        if n_members <= 1:
+            return 1.3   # Solo part: just courtyard + small margin
+        elif n_members == 2:
+            return 1.5   # Owner + 1 passive: tight pair
+        elif n_members <= 4:
+            return 1.8   # Small group: moderate spacing
+        else:
+            return 2.2   # Large group: need routing channels
+
     def _calculate_geometry(self, cluster: ComponentCluster):
         """
         Calculate cluster courtyard from member areas.
 
-        area = sum(member courtyards) * PACKING_OVERHEAD
-        aspect ratio from owner's footprint shape
+        Uses adaptive packing overhead that scales with member count:
+        small clusters get tight packing, large clusters get more room
+        for internal routing.
         """
         total_area = 0.0
         for ref in cluster.members:
             w, h = self._get_courtyard(ref)
             total_area += w * h
 
-        cluster_area = total_area * self.PACKING_OVERHEAD
+        overhead = self._packing_overhead(len(cluster.members))
+        cluster_area = total_area * overhead
 
         # Determine aspect ratio from owner
         owner_w, owner_h = self._get_courtyard(cluster.owner)
@@ -915,10 +935,80 @@ class HierarchicalPlacementEngine:
             cluster.center_y = pos[1]
             cluster.rotation = result.rotations.get(cluster.id, 0.0)
 
+        # Quadrant balancing: nudge clusters toward centroid if layout is lopsided
+        self._balance_coarse_placement()
+
         print(f"  Coarse placement: {len(self.clusters)} clusters placed, "
               f"WL={result.wirelength:.1f}mm")
 
         return result
+
+    def _balance_coarse_placement(self):
+        """
+        Nudge clusters toward board centroid when layout is lopsided.
+
+        Measures area-weighted centroid offset from board center. If offset
+        exceeds 15% of board diagonal, applies a gentle shift to all clusters
+        to re-center the distribution. Connectors (EDGE_CONNECTOR) are
+        excluded since they must stay at the edge.
+
+        Generalized: works for any board size and cluster configuration.
+        """
+        bw = self.config.board_width
+        bh = self.config.board_height
+        board_cx = bw / 2
+        board_cy = bh / 2
+        board_diag = math.sqrt(bw * bw + bh * bh)
+
+        # Compute area-weighted centroid of non-edge clusters
+        total_area = 0.0
+        wt_cx = 0.0
+        wt_cy = 0.0
+        movable_clusters = []
+
+        for cluster in self.clusters:
+            area = cluster.courtyard_width * cluster.courtyard_height
+            wt_cx += cluster.center_x * area
+            wt_cy += cluster.center_y * area
+            total_area += area
+            if cluster.role != 'EDGE_CONNECTOR':
+                movable_clusters.append(cluster)
+
+        if total_area < 0.01 or not movable_clusters:
+            return
+
+        centroid_x = wt_cx / total_area
+        centroid_y = wt_cy / total_area
+
+        offset_x = board_cx - centroid_x
+        offset_y = board_cy - centroid_y
+        offset_dist = math.sqrt(offset_x * offset_x + offset_y * offset_y)
+
+        # Only nudge if centroid is more than 15% of board diagonal off-center
+        threshold = board_diag * 0.15
+        if offset_dist <= threshold:
+            return
+
+        # Apply fraction of offset to movable clusters (gentle, not full correction)
+        # Stronger correction for bigger imbalance, capped at 60%
+        correction_frac = min(0.6, (offset_dist - threshold) / board_diag + 0.2)
+        nudge_x = offset_x * correction_frac
+        nudge_y = offset_y * correction_frac
+
+        margin = 2.0  # Keep clusters inside board
+        for cluster in movable_clusters:
+            new_x = cluster.center_x + nudge_x
+            new_y = cluster.center_y + nudge_y
+            half_w = cluster.courtyard_width / 2
+            half_h = cluster.courtyard_height / 2
+            # Clamp to board bounds
+            new_x = max(margin + half_w, min(bw - margin - half_w, new_x))
+            new_y = max(margin + half_h, min(bh - margin - half_h, new_y))
+            cluster.center_x = new_x
+            cluster.center_y = new_y
+
+        print(f"  Centroid balance: offset {offset_dist:.1f}mm → nudged "
+              f"{len(movable_clusters)} clusters by ({nudge_x:.1f}, {nudge_y:.1f})mm")
 
     # -------------------------------------------------------------------------
     # Phase 4: Fine placement — components within each cluster
@@ -1117,11 +1207,18 @@ class HierarchicalPlacementEngine:
 
         # Phase 6b: Inter-cluster signal pull
         # For each component, find its cross-cluster signal net partners.
-        # Gently shift it toward the centroid of those partners (max 3mm).
+        # Gently shift it toward the centroid of those partners.
         # Only accept the shift if it doesn't create overlaps.
         signal_improvements = self._inter_cluster_signal_pull(
             engine, parts_db, graph
         )
+
+        post_signal_cost = engine._calculate_cost()
+
+        # Phase 6c: Functional passive proximity pull
+        # Shift decoupling caps, pull-ups, etc. toward their owner ICs.
+        # Generalized for any functional role, not just caps.
+        proximity_moves = self._functional_passive_pull(engine, parts_db)
 
         # Extract final positions
         final_positions = {}
@@ -1134,10 +1231,106 @@ class HierarchicalPlacementEngine:
         improvement = initial_cost - final_cost
 
         print(f"  Legalization: cost {initial_cost:.1f} -> {post_legalize_cost:.1f}")
-        print(f"  Signal pull:  cost {post_legalize_cost:.1f} -> {final_cost:.1f} "
+        print(f"  Signal pull:  cost {post_legalize_cost:.1f} -> {post_signal_cost:.1f} "
               f"({signal_improvements} moves)")
+        print(f"  Passive pull: cost {post_signal_cost:.1f} -> {final_cost:.1f} "
+              f"({proximity_moves} moves)")
 
         return final_positions, final_rotations, improvement
+
+    def _functional_passive_pull(
+        self,
+        engine: PlacementEngine,
+        parts_db: Dict,
+    ) -> int:
+        """
+        Post-placement: shift functional passives toward their owner ICs.
+
+        After hierarchical placement, some passives may have ended up far
+        from their owner IC (e.g., a decoupling cap placed in a large cluster
+        where the IC is at the far edge). This step uses the already-inferred
+        functional roles to gently pull each passive toward its owner.
+
+        Generalized: works for any functional role (DECOUPLING, PULLUP,
+        PULLDOWN, LED_DRIVER, ESD_PROTECTION). Each role has its own
+        target distance from the owner.
+
+        Returns number of moves made.
+        """
+        roles = getattr(engine, '_functional_roles', {})
+        if not roles:
+            return 0
+
+        resolver = FootprintResolver.get_instance()
+        total_moves = 0
+        MAX_PASSES = 2
+
+        for _ in range(MAX_PASSES):
+            moves_this_pass = 0
+            for ref, role in roles.items():
+                if ref not in engine.components:
+                    continue
+                owner_ref = role.get('owner')
+                if not owner_ref or owner_ref not in engine.components:
+                    continue
+
+                comp = engine.components[ref]
+                owner = engine.components[owner_ref]
+                target_dist = role.get('distance', 5.0)
+
+                dx = owner.x - comp.x
+                dy = owner.y - comp.y
+                dist = math.sqrt(dx * dx + dy * dy)
+
+                # Only pull if further than target distance
+                if dist <= target_dist * 1.2:
+                    continue
+
+                # Move 40% of excess distance toward owner
+                excess = dist - target_dist
+                frac = min(0.4, excess / dist)
+                new_x = comp.x + dx * frac
+                new_y = comp.y + dy * frac
+
+                # Clamp to board
+                part = parts_db['parts'].get(ref, {})
+                fp = resolver.resolve(part.get('footprint', 'unknown'))
+                cw, ch = fp.courtyard_size
+                margin = 1.0
+                new_x = max(cw / 2 + margin, min(new_x,
+                            self.config.board_width - cw / 2 - margin))
+                new_y = max(ch / 2 + margin, min(new_y,
+                            self.config.board_height - ch / 2 - margin))
+
+                # Check for overlaps
+                overlap = False
+                for other_ref, other_comp in engine.components.items():
+                    if other_ref == ref:
+                        continue
+                    other_part = parts_db['parts'].get(other_ref, {})
+                    other_fp = resolver.resolve(
+                        other_part.get('footprint', 'unknown'))
+                    ocw, och = other_fp.courtyard_size
+
+                    adx = abs(new_x - other_comp.x)
+                    ady = abs(new_y - other_comp.y)
+                    min_dx = (cw + ocw) / 2
+                    min_dy = (ch + och) / 2
+
+                    if adx < min_dx and ady < min_dy:
+                        overlap = True
+                        break
+
+                if not overlap:
+                    comp.x = new_x
+                    comp.y = new_y
+                    moves_this_pass += 1
+
+            total_moves += moves_this_pass
+            if moves_this_pass == 0:
+                break
+
+        return total_moves
 
     def _inter_cluster_signal_pull(
         self,
@@ -1152,12 +1345,16 @@ class HierarchicalPlacementEngine:
         to via signal nets in OTHER clusters. Shift it up to MAX_PULL_DIST
         toward that centroid. Only accept if no new overlaps are created.
 
-        This reduces inter-cluster signal wirelength without destroying
-        cluster integrity (moves are small and overlap-checked).
+        Adaptive: pull distance and fraction scale with board diagonal,
+        so the algorithm works for any board size — from 20x15mm modules
+        to 120x90mm complex boards.
         """
-        MAX_PULL_DIST = 3.0   # mm max shift per component
-        PULL_FRACTION = 0.3   # Move 30% toward signal centroid
-        MAX_PASSES = 3        # Repeat to converge
+        # Adaptive parameters based on board size
+        board_diag = math.sqrt(self.config.board_width ** 2 +
+                               self.config.board_height ** 2)
+        MAX_PULL_DIST = board_diag * 0.05  # 5% of diagonal per step
+        PULL_FRACTION = 0.35               # Move 35% toward centroid
+        MAX_PASSES = max(3, min(6, len(self.clusters) // 4))  # More passes for complex boards
 
         # Build ref -> cluster_id mapping
         ref_to_cluster = {}
@@ -1264,9 +1461,18 @@ class HierarchicalPlacementEngine:
                         break
 
                 if not overlap:
+                    # Accept only if the move improves overall cost
+                    # (prevents pulling passives away from their owner IC)
+                    old_cost = engine._calculate_cost()
                     comp.x = new_x
                     comp.y = new_y
-                    moves_this_pass += 1
+                    new_cost = engine._calculate_cost()
+                    if new_cost <= old_cost:
+                        moves_this_pass += 1
+                    else:
+                        # Revert — this move hurts more than it helps
+                        comp.x = old_x
+                        comp.y = old_y
 
             total_moves += moves_this_pass
             if moves_this_pass == 0:
