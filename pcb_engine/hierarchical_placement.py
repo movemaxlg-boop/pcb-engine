@@ -142,20 +142,34 @@ class ClusterBuilder:
 
         # Step 2: Split oversized clusters
         # Priority: DECOUPLING(3.0) > ESD(2.5) > LED_DRIVER(2.0) > PULLUP/DOWN(1.5)
+        # RULE: Functional passives (DECOUPLING, ESD) ALWAYS stay with their owner.
+        #       Only low-priority members (PULLUP/DOWN < 2.0) can be evicted.
+        #       This prevents caps ending up in the wrong cluster.
         evicted: List[str] = []
         for owner in list(owner_groups.keys()):
             members = owner_groups[owner]
             if len(members) + 1 > self.MAX_CLUSTER_SIZE:
-                # Sort by priority (highest first), keep top MAX-1
-                members_with_priority = [
-                    (ref, self.functional_roles[ref].get('priority', 0))
-                    for ref in members
-                ]
-                members_with_priority.sort(key=lambda x: x[1], reverse=True)
-                keep = [m[0] for m in members_with_priority[:self.MAX_CLUSTER_SIZE - 1]]
-                evict = [m[0] for m in members_with_priority[self.MAX_CLUSTER_SIZE - 1:]]
-                owner_groups[owner] = keep
-                evicted.extend(evict)
+                # Separate mandatory (high-priority) from evictable (low-priority)
+                mandatory = []
+                evictable = []
+                for ref in members:
+                    pri = self.functional_roles.get(ref, {}).get('priority', 0)
+                    if pri >= 2.0:
+                        mandatory.append(ref)  # DECOUPLING, ESD — must stay
+                    else:
+                        evictable.append(ref)  # PULLUP/DOWN — can be evicted
+
+                # Keep all mandatory + as many evictable as fit
+                slots_left = max(0, self.MAX_CLUSTER_SIZE - 1 - len(mandatory))
+                # Sort evictable by priority desc, keep top slots_left
+                evictable.sort(
+                    key=lambda r: self.functional_roles.get(r, {}).get('priority', 0),
+                    reverse=True)
+                keep_evictable = evictable[:slots_left]
+                evict_evictable = evictable[slots_left:]
+
+                owner_groups[owner] = mandatory + keep_evictable
+                evicted.extend(evict_evictable)
 
         # Step 3: Redistribute evicted members to alternative IC/regulator clusters
         for ref in evicted:
@@ -232,6 +246,13 @@ class ClusterBuilder:
                     members=[ref],
                 )
                 clusters.append(cluster)
+
+        # Step 5c: Reunite functional passives with their owner IC
+        # After all clustering, some high-priority passives (DECOUPLING, ESD)
+        # may have been reassigned to the wrong cluster by balance/orphan logic.
+        # Force them back to their owner's cluster — functional proximity is
+        # more important than cluster size balance.
+        self._reunite_with_owners(clusters)
 
         # Step 6: Calculate geometry for each cluster
         for cluster in clusters:
@@ -374,6 +395,49 @@ class ClusterBuilder:
         return any(p in upper for p in
                    ['VCC', 'VDD', 'V3', '3V3', '5V', '1V8', '2V5', 'VBUS',
                     'AVDD', 'DVDD', 'VREF', 'VIN', 'VOUT', 'VCCA', 'VCCB'])
+
+    def _reunite_with_owners(self, clusters: List[ComponentCluster]):
+        """
+        Force functional passives back to their owner IC's cluster.
+
+        After balance/orphan/redistribution, some DECOUPLING caps or ESD
+        components end up in the wrong cluster. This step fixes that by
+        moving them to the cluster containing their owner IC.
+
+        Only moves passives with priority >= 2.0 (DECOUPLING, ESD).
+        """
+        # Build ref -> cluster index mapping
+        ref_to_cluster_idx = {}
+        for idx, cluster in enumerate(clusters):
+            for ref in cluster.members:
+                ref_to_cluster_idx[ref] = idx
+
+        moves = 0
+        for ref, role_data in self.functional_roles.items():
+            owner = role_data.get('owner')
+            priority = role_data.get('priority', 0)
+            if not owner or priority < 2.0:
+                continue
+
+            ref_idx = ref_to_cluster_idx.get(ref)
+            owner_idx = ref_to_cluster_idx.get(owner)
+
+            if ref_idx is None or owner_idx is None:
+                continue
+            if ref_idx == owner_idx:
+                continue  # Already in the right cluster
+
+            # Move ref from its current cluster to the owner's cluster
+            clusters[ref_idx].members.remove(ref)
+            clusters[owner_idx].members.append(ref)
+            ref_to_cluster_idx[ref] = owner_idx
+            moves += 1
+
+        # Remove empty clusters
+        clusters[:] = [c for c in clusters if len(c.members) > 0]
+
+        if moves > 0:
+            print(f"  Reunited {moves} functional passives with their owner ICs")
 
     def _absorb_orphan_passives(
         self,

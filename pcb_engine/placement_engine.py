@@ -1354,22 +1354,27 @@ class PlacementEngine:
         stall_count = 0  # Temp steps without improvement
         max_stall = 10   # Exit early if no improvement for 10 temp steps
 
+        # Pre-cache movable refs list (rebuilt only when needed)
+        movable_refs = [ref for ref, c in self.components.items() if not c.fixed]
+        occ = self._occ if hasattr(self, '_occ') else None
+        owner_map = getattr(self, '_owner_of', {})
+        owned_refs = [ref for ref in owner_map
+                      if ref in self.components and not self.components[ref].fixed] if owner_map else []
+
         while temp > self.config.sa_final_temp:
             prev_best = best_cost
             for _ in range(moves_per_temp):
                 total_iterations += 1
-                old_state = self._save_state()
 
                 r = rng.random()
-                occ = self._occ if hasattr(self, '_occ') else None
                 move_valid = True
-                owner_map = getattr(self, '_owner_of', {})
+                # Track what we changed for fast undo (no full state save)
+                undo_info = None  # (type, data)
 
                 if r < 0.40:
                     # Shift move (random direction)
-                    refs = [ref for ref, c in self.components.items() if not c.fixed]
-                    if refs:
-                        ref = rng.choice(refs)
+                    if movable_refs:
+                        ref = rng.choice(movable_refs)
                         comp = self.components[ref]
                         old_cx, old_cy = comp.x, comp.y
                         max_shift = (temp / initial_temp) * self.config.board_width * 0.3
@@ -1377,7 +1382,6 @@ class PlacementEngine:
                         comp.x += rng.uniform(-max_shift, max_shift)
                         comp.y += rng.uniform(-max_shift, max_shift)
                         comp.x, comp.y = self._clamp_to_board(comp)
-                        # Remove from grid, check new position, re-place
                         if occ:
                             occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
                             if occ.can_place(comp.x, comp.y, comp.width, comp.height):
@@ -1385,51 +1389,41 @@ class PlacementEngine:
                             else:
                                 occ.place(ref, old_cx, old_cy, comp.width, comp.height)
                                 move_valid = False
-                elif r < 0.55 and owner_map:
+                        undo_info = ('shift', ref, old_cx, old_cy)
+                elif r < 0.55 and owned_refs:
                     # Group-aware shift: bias a passive toward its owner IC
-                    # Generalized — works for any functional role, not just caps
-                    owned_refs = [ref for ref in owner_map
-                                  if ref in self.components and not self.components[ref].fixed]
-                    if owned_refs:
-                        ref = rng.choice(owned_refs)
-                        comp = self.components[ref]
-                        owner_ref = owner_map[ref]
-                        if owner_ref in self.components:
-                            owner = self.components[owner_ref]
-                            old_cx, old_cy = comp.x, comp.y
-                            # Move toward owner with temperature-scaled step
-                            dx = owner.x - comp.x
-                            dy = owner.y - comp.y
-                            dist = math.sqrt(dx * dx + dy * dy)
-                            if dist > 0.1:
-                                # Step fraction: at high temp, take big steps;
-                                # at low temp, fine-tune position near owner
-                                step_frac = rng.uniform(0.1, 0.6) * (temp / initial_temp + 0.3)
-                                # Add some random jitter to avoid deterministic paths
-                                jitter = rng.uniform(-1.0, 1.0)
-                                comp.x += dx * step_frac + jitter
-                                comp.y += dy * step_frac + jitter
-                                comp.x, comp.y = self._clamp_to_board(comp)
-                                if occ:
-                                    occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
-                                    if occ.can_place(comp.x, comp.y, comp.width, comp.height):
-                                        occ.place(ref, comp.x, comp.y, comp.width, comp.height)
-                                    else:
-                                        occ.place(ref, old_cx, old_cy, comp.width, comp.height)
-                                        move_valid = False
+                    ref = rng.choice(owned_refs)
+                    comp = self.components[ref]
+                    owner_ref = owner_map[ref]
+                    if owner_ref in self.components:
+                        owner = self.components[owner_ref]
+                        old_cx, old_cy = comp.x, comp.y
+                        dx = owner.x - comp.x
+                        dy = owner.y - comp.y
+                        dist = math.sqrt(dx * dx + dy * dy)
+                        if dist > 0.1:
+                            step_frac = rng.uniform(0.1, 0.6) * (temp / initial_temp + 0.3)
+                            jitter = rng.uniform(-1.0, 1.0)
+                            comp.x += dx * step_frac + jitter
+                            comp.y += dy * step_frac + jitter
+                            comp.x, comp.y = self._clamp_to_board(comp)
+                            if occ:
+                                occ.remove(ref, old_cx, old_cy, comp.width, comp.height)
+                                if occ.can_place(comp.x, comp.y, comp.width, comp.height):
+                                    occ.place(ref, comp.x, comp.y, comp.width, comp.height)
+                                else:
+                                    occ.place(ref, old_cx, old_cy, comp.width, comp.height)
+                                    move_valid = False
+                        undo_info = ('shift', ref, old_cx, old_cy)
                 elif r < 0.75:
                     # Swap move
-                    refs = [ref for ref, c in self.components.items() if not c.fixed]
-                    if len(refs) >= 2:
-                        a, b = rng.sample(refs, 2)
+                    if len(movable_refs) >= 2:
+                        a, b = rng.sample(movable_refs, 2)
                         ca, cb = self.components[a], self.components[b]
-                        # Save old positions for grid removal
                         old_ax, old_ay = ca.x, ca.y
                         old_bx, old_by = cb.x, cb.y
-                        # Swap positions
                         ca.x, cb.x = cb.x, ca.x
                         ca.y, cb.y = cb.y, ca.y
-                        # Remove BOTH from grid, then check BOTH at new positions
                         if occ:
                             occ.remove(a, old_ax, old_ay, ca.width, ca.height)
                             occ.remove(b, old_bx, old_by, cb.width, cb.height)
@@ -1439,18 +1433,18 @@ class PlacementEngine:
                                 occ.place(a, ca.x, ca.y, ca.width, ca.height)
                                 occ.place(b, cb.x, cb.y, cb.width, cb.height)
                             else:
-                                # Restore grid to pre-swap state
                                 occ.place(a, old_ax, old_ay, ca.width, ca.height)
                                 occ.place(b, old_bx, old_by, cb.width, cb.height)
                                 move_valid = False
+                        undo_info = ('swap', a, b, old_ax, old_ay, old_bx, old_by)
                 elif r < 0.90:
                     # Rotate 90
-                    refs = [ref for ref, c in self.components.items() if not c.fixed]
-                    if refs:
-                        ref = rng.choice(refs)
+                    if movable_refs:
+                        ref = rng.choice(movable_refs)
                         comp = self.components[ref]
                         old_cx, old_cy = comp.x, comp.y
                         old_w, old_h = comp.width, comp.height
+                        old_rot = comp.rotation
                         comp.rotation = (comp.rotation + 90) % 360
                         comp.width, comp.height = comp.height, comp.width
                         comp.x, comp.y = self._clamp_to_board(comp)
@@ -1461,13 +1455,14 @@ class PlacementEngine:
                             else:
                                 occ.place(ref, old_cx, old_cy, old_w, old_h)
                                 move_valid = False
+                        undo_info = ('rotate', ref, old_cx, old_cy, old_w, old_h, old_rot)
                 else:
                     # Rotate 180
-                    refs = [ref for ref, c in self.components.items() if not c.fixed]
-                    if refs:
-                        ref = rng.choice(refs)
+                    if movable_refs:
+                        ref = rng.choice(movable_refs)
                         comp = self.components[ref]
                         old_cx, old_cy = comp.x, comp.y
+                        old_rot = comp.rotation
                         comp.rotation = (comp.rotation + 180) % 360
                         comp.x, comp.y = self._clamp_to_board(comp)
                         if occ:
@@ -1477,10 +1472,13 @@ class PlacementEngine:
                             else:
                                 occ.place(ref, old_cx, old_cy, comp.width, comp.height)
                                 move_valid = False
+                        undo_info = ('shift', ref, old_cx, old_cy)  # 180 rot doesn't change w/h
 
                 # HARD CONSTRAINT: reject moves that create overlaps
                 if not move_valid:
-                    self._restore_state(old_state)
+                    # Grid already restored by the move code — just undo position
+                    if undo_info:
+                        self._undo_move(undo_info)
                     rejections += 1
                     continue
 
@@ -1489,13 +1487,14 @@ class PlacementEngine:
 
                 pad_conflict = self._calculate_pad_conflict_penalty()
                 if pad_conflict > 0.01:
-                    self._restore_state(old_state)
+                    # Undo the grid + position
+                    if undo_info:
+                        self._undo_move_with_grid(undo_info, occ)
                     rejections += 1
                     continue
 
                 if delta < 0 or rng.random() < math.exp(-delta / temp):
-                    # Move accepted — update occupancy grid
-                    self._sync_occupancy_grid()
+                    # Move accepted — grid already correct from move code
                     current_cost = new_cost
                     accepted_moves += 1
                     rejections = 0
@@ -1503,7 +1502,9 @@ class PlacementEngine:
                         best_cost = new_cost
                         best_state = self._save_state()
                 else:
-                    self._restore_state(old_state)
+                    # Move rejected — undo grid + position
+                    if undo_info:
+                        self._undo_move_with_grid(undo_info, occ)
                     rejections += 1
                     if rejections > self.config.sa_reheat_threshold:
                         temp *= self.config.sa_reheat_factor
@@ -1520,6 +1521,54 @@ class PlacementEngine:
                     break  # No improvement for max_stall temp steps — converged
 
         return best_cost, best_state, total_iterations, accepted_moves
+
+    def _undo_move(self, undo_info):
+        """Undo component position change only (grid already handled)."""
+        kind = undo_info[0]
+        if kind == 'shift':
+            _, ref, old_cx, old_cy = undo_info
+            comp = self.components[ref]
+            comp.x, comp.y = old_cx, old_cy
+        elif kind == 'swap':
+            _, a, b, old_ax, old_ay, old_bx, old_by = undo_info
+            self.components[a].x, self.components[a].y = old_ax, old_ay
+            self.components[b].x, self.components[b].y = old_bx, old_by
+        elif kind == 'rotate':
+            _, ref, old_cx, old_cy, old_w, old_h, old_rot = undo_info
+            comp = self.components[ref]
+            comp.x, comp.y = old_cx, old_cy
+            comp.width, comp.height = old_w, old_h
+            comp.rotation = old_rot
+
+    def _undo_move_with_grid(self, undo_info, occ):
+        """Undo both grid and component position."""
+        kind = undo_info[0]
+        if kind == 'shift':
+            _, ref, old_cx, old_cy = undo_info
+            comp = self.components[ref]
+            if occ:
+                occ.remove(ref, comp.x, comp.y, comp.width, comp.height)
+                occ.place(ref, old_cx, old_cy, comp.width, comp.height)
+            comp.x, comp.y = old_cx, old_cy
+        elif kind == 'swap':
+            _, a, b, old_ax, old_ay, old_bx, old_by = undo_info
+            ca, cb = self.components[a], self.components[b]
+            if occ:
+                occ.remove(a, ca.x, ca.y, ca.width, ca.height)
+                occ.remove(b, cb.x, cb.y, cb.width, cb.height)
+                occ.place(a, old_ax, old_ay, ca.width, ca.height)
+                occ.place(b, old_bx, old_by, cb.width, cb.height)
+            ca.x, ca.y = old_ax, old_ay
+            cb.x, cb.y = old_bx, old_by
+        elif kind == 'rotate':
+            _, ref, old_cx, old_cy, old_w, old_h, old_rot = undo_info
+            comp = self.components[ref]
+            if occ:
+                occ.remove(ref, comp.x, comp.y, comp.width, comp.height)
+                occ.place(ref, old_cx, old_cy, old_w, old_h)
+            comp.x, comp.y = old_cx, old_cy
+            comp.width, comp.height = old_w, old_h
+            comp.rotation = old_rot
 
     def _place_simulated_annealing(self) -> PlacementResult:
         """
