@@ -863,48 +863,123 @@ class PlacementEngine:
         if comp.y > max_y:
             comp.fy -= boundary_force * (comp.y - max_y)
 
-    def _apply_spreading_force(self, k: float):
-        """Push components away from center of mass to use full board area.
+    def _compute_density_grid(self):
+        """Compute NxM density grid from current component positions.
 
-        Prevents the common FD failure mode where net attraction pulls
-        everything into a tight cluster, leaving most of the board empty.
-        Force is proportional to how close the component is to the centroid.
+        Returns (grid, bin_w, bin_h, cols, rows, target_density, utilization, ox, oy)
+        where grid[r][c] = fraction of bin area occupied by component courtyards.
+
+        Grid resolution adapts to component count and board aspect ratio.
+        All parameters derived from board geometry — no magic constants.
         """
-        if len(self.components) < 2:
-            return
+        margin = self.config.edge_margin
+        ox = self.config.origin_x + margin
+        oy = self.config.origin_y + margin
+        usable_w = self.config.board_width - 2 * margin
+        usable_h = self.config.board_height - 2 * margin
 
-        # Compute centroid of all movable components
+        if usable_w <= 0 or usable_h <= 0:
+            return [[0.0]], usable_w or 1, usable_h or 1, 1, 1, 0, 0, ox, oy
+
+        # Grid resolution: sqrt(n) scaled by aspect ratio, min 3x3
+        n = len(self.components)
+        aspect = usable_w / max(usable_h, 0.1)
+        base = max(3, int(math.sqrt(n) + 0.5))
+        cols = max(3, int(base * math.sqrt(aspect) + 0.5))
+        rows = max(3, int(base / math.sqrt(aspect) + 0.5))
+
+        bin_w = usable_w / cols
+        bin_h = usable_h / rows
+
+        # Accumulate courtyard area per bin
+        density = [[0.0] * cols for _ in range(rows)]
+        total_area = 0.0
+
+        for comp in self.components.values():
+            area = comp.width * comp.height
+            total_area += area
+            c = int((comp.x - ox) / bin_w)
+            r = int((comp.y - oy) / bin_h)
+            c = max(0, min(cols - 1, c))
+            r = max(0, min(rows - 1, r))
+            density[r][c] += area
+
+        # Normalize: density[r][c] = fraction of bin area used
+        bin_area = bin_w * bin_h
+        for r in range(rows):
+            for c in range(cols):
+                density[r][c] /= bin_area
+
+        usable_area = usable_w * usable_h
+        utilization = total_area / usable_area if usable_area > 0 else 0
+        target = utilization  # uniform distribution = spread total area evenly
+
+        return density, bin_w, bin_h, cols, rows, target, utilization, ox, oy
+
+    def _apply_spreading_force(self, k: float):
+        """Density-grid adaptive spreading — dynamic, situation-aware.
+
+        Divides the board into NxM density bins. Each FD iteration:
+        1. Measures local component density per bin (courtyard area / bin area)
+        2. Compares against target density (= uniform distribution)
+        3. Overcrowded bins push components down the density gradient
+        4. Force strength auto-scales with board utilization
+
+        All parameters derive from measurable board properties:
+        - Grid resolution: sqrt(n_components) * aspect_ratio
+        - Target density: total_component_area / usable_board_area
+        - Spread strength: k * clamp(utilization * 3, 0.1, 2.0)
+        """
         movable = [c for c in self.components.values() if not c.fixed]
-        if not movable:
+        if len(movable) < 2:
             return
 
-        cx = sum(c.x for c in movable) / len(movable)
-        cy = sum(c.y for c in movable) / len(movable)
+        density, bin_w, bin_h, cols, rows, target, util, ox, oy = \
+            self._compute_density_grid()
 
-        # Board center
-        board_cx = self.config.origin_x + self.config.board_width / 2
-        board_cy = self.config.origin_y + self.config.board_height / 2
-
-        # Spreading strength: proportional to k, mild enough not to fight real nets
-        spread_k = k * 0.3
+        # Spread strength scales with board utilization
+        # Low util (0.05) → barely spread (k*0.15). High util (0.6) → strong (k*1.8)
+        strength = k * max(0.1, min(2.0, util * 3.0))
 
         for comp in movable:
-            dx = comp.x - cx
-            dy = comp.y - cy
-            dist = math.sqrt(dx * dx + dy * dy)
+            # Which bin is this component in?
+            bc = int((comp.x - ox) / bin_w)
+            br = int((comp.y - oy) / bin_h)
+            bc = max(0, min(cols - 1, bc))
+            br = max(0, min(rows - 1, br))
 
-            if dist < 0.1:
-                # At centroid — push toward board center
+            excess = density[br][bc] - target
+            if excess <= 0:
+                continue  # This bin is at or below target — no spreading needed
+
+            # Density gradient: central differences with boundary clamping
+            d_left = density[br][max(0, bc - 1)]
+            d_right = density[br][min(cols - 1, bc + 1)]
+            d_up = density[max(0, br - 1)][bc]
+            d_down = density[min(rows - 1, br + 1)][bc]
+
+            grad_x = d_right - d_left  # positive = denser to the right
+            grad_y = d_down - d_up     # positive = denser downward
+
+            grad_mag = math.sqrt(grad_x * grad_x + grad_y * grad_y)
+
+            if grad_mag > 1e-6:
+                # Push AGAINST the gradient (toward lower density)
+                force = strength * excess
+                comp.fx -= force * grad_x / grad_mag
+                comp.fy -= force * grad_y / grad_mag
+            else:
+                # Flat gradient (symmetric density around this bin)
+                # Push toward board center as tiebreaker
+                board_cx = self.config.origin_x + self.config.board_width / 2
+                board_cy = self.config.origin_y + self.config.board_height / 2
                 dx = board_cx - comp.x
                 dy = board_cy - comp.y
                 dist = math.sqrt(dx * dx + dy * dy)
-                if dist < 0.1:
-                    continue
-
-            # Push away from centroid (proportional force)
-            force = spread_k
-            comp.fx += force * dx / dist
-            comp.fy += force * dy / dist
+                if dist > 0.1:
+                    force = strength * excess * 0.5
+                    comp.fx += force * dx / dist
+                    comp.fy += force * dy / dist
 
     # =========================================================================
     # SIMULATED ANNEALING PLACEMENT
