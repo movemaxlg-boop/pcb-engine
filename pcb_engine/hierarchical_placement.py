@@ -870,6 +870,28 @@ class HierarchicalPlacementEngine:
                             'reason': f'Power: {cluster.id} near {cid}',
                         })
 
+        # EDGE_CONNECTOR clusters with signal nets to MCU clusters should
+        # be placed near those MCUs — not just at the edge.
+        # This fixes USB/ESD co-placement: J1+U6 far from U2 (MCU with USB)
+        cluster_id_map = {c.id: c for c in self.clusters}
+        for cluster in self.clusters:
+            if cluster.role != 'EDGE_CONNECTOR':
+                continue
+            # Count signal-only connections to each other cluster
+            for other_id, weight in cluster.net_connections.items():
+                other = cluster_id_map.get(other_id)
+                if not other or other.role == 'EDGE_CONNECTOR':
+                    continue
+                # Signal nets between connector and MCU/IC cluster
+                # weight already incorporates signal=2, power=1 from _build_inter_cluster_edges
+                if weight >= 3:  # At least 2 signal nets or 3 power nets
+                    pseudo_hints['proximity_groups'].append({
+                        'components': [cluster.id, other_id],
+                        'max_distance': 20.0,
+                        'priority': 1.8,
+                        'reason': f'Signal: {cluster.id} near {other_id} ({weight} nets)',
+                    })
+
         # Run coarse placement
         coarse_config = PlacementConfig(
             board_width=self.config.board_width,
@@ -1044,14 +1066,14 @@ class HierarchicalPlacementEngine:
         placement_hints: Dict = None,
     ) -> Tuple[Dict[str, Tuple[float, float]], Dict[str, float], float]:
         """
-        Legalize hierarchical placement: fix overlaps and boundary violations.
+        Legalize + inter-cluster signal optimization.
 
-        Does NOT run SA or FD — both destroy the hierarchical structure:
-        - SA move distance is proportional to board size, scattering clusters
-        - FD ignores initial positions and computes its own layout from scratch
+        Phase 6a: Legalize — fix overlaps and boundary violations
+        Phase 6b: Inter-cluster signal pull — gently shift components toward
+                  their cross-cluster signal net partners to shorten long nets
+                  without destroying cluster integrity.
 
-        The hierarchical structure already provides good relative positions.
-        Legalization resolves physical conflicts without changing topology.
+        Does NOT run SA or FD — both destroy the hierarchical structure.
         """
         refine_config = PlacementConfig(
             board_width=self.config.board_width,
@@ -1089,8 +1111,17 @@ class HierarchicalPlacementEngine:
         engine._compute_preferred_orientation()
         initial_cost = engine._calculate_cost()
 
-        # Legalize: fix overlaps and boundary violations
+        # Phase 6a: Legalize — fix overlaps and boundary violations
         engine._legalize()
+        post_legalize_cost = engine._calculate_cost()
+
+        # Phase 6b: Inter-cluster signal pull
+        # For each component, find its cross-cluster signal net partners.
+        # Gently shift it toward the centroid of those partners (max 3mm).
+        # Only accept the shift if it doesn't create overlaps.
+        signal_improvements = self._inter_cluster_signal_pull(
+            engine, parts_db, graph
+        )
 
         # Extract final positions
         final_positions = {}
@@ -1102,10 +1133,146 @@ class HierarchicalPlacementEngine:
         final_cost = engine._calculate_cost()
         improvement = initial_cost - final_cost
 
-        print(f"  Legalization: cost {initial_cost:.1f} -> {final_cost:.1f} "
-              f"(delta={improvement:.1f})")
+        print(f"  Legalization: cost {initial_cost:.1f} -> {post_legalize_cost:.1f}")
+        print(f"  Signal pull:  cost {post_legalize_cost:.1f} -> {final_cost:.1f} "
+              f"({signal_improvements} moves)")
 
         return final_positions, final_rotations, improvement
+
+    def _inter_cluster_signal_pull(
+        self,
+        engine: PlacementEngine,
+        parts_db: Dict,
+        graph: Dict,
+    ) -> int:
+        """
+        Gently shift components toward their cross-cluster signal net partners.
+
+        For each component, compute the centroid of all components it connects
+        to via signal nets in OTHER clusters. Shift it up to MAX_PULL_DIST
+        toward that centroid. Only accept if no new overlaps are created.
+
+        This reduces inter-cluster signal wirelength without destroying
+        cluster integrity (moves are small and overlap-checked).
+        """
+        MAX_PULL_DIST = 3.0   # mm max shift per component
+        PULL_FRACTION = 0.3   # Move 30% toward signal centroid
+        MAX_PASSES = 3        # Repeat to converge
+
+        # Build ref -> cluster_id mapping
+        ref_to_cluster = {}
+        for cluster in self.clusters:
+            for ref in cluster.members:
+                ref_to_cluster[ref] = cluster.id
+
+        # Build cross-cluster signal net partners for each component
+        cross_cluster_partners: Dict[str, List[str]] = defaultdict(list)
+        for net_name, net_data in parts_db.get('nets', {}).items():
+            net_type = net_data.get('type', 'signal')
+            if net_type == 'power':
+                continue  # Only optimize signal nets
+
+            pins = net_data.get('pins', [])
+            refs_on_net = []
+            for pin_ref in pins:
+                comp_ref = pin_ref.split('.')[0] if '.' in pin_ref else pin_ref
+                if comp_ref in engine.components:
+                    refs_on_net.append(comp_ref)
+
+            if len(refs_on_net) < 2:
+                continue
+
+            # Find cross-cluster connections
+            for ref in refs_on_net:
+                my_cluster = ref_to_cluster.get(ref)
+                for partner in refs_on_net:
+                    if partner != ref and ref_to_cluster.get(partner) != my_cluster:
+                        cross_cluster_partners[ref].append(partner)
+
+        if not cross_cluster_partners:
+            return 0
+
+        resolver = FootprintResolver.get_instance()
+        total_moves = 0
+
+        for pass_num in range(MAX_PASSES):
+            moves_this_pass = 0
+
+            for ref, partners in cross_cluster_partners.items():
+                if not partners or ref not in engine.components:
+                    continue
+
+                comp = engine.components[ref]
+
+                # Compute centroid of cross-cluster partners
+                cx_sum, cy_sum = 0.0, 0.0
+                count = 0
+                for partner in partners:
+                    if partner in engine.components:
+                        p = engine.components[partner]
+                        cx_sum += p.x
+                        cy_sum += p.y
+                        count += 1
+
+                if count == 0:
+                    continue
+
+                target_x = cx_sum / count
+                target_y = cy_sum / count
+
+                # Direction vector from current to target
+                dx = target_x - comp.x
+                dy = target_y - comp.y
+                dist = math.sqrt(dx * dx + dy * dy)
+
+                if dist < 0.5:
+                    continue  # Already close enough
+
+                # Compute shift (limited)
+                shift = min(dist * PULL_FRACTION, MAX_PULL_DIST)
+                new_x = comp.x + (dx / dist) * shift
+                new_y = comp.y + (dy / dist) * shift
+
+                # Clamp to board boundaries
+                part = parts_db['parts'].get(ref, {})
+                fp = resolver.resolve(part.get('footprint', 'unknown'))
+                cw, ch = fp.courtyard_size
+                margin = 1.0
+                new_x = max(cw / 2 + margin, min(new_x,
+                            self.config.board_width - cw / 2 - margin))
+                new_y = max(ch / 2 + margin, min(new_y,
+                            self.config.board_height - ch / 2 - margin))
+
+                # Check for overlaps at new position
+                old_x, old_y = comp.x, comp.y
+                overlap = False
+                for other_ref, other_comp in engine.components.items():
+                    if other_ref == ref:
+                        continue
+                    other_part = parts_db['parts'].get(other_ref, {})
+                    other_fp = resolver.resolve(
+                        other_part.get('footprint', 'unknown'))
+                    ocw, och = other_fp.courtyard_size
+
+                    adx = abs(new_x - other_comp.x)
+                    ady = abs(new_y - other_comp.y)
+                    min_dx = (cw + ocw) / 2
+                    min_dy = (ch + och) / 2
+
+                    if adx < min_dx and ady < min_dy:
+                        overlap = True
+                        break
+
+                if not overlap:
+                    comp.x = new_x
+                    comp.y = new_y
+                    moves_this_pass += 1
+
+            total_moves += moves_this_pass
+            if moves_this_pass == 0:
+                break  # Converged
+
+        return total_moves
 
     # -------------------------------------------------------------------------
     # Utilities

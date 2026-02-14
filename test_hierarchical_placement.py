@@ -8,7 +8,9 @@ on the same test board, compares results, and generates KiCad PCB files for both
 Usage:
     python test_hierarchical_placement.py              # medium (19 parts)
     python test_hierarchical_placement.py complex      # complex (52 parts)
-    python test_hierarchical_placement.py both         # run both boards
+    python test_hierarchical_placement.py massive      # massive (108 parts)
+    python test_hierarchical_placement.py both         # medium + complex
+    python test_hierarchical_placement.py all          # medium + complex + massive
 """
 import sys
 import os
@@ -251,11 +253,17 @@ def run_test(board_name, parts_db):
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'medium'
 
-    if mode == 'both':
+    if mode == 'all':
+        boards = [('medium', TestBoards.medium_20_parts()),
+                  ('complex', TestBoards.complex_50_parts()),
+                  ('massive', TestBoards.massive_100_parts())]
+    elif mode == 'both':
         boards = [('medium', TestBoards.medium_20_parts()),
                   ('complex', TestBoards.complex_50_parts())]
     elif mode == 'complex':
         boards = [('complex', TestBoards.complex_50_parts())]
+    elif mode == 'massive':
+        boards = [('massive', TestBoards.massive_100_parts())]
     else:
         boards = [('medium', TestBoards.medium_20_parts())]
 
