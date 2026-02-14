@@ -1656,12 +1656,21 @@ class PlacementComparator:
                 flat_dist = self._distance(ref, owner, flat.positions)
                 hier_dist = self._distance(ref, owner, hier.positions)
 
-                flat_ok = 'OK' if flat_dist <= target else 'FAR'
-                hier_ok = 'OK' if hier_dist <= target else 'FAR'
+                # Grade: OK if within target, CLOSE if within 2x, FAR if beyond
+                def _grade(dist, tgt):
+                    if dist <= tgt * 1.1:  # 10% tolerance
+                        return 'OK'
+                    elif dist <= tgt * 2.0:
+                        return 'CLOSE'
+                    else:
+                        return 'FAR'
 
-                lines.append(f"  {ref:>4}->{owner:<4}  target<={target:.0f}mm  "
-                             f"flat={flat_dist:5.1f}mm [{flat_ok}]  "
-                             f"hier={hier_dist:5.1f}mm [{hier_ok}]")
+                flat_ok = _grade(flat_dist, target)
+                hier_ok = _grade(hier_dist, target)
+
+                lines.append(f"  {ref:>4}->{owner:<4}  target<={target:.1f}mm  "
+                             f"flat={flat_dist:5.1f}mm [{flat_ok:>5}]  "
+                             f"hier={hier_dist:5.1f}mm [{hier_ok:>5}]")
 
         # Clusters info
         if hier_engine.clusters:

@@ -409,10 +409,9 @@ class PlacementEngine:
         # --- UNFUSE: Restore passives as independent components on IC perimeter ---
         if self._fusion and self._fusion.fused_components:
             self._fusion.unfuse(self)
-            # NOTE: Do NOT call _legalize() here — it would re-sort by size and
-            # spiral-search all components, destroying the carefully computed
-            # perimeter positions. unfuse() already handles its own occupancy
-            # placement with spiral fallback.
+            # Post-unfuse WL recovery: jitter unfused passives to reduce wirelength
+            # while keeping them within leash distance of their owner IC
+            self._post_unfuse_jitter()
             result = self._create_result(result.algorithm_used, result.iterations, result.converged)
 
         # Post-placement: shrink board to fit when auto-sizing
@@ -475,6 +474,31 @@ class PlacementEngine:
                 if net:
                     net_to_refs.setdefault(net, set()).add(ref)
 
+        # --- Helper: compute physical minimum distance between two parts ---
+        def _min_proximity(ref_a, ref_b):
+            """Physical minimum center-to-center distance (courtyard-based)."""
+            gap = 0.3  # mm assembly gap
+            for r in (ref_a, ref_b):
+                if r not in parts:
+                    return 3.0  # fallback
+            sizes = []
+            for r in (ref_a, ref_b):
+                court = parts[r].get('courtyard')
+                if court:
+                    if isinstance(court, dict):
+                        sizes.append(max(court.get('width', 2), court.get('height', 2)))
+                    elif hasattr(court, 'width'):
+                        sizes.append(max(court.width, court.height))
+                    else:
+                        sizes.append(2.0)
+                else:
+                    fp_name = parts[r].get('footprint', 'unknown')
+                    resolver = FootprintResolver.get_instance()
+                    fp_def = resolver.resolve(fp_name)
+                    cw, ch = fp_def.courtyard_size
+                    sizes.append(max(cw, ch))
+            return sizes[0] / 2 + gap + sizes[1] / 2
+
         # --- Infer functional roles for each passive ---
         roles = {}  # ref -> {role, owner, distance, priority, reason}
 
@@ -511,8 +535,9 @@ class PlacementEngine:
                                 best_count = count
                                 best_ic = ic
                     if best_ic:
+                        min_dist = _min_proximity(ref, best_ic)
                         roles[ref] = {'role': 'DECOUPLING', 'owner': best_ic,
-                                      'distance': 3.0, 'priority': 3.0,
+                                      'distance': min_dist, 'priority': 3.0,
                                       'reason': f'Decoupling cap for {best_ic} ({power_pin})'}
                     continue
 
@@ -533,8 +558,9 @@ class PlacementEngine:
                             owner_ic = ic
                             break
                     if owner_ic:
+                        min_dist = _min_proximity(ref, owner_ic)
                         roles[ref] = {'role': 'PULLUP', 'owner': owner_ic,
-                                      'distance': 8.0, 'priority': 1.5,
+                                      'distance': max(min_dist, 5.0), 'priority': 1.5,
                                       'reason': f'Pull-up for {owner_ic}.{signal_net}'}
                     continue
 
@@ -553,8 +579,9 @@ class PlacementEngine:
                             owner_ic = ic
                             break
                     if owner_ic:
+                        min_dist = _min_proximity(ref, owner_ic)
                         roles[ref] = {'role': 'PULLDOWN', 'owner': owner_ic,
-                                      'distance': 8.0, 'priority': 1.5,
+                                      'distance': max(min_dist, 5.0), 'priority': 1.5,
                                       'reason': f'Pull-down for {owner_ic}.{signal_net}'}
                     continue
 
@@ -3069,6 +3096,96 @@ class PlacementEngine:
             board_width=self.config.board_width,
             board_height=self.config.board_height,
         )
+
+    def _post_unfuse_jitter(self):
+        """Jitter unfused passives to reduce WL while staying near their owner IC.
+
+        After unfuse, passives are on the IC perimeter — correct side but not
+        necessarily WL-optimal position. This does a quick greedy pass: for each
+        unfused passive, try 8 small shifts and keep the one that reduces cost
+        without moving more than 2mm from the IC.
+        """
+        if not self._fusion or not self._fusion.fused_components:
+            return
+
+        # Collect all unfused passive refs and their owner positions
+        unfused_refs = []
+        owner_pos = {}
+        leash = {}  # ref -> max distance from owner
+        for fused in self._fusion.fused_components:
+            owner_ref = fused.owner_ref
+            if owner_ref not in self.components:
+                continue
+            oc = self.components[owner_ref]
+            for ref in fused.fused_refs:
+                if ref in self.components:
+                    unfused_refs.append(ref)
+                    owner_pos[ref] = (oc.x, oc.y)
+                    # Leash = IC half-diagonal + 3mm
+                    leash[ref] = math.sqrt(oc.width**2 + oc.height**2) / 2 + 3.0
+
+        if not unfused_refs:
+            return
+
+        moves = 0
+        step = 0.5  # mm jitter step
+        directions = [(step, 0), (-step, 0), (0, step), (0, -step),
+                      (step, step), (-step, step), (step, -step), (-step, -step)]
+
+        for _ in range(3):  # 3 passes
+            for ref in unfused_refs:
+                comp = self.components[ref]
+                old_x, old_y = comp.x, comp.y
+                old_cost = self._calculate_wirelength()
+
+                best_dx, best_dy = 0, 0
+                best_cost = old_cost
+
+                for dx, dy in directions:
+                    nx = old_x + dx
+                    ny = old_y + dy
+
+                    # Check leash constraint
+                    ox, oy = owner_pos[ref]
+                    if math.sqrt((nx - ox)**2 + (ny - oy)**2) > leash[ref]:
+                        continue
+
+                    # Check board bounds
+                    half_w, half_h = comp.width / 2, comp.height / 2
+                    if (nx - half_w < self.config.origin_x or
+                        nx + half_w > self.config.origin_x + self.config.board_width or
+                        ny - half_h < self.config.origin_y or
+                        ny + half_h > self.config.origin_y + self.config.board_height):
+                        continue
+
+                    # Check occupancy
+                    if hasattr(self, '_occ') and self._occ:
+                        self._occ.remove(ref, old_x, old_y, comp.width, comp.height)
+                        can = self._occ.can_place(nx, ny, comp.width, comp.height)
+                        if not can:
+                            self._occ.place(ref, old_x, old_y, comp.width, comp.height)
+                            continue
+                        self._occ.place(ref, old_x, old_y, comp.width, comp.height)
+
+                    # Evaluate WL
+                    comp.x, comp.y = nx, ny
+                    new_cost = self._calculate_wirelength()
+                    comp.x, comp.y = old_x, old_y
+
+                    if new_cost < best_cost:
+                        best_cost = new_cost
+                        best_dx, best_dy = dx, dy
+
+                if best_dx != 0 or best_dy != 0:
+                    nx, ny = old_x + best_dx, old_y + best_dy
+                    if hasattr(self, '_occ') and self._occ:
+                        self._occ.remove(ref, old_x, old_y, comp.width, comp.height)
+                        self._occ.place(ref, nx, ny, comp.width, comp.height)
+                    comp.x, comp.y = nx, ny
+                    moves += 1
+
+        if moves > 0:
+            print(f"  [FUSION] Post-unfuse jitter: {moves} moves")
 
     def _shrink_board_to_fit(self):
         """Shrink board to tightly fit placed components + routing margin.

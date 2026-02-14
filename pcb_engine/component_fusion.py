@@ -283,7 +283,12 @@ class ComponentFusion:
                 engine.pin_nets.get(owner_ref, {}).pop(pin_id, None)
 
             # 3. Restore each passive as independent component
-            for ref in fused.fused_refs:
+            # Sort by priority DESC so highest-priority caps get the best perimeter spots
+            sorted_refs = sorted(
+                fused.fused_refs,
+                key=lambda r: fused.passive_data.get(r, {}).get('role', {}).get('priority', 0),
+                reverse=True)
+            for ref in sorted_refs:
                 pdata = fused.passive_data.get(ref)
                 if not pdata:
                     continue
