@@ -445,9 +445,16 @@ def generate_bare_kicad(parts_db, positions, output_path, prov: ProvenanceCollec
         # Use REAL pad positions and sizes from FootprintResolver
         pad_type = 'smd' if is_smd else 'thru_hole'
         layers = '"F.Cu" "F.Mask"' if is_smd else '"*.Cu" "*.Mask"'
+        num_pads = len(fp_def.pad_positions)
         for pad_num, pad_x, pad_y, pad_w, pad_h in fp_def.pad_positions:
             pnum = str(pad_num)
             net = pin_nets.get(pnum, '')
+
+            # Auto-assign GND to exposed center pads (thermal pads)
+            # These are typically the last pad, centered at (0,0), and larger than normal
+            if not net and abs(pad_x) < 0.1 and abs(pad_y) < 0.1 and pad_w > body_w * 0.4:
+                net = 'GND'
+
             net_id = net_ids.get(net, 0)
 
             lines.append(f'    (pad "{pnum}" {pad_type} roundrect (at {pad_x:.4f} {pad_y:.4f}) (size {pad_w:.4f} {pad_h:.4f}) (layers {layers}) (roundrect_rratio 0.25)')

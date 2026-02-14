@@ -138,8 +138,9 @@ class TestBoards:
 
         parts_db = {
             'parts': {
-                # U1: ESP32 QFN-32 — sizes & pin offsets from FootprintResolver
+                # U1: ESP32 QFN-32 — all 33 pads (left/bottom/right/top + exposed GND)
                 'U1': resolve('QFN-32', 'ESP32', 'ESP32-WROOM-32', [
+                    # Left side (pads 1-8)
                     ('1', 'GND',   'GND',       {'type': 'power_in'}),
                     ('2', 'VCC',   '3V3',       {'type': 'power_in'}),
                     ('3', 'EN',    'EN',        {'type': 'input'}),
@@ -148,14 +149,35 @@ class TestBoards:
                     ('6', 'IO4',   'LED2_CTRL', {'type': 'bidirectional'}),
                     ('7', 'IO18',  'USB_DN',    {'type': 'bidirectional'}),
                     ('8', 'IO19',  'USB_DP',    {'type': 'bidirectional'}),
+                    # Bottom side (pads 9-16)
                     ('9', 'IO21',  'I2C_SDA',   {'type': 'bidirectional'}),
                     ('10', 'IO22', 'I2C_SCL',   {'type': 'bidirectional'}),
                     ('11', 'IO23', 'BME_CS',    {'type': 'bidirectional'}),
                     ('12', 'IO25', 'CC1',       {'type': 'bidirectional'}),
-                    ('13', 'GND2', 'GND',       {'type': 'power_in'}),
-                    ('14', '3V3_2','3V3',       {'type': 'power_in'}),
-                    ('15', 'VBUS', 'VBUS',      {'type': 'power_in'}),
-                    ('16', 'GND3', 'GND',       {'type': 'power_in'}),
+                    ('13', 'IO26', 'GND',       {'type': 'power_in'}),
+                    ('14', 'IO27', '3V3',       {'type': 'power_in'}),
+                    ('15', 'IO32', 'VBUS',      {'type': 'power_in'}),
+                    ('16', 'IO33', 'GND',       {'type': 'power_in'}),
+                    # Right side (pads 17-24)
+                    ('17', 'IO34', 'GND',       {'type': 'power_in'}),
+                    ('18', 'IO35', '3V3',       {'type': 'power_in'}),
+                    ('19', 'RXD0', 'GND',       {'type': 'bidirectional'}),
+                    ('20', 'TXD0', 'GND',       {'type': 'bidirectional'}),
+                    ('21', 'IO5',  'GND',       {'type': 'bidirectional'}),
+                    ('22', 'IO12', 'GND',       {'type': 'bidirectional'}),
+                    ('23', 'IO13', 'GND',       {'type': 'bidirectional'}),
+                    ('24', 'IO14', 'GND',       {'type': 'bidirectional'}),
+                    # Top side (pads 25-32)
+                    ('25', 'IO15', 'GND',       {'type': 'bidirectional'}),
+                    ('26', 'IO16', 'GND',       {'type': 'bidirectional'}),
+                    ('27', 'IO17', 'GND',       {'type': 'bidirectional'}),
+                    ('28', 'GND4', 'GND',       {'type': 'power_in'}),
+                    ('29', 'GND5', 'GND',       {'type': 'power_in'}),
+                    ('30', 'GND6', 'GND',       {'type': 'power_in'}),
+                    ('31', 'GND7', 'GND',       {'type': 'power_in'}),
+                    ('32', 'GND8', 'GND',       {'type': 'power_in'}),
+                    # Exposed pad (pad 33)
+                    ('33', 'EPAD', 'GND',       {'type': 'power_in'}),
                 ]),
 
                 # U2: LDO SOT-223
