@@ -2589,12 +2589,28 @@ class PCBEngine:
         elif piston_name == 'placement':
             comp_count = context.get('component_count', 0)
 
-            if comp_count < 15:
-                selected = next((c for c in choices if c.name == 'force_directed'), choices[0])
-                reasoning = f"Small design ({comp_count} parts) - force-directed"
-            else:
-                selected = next((c for c in choices if c.name == 'simulated_annealing'), choices[0])
-                reasoning = f"Larger design ({comp_count} parts) - SA for quality"
+            # Query learning DB for historically best algorithm
+            learned_algo = None
+            if hasattr(self, '_learning_db') and self._learning_db:
+                learned_algo = self._learning_db.get_best_placement_algorithm(
+                    comp_count)
+
+            if learned_algo:
+                match = next((c for c in choices if c.name == learned_algo), None)
+                if match:
+                    selected = match
+                    reasoning = f"Learned best ({comp_count} parts) - {learned_algo}"
+                else:
+                    # Learned algo not in choices, fall through to heuristics
+                    learned_algo = None
+
+            if not learned_algo:
+                if comp_count < 15:
+                    selected = next((c for c in choices if c.name == 'force_directed'), choices[0])
+                    reasoning = f"Small design ({comp_count} parts) - force-directed"
+                else:
+                    selected = next((c for c in choices if c.name == 'simulated_annealing'), choices[0])
+                    reasoning = f"Larger design ({comp_count} parts) - SA for quality"
 
         return AIResponse(
             decision=AIDecision.APPROVE,
@@ -3306,6 +3322,39 @@ class PCBEngine:
         else:
             self._log("WARNING: Placement piston returned no positions")
             # Keep existing placement (empty dict from initialization)
+
+        # Record placement outcome to learning database
+        if result and hasattr(self, '_learning_db') and self._learning_db:
+            try:
+                from .learning_database import PlacementOutcome
+                comp_count = len(self.state.parts_db.get('parts', {}))
+                board_area = self.config.board_width * self.config.board_height
+                design_hash = self._learning_db.compute_design_hash(
+                    self.state.parts_db,
+                    {'board_width': self.config.board_width,
+                     'board_height': self.config.board_height,
+                     'layers': self.config.layer_count})
+                # Quality: 100 if no overlap and success, penalize by overlap
+                quality = 0.0
+                if result.success:
+                    overlap = getattr(result, 'overlap_area', 0.0)
+                    quality = max(0, 100 - overlap * 10)
+                outcome = PlacementOutcome(
+                    design_hash=design_hash,
+                    algorithm=work_order.algorithm,
+                    success=result.success,
+                    time_ms=getattr(result, 'timing_ms', 0.0),
+                    wirelength_mm=getattr(result, 'wirelength', 0.0),
+                    overlap_area=getattr(result, 'overlap_area', 0.0),
+                    cost=getattr(result, 'cost', 0.0),
+                    component_count=comp_count,
+                    board_area_mm2=board_area,
+                    quality_score=quality,
+                )
+                self._learning_db.record_placement_outcome(outcome)
+                self._learning_db.save()
+            except Exception:
+                pass  # Don't let learning failures break placement
 
         return PistonReport(
             piston='placement',

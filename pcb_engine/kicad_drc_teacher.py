@@ -446,6 +446,62 @@ class KiCadDRCTeacher:
             'unlearned': sum(1 for r in self.learning_records if not r.learned)
         }
 
+    def get_frequent_violations(self, min_count: int = 5) -> List[Dict]:
+        """Get violation types that occur frequently (sorted by count desc).
+
+        Returns list of dicts with 'type', 'count', 'learned_count',
+        'learn_rate'. Only includes types with >= min_count occurrences.
+        """
+        by_type: Dict[str, Dict] = {}
+        for r in self.learning_records:
+            vtype = r.violation_type
+            if vtype not in by_type:
+                by_type[vtype] = {'type': vtype, 'count': 0, 'learned_count': 0}
+            by_type[vtype]['count'] += 1
+            if r.learned:
+                by_type[vtype]['learned_count'] += 1
+
+        result = []
+        for info in by_type.values():
+            if info['count'] >= min_count:
+                info['learn_rate'] = (info['learned_count'] / info['count']
+                                      if info['count'] > 0 else 0)
+                result.append(info)
+
+        result.sort(key=lambda x: x['count'], reverse=True)
+        return result
+
+    def mark_as_learned(self, violation_type: str,
+                        max_mark: int = 0) -> int:
+        """Mark unlearned records of a violation type as learned.
+
+        Args:
+            violation_type: Type string to mark (e.g. 'clearance')
+            max_mark: Maximum records to mark (0 = all)
+
+        Returns:
+            Number of records marked.
+        """
+        marked = 0
+        for r in self.learning_records:
+            if r.violation_type == violation_type and not r.learned:
+                r.learned = True
+                marked += 1
+                if max_mark > 0 and marked >= max_mark:
+                    break
+
+        if marked > 0:
+            self._save_learning_db()
+        return marked
+
+    def get_unlearned_types(self) -> List[str]:
+        """Get violation types that have unlearned records."""
+        types = set()
+        for r in self.learning_records:
+            if not r.learned:
+                types.add(r.violation_type)
+        return sorted(types)
+
     def print_learning_report(self):
         """Print a summary of learning progress"""
         summary = self.get_learning_summary()

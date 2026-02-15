@@ -1609,17 +1609,68 @@ class BBLEngine:
                     kicad_errors = kicad_drc.get('error_count', 0)
 
                     if kicad_errors > internal_errors:
-                        self._log(f"  [LEARNING] KiCad found {kicad_errors - internal_errors} errors we missed")
-                        # Record for learning
-                        for error in kicad_drc.get('errors', []):
-                            teacher.record_learning(error)
+                        self._log(f"  [LEARNING] KiCad found "
+                                  f"{kicad_errors - internal_errors} "
+                                  f"errors we missed")
+
+                    # Mark violation types that internal DRC now catches
+                    # as learned (so we know which patterns are handled)
+                    internal_types = set(
+                        e.get('type', '') for e in drc.get('errors', [])
+                        if isinstance(e, dict))
+                    kicad_types = set(
+                        e.get('type', '') for e in kicad_drc.get('errors', [])
+                        if isinstance(e, dict))
+                    caught_types = internal_types & kicad_types
+                    for vtype in caught_types:
+                        marked = teacher.mark_as_learned(vtype)
+                        if marked > 0:
+                            self._log(f"  [LEARNING] Marked {marked} "
+                                      f"'{vtype}' records as learned")
+
+                    # Report frequent unlearned violations
+                    frequent = teacher.get_frequent_violations(min_count=10)
+                    unlearned = [v for v in frequent if v['learn_rate'] < 1.0]
+                    if unlearned:
+                        top3 = unlearned[:3]
+                        self._log(f"  [LEARNING] Top unlearned: "
+                                  f"{', '.join(v['type'] + ':' + str(v['count']) for v in top3)}")
 
                 except ImportError:
                     pass
 
-            # Set output folder marker
+            # === LEARNING PISTON: Auto-train on completed design ===
             output_files = output.get('files', [])
             success = kicad_drc.get('passed', False) or drc.get('passed', False)
+
+            if success and output_files:
+                try:
+                    from .learning_piston import LearningPiston
+                    pcb_files = [f for f in output_files
+                                 if f.endswith('.kicad_pcb')]
+                    if pcb_files:
+                        lp = LearningPiston()
+                        # Load existing models if available
+                        models_path = os.path.join(
+                            os.path.dirname(os.path.abspath(__file__)),
+                            'learned_models.json')
+                        if os.path.exists(models_path):
+                            try:
+                                lp.load_models(models_path)
+                            except Exception:
+                                pass
+                        # Learn from the just-generated PCB
+                        result = lp.learn(pcb_files)
+                        lp.save_models(models_path)
+                        self._log(
+                            f"  [LEARNING] Trained on {result.designs_processed}"
+                            f" design(s), {result.patterns_discovered} patterns")
+                except ImportError:
+                    pass
+                except Exception as e:
+                    self._log(f"  [LEARNING] Auto-train failed: {e}")
+
+            # Set output folder marker
 
             self._log(f"  Output files: {len(output_files)}")
             self._log(f"  Final status: {'PASS' if success else 'FAIL'}")

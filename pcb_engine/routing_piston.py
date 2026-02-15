@@ -2064,6 +2064,15 @@ class RoutingPiston:
                 finally:
                     self.config.algorithm = orig_algorithm
 
+            # DRL last-resort: if ALL cascade algorithms failed, try DRL
+            if not success:
+                drl_result = self._try_drl_route(net_name, pins, escapes)
+                if drl_result and drl_result.get('success', False):
+                    success = True
+                    algorithm_used = type('DRL', (), {'value': 'drl'})()
+                    last_algorithm_tried = algorithm_used
+                    route_result = drl_result
+
             # Record outcome
             elapsed_ms = (time_module.time() - start_time) * 1000
 
@@ -2071,7 +2080,8 @@ class RoutingPiston:
                 route_obj = route_result.get('route')
                 all_routes[net_name] = route_obj
                 routed_count += 1
-                algorithm_usage[algorithm_used.value] = algorithm_usage.get(algorithm_used.value, 0) + 1
+                algo_key = algorithm_used.value if hasattr(algorithm_used, 'value') else str(algorithm_used)
+                algorithm_usage[algo_key] = algorithm_usage.get(algo_key, 0) + 1
                 # Note: routes are already marked on grid by _route_net_* functions
             else:
                 failed_nets.append(net_name)
@@ -2175,6 +2185,115 @@ class RoutingPiston:
                     'success': True,
                     'route': route,  # Return full Route object
                     'via_count': via_count,
+                    'wire_length': wire_length,
+                }
+        except Exception:
+            pass
+
+        return None
+
+    def _try_drl_route(self, net_name: str, pins: List,
+                       escapes: Dict) -> Optional[Dict]:
+        """Last-resort DRL routing — only fires when all cascade algorithms fail.
+
+        Lazily loads the pre-trained model on first use. Falls back gracefully
+        if PyTorch is unavailable or model is missing.
+        """
+        if not hasattr(self, '_drl_router'):
+            self._drl_router = None
+            try:
+                import sys
+                import os
+                engine_dir = os.path.dirname(os.path.abspath(__file__))
+                old_dir = os.path.join(engine_dir, 'old')
+                if old_dir not in sys.path:
+                    sys.path.insert(0, old_dir)
+                from drl_router import DRLRoutingEngine, TORCH_AVAILABLE
+                if not TORCH_AVAILABLE:
+                    return None
+                model_path = os.path.join(
+                    engine_dir, 'models', 'drl_simple', 'final.pt')
+                if not os.path.exists(model_path):
+                    return None
+                self._drl_router = DRLRoutingEngine()
+                self._drl_router.load_pretrained(model_path)
+            except Exception:
+                self._drl_router = None
+                return None
+
+        if self._drl_router is None:
+            return None
+
+        try:
+            import numpy as np
+            # Build occupancy grid snapshot for DRL
+            grid = np.zeros(
+                (int(self.config.board_height / self.config.grid_size),
+                 int(self.config.board_width / self.config.grid_size)),
+                dtype=np.float32)
+
+            # Mark blocked cells
+            if hasattr(self, '_grid') and self._grid:
+                for y in range(grid.shape[0]):
+                    for x in range(grid.shape[1]):
+                        cell = self._grid.get((x, y), None)
+                        if cell and cell != net_name:
+                            grid[y, x] = 1.0
+
+            # Convert pins to grid coords
+            if len(pins) < 2:
+                return None
+
+            def to_grid(pin):
+                if isinstance(pin, dict):
+                    px, py = pin.get('x', 0), pin.get('y', 0)
+                elif isinstance(pin, (list, tuple)):
+                    px, py = pin[0], pin[1]
+                else:
+                    return None
+                gx = int(px / self.config.grid_size)
+                gy = int(py / self.config.grid_size)
+                gx = max(0, min(grid.shape[1] - 1, gx))
+                gy = max(0, min(grid.shape[0] - 1, gy))
+                return (gx, gy)
+
+            source = to_grid(pins[0])
+            targets = [to_grid(p) for p in pins[1:]]
+            targets = [t for t in targets if t is not None]
+
+            if source is None or not targets:
+                return None
+
+            path = self._drl_router.route_net(
+                grid, source, targets, net_name)
+
+            if path and len(path) >= 2:
+                # Convert grid path back to mm coordinates
+                from .routing_types import Route, TrackSegment
+                segments = []
+                gs = self.config.grid_size
+                for i in range(len(path) - 1):
+                    segments.append(TrackSegment(
+                        start=(path[i][0] * gs, path[i][1] * gs),
+                        end=(path[i + 1][0] * gs, path[i + 1][1] * gs),
+                        layer='F.Cu',
+                        width=self.config.trace_width,
+                        net=net_name,
+                    ))
+                wire_length = sum(
+                    math.sqrt((s.end[0] - s.start[0]) ** 2 +
+                              (s.end[1] - s.start[1]) ** 2)
+                    for s in segments)
+                route = Route(
+                    net_name=net_name,
+                    segments=segments,
+                    vias=[],
+                    success=True,
+                )
+                return {
+                    'success': True,
+                    'route': route,
+                    'via_count': 0,
                     'wire_length': wire_length,
                 }
         except Exception:

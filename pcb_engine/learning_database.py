@@ -2,8 +2,8 @@
 LEARNING DATABASE - Algorithm Success Tracking
 ===============================================
 
-The LearningDatabase stores routing outcomes and learns from
-successes and failures to improve algorithm selection over time.
+The LearningDatabase stores routing AND placement outcomes and learns
+from successes and failures to improve algorithm selection over time.
 
 ROLE IN SMART ALGORITHM MANAGEMENT:
 ====================================
@@ -13,13 +13,20 @@ ROLE IN SMART ALGORITHM MANAGEMENT:
     RoutingPiston records → LearningDatabase
                           → Outcome stored for future reference
 
+    PlacementEngine records → LearningDatabase
+                            → Placement outcome stored
+
+    Engine queries → LearningDatabase
+                   ← Best placement algorithm for board size
+
 KEY FEATURES:
 =============
 1. Record every routing attempt (success/fail, time, quality)
-2. Track algorithm success rates per net class
-3. Store design fingerprints for similarity matching
-4. Identify failure patterns to avoid
-5. Persistent JSON storage with efficient queries
+2. Record every placement attempt (algorithm, wirelength, overlap)
+3. Track algorithm success rates per net class / board size
+4. Store design fingerprints for similarity matching
+5. Identify failure patterns to avoid
+6. Persistent JSON storage with efficient queries
 
 Author: PCB Engine Team
 Date: 2026-02-09
@@ -101,6 +108,103 @@ class RoutingOutcome:
     @classmethod
     def from_dict(cls, data: Dict) -> 'RoutingOutcome':
         return cls(**data)
+
+
+@dataclass
+class PlacementOutcome:
+    """Record of a single placement attempt"""
+    # Identification
+    design_hash: str
+    algorithm: str  # 'force_directed', 'simulated_annealing', 'genetic', etc.
+
+    # Results
+    success: bool
+    time_ms: float
+    wirelength_mm: float = 0.0
+    overlap_area: float = 0.0
+    cost: float = 0.0
+
+    # Design context
+    component_count: int = 0
+    board_area_mm2: float = 0.0
+
+    # Quality metrics
+    quality_score: float = 0.0  # 0-100
+
+    # Metadata
+    timestamp: str = ''
+    board_name: str = ''
+
+    def to_dict(self) -> Dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'PlacementOutcome':
+        # Filter out unknown fields for forward compatibility
+        valid = {k: v for k, v in data.items()
+                 if k in cls.__dataclass_fields__}
+        return cls(**valid)
+
+
+@dataclass
+class PlacementAlgorithmStats:
+    """Statistics for a placement algorithm on a board size bucket"""
+    algorithm: str
+    size_bucket: str  # 'small', 'medium', 'large', 'xlarge'
+
+    # Counts
+    attempts: int = 0
+    successes: int = 0
+
+    # Timing
+    total_time_ms: float = 0.0
+
+    # Quality
+    total_wirelength: float = 0.0
+    total_quality: float = 0.0
+
+    @property
+    def success_rate(self) -> float:
+        return self.successes / self.attempts if self.attempts > 0 else 0.0
+
+    @property
+    def avg_time_ms(self) -> float:
+        return self.total_time_ms / self.attempts if self.attempts > 0 else 0.0
+
+    @property
+    def avg_quality(self) -> float:
+        return self.total_quality / self.successes if self.successes > 0 else 0.0
+
+    @property
+    def avg_wirelength(self) -> float:
+        return self.total_wirelength / self.successes if self.successes > 0 else 0.0
+
+    def to_dict(self) -> Dict:
+        return {
+            'algorithm': self.algorithm,
+            'size_bucket': self.size_bucket,
+            'attempts': self.attempts,
+            'successes': self.successes,
+            'success_rate': self.success_rate,
+            'total_time_ms': self.total_time_ms,
+            'avg_time_ms': self.avg_time_ms,
+            'total_wirelength': self.total_wirelength,
+            'avg_wirelength': self.avg_wirelength,
+            'total_quality': self.total_quality,
+            'avg_quality': self.avg_quality,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'PlacementAlgorithmStats':
+        return cls(
+            algorithm=data['algorithm'],
+            size_bucket=data['size_bucket'],
+            attempts=data.get('attempts', 0),
+            successes=data.get('successes', 0),
+            total_time_ms=data.get('total_time_ms', 0.0),
+            total_wirelength=data.get('total_wirelength', 0.0),
+            total_quality=data.get('total_quality', 0.0),
+        )
 
 
 @dataclass
@@ -265,11 +369,15 @@ class LearningDatabase:
 
         self.db_path = db_path
 
-        # In-memory structures
+        # In-memory structures — Routing
         self.outcomes: List[RoutingOutcome] = []
         self.algorithm_stats: Dict[str, Dict[str, AlgorithmStats]] = defaultdict(dict)
         self.design_patterns: Dict[str, DesignPattern] = {}
         self.failure_patterns: Dict[str, FailurePattern] = {}
+
+        # In-memory structures — Placement
+        self.placement_outcomes: List[PlacementOutcome] = []
+        self.placement_stats: Dict[str, Dict[str, PlacementAlgorithmStats]] = defaultdict(dict)
 
         # Configuration
         self.max_outcomes = 10000  # Keep last N outcomes
@@ -405,6 +513,99 @@ class LearningDatabase:
 
         rankings.sort(key=lambda x: x['success_rate'], reverse=True)
         return rankings
+
+    # =========================================================================
+    # PLACEMENT LEARNING API
+    # =========================================================================
+
+    @staticmethod
+    def _component_size_bucket(count: int) -> str:
+        """Categorize component count into a bucket for placement learning."""
+        if count <= 15:
+            return 'small'
+        elif count <= 40:
+            return 'medium'
+        elif count <= 80:
+            return 'large'
+        else:
+            return 'xlarge'
+
+    def record_placement_outcome(self, outcome: PlacementOutcome) -> None:
+        """Record a placement attempt result."""
+        if not outcome.timestamp:
+            outcome.timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+
+        self.placement_outcomes.append(outcome)
+
+        if len(self.placement_outcomes) > self.max_outcomes:
+            self.placement_outcomes = self.placement_outcomes[-self.max_outcomes:]
+
+        self._update_placement_stats(outcome)
+
+    def get_best_placement_algorithm(self, component_count: int) -> Optional[str]:
+        """Get the historically best placement algorithm for a board size.
+
+        Returns algorithm name string or None if insufficient data.
+        """
+        bucket = self._component_size_bucket(component_count)
+
+        if bucket not in self.placement_stats:
+            return None
+
+        stats = self.placement_stats[bucket]
+        best_algo = None
+        best_score = 0.0
+
+        for algo_name, algo_stats in stats.items():
+            if algo_stats.attempts < self.min_samples_for_recommendation:
+                continue
+            confidence = min(1.0, algo_stats.attempts / 50)
+            score = algo_stats.success_rate * (0.7 + 0.3 * confidence)
+            if score > best_score:
+                best_score = score
+                best_algo = algo_name
+
+        return best_algo
+
+    def get_placement_ranking(self, component_count: int) -> List[Dict]:
+        """Get all placement algorithms ranked by quality for a board size."""
+        bucket = self._component_size_bucket(component_count)
+
+        if bucket not in self.placement_stats:
+            return []
+
+        rankings = []
+        for algo_name, stats in self.placement_stats[bucket].items():
+            rankings.append({
+                'algorithm': algo_name,
+                'success_rate': stats.success_rate,
+                'attempts': stats.attempts,
+                'avg_time_ms': stats.avg_time_ms,
+                'avg_quality': stats.avg_quality,
+                'avg_wirelength': stats.avg_wirelength,
+            })
+
+        rankings.sort(key=lambda x: x['avg_quality'], reverse=True)
+        return rankings
+
+    def _update_placement_stats(self, outcome: PlacementOutcome) -> None:
+        """Update placement algorithm statistics from outcome."""
+        bucket = self._component_size_bucket(outcome.component_count)
+        algorithm = outcome.algorithm
+
+        if algorithm not in self.placement_stats[bucket]:
+            self.placement_stats[bucket][algorithm] = PlacementAlgorithmStats(
+                algorithm=algorithm,
+                size_bucket=bucket,
+            )
+
+        stats = self.placement_stats[bucket][algorithm]
+        stats.attempts += 1
+        if outcome.success:
+            stats.successes += 1
+            stats.total_wirelength += outcome.wirelength_mm
+            stats.total_quality += outcome.quality_score
+        stats.total_time_ms += outcome.time_ms
 
     # =========================================================================
     # DESIGN FINGERPRINTING
@@ -609,6 +810,20 @@ class LearningDatabase:
             for pattern_id, pattern_data in failures_data.items():
                 self.failure_patterns[pattern_id] = FailurePattern.from_dict(pattern_data)
 
+            # Load placement outcomes
+            placement_data = data.get('placement_outcomes', [])
+            self.placement_outcomes = [
+                PlacementOutcome.from_dict(o)
+                for o in placement_data[-self.max_outcomes:]
+            ]
+
+            # Load placement stats
+            pstats_data = data.get('placement_stats', {})
+            for bucket, algos in pstats_data.items():
+                for algo_name, algo_data in algos.items():
+                    self.placement_stats[bucket][algo_name] = (
+                        PlacementAlgorithmStats.from_dict(algo_data))
+
         except Exception as e:
             print(f"Warning: Failed to load learning database: {e}")
 
@@ -632,6 +847,17 @@ class LearningDatabase:
                 },
                 'failure_patterns': {
                     i: p.to_dict() for i, p in self.failure_patterns.items()
+                },
+                'placement_outcomes': [
+                    o.to_dict() for o in
+                    self.placement_outcomes[-self.max_outcomes:]
+                ],
+                'placement_stats': {
+                    bucket: {
+                        algo: stats.to_dict()
+                        for algo, stats in algos.items()
+                    }
+                    for bucket, algos in self.placement_stats.items()
                 },
             }
 
