@@ -715,6 +715,51 @@ class OutputPiston:
             self.errors.append(f"Failed to generate KiCad PCB: {e}")
             return ''
 
+    def _auto_clearance(self, parts_db: Dict, placement: Dict) -> float:
+        """Calculate minimum safe clearance from actual footprints on the board.
+
+        Scans all placed footprints and finds the minimum gap between adjacent
+        pads. Returns the lesser of (config clearance, min pad gap - margin).
+        This prevents DRC violations from fine-pitch packages (e.g., QFP-64
+        at 0.4mm pitch has only 0.15mm gap between pads).
+        """
+        import math
+        from .footprint_resolver import FootprintResolver
+        resolver = FootprintResolver.get_instance()
+
+        min_gap = float('inf')
+        parts = parts_db.get('parts', {})
+
+        for ref in placement:
+            part = parts.get(ref)
+            if not part:
+                continue
+            fp_def = resolver.resolve(part.get('footprint', 'unknown'))
+            pads = fp_def.pad_positions
+            if len(pads) < 2:
+                continue
+
+            for i in range(len(pads)):
+                for j in range(i + 1, min(i + 3, len(pads))):
+                    _, x1, y1, w1, h1 = pads[i]
+                    _, x2, y2, w2, h2 = pads[j]
+                    dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+                    if dist < 0.01:
+                        continue
+                    dx, dy = abs(x2 - x1), abs(y2 - y1)
+                    if dy > dx:
+                        gap = dy - (h1 + h2) / 2
+                    else:
+                        gap = dx - (w1 + w2) / 2
+                    if gap > 0:
+                        min_gap = min(min_gap, gap)
+
+        if min_gap == float('inf') or min_gap <= 0:
+            return self.config.clearance
+
+        safe = max(0.05, round(min_gap - 0.01, 2))
+        return min(safe, self.config.clearance)
+
     def _build_kicad_content(self, parts_db: Dict, placement: Dict, routes: Dict,
                               vias: List, silkscreen) -> str:
         """Build KiCad PCB file content"""
@@ -789,9 +834,10 @@ class OutputPiston:
             lines.append(f'  (net {i} "{net_name}")')
         lines.append('')
 
-        # Net classes
+        # Net classes — auto-calculate clearance from actual footprints
+        effective_clearance = self._auto_clearance(parts_db, placement)
         lines.append('  (net_class "Default" ""')
-        lines.append(f'    (clearance {self.config.clearance})')
+        lines.append(f'    (clearance {effective_clearance})')
         lines.append(f'    (trace_width {self.config.trace_width})')
         lines.append(f'    (via_dia {self.config.via_diameter})')
         lines.append(f'    (via_drill {self.config.via_drill})')

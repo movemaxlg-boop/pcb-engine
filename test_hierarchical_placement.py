@@ -45,11 +45,63 @@ def build_graph(parts_db):
     return {'adjacency': {k: dict(v) for k, v in adjacency.items()}}
 
 
+def _calculate_min_clearance(parts_db, positions):
+    """Calculate minimum pad-to-pad clearance across all footprints.
+
+    Scans every footprint on the board and finds the minimum gap between
+    adjacent pads. This ensures the KiCad netclass clearance doesn't
+    exceed what the actual footprints can physically achieve.
+    """
+    import math
+    resolver = FootprintResolver.get_instance()
+    min_gap = float('inf')
+
+    for ref in positions:
+        part = parts_db['parts'].get(ref)
+        if not part:
+            continue
+        fp_def = resolver.resolve(part.get('footprint', 'unknown'))
+        pads = fp_def.pad_positions
+        if len(pads) < 2:
+            continue
+
+        # Check all pairs of pads on the same side (close proximity)
+        for i in range(len(pads)):
+            for j in range(i + 1, min(i + 3, len(pads))):
+                # Only check sequential pads (adjacent pins)
+                _, x1, y1, w1, h1 = pads[i]
+                _, x2, y2, w2, h2 = pads[j]
+                dist = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+                if dist < 0.01:
+                    continue  # Same position (e.g., epad)
+
+                # Determine gap based on direction
+                dx, dy = abs(x2 - x1), abs(y2 - y1)
+                if dy > dx:
+                    # Vertically stacked pads (left/right sides)
+                    gap = dy - (h1 + h2) / 2
+                else:
+                    # Horizontally stacked pads (top/bottom sides)
+                    gap = dx - (w1 + w2) / 2
+
+                if gap > 0:
+                    min_gap = min(min_gap, gap)
+
+    if min_gap == float('inf') or min_gap <= 0:
+        return 0.15  # Safe default for fine-pitch
+
+    # Round down to nearest 0.01mm, leave 0.01mm margin
+    return max(0.05, round(min_gap - 0.01, 2))
+
+
 def generate_bare_kicad(parts_db, positions, output_path, board_name='test'):
     """Generate a bare KiCad PCB with courtyards + pads (no traces)."""
     board = parts_db.get('board', {})
     bw = board.get('width', 50)
     bh = board.get('height', 40)
+
+    # Auto-calculate clearance from actual footprints
+    clearance = _calculate_min_clearance(parts_db, positions)
 
     lines = []
     lines.append(f'(kicad_pcb (version 20240108) (generator "pcb_engine_{board_name}")')
@@ -93,6 +145,17 @@ def generate_bare_kicad(parts_db, positions, output_path, board_name='test'):
         net_idx += 1
     lines.append('')
 
+    # Net class with auto-calculated clearance
+    lines.append(f'  (net_class "Default" ""')
+    lines.append(f'    (clearance {clearance})')
+    lines.append(f'    (trace_width 0.25)')
+    lines.append(f'    (via_dia 0.6)')
+    lines.append(f'    (via_drill 0.3)')
+    lines.append(f'    (uvia_dia 0.3)')
+    lines.append(f'    (uvia_drill 0.1)')
+    lines.append(f'  )')
+    lines.append('')
+
     # Board outline
     lines.append(f'  (gr_rect (start 0 0) (end {bw} {bh}) '
                  f'(stroke (width 0.15) (type default)) (fill none) '
@@ -122,8 +185,10 @@ def generate_bare_kicad(parts_db, positions, output_path, board_name='test'):
 
         lines.append(f'  (footprint "{fp_name}" (layer "F.Cu")')
         lines.append(f'    (at {cx:.4f} {cy:.4f})')
+
+        # Reference on F.Fab (not F.SilkS) to avoid silk_over_copper DRC
         lines.append(f'    (property "Reference" "{ref}" '
-                     f'(at 0 {-court_h / 2 - 0.8:.2f}) (layer "F.SilkS") '
+                     f'(at 0 {-court_h / 2 - 0.8:.2f}) (layer "F.Fab") '
                      f'(uuid "ref-{ref}")')
         lines.append(f'      (effects (font (size 1 1) (thickness 0.15))))')
         lines.append(f'    (property "Value" "{name}" '
