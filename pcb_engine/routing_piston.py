@@ -1993,6 +1993,20 @@ class RoutingPiston:
         nets = parts_db.get('nets', {})
         net_pins = {name: info.get('pins', []) for name, info in nets.items()}
 
+        # Compute design hash for learning (once per routing run)
+        design_hash = ''
+        if learning_db:
+            try:
+                board_config = {
+                    'board_width': getattr(self.config, 'board_width', 50),
+                    'board_height': getattr(self.config, 'board_height', 40),
+                    'layers': getattr(self.config, 'layers', 2),
+                }
+                design_hash = learning_db.compute_design_hash(
+                    parts_db, board_config)
+            except Exception:
+                design_hash = ''
+
         # Results tracking
         all_routes = {}
         outcomes = []  # For learning database
@@ -2070,7 +2084,7 @@ class RoutingPiston:
                 outcome = RoutingOutcome(
                     net_name=net_name,
                     net_class=strategy.net_class.value,
-                    design_hash='',  # Will be set by caller
+                    design_hash=design_hash,
                     algorithm=recorded_algo.value if recorded_algo else 'none',
                     success=success,
                     time_ms=elapsed_ms,
@@ -2089,6 +2103,11 @@ class RoutingPiston:
                     route = all_routes.get(net_name)
                     if route:
                         self._check_route_return_path(route, net_name)
+
+        # Persist learning data (auto-save only fires every 100 outcomes,
+        # most routing runs have fewer nets so we save explicitly here)
+        if learning_db and outcomes:
+            learning_db.save()
 
         # Create result
         total_nets = len([n for n in routing_plan.routing_order
