@@ -416,6 +416,13 @@ class ComponentFusion:
             if compact_moves > 0:
                 print(f"  [FUSION] Compacted {compact_moves} passives toward ICs")
 
+        # 8. FAR cap rescue: any passive still >2x target distance gets forcibly
+        #    relocated via spiral search from the IC center outward.
+        if total_restored > 0 and hasattr(engine, '_occ') and engine._occ:
+            rescued = self._rescue_far_caps(engine)
+            if rescued > 0:
+                print(f"  [FUSION] Rescued {rescued} FAR caps")
+
         if total_restored > 0:
             print(f"  [FUSION] Unfused {total_restored} passives from "
                   f"{len(self.fused_components)} ICs")
@@ -517,6 +524,78 @@ class ComponentFusion:
                 break
 
         return total_moves
+
+    def _rescue_far_caps(self, engine) -> int:
+        """Forcibly relocate any passive that is still FAR (>1.8x target distance).
+
+        Uses smart ordering: sorts candidates by distance ratio (dist/target)
+        descending so the relatively farthest caps get rescued first. Runs up
+        to 3 passes because rescuing one cap can shift the landscape for others.
+        """
+        roles = getattr(engine, '_functional_roles', {})
+        total_rescued = 0
+        MAX_PASSES = 3
+
+        for pass_num in range(MAX_PASSES):
+            # Build candidate list with current distances, sorted by ratio desc
+            candidates = []
+            for fused in self.fused_components:
+                owner_ref = fused.owner_ref
+                owner = engine.components.get(owner_ref)
+                if not owner:
+                    continue
+                for ref in fused.fused_refs:
+                    comp = engine.components.get(ref)
+                    if not comp:
+                        continue
+                    role = roles.get(ref, {})
+                    target_dist = role.get('distance', 5.0)
+                    dx = owner.x - comp.x
+                    dy = owner.y - comp.y
+                    dist = math.sqrt(dx * dx + dy * dy)
+                    ratio = dist / target_dist if target_dist > 0 else 0
+                    if ratio > 1.8:
+                        candidates.append((ref, owner_ref, dist, target_dist,
+                                           ratio, comp, owner))
+
+            if not candidates:
+                break
+
+            candidates.sort(key=lambda c: c[4], reverse=True)
+
+            rescued_this_pass = 0
+            for ref, owner_ref, _, target_dist, _, comp, owner in candidates:
+                # Re-check distance (may have changed from earlier rescues)
+                dx = owner.x - comp.x
+                dy = owner.y - comp.y
+                current_dist = math.sqrt(dx * dx + dy * dy)
+                if current_dist <= target_dist * 1.8:
+                    continue
+
+                engine._occ.remove(ref, comp.x, comp.y,
+                                   comp.width, comp.height)
+
+                new_pos = self._spiral_search(
+                    engine, ref, owner.x, owner.y,
+                    comp.width, comp.height,
+                    owner.x, owner.y,
+                    max_radius=target_dist * 3.0
+                )
+
+                if new_pos:
+                    engine._occ.place(ref, new_pos[0], new_pos[1],
+                                      comp.width, comp.height)
+                    comp.x, comp.y = new_pos
+                    rescued_this_pass += 1
+                    total_rescued += 1
+                else:
+                    engine._occ.place(ref, comp.x, comp.y,
+                                      comp.width, comp.height)
+
+            if rescued_this_pass == 0:
+                break
+
+        return total_rescued
 
     # -------------------------------------------------------------------------
     # Internal helpers

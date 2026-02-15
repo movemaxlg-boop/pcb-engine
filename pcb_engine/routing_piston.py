@@ -2018,6 +2018,7 @@ class RoutingPiston:
             start_time = time_module.time()
             success = False
             algorithm_used = None
+            last_algorithm_tried = None
             route_result = None
 
             # Build algorithm chain: primary + fallbacks + push-and-shove
@@ -2026,6 +2027,7 @@ class RoutingPiston:
                 algorithms_to_try.append(RoutingAlgorithm.PUSH_AND_SHOVE)
 
             for algorithm in algorithms_to_try:
+                last_algorithm_tried = algorithm
                 # Temporarily set algorithm
                 orig_algorithm = self.config.algorithm
                 self.config.algorithm = algorithm.value
@@ -2061,12 +2063,15 @@ class RoutingPiston:
                 failed_nets.append(net_name)
 
             # Record to learning database
+            # On success: record the winning algorithm
+            # On failure: record the last algorithm tried (so we know what failed)
             if learning_db:
+                recorded_algo = algorithm_used or last_algorithm_tried
                 outcome = RoutingOutcome(
                     net_name=net_name,
                     net_class=strategy.net_class.value,
                     design_hash='',  # Will be set by caller
-                    algorithm=algorithm_used.value if algorithm_used else 'none',
+                    algorithm=recorded_algo.value if recorded_algo else 'none',
                     success=success,
                     time_ms=elapsed_ms,
                     via_count=route_result.get('via_count', 0) if route_result else 0,

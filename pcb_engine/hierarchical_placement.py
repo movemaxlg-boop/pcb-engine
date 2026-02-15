@@ -1278,6 +1278,11 @@ class HierarchicalPlacementEngine:
         # Phase 6c: Functional passive proximity pull
         proximity_moves = self._functional_passive_pull(engine, parts_db)
 
+        # Phase 6d: FAR cap rescue — forcibly relocate any passive still
+        # beyond 1.8x target distance via spiral search from IC center
+        engine._sync_occupancy_grid()  # Ensure grid matches current positions
+        rescue_count = self._rescue_far_passives(engine, parts_db)
+
         # Extract final positions
         final_positions = {}
         final_rotations = {}
@@ -1293,6 +1298,8 @@ class HierarchicalPlacementEngine:
               f"({signal_improvements} moves)")
         print(f"  Passive pull: cost {post_signal_cost:.1f} -> {final_cost:.1f} "
               f"({proximity_moves} moves)")
+        if rescue_count > 0:
+            print(f"  FAR rescue:   {rescue_count} caps relocated")
 
         return final_positions, final_rotations, improvement
 
@@ -1389,6 +1396,144 @@ class HierarchicalPlacementEngine:
                 break
 
         return total_moves
+
+    def _rescue_far_passives(
+        self,
+        engine: PlacementEngine,
+        parts_db: Dict,
+    ) -> int:
+        """Forcibly relocate any functional passive still FAR from its owner IC.
+
+        Uses smart ordering: sorts candidates by distance ratio (dist/target)
+        descending so the relatively farthest caps get rescued first. Runs up
+        to 3 passes because rescuing one cap (e.g. moving an ESD closer to its
+        connector) can cause a previously-OK cap to become FAR, or vice versa.
+        """
+        roles = getattr(engine, '_functional_roles', {})
+        if not roles:
+            return 0
+
+        from .footprint_resolver import FootprintResolver
+        resolver = FootprintResolver.get_instance()
+
+        bw = self.config.board_width
+        bh = self.config.board_height
+        total_rescued = 0
+        MAX_PASSES = 3
+
+        for pass_num in range(MAX_PASSES):
+            # Build candidate list with current distances
+            candidates = []
+            for ref, role_data in roles.items():
+                owner_ref = role_data.get('owner')
+                if not owner_ref:
+                    continue
+                comp = engine.components.get(ref)
+                owner = engine.components.get(owner_ref)
+                if not comp or not owner:
+                    continue
+
+                target_dist = role_data.get('distance', 5.0)
+                dx = owner.x - comp.x
+                dy = owner.y - comp.y
+                dist = math.sqrt(dx * dx + dy * dy)
+                ratio = dist / target_dist if target_dist > 0 else 0
+
+                if ratio > 1.8:  # FAR threshold
+                    candidates.append((ref, owner_ref, dist, target_dist, ratio))
+
+            if not candidates:
+                break  # No FAR caps left
+
+            # Sort by distance ratio descending — rescue farthest-relative first
+            candidates.sort(key=lambda c: c[4], reverse=True)
+
+            rescued_this_pass = 0
+            for ref, owner_ref, dist, target_dist, ratio in candidates:
+                comp = engine.components.get(ref)
+                owner = engine.components.get(owner_ref)
+                if not comp or not owner:
+                    continue
+
+                # Re-check distance (may have changed from earlier rescues)
+                dx = owner.x - comp.x
+                dy = owner.y - comp.y
+                current_dist = math.sqrt(dx * dx + dy * dy)
+                if current_dist <= target_dist * 1.8:
+                    continue  # No longer FAR after prior rescue
+
+                part = parts_db['parts'].get(ref, {})
+                fp = resolver.resolve(part.get('footprint', 'unknown'))
+                pw, ph = fp.courtyard_size
+
+                # Remove from current position
+                if hasattr(engine, '_occ') and engine._occ:
+                    engine._occ.remove(ref, comp.x, comp.y,
+                                       comp.width, comp.height)
+
+                # Spiral search from IC center
+                best_pos = None
+                step = 0.25
+                n_dirs = 16
+                angle_step = 2 * math.pi / n_dirs
+                max_radius = target_dist * 3.0
+                half_pw, half_ph = pw / 2, ph / 2
+
+                for r_idx in range(1, int(max_radius / step) + 1):
+                    radius = r_idx * step
+                    for a_idx in range(n_dirs):
+                        angle = a_idx * angle_step
+                        tx = owner.x + radius * math.cos(angle)
+                        ty = owner.y + radius * math.sin(angle)
+
+                        tx = max(half_pw, min(bw - half_pw, tx))
+                        ty = max(half_ph, min(bh - half_ph, ty))
+
+                        if hasattr(engine, '_occ') and engine._occ:
+                            if not engine._occ.can_place(tx, ty, pw, ph):
+                                continue
+                        else:
+                            overlap = False
+                            for oref, ocomp in engine.components.items():
+                                if oref == ref:
+                                    continue
+                                opart = parts_db['parts'].get(oref, {})
+                                ofp = resolver.resolve(
+                                    opart.get('footprint', 'unknown'))
+                                ocw, och = ofp.courtyard_size
+                                if (abs(tx - ocomp.x) < (pw + ocw) / 2 and
+                                        abs(ty - ocomp.y) < (ph + och) / 2):
+                                    overlap = True
+                                    break
+                            if overlap:
+                                continue
+
+                        best_pos = (tx, ty)
+                        break  # First valid position in this ring
+
+                    if best_pos is not None:
+                        break
+
+                if best_pos:
+                    if hasattr(engine, '_occ') and engine._occ:
+                        engine._occ.place(ref, best_pos[0], best_pos[1],
+                                          comp.width, comp.height)
+                    comp.x, comp.y = best_pos
+                    rescued_this_pass += 1
+                    total_rescued += 1
+                else:
+                    if hasattr(engine, '_occ') and engine._occ:
+                        engine._occ.place(ref, comp.x, comp.y,
+                                          comp.width, comp.height)
+
+            if rescued_this_pass == 0:
+                break  # No progress — stop
+
+            # Sync grid before next pass
+            if hasattr(engine, '_sync_occupancy_grid'):
+                engine._sync_occupancy_grid()
+
+        return total_rescued
 
     def _inter_cluster_signal_pull(
         self,
