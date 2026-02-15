@@ -137,6 +137,9 @@ class PlacementConfig:
     power_net_weight: float = 0.05    # Power nets connected by pour, not traces — minimal attraction
     critical_net_weight: float = 3.0  # Weight for critical signal nets
 
+    # SA shift scale (1.0 = normal, <1.0 = smaller shifts for refinement)
+    sa_shift_scale: float = 1.0          # Multiplier for SA shift distance
+
     # Component Fusion — absorb functional passives into owner IC before placement
     fusion_enabled: bool = True          # Fuse caps/passives onto their owner IC
     fusion_priority_threshold: float = 1.5  # Min functional priority to fuse (DECOUPLING=3, ESD=2.5, PULLUP=1.5)
@@ -1457,7 +1460,7 @@ class PlacementEngine:
                         ref = rng.choice(movable_refs)
                         comp = self.components[ref]
                         old_cx, old_cy = comp.x, comp.y
-                        max_shift = (temp / initial_temp) * self.config.board_width * 0.3
+                        max_shift = (temp / initial_temp) * self.config.board_width * 0.3 * self.config.sa_shift_scale
                         max_shift = max(max_shift, self.config.grid_size)
                         comp.x += rng.uniform(-max_shift, max_shift)
                         comp.y += rng.uniform(-max_shift, max_shift)
@@ -1482,8 +1485,8 @@ class PlacementEngine:
                         dy = owner.y - comp.y
                         dist = math.sqrt(dx * dx + dy * dy)
                         if dist > 0.1:
-                            step_frac = rng.uniform(0.1, 0.6) * (temp / initial_temp + 0.3)
-                            jitter = rng.uniform(-1.0, 1.0)
+                            step_frac = rng.uniform(0.1, 0.6) * (temp / initial_temp + 0.3) * self.config.sa_shift_scale
+                            jitter = rng.uniform(-1.0, 1.0) * self.config.sa_shift_scale
                             comp.x += dx * step_frac + jitter
                             comp.y += dy * step_frac + jitter
                             comp.x, comp.y = self._clamp_to_board(comp)

@@ -408,11 +408,115 @@ class ComponentFusion:
         # Step 7 removed — IC occupancy grid update now happens in step 1
         # (before passive placement) to free the perimeter ring.
 
+        # 7. Post-unfuse compaction: pull each passive toward its IC center
+        #    This reduces spiral-induced drift by greedily stepping each passive
+        #    closer to the IC while respecting occupancy.
+        if total_restored > 0 and hasattr(engine, '_occ') and engine._occ:
+            compact_moves = self._compact_toward_owners(engine)
+            if compact_moves > 0:
+                print(f"  [FUSION] Compacted {compact_moves} passives toward ICs")
+
         if total_restored > 0:
             print(f"  [FUSION] Unfused {total_restored} passives from "
                   f"{len(self.fused_components)} ICs")
 
         return total_restored
+
+    def _compact_toward_owners(self, engine) -> int:
+        """Pull each unfused passive closer to its owner IC.
+
+        For each passive, builds a direction set that includes:
+        - Direct vector toward IC center
+        - 8 cardinal/diagonal directions
+        Picks the step that minimizes distance-to-IC, respecting occupancy.
+        Repeats for up to 30 iterations or until no progress.
+        """
+        step = 0.25  # mm per step
+        max_iters = 30
+        total_moves = 0
+
+        # Collect (passive_ref, owner_ref) pairs
+        pairs = []
+        for fused in self.fused_components:
+            owner_ref = fused.owner_ref
+            if owner_ref not in engine.components:
+                continue
+            for ref in fused.fused_refs:
+                if ref in engine.components:
+                    pairs.append((ref, owner_ref))
+
+        if not pairs:
+            return 0
+
+        bw = engine.config.board_width
+        bh = engine.config.board_height
+        ox = engine.config.origin_x
+        oy = engine.config.origin_y
+
+        # 8 fixed directions
+        s = step
+        fixed_dirs = [
+            (s, 0), (-s, 0), (0, s), (0, -s),
+            (s, s), (-s, s), (s, -s), (-s, -s),
+        ]
+
+        for _ in range(max_iters):
+            moved_this_iter = 0
+            for ref, owner_ref in pairs:
+                comp = engine.components.get(ref)
+                owner = engine.components.get(owner_ref)
+                if not comp or not owner:
+                    continue
+
+                dx = owner.x - comp.x
+                dy = owner.y - comp.y
+                cur_dist = math.sqrt(dx * dx + dy * dy)
+                if cur_dist < 0.1:
+                    continue
+
+                # Build direction set: fixed 8 + direct toward IC
+                ux, uy = dx / cur_dist * s, dy / cur_dist * s
+                directions = list(fixed_dirs) + [(ux, uy)]
+
+                best_pos = None
+                best_dist = cur_dist
+
+                half_w, half_h = comp.width / 2, comp.height / 2
+
+                engine._occ.remove(ref, comp.x, comp.y, comp.width, comp.height)
+
+                for ddx, ddy in directions:
+                    nx = comp.x + ddx
+                    ny = comp.y + ddy
+
+                    # Board bounds
+                    nx = max(ox + half_w, min(ox + bw - half_w, nx))
+                    ny = max(oy + half_h, min(oy + bh - half_h, ny))
+
+                    new_dist = math.sqrt(
+                        (nx - owner.x) ** 2 + (ny - owner.y) ** 2)
+                    if new_dist >= best_dist:
+                        continue
+
+                    if engine._occ.can_place(nx, ny, comp.width, comp.height):
+                        best_dist = new_dist
+                        best_pos = (nx, ny)
+
+                if best_pos:
+                    engine._occ.place(ref, best_pos[0], best_pos[1],
+                                     comp.width, comp.height)
+                    comp.x, comp.y = best_pos
+                    moved_this_iter += 1
+                    total_moves += 1
+                else:
+                    # No improvement — restore
+                    engine._occ.place(ref, comp.x, comp.y,
+                                     comp.width, comp.height)
+
+            if moved_this_iter == 0:
+                break
+
+        return total_moves
 
     # -------------------------------------------------------------------------
     # Internal helpers
@@ -420,24 +524,26 @@ class ComponentFusion:
 
     def _calculate_fused_courtyard(
         self, ic_w: float, ic_h: float,
-        passive_data: Dict[str, Dict]
+        passive_data: Dict[str, Dict],
+        perimeter_positions: Dict[str, Tuple[float, float, float]] = None
     ) -> Tuple[float, float]:
         """
         Calculate expanded courtyard that encompasses IC + one ring of passives.
 
-        The ring depth = max passive courtyard dimension + 0.3mm spacing.
+        Uses uniform ring depth = max passive dimension + spacing.
+        The ring must use max(pw, ph) because the occupancy grid is NOT
+        rotation-aware — passives always use their original (w, h).
         """
         if not passive_data:
             return (ic_w, ic_h)
 
         # Ring depth = max passive dimension + spacing
-        # Use max(pw, ph) because occupancy grid is NOT rotation-aware
         max_dim = 0.0
         for ref, pdata in passive_data.items():
             pw, ph = pdata['width'], pdata['height']
             max_dim = max(max_dim, pw, ph)
 
-        spacing = 0.3  # mm gap between IC courtyard edge and passive courtyard edge
+        spacing = 0.3  # mm gap between IC courtyard edge and passive
         ring = max_dim + spacing
 
         fused_w = ic_w + 2 * ring
@@ -605,26 +711,33 @@ class ComponentFusion:
         """
         Spiral search for valid placement near (start_x, start_y),
         biased toward staying close to (anchor_x, anchor_y).
+
+        Uses fine step (0.25mm) and 16 directions per ring, collecting all
+        candidates in the first valid ring and picking the one closest to anchor.
         """
-        step = 0.5  # mm step
+        step = 0.25  # mm step (fine grain for tight perimeter placement)
         best_pos = None
         best_dist = float('inf')
 
+        bw = engine.config.board_width
+        bh = engine.config.board_height
+        ox = engine.config.origin_x
+        oy = engine.config.origin_y
+        half_pw, half_ph = pw / 2, ph / 2
+
+        n_dirs = 16  # 16 directions per ring (every 22.5 degrees)
+        angle_step = 2 * math.pi / n_dirs
+
         for r_idx in range(1, int(max_radius / step) + 1):
             radius = r_idx * step
-            # Check 8 directions per radius ring
-            for angle_idx in range(8):
-                angle = angle_idx * math.pi / 4
+            for angle_idx in range(n_dirs):
+                angle = angle_idx * angle_step
                 tx = start_x + radius * math.cos(angle)
                 ty = start_y + radius * math.sin(angle)
 
                 # Clamp to board
-                bw = engine.config.board_width
-                bh = engine.config.board_height
-                ox = engine.config.origin_x
-                oy = engine.config.origin_y
-                tx = max(ox + pw / 2, min(ox + bw - pw / 2, tx))
-                ty = max(oy + ph / 2, min(oy + bh - ph / 2, ty))
+                tx = max(ox + half_pw, min(ox + bw - half_pw, tx))
+                ty = max(oy + half_ph, min(oy + bh - half_ph, ty))
 
                 if engine._occ.can_place(tx, ty, pw, ph):
                     dist = math.sqrt((tx - anchor_x) ** 2 + (ty - anchor_y) ** 2)
@@ -632,7 +745,7 @@ class ComponentFusion:
                         best_dist = dist
                         best_pos = (tx, ty)
 
-            # If found a valid spot in this ring, use it (greedy — closest ring wins)
+            # If found any valid spot in this ring, use the one closest to anchor
             if best_pos is not None:
                 return best_pos
 

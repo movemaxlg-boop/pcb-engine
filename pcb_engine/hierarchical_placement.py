@@ -603,20 +603,20 @@ class ClusterBuilder:
     def _packing_overhead(n_members: int) -> float:
         """Adaptive packing overhead based on cluster member count.
 
-        Small clusters (1-2) need less overhead — just the component
-        plus some routing margin. Large clusters (5+) need more overhead
-        for internal routing channels between tightly packed parts.
+        Small clusters (1-2) need little overhead — components are tightly
+        packed during fine placement anyway. Larger clusters get moderate
+        overhead for internal routing channels.
 
         Returns multiplier for total area.
         """
         if n_members <= 1:
-            return 1.3   # Solo part: just courtyard + small margin
+            return 1.2   # Solo part: minimal margin
         elif n_members == 2:
-            return 1.5   # Owner + 1 passive: tight pair
+            return 1.3   # Owner + 1 passive: tight pair
         elif n_members <= 4:
-            return 1.8   # Small group: moderate spacing
+            return 1.5   # Small group: moderate spacing
         else:
-            return 2.2   # Large group: need routing channels
+            return 1.7   # Large group: routing channels
 
     def _calculate_geometry(self, cluster: ComponentCluster):
         """
@@ -977,14 +977,15 @@ class HierarchicalPlacementEngine:
                     })
 
         # Run coarse placement
+        n_clusters = len(self.clusters)
         coarse_config = PlacementConfig(
             board_width=self.config.board_width,
             board_height=self.config.board_height,
             algorithm='hybrid',
-            fd_iterations=150,
-            sa_moves_per_temp=50,
-            min_spacing=1.5,
-            edge_margin=2.0,
+            fd_iterations=250,
+            sa_moves_per_temp=max(80, n_clusters * 8),  # Scale with cluster count
+            min_spacing=0.8,
+            edge_margin=1.5,
             seed=self.config.seed,
         )
 
@@ -1223,18 +1224,15 @@ class HierarchicalPlacementEngine:
         Legalize + inter-cluster signal optimization.
 
         Phase 6a: Legalize — fix overlaps and boundary violations
-        Phase 6b: Inter-cluster signal pull — gently shift components toward
-                  their cross-cluster signal net partners to shorten long nets
-                  without destroying cluster integrity.
-
-        Does NOT run SA or FD — both destroy the hierarchical structure.
+        Phase 6b: Inter-cluster signal pull — shift toward cross-cluster partners
+        Phase 6c: Functional passive proximity pull
         """
         refine_config = PlacementConfig(
             board_width=self.config.board_width,
             board_height=self.config.board_height,
             algorithm='sa',  # Needed for engine init
             min_spacing=0.5,
-            edge_margin=2.0,
+            edge_margin=1.5,
             seed=self.config.seed,
             fusion_enabled=False,  # Fusion already happened in fine placement
         )
@@ -1271,9 +1269,6 @@ class HierarchicalPlacementEngine:
         post_legalize_cost = engine._calculate_cost()
 
         # Phase 6b: Inter-cluster signal pull
-        # For each component, find its cross-cluster signal net partners.
-        # Gently shift it toward the centroid of those partners.
-        # Only accept the shift if it doesn't create overlaps.
         signal_improvements = self._inter_cluster_signal_pull(
             engine, parts_db, graph
         )
@@ -1281,8 +1276,6 @@ class HierarchicalPlacementEngine:
         post_signal_cost = engine._calculate_cost()
 
         # Phase 6c: Functional passive proximity pull
-        # Shift decoupling caps, pull-ups, etc. toward their owner ICs.
-        # Generalized for any functional role, not just caps.
         proximity_moves = self._functional_passive_pull(engine, parts_db)
 
         # Extract final positions
@@ -1417,9 +1410,9 @@ class HierarchicalPlacementEngine:
         # Adaptive parameters based on board size
         board_diag = math.sqrt(self.config.board_width ** 2 +
                                self.config.board_height ** 2)
-        MAX_PULL_DIST = board_diag * 0.05  # 5% of diagonal per step
-        PULL_FRACTION = 0.35               # Move 35% toward centroid
-        MAX_PASSES = max(3, min(6, len(self.clusters) // 4))  # More passes for complex boards
+        MAX_PULL_DIST = board_diag * 0.08  # 8% of diagonal per step
+        PULL_FRACTION = 0.45               # Move 45% toward centroid
+        MAX_PASSES = max(6, min(12, len(self.clusters) // 2))  # More passes for complex boards
 
         # Build ref -> cluster_id mapping
         ref_to_cluster = {}
